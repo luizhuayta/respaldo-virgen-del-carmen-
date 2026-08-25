@@ -1,10 +1,19 @@
-<section class="hero-component">
-  <div class="hero-content">
-    <h1>Estadísticas</h1>
-    <p>Instituto de Educación Superior Pedagógico Público Virgen del Carmen</p>
-  </div>
-</section>
+<main class="transparencia-detail-page">
+  <section class="hero-component" aria-labelledby="estadisticas-title">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fa-solid fa-chart-column" aria-hidden="true"></i>
+        <span>Transparencia Institucional</span>
+      </div>
+      <h1 id="estadisticas-title">Estadísticas Institucionales</h1>
+      <p class="hero-subtitle">
+        Indicadores de matrícula, retención estudiantil, titulación docente y métricas académicas del
+        I.E.S.P.P. Virgen del Carmen de Paucartambo.
+      </p>
+    </div>
+  </section>
 
-<section class="contenedor-pdf">
-  <app-vista-archivos [documents]="estadisticasDocs()"></app-vista-archivos>
-</section>
+  <section class="contenedor-pdf" aria-label="Documentos de estadísticas institucionales">
+    <app-vista-archivos [documents]="estadisticasDocs()"></app-vista-archivos>
+  </section>
+</main>

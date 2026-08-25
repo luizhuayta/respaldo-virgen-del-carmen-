@@ -1,4 +1,5 @@
-import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, inject, signal, computed } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -6,13 +7,16 @@ import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-noticias',
+  standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './noticias.html',
   styleUrl: './noticias.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Noticias implements OnInit {
 
   private http = inject(HttpClient);
+  private destroyRef = inject(DestroyRef);
   private api = environment.apiUrl;
 
   featuredNoticias = signal<any[]>([]);
@@ -42,16 +46,22 @@ export class Noticias implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get<any[]>(`${this.api}/news/list`).subscribe({
-      next: data => {
-        const activas = data.filter(n => n.status).map(n => ({
-          ...n,
-          contentPlain: this.stripHtml(n.content)
-        }));
-        this.featuredNoticias.set(activas.slice(0, 2));
-        this.otrasNoticias.set(activas.slice(2));
-      }
-    });
+    this.http.get<any[]>(`${this.api}/news/list`)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: data => {
+          const activas = (data || []).filter(n => n.status).map(n => ({
+            ...n,
+            contentPlain: this.stripHtml(n.content)
+          }));
+          this.featuredNoticias.set(activas.slice(0, 2));
+          this.otrasNoticias.set(activas.slice(2));
+        },
+        error: () => {
+          this.featuredNoticias.set([]);
+          this.otrasNoticias.set([]);
+        }
+      });
   }
 
   private stripHtml(html: string): string {

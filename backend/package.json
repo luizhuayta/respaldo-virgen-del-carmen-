@@ -7,7 +7,7 @@
   "type": "commonjs",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node app.js"
   },
   "dependencies": {
@@ -22,5 +22,9 @@
     "mysql2": "^3.21.0",
     "nodemailer": "^8.0.7",
     "sequelize": "^6.37.8"
+  },
+  "devDependencies": {
+    "jest": "^30.4.2",
+    "supertest": "^7.2.2"
   }
 }

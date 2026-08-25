@@ -85,9 +85,16 @@ sequelize.authenticate()
     .then(() => {
         console.log('DB conectada');
 
-        app.listen(PORT, () => {
-            console.log(`Servidor en http://localhost:${PORT}`);
-        });
+        // Solo levantar el servidor HTTP cuando app.js se ejecuta directamente
+        // (node app.js / npm start). Cuando este módulo es requerido por otro
+        // proceso (por ejemplo, los tests de integración con supertest), se evita
+        // llamar a app.listen() para no colisionar con un servidor ya en
+        // ejecución en el mismo puerto.
+        if (require.main === module) {
+            app.listen(PORT, () => {
+                console.log(`Servidor en http://localhost:${PORT}`);
+            });
+        }
     })
     .catch(err => {
         console.error('Error DB:', err.message);

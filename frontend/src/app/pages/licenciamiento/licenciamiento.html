@@ -1,56 +1,76 @@
-<section class="main-content">
-  <!-- HERO -->
-  <section class="hero" id="inicio">
+<main class="licenciamiento-page" id="main-content">
+  <!-- HERO INSTITUCIONAL -->
+  <section class="hero-section" id="inicio" aria-labelledby="lic-hero-title">
     <div class="container hero-grid">
       <article class="hero-card">
-        <span class="eyebrow">En proceso de licenciamiento</span>
-        <h2>Estamos avanzando hacia el licenciamiento como Escuela de Educación Superior Pedagógica Pública</h2>
-        <p class="lead">
-          Nuestra institución viene desarrollando el proceso de adecuación y fortalecimiento institucional orientado al
-          cumplimiento de las Condiciones Básicas de Calidad, con el propósito de consolidar un servicio educativo
-          pertinente, sostenible y alineado al marco normativo vigente del MINEDU.
-        </p>
-        <div class="actions">
-          <a class="btn btn-primary" href="#procedimiento">Conocer el procedimiento</a>
-          <a class="btn btn-secondary" href="#instrumentos">Ver instrumentos de gestión</a>
+        <div class="eyebrow" role="status">
+          <i class="fa-solid fa-award" aria-hidden="true"></i>
+          <span>En Proceso de Adecuación a CBC</span>
         </div>
-        <div class="stats">
-          <div class="stat">
-            <strong>7</strong>
-            <span>Condiciones Básicas de Calidad</span>
+        <h1 id="lic-hero-title" class="hero-title">
+          Hacia el Licenciamiento Institucional como Escuela de Educación Superior Pedagógica Pública
+        </h1>
+        <p class="hero-lead">
+          Nuestra institución desarrolla con firmeza el proceso de adecuación y fortalecimiento orientado al cumplimiento
+          integral de las Condiciones Básicas de Calidad (CBC), consolidando un servicio educativo superior magisterial de
+          excelencia, inclusivo y alineado a la Ley N.° 30512 del MINEDU.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#procedimiento">
+            <span>Conocer el procedimiento</span>
+            <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+          </a>
+          <a class="btn btn-secondary" href="#instrumentos">
+            <span>Instrumentos de gestión</span>
+            <i class="fa-solid fa-file-signature" aria-hidden="true"></i>
+          </a>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <strong class="stat-num">7</strong>
+            <span class="stat-label">Condiciones Básicas de Calidad</span>
           </div>
-          <div class="stat">
-            <strong>5</strong>
-            <span>Instrumentos de gestión clave</span>
+          <div class="stat-card">
+            <strong class="stat-num">5</strong>
+            <span class="stat-label">Instrumentos de gestión clave</span>
           </div>
-          <div class="stat">
-            <strong>2</strong>
-            <span>Etapas del procedimiento</span>
+          <div class="stat-card">
+            <strong class="stat-num">2</strong>
+            <span class="stat-label">Etapas del procedimiento</span>
           </div>
         </div>
       </article>
 
-      <aside class="hero-side">
-        <div>
-          <span class="status">Estado institucional</span>
-          <h3>Ruta de mejora continua, transparencia y aseguramiento de la calidad</h3>
-          <p>
-            El licenciamiento es un mecanismo obligatorio de control y garantía de calidad que permite verificar que la
-            institución cuenta con las condiciones mínimas para brindar una formación superior pedagógica de calidad.
+      <aside class="hero-aside" aria-labelledby="status-aside-title">
+        <div class="aside-header">
+          <span class="status-badge">Estado Institucional</span>
+          <h2 id="status-aside-title" class="aside-title">Ruta de mejora continua, transparencia y aseguramiento de la calidad</h2>
+          <p class="aside-desc">
+            El licenciamiento es un mecanismo de garantía y rigor institucional que certifica que el I.E.S.P.P. Virgen del Carmen
+            cuenta con la solvencia pedagógica, organizativa y de infraestructura para formar a las nuevas generaciones de docentes del Perú.
           </p>
         </div>
         <div class="mini-list">
           <div class="mini-item">
-            <strong>Base legal</strong>
-            <span>Ley N.° 30512, su Reglamento y disposiciones técnicas del MINEDU.</span>
+            <i class="fa-solid fa-scale-balanced mini-icon" aria-hidden="true"></i>
+            <div class="mini-content">
+              <strong>Marco Normativo</strong>
+              <span>Ley N.° 30512, D.S. N.° 010-2017-MINEDU y R.V.M. N.° 097-2022-MINEDU.</span>
+            </div>
           </div>
           <div class="mini-item">
-            <strong>Finalidad</strong>
-            <span>Autorizar el funcionamiento con estándares mínimos verificables.</span>
+            <i class="fa-solid fa-bullseye mini-icon" aria-hidden="true"></i>
+            <div class="mini-content">
+              <strong>Propósito Fundamental</strong>
+              <span>Garantizar estándares formativos de calidad con pertinencia cultural y territorial en Cusco.</span>
+            </div>
           </div>
           <div class="mini-item">
-            <strong>Enfoque</strong>
-            <span>Gestión institucional, calidad académica, sostenibilidad e innovación.</span>
+            <i class="fa-solid fa-chart-line mini-icon" aria-hidden="true"></i>
+            <div class="mini-content">
+              <strong>Enfoque Estratégico</strong>
+              <span>Gobernanza transparente, formación docente humanista, investigación y sostenibilidad.</span>
+            </div>
           </div>
         </div>
       </aside>
@@ -58,346 +78,366 @@
   </section>
 
   <!-- ¿POR QUÉ LICENCIARSE? -->
-  <section class="section" id="porque">
+  <section class="section" id="porque" aria-labelledby="porque-title">
     <div class="container">
       <div class="section-head">
-        <div>
-          <h3>¿Por qué es importante licenciarse?</h3>
-          <p>El licenciamiento no es un trámite aislado. Es una decisión estratégica que fortalece la legitimidad
-            institucional, mejora la calidad del servicio educativo y consolida la confianza de estudiantes, familias,
-            docentes y comunidad.</p>
-        </div>
+        <h2 id="porque-title" class="section-title">¿Por qué es trascendental el licenciamiento?</h2>
+        <p class="section-subtitle">
+          El licenciamiento no es un mero trámite administrativo; es una decisión estratégica que consolida la legitimidad
+          institucional, fortalece la calidad magisterial y renueva el compromiso con Paucartambo y la educación nacional.
+        </p>
       </div>
-      <div class="grid cards-3">
-        <article class="card highlight">
-          <div class="icon">✓</div>
-          <h4>Garantiza calidad educativa</h4>
-          <p>Permite demostrar que la institución cumple requisitos mínimos de gestión, formación académica,
-            investigación, infraestructura, personal y servicios complementarios.</p>
+      <div class="grid-3">
+        <article class="feature-card highlight-card">
+          <div class="card-icon-wrap" aria-hidden="true">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+          <h3>Garantiza Excelencia Educativa</h3>
+          <p>
+            Demuestra fehacientemente que la institución cumple exigentes requisitos de gestión pedagógica, investigación
+            formativa, plana docente calificada, laboratorios y bienestar estudiantil.
+          </p>
         </article>
-        <article class="card">
-          <div class="icon">⚖</div>
-          <h4>Responde al marco normativo</h4>
-          <p>El proceso se desarrolla conforme a la Ley N.° 30512, su Reglamento y las disposiciones emitidas por el
-            Ministerio de Educación para la evaluación de las CBC.</p>
+
+        <article class="feature-card">
+          <div class="card-icon-wrap" aria-hidden="true">
+            <i class="fa-solid fa-gavel"></i>
+          </div>
+          <h3>Cumplimiento Legal y Respaldo</h3>
+          <p>
+            Adecúa integralmente la institución a la Ley N.° 30512, asegurando títulos con rango universitario y
+            reconocimiento oficial en el Escalafón Magisterial.
+          </p>
         </article>
-        <article class="card">
-          <div class="icon">↗</div>
-          <h4>Impulsa mejora continua</h4>
-          <p>Ordena la planificación institucional, fortalece la gestión por resultados y alinea los instrumentos de
-            gestión con una visión de desarrollo sostenible y pertinencia territorial.</p>
+
+        <article class="feature-card">
+          <div class="card-icon-wrap" aria-hidden="true">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+          </div>
+          <h3>Impulsa la Innovación y Mejora Continua</h3>
+          <p>
+            Ordena los procesos institucionales por resultados, promoviendo la investigación aplicada, el pensamiento crítico y
+            el desarrollo pedagógico intercultural.
+          </p>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- BANNER EVOLUCIÓN -->
-  <section class="section">
+  <!-- BANNER EVOLUCIÓN: IESP -> EESP -->
+  <section class="section banner-section" aria-labelledby="evolucion-title">
     <div class="container">
-      <div class="banner">
-        <div>
-          <h3>Del instituto a la escuela: una evolución institucional con enfoque de calidad</h3>
-          <p>
-            La adecuación de IESP a EESP implica fortalecer el modelo de servicio educativo, profesionalizar la gestión,
-            consolidar la formación inicial docente y garantizar condiciones verificables para una educación superior
-            pedagógica moderna, pertinente y sostenible.
+      <div class="evolution-banner">
+        <div class="evolution-main">
+          <h2 id="evolucion-title" class="banner-title">Del Instituto a la Escuela: Evolución con Enfoque de Calidad</h2>
+          <p class="banner-desc">
+            La adecuación a Escuela de Educación Superior Pedagógica Pública (EESPP) representa el máximo estándar de formación magisterial inicial
+            en el país, facultando el otorgamiento de grados de Bachiller y Títulos Profesionales de Licenciado en Educación.
           </p>
-          <div class="pill-list">
-            <span class="pill">Transparencia</span>
-            <span class="pill">Sostenibilidad</span>
-            <span class="pill">Innovación</span>
-            <span class="pill">Pertinencia</span>
+          <div class="pill-list" role="list">
+            <span class="pill" role="listitem"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Transparencia</span>
+            <span class="pill" role="listitem"><i class="fa-solid fa-leaf" aria-hidden="true"></i> Sostenibilidad</span>
+            <span class="pill" role="listitem"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Innovación Pedagógica</span>
+            <span class="pill" role="listitem"><i class="fa-solid fa-mountain" aria-hidden="true"></i> Pertinencia Intercultural</span>
           </div>
         </div>
-        <div class="banner-box">
-          <strong style="display:block; font-size:1.02rem; margin-bottom:10px;">Elementos del aseguramiento de la
-            calidad</strong>
-          <p style="margin:0 0 12px;">Dentro de la ruta del aseguramiento de la calidad, el licenciamiento se ubica como
-            mecanismo de control, articulado con el fomento y la garantía de la calidad.</p>
-          <p style="margin:0; font-weight:700;">Control → Fomento → Garantía</p>
+        <div class="evolution-aside-box">
+          <h3 class="box-title">Trilogía del Aseguramiento de la Calidad</h3>
+          <p class="box-text">El licenciamiento opera como pilar regulador articulado al fomento y acreditación de la excelencia educativa:</p>
+          <div class="flow-steps">
+            <span class="flow-pill">Control (CBC)</span>
+            <i class="fa-solid fa-arrow-right flow-arrow" aria-hidden="true"></i>
+            <span class="flow-pill">Fomento</span>
+            <i class="fa-solid fa-arrow-right flow-arrow" aria-hidden="true"></i>
+            <span class="flow-pill flow-pill-gold">Garantía</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CBC -->
-  <section class="section" id="cbc">
+  <!-- CONDICIONES BÁSICAS DE CALIDAD (CBC) -->
+  <section class="section" id="cbc" aria-labelledby="cbc-title">
     <div class="container">
       <div class="section-head">
-        <div>
-          <h3>Condiciones Básicas de Calidad</h3>
-          <p>Las CBC constituyen los requerimientos mínimos para la provisión del servicio educativo. Su cumplimiento es
-            obligatorio y se verifica a través de la matriz de evaluación correspondiente.</p>
-        </div>
-      </div>
-      <div class="cbc-wrap">
-        <div class="cbc-grid">
-          <article class="cbc-card">
-            <h5>CBC I: Gestión institucional</h5>
-            <ul>
-              <li>Dirección estratégica y mejora continua.</li>
-              <li>Constitución y organización.</li>
-              <li>Transparencia.</li>
-              <li>Personal directivo y jerárquico.</li>
-            </ul>
-          </article>
-          <article class="cbc-center">
-            <h4>Escuela de Educación Superior Pedagógica</h4>
-            <p>Modelo institucional orientado a calidad, gobernanza, formación docente, investigación e impacto
-              territorial.</p>
-          </article>
-          <article class="cbc-card">
-            <h5>CBC II: Investigación e innovación</h5>
-            <ul>
-              <li>Desarrollo de la investigación.</li>
-              <li>Promoción de la innovación educativa.</li>
-            </ul>
-          </article>
-          <article class="cbc-card">
-            <h5>CBC III: Gestión académica y programas de estudio</h5>
-            <ul>
-              <li>Formación académica o profesional.</li>
-              <li>Práctica preprofesional.</li>
-            </ul>
-          </article>
-          <article class="cbc-card">
-            <h5>CBC IV: Previsión económica y financiera</h5>
-            <ul>
-              <li>Sostenibilidad económica institucional.</li>
-              <li>Compatibilidad con fines y crecimiento.</li>
-            </ul>
-          </article>
-          <article class="cbc-card">
-            <h5>CBC V: Personal idóneo y suficiente</h5>
-            <ul>
-              <li>Personal directivo y jerárquico idóneo.</li>
-              <li>Personal docente idóneo y suficiente.</li>
-            </ul>
-          </article>
-          <article class="cbc-card">
-            <h5>CBC VI: Infraestructura, recursos y mantenimiento</h5>
-            <ul>
-              <li>Infraestructura educativa y recursos para el aprendizaje.</li>
-              <li>Condiciones de seguridad, accesibilidad y habitabilidad.</li>
-            </ul>
-          </article>
-          <article class="cbc-card">
-            <h5>CBC VII: Servicios complementarios e intermediación laboral</h5>
-            <ul>
-              <li>Servicios educativos complementarios básicos.</li>
-              <li>Seguimiento a egresados e inserción laboral.</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROCEDIMIENTO -->
-  <section class="section" id="procedimiento">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <h3>Procedimiento de licenciamiento</h3>
-          <p>La evaluación del licenciamiento comprende etapas definidas y criterios técnicos que permiten revisar el
-            cumplimiento integral de las CBC y sustentar una decisión resolutiva por parte de la autoridad competente.
-          </p>
-        </div>
+        <h2 id="cbc-title" class="section-title">Las 7 Condiciones Básicas de Calidad (CBC)</h2>
+        <p class="section-subtitle">
+          Requerimientos mínimos e indispensables para la provisión del servicio educativo superior pedagógico, evaluados rigurosamente por el MINEDU.
+        </p>
       </div>
 
-      <div class="timeline">
-        <article class="step">
-          <div class="num">1</div>
-          <h4>Diagnóstico institucional</h4>
-          <p>Identificación de brechas respecto de las CBC, requisitos y medios de verificación aplicables.</p>
+      <div class="cbc-matrix">
+        <article class="cbc-item">
+          <div class="cbc-badge">CBC I</div>
+          <h3>Gestión Institucional</h3>
+          <ul class="cbc-bullets">
+            <li>Dirección estratégica y mejora continua.</li>
+            <li>Estructura organizacional y gobernanza.</li>
+            <li>Transparencia y rendición de cuentas.</li>
+            <li>Personal directivo y jerárquico idóneo.</li>
+          </ul>
         </article>
-        <article class="step">
-          <div class="num">2</div>
-          <h4>Organización documental</h4>
-          <p>Consolidación de evidencias, formatos, declaraciones juradas e instrumentos de gestión institucional.</p>
-        </article>
-        <article class="step">
-          <div class="num">3</div>
-          <h4>Evaluación integral</h4>
-          <p>Revisión técnica y legal del cumplimiento de las CBC por parte de la DIFOID.</p>
-        </article>
-        <article class="step">
-          <div class="num">4</div>
-          <h4>Actuaciones complementarias</h4>
-          <p>De ser necesario, se realizan precisiones, ampliaciones o validaciones adicionales.</p>
-        </article>
-        <article class="step">
-          <div class="num">5</div>
-          <h4>Etapa resolutiva</h4>
-          <p>El Despacho Ministerial dispone otorgar o desestimar el licenciamiento correspondiente.</p>
-        </article>
-      </div>
 
-      <div class="criteria">
-        <article class="card">
-          <div class="icon">◎</div>
-          <h4>Coherencia</h4>
-          <p>La información presentada debe guardar relación lógica entre documentos, evidencias y medios de
-            verificación, evitando contradicciones.</p>
+        <article class="cbc-centerpiece">
+          <div class="centerpiece-icon" aria-hidden="true">
+            <i class="fa-solid fa-building-columns"></i>
+          </div>
+          <h3>Escuela Superior Pedagógica</h3>
+          <p>Modelo institucional consolidado en docencia, investigación magisterial e impacto en la comunidad.</p>
         </article>
-        <article class="card">
-          <div class="icon">▣</div>
-          <h4>Consistencia</h4>
-          <p>La institución debe evidenciar solidez en su gestión, capacidad de implementación y alineamiento entre lo
-            declarado y lo ejecutado.</p>
-        </article>
-        <article class="card">
-          <div class="icon">∞</div>
-          <h4>Sostenibilidad</h4>
-          <p>Se debe demostrar que existen recursos, capacidades y previsiones suficientes para asegurar la continuidad
-            del servicio educativo.</p>
-        </article>
-      </div>
 
-      <div class="grid cards-4" style="margin-top:18px;">
-        <article class="card">
-          <h4>Capacidad de gestión</h4>
-          <p>Evidencia una administración efectiva de recursos, orientada a resultados y al cumplimiento sostenible de
-            objetivos institucionales.</p>
+        <article class="cbc-item">
+          <div class="cbc-badge">CBC II</div>
+          <h3>Investigación e Innovación</h3>
+          <ul class="cbc-bullets">
+            <li>Desarrollo de líneas de investigación pedagógica.</li>
+            <li>Fomento de la innovación educativa en aula.</li>
+            <li>Publicaciones y difusión del conocimiento.</li>
+          </ul>
         </article>
-        <article class="card">
-          <h4>Compromiso institucional</h4>
-          <p>Expresa la capacidad de construir misión, visión compartida y cultura organizacional alineada con el
-            proceso de mejora.</p>
+
+        <article class="cbc-item">
+          <div class="cbc-badge">CBC III</div>
+          <h3>Gestión Académica y Programas</h3>
+          <ul class="cbc-bullets">
+            <li>Diseño y actualización curricular pertinente.</li>
+            <li>Sistema de práctica preprofesional docente.</li>
+            <li>Acompañamiento y tutoría pedagógica.</li>
+          </ul>
         </article>
-        <article class="card">
-          <h4>Experiencia académica</h4>
-          <p>Implica asegurar una propuesta de gestión pedagógica implementada y coherente con la formación inicial
-            docente.</p>
+
+        <article class="cbc-item">
+          <div class="cbc-badge">CBC IV</div>
+          <h3>Previsión Económica y Financiera</h3>
+          <ul class="cbc-bullets">
+            <li>Sostenibilidad presupuestal y operativa.</li>
+            <li>Gestión eficiente de recursos públicos.</li>
+            <li>Planes de inversión y mantenimiento.</li>
+          </ul>
         </article>
-        <article class="card">
-          <h4>Modelo de servicio educativo</h4>
-          <p>Integra componentes estratégicos, misionales y de soporte de manera suficiente, pertinente e idónea.</p>
+
+        <article class="cbc-item">
+          <div class="cbc-badge">CBC V</div>
+          <h3>Plana Docente Idónea y Suficiente</h3>
+          <ul class="cbc-bullets">
+            <li>Docentes con grados de Maestría y Doctorado.</li>
+            <li>Evaluación de desempeño y capacitación continua.</li>
+            <li>Disponibilidad horaria adecuada a la malla.</li>
+          </ul>
+        </article>
+
+        <article class="cbc-item">
+          <div class="cbc-badge">CBC VI</div>
+          <h3>Infraestructura y Equipamiento</h3>
+          <ul class="cbc-bullets">
+            <li>Aulas interactivas, talleres y biblioteca moderna.</li>
+            <li>Condiciones de seguridad, salubridad y accesibilidad.</li>
+            <li>Conectividad y recursos TIC para el aprendizaje.</li>
+          </ul>
+        </article>
+
+        <article class="cbc-item">
+          <div class="cbc-badge">CBC VII</div>
+          <h3>Servicios Complementarios</h3>
+          <ul class="cbc-bullets">
+            <li>Servicio psicopedagógico, tópico y bienestar.</li>
+            <li>Seguimiento al egresado y bolsa de trabajo.</li>
+            <li>Convenios de articulación con escuelas de la región.</li>
+          </ul>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- INSTRUMENTOS -->
-  <section class="section" id="instrumentos">
+  <!-- PROCEDIMIENTO DE LICENCIAMIENTO -->
+  <section class="section" id="procedimiento" aria-labelledby="proc-title">
     <div class="container">
       <div class="section-head">
-        <div>
-          <h3>Instrumentos de gestión para el licenciamiento</h3>
-          <p>Los instrumentos de gestión son documentos técnico-normativos que regulan y orientan el funcionamiento
-            institucional. En el proceso de licenciamiento, su elaboración articulada es crítica para evidenciar
-            dirección estratégica, gestión pedagógica, ordenamiento interno y operación institucional.</p>
+        <h2 id="proc-title" class="section-title">Procedimiento de Licenciamiento</h2>
+        <p class="section-subtitle">
+          Ruta secuencial y rigurosa de evaluación documental y verificación en campo a cargo de la DIFOID - MINEDU.
+        </p>
+      </div>
+
+      <div class="timeline-container">
+        <div class="timeline-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Diagnóstico Institucional</h3>
+            <p>Identificación de fortalezas y cierre de brechas respecto a los medios de verificación exigidos en cada CBC.</p>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>Organización Documental</h3>
+            <p>Consolidación de matrices, formatos, declaraciones juradas e instrumentos de gestión institucionalizados.</p>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>Evaluación Integral</h3>
+            <p>Revisión técnica y legal del cumplimiento de las 7 CBC por el equipo evaluador del Ministerio de Educación.</p>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h3>Actuaciones Complementarias</h3>
+            <p>Validación in situ, inspección de infraestructura y absolución de observaciones técnicas si correspondiese.</p>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h3>Etapa Resolutiva</h3>
+            <p>Emisión de la Resolución Ministerial que formaliza el otorgamiento del licenciamiento como EESP.</p>
+          </div>
         </div>
       </div>
-      <div class="grid cards-3">
-        <article class="card">
-          <div class="icon">PEI</div>
-          <h4>Proyecto Educativo Institucional (PEI)</h4>
-          <p>Define el diagnóstico, la orientación estratégica, la ruta institucional, la propuesta de gestión
-            pedagógica e institucional, la política de investigación e innovación y la estrategia de mejora continua.
-          </p>
+
+      <!-- CRITERIOS TÉCNICOS -->
+      <div class="criteria-grid">
+        <article class="criteria-card">
+          <div class="criteria-icon" aria-hidden="true"><i class="fa-solid fa-diagram-project"></i></div>
+          <h3>Coherencia</h3>
+          <p>Alineamiento estricto entre instrumentos de gestión, normativas y evidencias presentadas.</p>
         </article>
-        <article class="card">
-          <div class="icon">PCI</div>
-          <h4>Proyecto Curricular Institucional (PCI)</h4>
-          <p>Articula objetivos curriculares con el PEI, caracteriza a los estudiantes, describe el modelo pedagógico y
-            orienta la formación académica, la práctica preprofesional y la investigación.</p>
+
+        <article class="criteria-card">
+          <div class="criteria-icon" aria-hidden="true"><i class="fa-solid fa-cubes"></i></div>
+          <h3>Consistencia</h3>
+          <p>Solidez demostrable entre lo declarado institucionalmente y la práctica formativa real en aulas.</p>
         </article>
-        <article class="card">
-          <div class="icon">MPI</div>
-          <h4>Manual de Procesos Institucionales (MPI)</h4>
-          <p>Ordena, describe y articula procesos institucionales, procedimientos académicos y estrategias de control,
-            seguimiento y evaluación.</p>
-        </article>
-        <article class="card">
-          <div class="icon">RI</div>
-          <h4>Reglamento Institucional (RI)</h4>
-          <p>Establece estructura organizacional, instancias de participación, perfiles de puestos, normas de
-            convivencia, prevención de violencia y hostigamiento, derechos, deberes y sanciones.</p>
-        </article>
-        <article class="card">
-          <div class="icon">PAT</div>
-          <h4>Plan Anual de Trabajo (PAT)</h4>
-          <p>Operativiza objetivos y acciones estratégicas, define la planificación anual y establece mecanismos de
-            seguimiento y evaluación del desempeño institucional.</p>
-        </article>
-        <article class="card highlight">
-          <div class="icon">IG</div>
-          <h4>Guía introductoria</h4>
-          <p>Brinda las orientaciones iniciales para la elaboración articulada de todos los instrumentos de gestión,
-            dentro del marco de la reforma integral de la Formación Inicial Docente.</p>
+
+        <article class="criteria-card">
+          <div class="criteria-icon" aria-hidden="true"><i class="fa-solid fa-seedling"></i></div>
+          <h3>Sostenibilidad</h3>
+          <p>Disponibilidad y previsión de recursos para garantizar la continuidad del servicio formativo a largo plazo.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- RUTA INTERNA -->
-  <section class="section">
+  <!-- INSTRUMENTOS DE GESTIÓN -->
+  <section class="section" id="instrumentos" aria-labelledby="inst-title">
     <div class="container">
       <div class="section-head">
-        <div>
-          <h3>Ruta interna de implementación institucional</h3>
-          <p>Como parte del proceso, la institución avanza en una hoja de ruta orientada al alineamiento normativo,
-            fortalecimiento organizacional y consolidación de evidencias.</p>
-        </div>
+        <h2 id="inst-title" class="section-title">Instrumentos de Gestión Institucional</h2>
+        <p class="section-subtitle">
+          Documentos técnico-normativos que articulan la orientación estratégica, pedagógica y administrativa del I.E.S.P.P. Virgen del Carmen.
+        </p>
       </div>
-      <div class="grid cards-2">
-        <article class="card">
-          <h4>Frente estratégico</h4>
-          <p>Actualización del PEI y definición de la orientación estratégica, visión, misión, objetivos y mejora
-            continua.</p>
+
+      <div class="grid-3">
+        <article class="instrument-card">
+          <div class="instrument-tag">PEI</div>
+          <h3>Proyecto Educativo Institucional</h3>
+          <p>Define la visión, misión, diagnóstico y objetivos estratégicos con enfoque de mejora continua a mediano y largo plazo.</p>
         </article>
-        <article class="card">
-          <h4>Frente académico</h4>
-          <p>Fortalecimiento del PCI, pertinencia de programas de estudio, práctica preprofesional y articulación
-            pedagógica.</p>
+
+        <article class="instrument-card">
+          <div class="instrument-tag">PCI</div>
+          <h3>Proyecto Curricular Institucional</h3>
+          <p>Establece el modelo pedagógico, perfil del egresado, enfoque por competencias y líneas de práctica preprofesional.</p>
         </article>
-        <article class="card">
-          <h4>Frente organizacional</h4>
-          <p>Revisión del RI, estructura institucional, perfiles, participación y convivencia en un marco de integridad
-            y respeto.</p>
+
+        <article class="instrument-card">
+          <div class="instrument-tag">MPI</div>
+          <h3>Manual de Procesos Institucionales</h3>
+          <p>Describe, ordena y optimiza los flujos de trabajo académico, administrativo y de soporte de la institución.</p>
         </article>
-        <article class="card">
-          <h4>Frente operativo</h4>
-          <p>Consolidación del MPI y del PAT para asegurar procesos definidos, ejecución planificada, monitoreo y
-            evaluación.</p>
+
+        <article class="instrument-card">
+          <div class="instrument-tag">RI</div>
+          <h3>Reglamento Institucional</h3>
+          <p>Norma la estructura orgánica, funciones, derechos, deberes, convivencia democrática y prevención de conductas indebidas.</p>
+        </article>
+
+        <article class="instrument-card">
+          <div class="instrument-tag">PAT</div>
+          <h3>Plan Anual de Trabajo</h3>
+          <p>Operativiza las metas anuales, cronograma de actividades formativas, presupuesto y mecanismos de seguimiento.</p>
+        </article>
+
+        <article class="instrument-card highlight-card">
+          <div class="instrument-tag">IG</div>
+          <h3>Guía de Articulación Institucional</h3>
+          <p>Marco integrador que garantiza la coherencia transversal de todos los instrumentos para la adecuación a Escuela.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section class="section" id="faq">
+  <!-- PREGUNTAS FRECUENTES (FAQ) -->
+  <section class="section faq-section" id="faq" aria-labelledby="faq-title">
     <div class="container">
       <div class="section-head">
-        <div>
-          <h3>Preguntas frecuentes</h3>
-          <p>Información esencial para comprender el alcance institucional del proceso de licenciamiento.</p>
-        </div>
+        <h2 id="faq-title" class="section-title">Preguntas Frecuentes sobre el Licenciamiento</h2>
+        <p class="section-subtitle">
+          Respuestas claras para estudiantes, egresados y familias sobre el proceso de adecuación institucional.
+        </p>
       </div>
-      <div class="accordion">
-        <details open>
-          <summary>¿Qué significa estar en proceso de licenciamiento?<span>+</span></summary>
-          <p>Significa que la institución viene desarrollando acciones de adecuación, fortalecimiento, organización
-            documental y cumplimiento de las Condiciones Básicas de Calidad exigidas por el Ministerio de Educación para
-            su funcionamiento como Escuela de Educación Superior Pedagógica.</p>
+
+      <div class="faq-accordion">
+        <details class="faq-item" open>
+          <summary class="faq-summary">
+            <span>¿Qué significa que el instituto esté en proceso de licenciamiento?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+          </summary>
+          <div class="faq-body">
+            <p>
+              Significa que el I.E.S.P.P. Virgen del Carmen se encuentra ejecutando su plan de adecuación para acreditar el cumplimiento
+              total de las 7 Condiciones Básicas de Calidad (CBC) fijadas por el Ministerio de Educación (MINEDU), en estricto cumplimiento
+              de la Ley N.° 30512 para convertirse en Escuela de Educación Superior Pedagógica.
+            </p>
+          </div>
         </details>
-        <details>
-          <summary>¿El licenciamiento es obligatorio?<span>+</span></summary>
-          <p>Sí. El licenciamiento es un procedimiento obligatorio porque verifica el cumplimiento de las condiciones
-            mínimas necesarias para la prestación del servicio educativo superior pedagógico.</p>
+
+        <details class="faq-item">
+          <summary class="faq-summary">
+            <span>¿El licenciamiento es obligatorio para todos los institutos pedagógicos?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+          </summary>
+          <div class="faq-body">
+            <p>
+              Sí, es un requisito legal de carácter obligatorio establecido por el Estado Peruano para verificar que las instituciones
+              de formación inicial docente cuenten con estándares de calidad óptimos, infraestructura segura y plana docente calificada.
+            </p>
+          </div>
         </details>
-        <details>
-          <summary>¿Qué beneficios trae a la comunidad educativa?<span>+</span></summary>
-          <p>Fortalece la confianza institucional, mejora la calidad académica, ordena la gestión, impulsa la
-            transparencia y genera mejores condiciones para estudiantes, docentes, egresados y aliados estratégicos.</p>
+
+        <details class="faq-item">
+          <summary class="faq-summary">
+            <span>¿Qué beneficios obtienen los estudiantes al licenciarse como Escuela (EESPP)?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+          </summary>
+          <div class="faq-body">
+            <p>
+              Los egresados de una Escuela de Educación Superior Pedagógica licenciada obtienen el Grado de Bachiller y el Título Profesional
+              de Licenciado en Educación con rango universitario, permitiéndoles acceder directamente a maestrías y doctorados en cualquier universidad del país o del extranjero.
+            </p>
+          </div>
         </details>
-        <details>
-          <summary>¿Qué documentos son clave en este proceso?<span>+</span></summary>
-          <p>Principalmente el PEI, PCI, MPI, RI y PAT, además de los formatos y medios de verificación exigidos para
-            acreditar el cumplimiento de las CBC según la modalidad de licenciamiento aplicable.</p>
+
+        <details class="faq-item">
+          <summary class="faq-summary">
+            <span>¿Las clases y los títulos actuales mantienen su plena validez oficial?</span>
+            <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+          </summary>
+          <div class="faq-body">
+            <p>
+              Totalmente. El servicio educativo continúa brindándose con total normalidad, y todos los títulos expedidos cuentan con
+              el respaldo legal del Ministerio de Educación y la Dirección Regional de Educación del Cusco.
+            </p>
+          </div>
         </details>
       </div>
     </div>
   </section>
-</section>
+</main>

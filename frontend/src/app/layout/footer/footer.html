@@ -1,102 +1,90 @@
-<footer class="footer">
+<footer class="footer" role="contentinfo">
   <div class="footer-container">
-    <!-- Columna 1: Logo -->
+    <!-- Columna 1: Logo Institucional -->
     <div class="footer-col footer-logo">
-      <img src="images/Logo.png" alt="Logo Instituto Superior" class="logo-img" />
+      <img src="images/Logo.png" alt="I.E.S.P.P. Virgen del Carmen - Logo Oficial" width="200" height="200" class="logo-img" loading="lazy" decoding="async" />
     </div>
 
-    <!-- Columna 2: Atención al Alumno -->
+    <!-- Columna 2: Atención al Alumno y Trámites -->
     <div class="footer-col">
       <h4 class="footer-title">Atención al Alumno</h4>
       <ul class="footer-list">
-        <li class="footer-list-item">
-          <a routerLink="/mesa-de-partes" class="footer-list-item">
-            <svg class="footer-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <li>
+          <a routerLink="/mesa-de-partes" class="footer-list-item" aria-label="Ir a la Mesa de Partes Virtual">
+            <svg class="footer-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
               </path>
             </svg>
-            Mesa de Partes Virtual
+            <span>Mesa de Partes Virtual</span>
           </a>
         </li>
         <li class="footer-reclamaciones-item">
-          <a routerLink="/reclamaciones" class="footer-reclamaciones-link">
-            <!--
-            <div class="footer-reclamaciones-text">
-              <svg class="footer-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
-                </path>
-              </svg>
-              <span>Libro de Reclamaciones</span>
-            </div>
-            -->
-
-            <img src="images/libro-de-reclamaciones.jpg" alt="Libro de Reclamaciones" class="libro-reclamaciones-img" />
+          <a routerLink="/reclamaciones" class="footer-reclamaciones-link" aria-label="Ir al Libro de Reclamaciones Virtual">
+            <img src="images/libro-de-reclamaciones.jpg" alt="Libro de Reclamaciones Virtual - IESPP Virgen del Carmen" width="220" height="120" class="libro-reclamaciones-img" loading="lazy" decoding="async" />
           </a>
         </li>
       </ul>
     </div>
 
-    <!-- Columna 3: Contacto -->
+    <!-- Columna 3: Contacto Institucional -->
     <div class="footer-col">
       <h4 class="footer-title">Contacto</h4>
-      @if (contacto()) {
-      <p class="footer-contact">
-        <i class="fa-brands fa-whatsapp icon-size"></i>
-        {{ contacto().phone }}
-      </p>
-      <p class="footer-contact">
-        <i class="fa-regular fa-envelope icon-size"></i>
-        {{ contacto().email }}
-      </p>
-      <p class="footer-contact">
-        <i class="fa-solid fa-location-dot icon-size"></i>
-        {{ contacto().location }}
-      </p>
-      } @else {
-      <p class="footer-contact"><i class="fa-brands fa-whatsapp icon-size"></i> +51 999 888 777</p>
-      <p class="footer-contact"><i class="fa-regular fa-envelope icon-size"></i> informes@instituto.edu.pe</p>
-      <p class="footer-contact"><i class="fa-solid fa-location-dot icon-size"></i> Av. Principal 123, Lima, Perú</p>
-      }
+      <address class="footer-address">
+        @if (contacto()) {
+        <p class="footer-contact">
+          <i class="fa-brands fa-whatsapp icon-size" aria-hidden="true"></i>
+          <span>{{ contacto()?.phone }}</span>
+        </p>
+        <p class="footer-contact">
+          <i class="fa-regular fa-envelope icon-size" aria-hidden="true"></i>
+          <span>{{ contacto()?.email }}</span>
+        </p>
+        <p class="footer-contact">
+          <i class="fa-solid fa-location-dot icon-size" aria-hidden="true"></i>
+          <span>{{ contacto()?.location }}</span>
+        </p>
+        } @else {
+        <p class="footer-contact">
+          <i class="fa-solid fa-location-dot icon-size" aria-hidden="true"></i>
+          <span>Paucartambo, Cusco - Perú</span>
+        </p>
+        }
+      </address>
     </div>
 
-    <!-- Columna 4: Síguenos -->
+    <!-- Columna 4: Síguenos / Canales Oficiales -->
     <div class="footer-col">
-      <h4 class="footer-title">Síguenos</h4>
-      <div class="social-buttons">
+      <h4 class="footer-title">Canales Oficiales</h4>
+      <div class="social-buttons" aria-label="Redes sociales institucionales">
         @if (contacto()?.facebook) {
-        <a [href]="contacto().facebook" target="_blank" class="social-btn">
-          <i class="fa-brands fa-facebook icon-size"></i>
+        <a [href]="contacto()?.facebook" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Seguir a I.E.S.P.P. Virgen del Carmen en Facebook">
+          <i class="fa-brands fa-facebook icon-size" aria-hidden="true"></i>
         </a>
-        } @else {
-        <button class="social-btn"><i class="fa-brands fa-facebook icon-size"></i></button>
         }
         @if (contacto()?.instagram) {
-        <a [href]="contacto().instagram" target="_blank" class="social-btn">
-          <i class="fa-brands fa-square-instagram icon-size"></i>
+        <a [href]="contacto()?.instagram" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Seguir a I.E.S.P.P. Virgen del Carmen en Instagram">
+          <i class="fa-brands fa-square-instagram icon-size" aria-hidden="true"></i>
         </a>
-        } @else {
-        <button class="social-btn"><i class="fa-brands fa-square-instagram icon-size"></i></button>
         }
         @if (contacto()?.tiktok) {
-        <a [href]="contacto().tiktok" target="_blank" class="social-btn">
-          <i class="fa-brands fa-tiktok icon-size"></i>
+        <a [href]="contacto()?.tiktok" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Seguir a I.E.S.P.P. Virgen del Carmen en TikTok">
+          <i class="fa-brands fa-tiktok icon-size" aria-hidden="true"></i>
         </a>
-        } @else {
-        <button class="social-btn"><i class="fa-brands fa-tiktok icon-size"></i></button>
         }
       </div>
     </div>
   </div>
 
-  <p class="footer-copyright">
-    © 2026 Instituto Superior Académico. Todos los derechos reservados.<br />
-    <span class="developer-credit">
-      Desarrollado por
-      <a href="https://mattinnovasolution.com/" target="_blank" rel="noopener noreferrer">
-        Matt Innova Solution E.I.R.L.
-      </a>
-    </span>
-  </p>
+  <div class="footer-bottom">
+    <p class="footer-copyright">
+      © 2026 I.E.S.P.P. Virgen del Carmen. Todos los derechos reservados.<br />
+      <span class="developer-credit">
+        Desarrollado por
+        <a href="https://mattinnovasolution.com/" target="_blank" rel="noopener noreferrer">
+          Matt Innova Solution E.I.R.L.
+        </a>
+      </span>
+    </p>
+  </div>
 </footer>

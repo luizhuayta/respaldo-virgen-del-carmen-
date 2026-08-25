@@ -1,170 +1,243 @@
-<!-- Hero Section -->
-<section class="hero-component">
-  <div class="hero-content">
-    <h1>Soporte Psicopedagógico</h1>
-    <p>Instituto de Educación Superior Pedagógico Público Virgen del Carmen</p>
-  </div>
-</section>
-
-<!-- Main Section -->
-<section class="tabs-section">
-  <div class="page-layout">
-
-    <!-- Sidebar de Años -->
-    <aside class="year-sidebar">
-      <h3 class="year-sidebar-title">Año</h3>
-      @for (year of years; track year) {
-        <button
-          class="year-btn"
-          [class.active]="selectedYear === year"
-          (click)="selectYear(year)"
-        >
-          {{ year }}
-        </button>
-      }
-    </aside>
-
-    <!-- Área de Contenido -->
-    <div class="tabs-container">
-
-      <!-- Navegación de Tabs -->
-      <div class="tab-nav">
-        <button class="tab-btn" [class.active]="activeTab === 'presentacion'" (click)="setTab('presentacion')">
-          Presentación
-        </button>
-        <button class="tab-btn" [class.active]="activeTab === 'talleres'" (click)="setTab('talleres')">
-          Talleres
-        </button>
-        <button class="tab-btn" [class.active]="activeTab === 'campanas'" (click)="setTab('campanas')">
-          Campañas
-        </button>
-        <button class="tab-btn" [class.active]="activeTab === 'reporte'" (click)="setTab('reporte')">
-          Reporte de atenciones
-        </button>
+<main class="psico-page">
+  <!-- Hero Section -->
+  <section class="hero-component" aria-labelledby="psico-title">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fa-solid fa-brain" aria-hidden="true"></i>
+        <span>Bienestar & Salud Mental</span>
       </div>
-
-      <!-- Contenido de Tabs -->
-      <div class="tab-content">
-
-        <!-- PRESENTACIÓN -->
-        @if (activeTab === 'presentacion') {
-          <div class="tab-panel">
-            @if (currentData.presentacion) {
-              <p>{{ currentData.presentacion }}</p>
-            } @else {
-              <p class="empty-msg">Sin contenido disponible para {{ selectedYear }}.</p>
-            }
-          </div>
-        }
-
-        <!-- TALLERES -->
-        @if (activeTab === 'talleres') {
-          <div class="tab-panel">
-            @if (currentData.talleres.length > 0) {
-              <div class="taller-list">
-                @for (taller of currentData.talleres; track taller.numero) {
-                  <article class="taller-item">
-                    <div class="taller-header">
-                      <span class="taller-number">{{ taller.numero }}</span>
-                      <p class="taller-desc">
-                        <strong>{{ taller.titulo }},</strong> {{ taller.descripcion }}
-                      </p>
-                    </div>
-                    <div class="taller-img-wrap">
-                      <img [src]="taller.imagen" [alt]="taller.titulo" class="taller-img" />
-                    </div>
-                  </article>
-                }
-              </div>
-            } @else {
-              <p class="empty-msg">Sin talleres registrados para {{ selectedYear }}.</p>
-            }
-          </div>
-        }
-
-        <!-- CAMPAÑAS -->
-        @if (activeTab === 'campanas') {
-          <div class="tab-panel">
-            @if (currentData.campanas.length > 0) {
-              <div class="taller-list">
-                @for (campana of currentData.campanas; track campana.numero) {
-                  <article class="taller-item">
-                    <div class="taller-header">
-                      <span class="taller-number">{{ campana.numero }}</span>
-                      <p class="taller-desc">
-                        <strong>{{ campana.titulo }},</strong> {{ campana.descripcion }}
-                      </p>
-                    </div>
-
-                    <div class="carousel-wrap">
-                      <button
-                        class="carousel-btn carousel-prev"
-                        (click)="prevSlide(campana)"
-                        [disabled]="campana.imagenes.length <= 1"
-                        aria-label="Anterior"
-                      >
-                        <i class="fas fa-chevron-left"></i>
-                      </button>
-
-                      <div class="carousel-viewport">
-                        <img
-                          [src]="campana.imagenes[campana.activeIndex]"
-                          [alt]="campana.titulo"
-                          class="taller-img"
-                        />
-                      </div>
-
-                      <button
-                        class="carousel-btn carousel-next"
-                        (click)="nextSlide(campana)"
-                        [disabled]="campana.imagenes.length <= 1"
-                        aria-label="Siguiente"
-                      >
-                        <i class="fas fa-chevron-right"></i>
-                      </button>
-                    </div>
-
-                    @if (campana.imagenes.length > 1) {
-                      <div class="carousel-dots">
-                        @for (img of campana.imagenes; track $index) {
-                          <button
-                            class="dot"
-                            [class.active]="$index === campana.activeIndex"
-                            (click)="goToSlide(campana, $index)"
-                            [attr.aria-label]="'Imagen ' + ($index + 1)"
-                          ></button>
-                        }
-                      </div>
-                    }
-                  </article>
-                }
-              </div>
-            } @else {
-              <p class="empty-msg">Sin campañas registradas para {{ selectedYear }}.</p>
-            }
-          </div>
-        }
-
-        <!-- REPORTE DE ATENCIONES -->
-        @if (activeTab === 'reporte') {
-          <div class="tab-panel">
-            @if (currentData.reporte) {
-              <h2 class="reporte-titulo">{{ currentData.reporte.titulo }}</h2>
-              <div class="pdf-container">
-                <iframe
-                  [src]="safeUrl(currentData.reporte.url)"
-                  class="pdf-frame"
-                  title="Reporte de Atenciones"
-                ></iframe>
-              </div>
-            } @else {
-              <p class="empty-msg">Sin reporte disponible para {{ selectedYear }}.</p>
-            }
-          </div>
-        }
-
-      </div>
+      <h1 id="psico-title">Soporte Psicopedagógico</h1>
+      <p class="hero-subtitle">
+        Orientación vocacional, acompañamiento socioemocional, talleres de habilidades blandas y tutoría
+        académica para el desarrollo integral de los estudiantes del I.E.S.P.P. Virgen del Carmen.
+      </p>
     </div>
+  </section>
 
-  </div>
-</section>
+  <!-- Main Section -->
+  <section class="tabs-section" aria-label="Contenido anual de soporte psicopedagógico">
+    <div class="page-layout">
+
+      <!-- Sidebar de Años -->
+      <aside class="year-sidebar" aria-label="Selector de año lectivo">
+        <h2 class="year-sidebar-title">
+          <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+          <span>Año Lectivo</span>
+        </h2>
+        <div class="year-list" role="tablist" aria-label="Años disponibles">
+          @for (year of years; track year) {
+            <button
+              class="year-btn"
+              [class.active]="selectedYear === year"
+              (click)="selectYear(year)"
+              role="tab"
+              [attr.aria-selected]="selectedYear === year"
+            >
+              {{ year }}
+            </button>
+          }
+        </div>
+      </aside>
+
+      <!-- Área de Contenido -->
+      <div class="tabs-container">
+
+        <!-- Navegación de Tabs -->
+        <nav class="tab-nav" role="tablist" aria-label="Secciones del área psicopedagógica">
+          <button
+            class="tab-btn"
+            [class.active]="activeTab === 'presentacion'"
+            (click)="setTab('presentacion')"
+            role="tab"
+            [attr.aria-selected]="activeTab === 'presentacion'"
+          >
+            <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+            <span>Presentación</span>
+          </button>
+          <button
+            class="tab-btn"
+            [class.active]="activeTab === 'talleres'"
+            (click)="setTab('talleres')"
+            role="tab"
+            [attr.aria-selected]="activeTab === 'talleres'"
+          >
+            <i class="fa-solid fa-chalkboard-user" aria-hidden="true"></i>
+            <span>Talleres ({{ currentData.talleres.length }})</span>
+          </button>
+          <button
+            class="tab-btn"
+            [class.active]="activeTab === 'campanas'"
+            (click)="setTab('campanas')"
+            role="tab"
+            [attr.aria-selected]="activeTab === 'campanas'"
+          >
+            <i class="fa-solid fa-bullhorn" aria-hidden="true"></i>
+            <span>Campañas ({{ currentData.campanas.length }})</span>
+          </button>
+          <button
+            class="tab-btn"
+            [class.active]="activeTab === 'reporte'"
+            (click)="setTab('reporte')"
+            role="tab"
+            [attr.aria-selected]="activeTab === 'reporte'"
+          >
+            <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+            <span>Reporte de Atenciones</span>
+          </button>
+        </nav>
+
+        <!-- Contenido de Tabs -->
+        <div class="tab-content">
+
+          <!-- PRESENTACIÓN -->
+          @if (activeTab === 'presentacion') {
+            <div class="tab-panel" role="tabpanel">
+              @if (currentData.presentacion) {
+                <div class="presentacion-card">
+                  <div class="presentacion-icon" aria-hidden="true">
+                    <i class="fa-solid fa-hands-holding-child"></i>
+                  </div>
+                  <div class="presentacion-body">
+                    <h3>Misión del Área de Soporte Psicopedagógico - {{ selectedYear }}</h3>
+                    <p>{{ currentData.presentacion }}</p>
+                  </div>
+                </div>
+              } @else {
+                <div class="empty-state">
+                  <i class="fa-solid fa-folder-open" aria-hidden="true"></i>
+                  <p>Sin presentación registrada para el año {{ selectedYear }}.</p>
+                </div>
+              }
+            </div>
+          }
+
+          <!-- TALLERES -->
+          @if (activeTab === 'talleres') {
+            <div class="tab-panel" role="tabpanel">
+              @if (currentData.talleres.length > 0) {
+                <div class="taller-list">
+                  @for (taller of currentData.talleres; track taller.numero) {
+                    <article class="taller-item">
+                      <div class="taller-header">
+                        <span class="taller-number">Taller {{ taller.numero }}</span>
+                        <h3 class="taller-title">{{ taller.titulo }}</h3>
+                        <p class="taller-desc">{{ taller.descripcion }}</p>
+                      </div>
+                      <div class="taller-img-wrap">
+                        <img [src]="taller.imagen" [alt]="taller.titulo" class="taller-img" loading="lazy" />
+                      </div>
+                    </article>
+                  }
+                </div>
+              } @else {
+                <div class="empty-state">
+                  <i class="fa-solid fa-chalkboard" aria-hidden="true"></i>
+                  <p>Sin talleres registrados para el año {{ selectedYear }}.</p>
+                </div>
+              }
+            </div>
+          }
+
+          <!-- CAMPAÑAS -->
+          @if (activeTab === 'campanas') {
+            <div class="tab-panel" role="tabpanel">
+              @if (currentData.campanas.length > 0) {
+                <div class="taller-list">
+                  @for (campana of currentData.campanas; track campana.numero) {
+                    <article class="taller-item">
+                      <div class="taller-header">
+                        <span class="taller-number">Campaña {{ campana.numero }}</span>
+                        <h3 class="taller-title">{{ campana.titulo }}</h3>
+                        <p class="taller-desc">{{ campana.descripcion }}</p>
+                      </div>
+
+                      <div class="carousel-wrap">
+                        <button
+                          type="button"
+                          class="carousel-btn carousel-prev"
+                          (click)="prevSlide(campana)"
+                          [disabled]="campana.imagenes.length <= 1"
+                          aria-label="Imagen anterior"
+                        >
+                          <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                        </button>
+
+                        <div class="carousel-viewport">
+                          <img
+                            [src]="campana.imagenes[campana.activeIndex]"
+                            [alt]="campana.titulo + ' foto ' + (campana.activeIndex + 1)"
+                            class="taller-img"
+                            loading="lazy"
+                          />
+                        </div>
+
+                        <button
+                          type="button"
+                          class="carousel-btn carousel-next"
+                          (click)="nextSlide(campana)"
+                          [disabled]="campana.imagenes.length <= 1"
+                          aria-label="Siguiente imagen"
+                        >
+                          <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                        </button>
+                      </div>
+
+                      @if (campana.imagenes.length > 1) {
+                        <div class="carousel-dots" role="tablist" aria-label="Selector de imagen de la campaña">
+                          @for (img of campana.imagenes; track $index) {
+                            <button
+                              type="button"
+                              class="dot"
+                              [class.active]="$index === campana.activeIndex"
+                              (click)="goToSlide(campana, $index)"
+                              [attr.aria-label]="'Ver imagen ' + ($index + 1)"
+                              [attr.aria-selected]="$index === campana.activeIndex"
+                            ></button>
+                          }
+                        </div>
+                      }
+                    </article>
+                  }
+                </div>
+              } @else {
+                <div class="empty-state">
+                  <i class="fa-solid fa-bullhorn" aria-hidden="true"></i>
+                  <p>Sin campañas registradas para el año {{ selectedYear }}.</p>
+                </div>
+              }
+            </div>
+          }
+
+          <!-- REPORTE DE ATENCIONES -->
+          @if (activeTab === 'reporte') {
+            <div class="tab-panel" role="tabpanel">
+              @if (currentData.reporte) {
+                <div class="reporte-header-box">
+                  <h3 class="reporte-titulo">{{ currentData.reporte.titulo }}</h3>
+                  <a [href]="currentData.reporte.url" target="_blank" rel="noopener noreferrer" class="btn-reporte-popout">
+                    <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
+                    <span>Abrir en pestaña nueva</span>
+                  </a>
+                </div>
+                <div class="pdf-container">
+                  <iframe
+                    [src]="safeUrl(currentData.reporte.url)"
+                    class="pdf-frame"
+                    title="Visor de reporte de atenciones psicopedagógicas"
+                  ></iframe>
+                </div>
+              } @else {
+                <div class="empty-state">
+                  <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
+                  <p>Sin reporte estadístico disponible para el año {{ selectedYear }}.</p>
+                </div>
+              }
+            </div>
+          }
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>

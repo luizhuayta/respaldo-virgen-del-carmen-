@@ -1,10 +1,50 @@
-<section class="hero-component">
-  <div class="hero-content">
-    <h1>Reglamentos 2026</h1>
-    <p>Instituto de Educación Superior Pedagógico Público Virgen del Carmen</p>
-  </div>
-</section>
+<main class="reglamentos-page">
+  <!-- Hero Section -->
+  <section class="hero-component" aria-labelledby="reglamentos-title">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fa-solid fa-book-bookmark" aria-hidden="true"></i>
+        <span>Marco Normativo Interno</span>
+      </div>
+      <h1 id="reglamentos-title">Reglamentos Institucionales y Normativa</h1>
+      <p class="hero-subtitle">
+        Documentos normativos que orientan la vida académica, convivencia democrática, derechos,
+        deberes y procedimientos del I.E.S.P.P. Virgen del Carmen de Paucartambo.
+      </p>
+    </div>
+  </section>
 
-<section class="contenedor-pdf">
-  <app-vista-archivos [documents]="reglamentosDocs()"></app-vista-archivos>
-</section>
+  <!-- Quick Info Pills -->
+  <section class="reglamentos-features-bar" aria-label="Aspectos normativos clave">
+    <div class="features-container">
+      <div class="feature-item">
+        <i class="fa-solid fa-scale-balanced" aria-hidden="true"></i>
+        <div>
+          <strong>Reglamento Institucional</strong>
+          <span>Marco general de funcionamiento</span>
+        </div>
+      </div>
+      <div class="feature-item">
+        <i class="fa-solid fa-users" aria-hidden="true"></i>
+        <div>
+          <strong>Convivencia & Ética</strong>
+          <span>Prevención y resolución de conflictos</span>
+        </div>
+      </div>
+      <div class="feature-item">
+        <i class="fa-solid fa-award" aria-hidden="true"></i>
+        <div>
+          <strong>Régimen Académico</strong>
+          <span>Evaluación, grados y títulos</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contenedor del Visor de Documentos -->
+  <section class="contenedor-pdf" aria-label="Visor de reglamentos y directivas">
+    <div class="pdf-wrapper">
+      <app-vista-archivos [documents]="reglamentosDocs()"></app-vista-archivos>
+    </div>
+  </section>
+</main>

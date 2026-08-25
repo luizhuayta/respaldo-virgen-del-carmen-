@@ -1,10 +1,50 @@
-<section class="hero-component">
-  <div class="hero-content">
-    <h1>ADMISIÓN 2026</h1>
-    <p>Instituto de Educación Superior Pedagógico Público Virgen del Carmen</p>
-  </div>
-</section>
+<main class="admision-page">
+  <!-- Hero Section -->
+  <section class="hero-component" aria-labelledby="admision-title">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fa-solid fa-user-check" aria-hidden="true"></i>
+        <span>Proceso de Admisión</span>
+      </div>
+      <h1 id="admision-title">Admisión e Ingreso a la Formación Docente</h1>
+      <p class="hero-subtitle">
+        Inicia tu vocación magisterial en el I.E.S.P.P. Virgen del Carmen. Conoce las bases, cronogramas,
+        requisitos y resultados oficiales del proceso de admisión.
+      </p>
+    </div>
+  </section>
 
-<section class="contenedor-pdf">
-  <app-vista-archivos [documents]="docs()"></app-vista-archivos>
-</section>
+  <!-- Process Steps Bar -->
+  <section class="admision-steps-bar" aria-label="Etapas del proceso de admisión">
+    <div class="steps-container">
+      <div class="step-card">
+        <div class="step-badge">Paso 1</div>
+        <div class="step-info">
+          <strong>Inscripción y Requisitos</strong>
+          <span>Presentación de expediente y voucher</span>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-badge">Paso 2</div>
+        <div class="step-info">
+          <strong>Evaluación Vocacional</strong>
+          <span>Prueba de competencias y entrevista</span>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-badge">Paso 3</div>
+        <div class="step-info">
+          <strong>Resultados y Matrícula</strong>
+          <span>Publicación de méritos e ingreso</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contenedor del Visor de Documentos -->
+  <section class="contenedor-pdf" aria-label="Prospectos, bases y comunicados de admisión">
+    <div class="pdf-wrapper">
+      <app-vista-archivos [documents]="docs()"></app-vista-archivos>
+    </div>
+  </section>
+</main>

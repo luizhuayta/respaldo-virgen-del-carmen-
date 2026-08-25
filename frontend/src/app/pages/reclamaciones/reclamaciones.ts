@@ -1,5 +1,7 @@
-import { Component, OnInit, inject, ChangeDetectorRef, NgZone } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
+import { CommonModule, NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { timeout } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -256,14 +258,15 @@ const PERU_DATA: Record<string, { provincias: string[]; distritos: Record<string
 
 @Component({
   selector: 'app-reclamaciones',
-  imports: [FormsModule],
+  standalone: true,
+  imports: [FormsModule, CommonModule],
   templateUrl: './reclamaciones.html',
   styleUrl: './reclamaciones.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Reclamaciones implements OnInit {
   private http = inject(HttpClient);
-  private cdr = inject(ChangeDetectorRef);
-  private zone = inject(NgZone);
+  private destroyRef = inject(DestroyRef);
 
   activeTab: 'form' | 'seguimiento' = 'form';
 
@@ -454,26 +457,20 @@ export class Reclamaciones implements OnInit {
     this.isSubmitting = true;
 
     this.http.post<any>(`${environment.apiUrl}/reclamaciones/create`, payload)
-      .pipe(timeout(5000))
+      .pipe(timeout(10000), takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (res) => {
-          this.zone.run(() => {
-            this.isSubmitting = false;
-            this.trackingCodeResult = res.tracking_code;
-            this.claimNumber = String(res.id).padStart(8, '0');
-            this.showSuccess = true;
-            this.cdr.detectChanges();
-          });
+          this.isSubmitting = false;
+          this.trackingCodeResult = res.tracking_code;
+          this.claimNumber = String(res.id).padStart(8, '0');
+          this.showSuccess = true;
         },
         error: (err) => {
-          this.zone.run(() => {
-            this.isSubmitting = false;
-            this.submitError = err.name === 'TimeoutError'
-              ? 'El servidor tardó demasiado. Intente nuevamente.'
-              : (err.error?.error || 'Error al enviar. Intente nuevamente.');
-            this.generateCaptcha();
-            this.cdr.detectChanges();
-          });
+          this.isSubmitting = false;
+          this.submitError = err.name === 'TimeoutError'
+            ? 'El servidor tardó demasiado. Intente nuevamente.'
+            : (err.error?.error || 'Error al enviar. Intente nuevamente.');
+          this.generateCaptcha();
         }
       });
   }
@@ -508,31 +505,25 @@ export class Reclamaciones implements OnInit {
     this.searchResult = null;
 
     this.http.get<any[]>(`${environment.apiUrl}/reclamaciones/list`)
-      .pipe(timeout(12000))
+      .pipe(timeout(15000), takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (list) => {
-          this.zone.run(() => {
-            this.isSearching = false;
-            const found = list.find(r =>
-              (this.searchCode.trim() && r.tracking_code === this.searchCode.trim()) ||
-              (this.searchDni.trim() && r.dni === this.searchDni.trim())
-            );
-            if (found) {
-              this.searchResult = found;
-            } else {
-              this.searchError = 'No se encontró ningún reclamo con los datos ingresados.';
-            }
-            this.cdr.detectChanges();
-          });
+          this.isSearching = false;
+          const found = list.find(r =>
+            (this.searchCode.trim() && r.tracking_code === this.searchCode.trim()) ||
+            (this.searchDni.trim() && r.dni === this.searchDni.trim())
+          );
+          if (found) {
+            this.searchResult = found;
+          } else {
+            this.searchError = 'No se encontró ningún reclamo con los datos ingresados.';
+          }
         },
         error: (err) => {
-          this.zone.run(() => {
-            this.isSearching = false;
-            this.searchError = err.name === 'TimeoutError'
-              ? 'El servidor tardó demasiado. Intente nuevamente.'
-              : 'Error al buscar. Intente nuevamente.';
-            this.cdr.detectChanges();
-          });
+          this.isSearching = false;
+          this.searchError = err.name === 'TimeoutError'
+            ? 'El servidor tardó demasiado. Intente nuevamente.'
+            : 'Error al buscar. Intente nuevamente.';
         }
       });
   }
@@ -557,4 +548,4 @@ export class Reclamaciones implements OnInit {
       day: '2-digit', month: 'long', year: 'numeric'
     });
   }
-}
+}

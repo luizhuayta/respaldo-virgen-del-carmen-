@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -7,49 +7,33 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   imports: [RouterLink, RouterLinkActive],
   templateUrl: './header.html',
   styleUrl: './header.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
   isMenuOpen = false;
 
   toggleMenu(): void {
-    try {
-      this.isMenuOpen = !this.isMenuOpen;
-    } catch (error) {
-      console.error('Error al abrir/cerrar el menú:', error);
-    }
+    this.isMenuOpen = !this.isMenuOpen;
   }
 
   closeMenu(): void {
-    try {
-      this.isMenuOpen = false;
-    } catch (error) {
-      console.error('Error al cerrar el menú:', error);
-    }
+    this.isMenuOpen = false;
   }
 
   // Cerrar menú al hacer click fuera
   @HostListener('document:click', ['$event'])
   handleClickOutside(event: Event): void {
-    try {
-      const target = event.target as HTMLElement;
-
-      if (!target.closest('.navbar')) {
-        this.isMenuOpen = false;
-      }
-    } catch (error) {
-      console.error('Error detectando click fuera:', error);
+    const target = event.target as HTMLElement;
+    if (!target.closest('.navbar')) {
+      this.isMenuOpen = false;
     }
   }
 
-  // Cerrar menú al cambiar tamaño (evita bugs entre mobile/desktop)
+  // Cerrar menú al cambiar a vista desktop
   @HostListener('window:resize')
   onResize(): void {
-    try {
-      if (window.innerWidth >= 992 && this.isMenuOpen) {
-        this.isMenuOpen = false;
-      }
-    } catch (error) {
-      console.error('Error en resize:', error);
+    if (typeof window !== 'undefined' && window.innerWidth >= 992 && this.isMenuOpen) {
+      this.isMenuOpen = false;
     }
   }
 }

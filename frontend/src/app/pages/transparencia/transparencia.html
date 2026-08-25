@@ -1,111 +1,114 @@
-<!-- Hero Banner -->
-<section class="trans-hero">
-  <div class="trans-hero-content">
-    <h1 class="trans-hero-title">Portal de Transparencia Institucional</h1>
-    <nav class="trans-breadcrumb" aria-label="Breadcrumb">
-      <a routerLink="/inicio" class="breadcrumb-link">
-        <i class="fas fa-home"></i> Instituto de Educación Superior Pedagógico Publico Virgen del Carmen
+<main class="transparencia-page">
+  <!-- Hero Banner -->
+  <section class="trans-hero" aria-labelledby="trans-title">
+    <div class="trans-hero-content">
+      <div class="trans-badge">
+        <i class="fa-solid fa-scale-balanced" aria-hidden="true"></i>
+        <span>Ley N.° 27806 & Ley N.° 30512</span>
+      </div>
+      <h1 id="trans-title" class="trans-hero-title">Portal de Transparencia Institucional</h1>
+      <nav class="trans-breadcrumb" aria-label="Ruta de navegación">
+        <a routerLink="/inicio" class="breadcrumb-link">
+          <i class="fa-solid fa-house" aria-hidden="true"></i> Inicio
+        </a>
+        <i class="fa-solid fa-chevron-right breadcrumb-sep" aria-hidden="true"></i>
+        <span class="breadcrumb-current" aria-current="page">Portal de Transparencia</span>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Descripción Institucional -->
+  <section class="trans-intro" aria-label="Descripción del portal de transparencia">
+    <div class="trans-intro-card">
+      <div class="intro-icon" aria-hidden="true">
+        <i class="fa-solid fa-landmark"></i>
+      </div>
+      <div class="intro-text">
+        <h2>Compromiso con el Acceso a la Información y la Ética Pública</h2>
+        <p>
+          El Instituto de Educación Superior Pedagógico Público Virgen del Carmen pone a disposición de la comunidad educativa,
+          estudiantes y ciudadanía en general toda la información institucional, académica, presupuestal y normativa en estricto
+          cumplimiento de las normas de transparencia del Estado Peruano y las Condiciones Básicas de Calidad (CBC).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Grid de Transparencia -->
+  <section class="trans-grid-section" aria-label="Secciones del portal de transparencia">
+    <div class="trans-grid" role="list">
+      <a routerLink="/becas" class="trans-card" role="listitem" aria-label="Ver Becas y Créditos Educativos">
+        <div class="trans-card-icon-wrap" aria-hidden="true">
+          <i class="fa-solid fa-medal"></i>
+        </div>
+        <span class="trans-card-label">Becas y Créditos</span>
       </a>
-      <i class="fas fa-arrow-right breadcrumb-sep"></i>
-      <span class="breadcrumb-current">Portal de Transparencia Institucional</span>
-    </nav>
-  </div>
-</section>
 
-<!-- Divider -->
-<div class="trans-divider">
-  <div class="divider-icon"><i class="fas fa-tablet-alt"></i></div>
-</div>
+      <a routerLink="/costos" class="trans-card" role="listitem" aria-label="Ver Tasas y Tarifas Académicas">
+        <div class="trans-card-icon-wrap" aria-hidden="true">
+          <i class="fa-solid fa-hand-holding-dollar"></i>
+        </div>
+        <span class="trans-card-label">Tasas y Pagos</span>
+      </a>
 
-<!-- Descripción -->
-<div class="trans-intro">
-  <p>
-    El Instituto de Educación Superior Pedagógico Publico Virgen del Carmen, mediante la
-    transparencia institucional agrega varios contenidos para conocimiento de los estudiantes y
-    publico en general
-  </p>
-</div>
+      <a routerLink="/repositorio" class="trans-card" role="listitem" aria-label="Ver Proyectos de Investigación y Repositorio">
+        <div class="trans-card-icon-wrap" aria-hidden="true">
+          <i class="fa-solid fa-flask-vial"></i>
+        </div>
+        <span class="trans-card-label">Proyectos e Investigación</span>
+      </a>
 
-<!-- Divider -->
-<div class="trans-divider">
-  <div class="divider-icon"><i class="fas fa-tablet-alt"></i></div>
-</div>
+      <a [routerLink]="['/nosotros']" fragment="docentes" class="trans-card" role="listitem" aria-label="Ver Hojas de Vida de Autoridades y Docentes">
+        <div class="trans-card-icon-wrap" aria-hidden="true">
+          <i class="fa-solid fa-id-card-clip"></i>
+        </div>
+        <span class="trans-card-label">Plana Docente & CV</span>
+      </a>
 
-<!-- Grid de Transparencia -->
-<section class="trans-grid-section">
-  <div class="trans-grid">
+      <a routerLink="/estadisticas" class="trans-card" role="listitem" aria-label="Ver Estadísticas de Matriculados y Egresados">
+        <div class="trans-card-icon-wrap" aria-hidden="true">
+          <i class="fa-solid fa-chart-column"></i>
+        </div>
+        <span class="trans-card-label">Matrículas & Egresados</span>
+      </a>
 
-    <a routerLink="/becas" class="trans-card">
-      <div class="trans-card-icon-wrap">
-        <i class="fas fa-medal"></i>
-      </div>
-      <span class="trans-card-label"> Becas y Créditos</span>
-    </a>
+      <a routerLink="/programas" class="trans-card" role="listitem" aria-label="Ver Programas de Estudio">
+        <div class="trans-card-icon-wrap" aria-hidden="true">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <span class="trans-card-label">Programas de Estudio</span>
+      </a>
 
-    <a routerLink="/costos" class="trans-card">
-      <div class="trans-card-icon-wrap">
-        <i class="fas fa-money-bill-wave"></i>
-      </div>
-      <span class="trans-card-label"> Tasas y/o otros pagos</span>
-    </a>
+      <a routerLink="/licenciamiento" class="trans-card" role="listitem" aria-label="Ver Proceso de Licenciamiento y CBC">
+        <div class="trans-card-icon-wrap" aria-hidden="true">
+          <i class="fa-solid fa-award"></i>
+        </div>
+        <span class="trans-card-label">Licenciamiento & CBC</span>
+      </a>
 
-    <a routerLink="/repositorio" class="trans-card">
-      <div class="trans-card-icon-wrap">
-        <i class="fas fa-flask"></i>
-      </div>
-      <span class="trans-card-label">Proyectos de investigación</span>
-    </a>
+      <a routerLink="/reglamentos" class="trans-card" role="listitem" aria-label="Ver Reglamento Institucional y Normativa">
+        <div class="trans-card-icon-wrap" aria-hidden="true">
+          <i class="fa-solid fa-book-bookmark"></i>
+        </div>
+        <span class="trans-card-label">Reglamentos Internos</span>
+      </a>
 
-    <a [routerLink]="['/nosotros']" fragment="docentes" class="trans-card">
-      <div class="trans-card-icon-wrap">
-        <i class="fas fa-id-card"></i>
-      </div>
-      <span class="trans-card-label">Hoja de Vida de docentes</span>
-    </a>
+      <a routerLink="/inversiones" class="trans-card" role="listitem" aria-label="Ver Inversiones y Ejecución Presupuestal">
+        <div class="trans-card-icon-wrap" aria-hidden="true">
+          <i class="fa-solid fa-chart-line"></i>
+        </div>
+        <span class="trans-card-label">Inversiones & Presupuesto</span>
+      </a>
 
-    <a routerLink="/estadisticas" class="trans-card">
-      <div class="trans-card-icon-wrap">
-        <i class="fas fa-user-graduate"></i>
-      </div>
-      <span class="trans-card-label">Matriculados y Egresados</span>
-    </a>
+      <a routerLink="/procedimientos" class="trans-card" role="listitem" aria-label="Ver TUPA y Procedimientos Administrativos">
+        <div class="trans-card-icon-wrap" aria-hidden="true">
+          <i class="fa-solid fa-clipboard-check"></i>
+        </div>
+        <span class="trans-card-label">TUPA & Procedimientos</span>
+      </a>
+    </div>
+  </section>
+</main>
 
-    <a routerLink="/programas" class="trans-card">
-      <div class="trans-card-icon-wrap">
-        <i class="fas fa-book-open"></i>
-      </div>
-      <span class="trans-card-label">Programas de Estudio</span>
-    </a>
-
-    <a routerLink="/licenciamiento" class="trans-card">
-      <div class="trans-card-icon-wrap">
-        <i class="fas fa-award"></i>
-      </div>
-      <span class="trans-card-label">Vigencia de licenciamiento</span>
-    </a>
-
-    <a routerLink="/reglamentos" class="trans-card">
-      <div class="trans-card-icon-wrap">
-        <i class="fas fa-scroll"></i>
-      </div>
-      <span class="trans-card-label">Reglamento Institucional</span>
-    </a>
-
-    <a routerLink="/inversiones" class="trans-card">
-      <div class="trans-card-icon-wrap">
-        <i class="fas fa-chart-line"></i>
-      </div>
-      <span class="trans-card-label">Inversiones – reinversiones</span>
-    </a>
-
-    <a routerLink="/procedimientos" class="trans-card">
-      <div class="trans-card-icon-wrap">
-        <i class="fas fa-clipboard-list"></i>
-      </div>
-      <span class="trans-card-label">TUPA</span>
-    </a>
-
-  </div>
-</section>
 
 

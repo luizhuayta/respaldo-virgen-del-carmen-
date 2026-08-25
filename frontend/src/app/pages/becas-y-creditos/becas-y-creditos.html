@@ -1,10 +1,19 @@
-<section class="hero-component">
-  <div class="hero-content">
-    <h1>Becas y Créditos 2026</h1>
-    <p>Instituto de Educación Superior Pedagógico Público Virgen del Carmen</p>
-  </div>
-</section>
+<main class="transparencia-detail-page">
+  <section class="hero-component" aria-labelledby="becas-title">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
+        <span>Bienestar & Oportunidades</span>
+      </div>
+      <h1 id="becas-title">Becas y Créditos Educativos</h1>
+      <p class="hero-subtitle">
+        Información de convocatorias PRONABEC (Beca 18, Beca Continuidad), convenios institucionales y beneficios
+        económicos para los estudiantes del I.E.S.P.P. Virgen del Carmen.
+      </p>
+    </div>
+  </section>
 
-<section class="contenedor-pdf">
-  <app-vista-archivos [documents]="becasDocs()"></app-vista-archivos>
-</section>
+  <section class="contenedor-pdf" aria-label="Documentos de becas y créditos">
+    <app-vista-archivos [documents]="becasDocs()"></app-vista-archivos>
+  </section>
+</main>

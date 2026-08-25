@@ -1,20 +1,59 @@
+@if (documents().length > 0) {
 <div class="viewer-shell">
-  <aside class="sidebar">
-    @for (doc of documents(); track doc.id) {
-      <button
-        class="nav-item"
-        [ngClass]="{ active: activeId() === doc.id }"
-        (click)="selectDocument(doc.id)"
-      >
-        <i class="fas fa-file-pdf pdf-icon"></i>
-        <span class="doc-label">{{ doc.label }}</span>
-      </button>
-    }
+  <aside class="sidebar" role="tablist" aria-label="Lista de documentos disponibles">
+    <div class="sidebar-header">
+      <i class="fa-solid fa-folder-open" aria-hidden="true"></i>
+      <span>Documentos ({{ documents().length }})</span>
+    </div>
+    <div class="sidebar-items">
+      @for (doc of documents(); track doc.id) {
+        <button
+          class="nav-item"
+          [ngClass]="{ active: activeId() === doc.id }"
+          (click)="selectDocument(doc.id)"
+          role="tab"
+          [attr.aria-selected]="activeId() === doc.id"
+          [attr.aria-label]="'Ver documento ' + doc.label"
+        >
+          <i class="fa-solid fa-file-pdf pdf-icon" aria-hidden="true"></i>
+          <span class="doc-label">{{ doc.label }}</span>
+        </button>
+      }
+    </div>
   </aside>
 
-  <section class="pdf-panel">
+  <section class="pdf-panel" aria-label="Visor del documento">
     @if (activeDocument(); as doc) {
-      <iframe class="pdf-iframe" [src]="safeUrl(doc.pdfUrl)" width="100%" height="100%"></iframe>
+      <div class="pdf-toolbar">
+        <div class="pdf-toolbar-info">
+          <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+          <span class="pdf-toolbar-title">{{ doc.label }}</span>
+        </div>
+        <div class="pdf-toolbar-actions">
+          @if (doc.pdfUrl) {
+            <a [href]="doc.pdfUrl" target="_blank" rel="noopener noreferrer" class="toolbar-btn" title="Abrir en ventana completa">
+              <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
+              <span>Abrir en pestaña nueva</span>
+            </a>
+          }
+        </div>
+      </div>
+      @if (doc.pdfUrl) {
+        <iframe class="pdf-iframe" [src]="safeUrl(doc.pdfUrl)" title="Visor de documento PDF" width="100%" height="100%"></iframe>
+      } @else {
+        <div class="pdf-unavailable">
+          <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+          <p>El archivo PDF para este elemento aún no se encuentra digitalizado.</p>
+        </div>
+      }
     }
   </section>
 </div>
+} @else {
+<div class="empty-docs-card">
+  <i class="fa-solid fa-folder-open empty-docs-icon" aria-hidden="true"></i>
+  <h3>No hay documentos disponibles</h3>
+  <p>En este momento no se registran publicaciones activas en esta sección.</p>
+</div>
+}
+

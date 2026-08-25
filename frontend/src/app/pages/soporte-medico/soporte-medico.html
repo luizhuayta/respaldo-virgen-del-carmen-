@@ -1,88 +1,122 @@
-<!-- Hero Section -->
-<section class="hero-component">
-  <div class="hero-content">
-    <h1>Soporte Médico</h1>
-    <p>Instituto de Educación Superior Pedagógico Público Virgen del Carmen</p>
-  </div>
-</section>
-
-<!-- Contenido Principal -->
-<section class="sm-main">
-  <div class="page-layout">
-
-    <!-- Sidebar de Años -->
-    <aside class="year-sidebar">
-      <h3 class="year-sidebar-title">Año</h3>
-      @for (year of years; track year) {
-        <button
-          class="year-btn"
-          [class.active]="selectedYear === year"
-          (click)="selectYear(year)"
-        >
-          {{ year }}
-        </button>
-      }
-    </aside>
-
-    <!-- Área de Contenido -->
-    <div class="sm-container">
-
-      <!-- Título -->
-      <h2 class="sm-title">Soporte Médico del IESPP Virgen del Carmen — {{ selectedYear }}</h2>
-
-      @if (hasContent) {
-
-        <!-- Imagen presentación -->
-        @if (currentData.presentacionImg) {
-          <div class="sm-presentacion-wrap">
-            <img
-              [src]="currentData.presentacionImg"
-              alt="Profesional de Soporte Médico"
-              class="sm-presentacion-img"
-            />
-          </div>
-        }
-
-        <!-- Descripción -->
-        @if (currentData.descripcion.length > 0) {
-          <div class="sm-descripcion">
-            @for (parrafo of currentData.descripcion; track $index) {
-              @if (parrafo.esTitulo) {
-                <p><strong>{{ parrafo.texto }}</strong></p>
-              } @else {
-                <p>{{ parrafo.texto }}</p>
-              }
-            }
-          </div>
-        }
-
-        <!-- Campañas de salud -->
-        @if (currentData.campanasImagenes.length > 0) {
-          <h3 class="sm-section-title">Campañas de salud</h3>
-          <div class="sm-img-grid">
-            @for (img of currentData.campanasImagenes; track img.src) {
-              <img [src]="img.src" [alt]="img.alt" />
-            }
-          </div>
-        }
-
-        <!-- Talleres -->
-        @if (currentData.talleresImagenes.length > 0) {
-          <h3 class="sm-section-title">Talleres</h3>
-          <div class="sm-img-grid">
-            @for (img of currentData.talleresImagenes; track img.src) {
-              <img [src]="img.src" [alt]="img.alt" />
-            }
-          </div>
-        }
-
-        <!-- Bibliografía -->
-        <h3 class="sm-biblio-title">Listado de Bibliografía relacionada a la Promoción de la Salud</h3>
-
-      } @else {
-        <p class="empty-msg">Sin contenido disponible para {{ selectedYear }}.</p>
-      }
-
+<main class="sm-page">
+  <!-- Hero Section -->
+  <section class="hero-component" aria-labelledby="sm-title">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fa-solid fa-heart-pulse" aria-hidden="true"></i>
+        <span>Salud & Prevención</span>
+      </div>
+      <h1 id="sm-title">Soporte Médico y Salud</h1>
+      <p class="hero-subtitle">
+        Atención primaria, triaje preventivo, campañas de salud integral y respuesta inmediata ante emergencias
+        para toda la comunidad del I.E.S.P.P. Virgen del Carmen.
+      </p>
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- Contenido Principal -->
+  <section class="sm-main" aria-label="Contenido anual de soporte médico">
+    <div class="page-layout">
+
+      <!-- Sidebar de Años -->
+      <aside class="year-sidebar" aria-label="Selector de año lectivo">
+        <h2 class="year-sidebar-title">
+          <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+          <span>Año Lectivo</span>
+        </h2>
+        <div class="year-list" role="tablist" aria-label="Años disponibles">
+          @for (year of years; track year) {
+            <button
+              class="year-btn"
+              [class.active]="selectedYear === year"
+              (click)="selectYear(year)"
+              role="tab"
+              [attr.aria-selected]="selectedYear === year"
+            >
+              {{ year }}
+            </button>
+          }
+        </div>
+      </aside>
+
+      <!-- Área de Contenido -->
+      <div class="sm-container">
+
+        <!-- Título -->
+        <div class="sm-header-box">
+          <h2 class="sm-title">Tópico y Soporte Médico Institucional — Año {{ selectedYear }}</h2>
+        </div>
+
+        @if (hasContent) {
+
+          <!-- Presentación e Imagen -->
+          <div class="sm-intro-layout">
+            @if (currentData.presentacionImg) {
+              <div class="sm-presentacion-wrap">
+                <img
+                  [src]="currentData.presentacionImg"
+                  alt="Personal de salud en atención médica"
+                  class="sm-presentacion-img"
+                  loading="lazy"
+                />
+              </div>
+            }
+
+            @if (currentData.descripcion.length > 0) {
+              <div class="sm-descripcion">
+                @for (parrafo of currentData.descripcion; track $index) {
+                  @if (parrafo.esTitulo) {
+                    <h3 class="sm-desc-heading">{{ parrafo.texto }}</h3>
+                  } @else {
+                    <p class="sm-desc-p">{{ parrafo.texto }}</p>
+                  }
+                }
+              </div>
+            }
+          </div>
+
+          <!-- Campañas de salud -->
+          @if (currentData.campanasImagenes.length > 0) {
+            <section class="sm-section" aria-labelledby="campanas-heading">
+              <h3 id="campanas-heading" class="sm-section-title">
+                <i class="fa-solid fa-stethoscope" aria-hidden="true"></i>
+                <span>Campañas de Salud y Prevención</span>
+              </h3>
+              <div class="sm-img-grid">
+                @for (img of currentData.campanasImagenes; track img.src) {
+                  <div class="sm-img-card">
+                    <img [src]="img.src" [alt]="img.alt" loading="lazy" />
+                  </div>
+                }
+              </div>
+            </section>
+          }
+
+          <!-- Talleres -->
+          @if (currentData.talleresImagenes.length > 0) {
+            <section class="sm-section" aria-labelledby="talleres-med-heading">
+              <h3 id="talleres-med-heading" class="sm-section-title">
+                <i class="fa-solid fa-kit-medical" aria-hidden="true"></i>
+                <span>Talleres de Primeros Auxilios y Hábitos Saludables</span>
+              </h3>
+              <div class="sm-img-grid">
+                @for (img of currentData.talleresImagenes; track img.src) {
+                  <div class="sm-img-card">
+                    <img [src]="img.src" [alt]="img.alt" loading="lazy" />
+                  </div>
+                }
+              </div>
+            </section>
+          }
+
+        } @else {
+          <div class="empty-state">
+            <i class="fa-solid fa-folder-open" aria-hidden="true"></i>
+            <p>Sin información médica registrada para el año {{ selectedYear }}.</p>
+          </div>
+        }
+
+      </div>
+    </div>
+  </section>
+</main>

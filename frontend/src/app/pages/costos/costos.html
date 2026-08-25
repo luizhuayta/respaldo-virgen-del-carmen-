@@ -1,10 +1,19 @@
-<section class="hero-component">
-  <div class="hero-content">
-    <h1>Costos 2026</h1>
-    <p>Instituto de Educación Superior Pedagógico Público Virgen del Carmen</p>
-  </div>
-</section>
+<main class="transparencia-detail-page">
+  <section class="hero-component" aria-labelledby="costos-title">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fa-solid fa-scale-balanced" aria-hidden="true"></i>
+        <span>Transparencia Institucional</span>
+      </div>
+      <h1 id="costos-title">Costos Educativos y Tasas Formativas</h1>
+      <p class="hero-subtitle">
+        Información pública oficial sobre costos académicos, matrícula y conceptos formativos aprobados por el
+        I.E.S.P.P. Virgen del Carmen bajo la Ley N.° 30512.
+      </p>
+    </div>
+  </section>
 
-<section class="contenedor-pdf">
-  <app-vista-archivos [documents]="pdfCostos()"></app-vista-archivos>
-</section>
+  <section class="contenedor-pdf" aria-label="Documentos de costos institucionales">
+    <app-vista-archivos [documents]="pdfCostos()"></app-vista-archivos>
+  </section>
+</main>

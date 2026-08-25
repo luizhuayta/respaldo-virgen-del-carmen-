@@ -1,10 +1,50 @@
-<section class="hero-component">
-  <div class="hero-content">
-    <h1>Programas</h1>
-    <p>Instituto de Educación Superior Pedagógico Público Virgen del Carmen</p>
-  </div>
-</section>
+<main class="programas-page">
+  <!-- Hero Section -->
+  <section class="hero-component" aria-labelledby="programas-title">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
+        <span>Formación Inicial Docente</span>
+      </div>
+      <h1 id="programas-title">Programas de Estudio y Malla Curricular</h1>
+      <p class="hero-subtitle">
+        Formación magisterial de excelencia, investigación pedagógica y práctica preprofesional continua.
+        Conoce los planes curriculares y perfiles de egreso de nuestras carreras docentes.
+      </p>
+    </div>
+  </section>
 
-<section class="contenedor-pdf">
-  <app-vista-archivos [documents]="docs()"></app-vista-archivos>
-</section>
+  <!-- Quick Info Pills -->
+  <section class="programas-features-bar" aria-label="Características del modelo formativo">
+    <div class="features-container">
+      <div class="feature-item">
+        <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+        <div>
+          <strong>10 Semestres</strong>
+          <span>5 años de formación integral</span>
+        </div>
+      </div>
+      <div class="feature-item">
+        <i class="fa-solid fa-certificate" aria-hidden="true"></i>
+        <div>
+          <strong>Título Profesional</strong>
+          <span>Con rango universitario oficial</span>
+        </div>
+      </div>
+      <div class="feature-item">
+        <i class="fa-solid fa-chalkboard-user" aria-hidden="true"></i>
+        <div>
+          <strong>Práctica Docente</strong>
+          <span>Desde los primeros ciclos en aula</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contenedor del Visor de Documentos -->
+  <section class="contenedor-pdf" aria-label="Planes y documentos de los programas de estudio">
+    <div class="pdf-wrapper">
+      <app-vista-archivos [documents]="docs()"></app-vista-archivos>
+    </div>
+  </section>
+</main>

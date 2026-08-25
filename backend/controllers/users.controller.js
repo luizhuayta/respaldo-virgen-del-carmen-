@@ -16,7 +16,9 @@ exports.createUsers = async (req, res) => {
             description
         });
 
-        return res.status(201).json(newUser);
+        const { password: _password, ...userWithoutPassword } = newUser.toJSON();
+
+        return res.status(201).json(userWithoutPassword);
     } catch (error) {
         console.error(error.message);
         return res.status(500).json({ message: 'Error interno del servidor. Inténtelo de nuevo más tarde.' });
@@ -29,6 +31,7 @@ exports.getUsers = async (req, res) => {
             {},
             [['createdAt', 'ASC']]
         );
+        query.attributes = { exclude: ['password'] };
         const users = await db.Users.findAll(query);
         res.status(200).json(users);
     } catch (error) {
@@ -53,7 +56,10 @@ exports.updateUser = async (req, res) => {
         users.description = description;
 
         await users.save();
-        res.status(200).json(users);
+
+        const { password: _password, ...userWithoutPassword } = users.toJSON();
+
+        res.status(200).json(userWithoutPassword);
     } catch (error) {
         console.error(error.message);
         return res.status(500).json({ message: 'Error interno del servidor. Inténtelo de nuevo más tarde.' });

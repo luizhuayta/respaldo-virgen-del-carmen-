@@ -1,30 +1,34 @@
 <!-- Hero Section -->
-<section class="hero-section">
+<section class="hero-section" aria-labelledby="nosotros-hero-title">
   <div class="hero-container">
     <div class="hero-content">
-      <h1 class="hero-title">Nosotros</h1>
+      <h1 id="nosotros-hero-title" class="hero-title">Institucionalidad y Comunidad</h1>
       <p class="hero-description">
-        Formamos profesionales líderes con valores sólidos y visión global. Más de 20 años
-        transformando la educación técnica superior con tecnología de vanguardia.
+        Formamos profesionales docentes de excelencia con sólida vocación pedagógica, integridad ética y compromiso social.
+        Más de 35 años liderando la formación magisterial y el desarrollo educativo en Paucartambo y la región Cusco.
       </p>
     </div>
     <div class="hero-image">
-      <img src="images/Group-10.png" alt="Estudiantes" />
+      <img src="images/Group-10.png" alt="Comunidad académica y estudiantes del I.E.S.P.P. Virgen del Carmen" width="560" height="380" fetchpriority="high" decoding="async" />
     </div>
   </div>
 </section>
 
-<!-- Botones flotantes (Misión, Visión, Valores) -->
-<section class="buttons-section">
-  <button id="btn-mision" class="floating-btn" (click)="showContent('mision')">
-    <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<!-- Botones de Pilares Institucionales (Misión, Visión, Valores, Organigrama) -->
+<section class="buttons-section" aria-label="Pilares e identidad institucional">
+  <button id="btn-mision" class="floating-btn" [class.floating-btn-active]="activeContent() === 'mision'"
+    (click)="showContent('mision')" [attr.aria-expanded]="activeContent() === 'mision'" aria-controls="dynamicContentArea"
+    aria-label="Ver Misión institucional">
+    <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
     </svg>
     <span class="btn-text">Misión</span>
   </button>
 
-  <button id="btn-vision" class="floating-btn" (click)="showContent('vision')">
-    <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <button id="btn-vision" class="floating-btn" [class.floating-btn-active]="activeContent() === 'vision'"
+    (click)="showContent('vision')" [attr.aria-expanded]="activeContent() === 'vision'" aria-controls="dynamicContentArea"
+    aria-label="Ver Visión institucional">
+    <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
         d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
@@ -33,8 +37,10 @@
     <span class="btn-text">Visión</span>
   </button>
 
-  <button id="btn-valores" class="floating-btn" (click)="showContent('valores')">
-    <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <button id="btn-valores" class="floating-btn" [class.floating-btn-active]="activeContent() === 'valores'"
+    (click)="showContent('valores')" [attr.aria-expanded]="activeContent() === 'valores'" aria-controls="dynamicContentArea"
+    aria-label="Ver Valores institucionales">
+    <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
         d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
       </path>
@@ -42,9 +48,10 @@
     <span class="btn-text">Valores</span>
   </button>
 
-  <button id="btn-valores" class="floating-btn" [class.floating-btn-active]="activeContent() === 'organigrama'"
-    (click)="showContent('organigrama')">
-    <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <button id="btn-organigrama" class="floating-btn" [class.floating-btn-active]="activeContent() === 'organigrama'"
+    (click)="showContent('organigrama')" [attr.aria-expanded]="activeContent() === 'organigrama'" aria-controls="dynamicContentArea"
+    aria-label="Ver Organigrama y estructura organizacional">
+    <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
         d="M9 17v-2h6v2m-6-6V9h6v2M5 21h14a2 2 0 002-2V7l-5-5H7a2 2 0 00-2 2v15a2 2 0 002 2z">
       </path>
@@ -53,122 +60,118 @@
   </button>
 </section>
 
-<!-- Área de contenido dinámico (Misión/Visión/Valores) -->
-<section class="content-area" *ngIf="activeContent() as content">
-
+<!-- Área de contenido dinámico (Misión/Visión/Valores/Organigrama) -->
+<section id="dynamicContentArea" class="content-area" *ngIf="activeContent() as content" aria-live="polite">
   <div class="content-container">
-
     @switch (content) {
-
-    @case ('mision') {
-    <div class="content-text">
-      <h3 class="content-title">Nuestra Misión</h3>
-      <div class="rich-content ql-editor" [innerHTML]="sanitizeHtml(career()?.mision)">
+      @case ('mision') {
+      <div class="content-text">
+        <h2 class="content-title">Nuestra Misión</h2>
+        <div class="rich-content ql-editor" [innerHTML]="sanitizeHtml(career()?.mision || 'Formar profesionales de la educación competentes, críticos y reflexivos, con sólida preparación científica, pedagógica y humanística.')">
+        </div>
       </div>
-    </div>
-    }
+      }
 
-    @case ('vision') {
-    <div class="content-text">
-      <h3 class="content-title">Nuestra Visón</h3>
-      <div class="rich-content ql-editor" [innerHTML]="sanitizeHtml(career()?.vision)">
+      @case ('vision') {
+      <div class="content-text">
+        <h2 class="content-title">Nuestra Visión</h2>
+        <div class="rich-content ql-editor" [innerHTML]="sanitizeHtml(career()?.vision || 'Ser una institución pedagógica licenciada, referente regional y nacional en la formación docente inicial y continua, promotora de la innovación y la identidad intercultural.')">
+        </div>
       </div>
-    </div>
-    }
+      }
 
-    @case ('valores') {
-    <div class="content-text">
-      <h3 class="content-title">Nuestros Valores</h3>
-      <div class="rich-content ql-editor" [innerHTML]="sanitizeHtml(career()?.values)">
+      @case ('valores') {
+      <div class="content-text">
+        <h2 class="content-title">Nuestros Valores</h2>
+        <div class="rich-content ql-editor" [innerHTML]="sanitizeHtml(career()?.values || 'Vocación de servicio, integridad, compromiso social, interculturalidad y excelencia académica.')">
+        </div>
       </div>
-    </div>
-    }
+      }
 
-    @case ('organigrama') {
-    <div class="content-text organigrama-block">
-      <img src="images/organigrama-institucional-ii.png" alt="Organigrama" />
-      <button class="preview-zoom-btn" (click)="openImageViewer($event)">
-        <i class="fas fa-expand"></i>
-      </button>
-    </div>
+      @case ('organigrama') {
+      <div class="content-text organigrama-block">
+        <h2 class="content-title">Estructura Organizacional</h2>
+        <div class="organigrama-wrapper">
+          <img src="images/organigrama-institucional-ii.png" alt="Organigrama Institucional del IESPP Virgen del Carmen" width="900" height="500" loading="lazy" decoding="async" />
+          <button class="preview-zoom-btn" (click)="openImageViewer($event)" aria-label="Ampliar imagen del organigrama">
+            <i class="fas fa-expand" aria-hidden="true"></i>
+            <span>Ampliar Organigrama</span>
+          </button>
+        </div>
+      </div>
+      }
     }
-
-    }
-
   </div>
-
 </section>
 
-
 <!-- Historia -->
-<section class="historia-section">
+<section class="historia-section" aria-labelledby="historia-title">
   <div class="historia-card">
-
-    <h2 class="section-title">Historia</h2>
-
+    <h2 id="historia-title" class="section-title">Reseña Histórica</h2>
     <div class="historia-layout">
-
       <!-- IMAGEN -->
       <div class="historia-image">
-        <img src="images/sede-cusco-edu.jpeg" alt="" />
+        <img src="images/sede-cusco-edu.jpeg" alt="Sede institucional del I.E.S.P.P. Virgen del Carmen en Paucartambo" width="480" height="320" loading="lazy" decoding="async" />
       </div>
 
       <!-- TEXTO -->
       <div class="historia-text-wrapper">
         <div class="historia-text ql-editor" [class.expanded]="expandedHistory()"
-          [innerHTML]="sanitizeHtml(career()?.history)">
+          [innerHTML]="sanitizeHtml(career()?.history || 'El Instituto de Educación Superior Pedagógico Público Virgen del Carmen fue creado para responder a las necesidades formativas docentes en la provincia de Paucartambo y la región Cusco.')">
         </div>
 
-        <span class="ver-mas" (click)="toggleHistory()">
-          {{ expandedHistory() ? 'Ver menos' : 'Ver más' }}
-        </span>
+        <button class="ver-mas-btn" (click)="toggleHistory()" [attr.aria-expanded]="expandedHistory()">
+          {{ expandedHistory() ? 'Ver menos' : 'Leer reseña completa' }}
+        </button>
       </div>
-
     </div>
-
   </div>
 </section>
 
-<!-- Autoridades y docentes -->
-<section class="autoridades-section" id="docentes">
-  <h2 class="section-title">Autoridades y Docentes</h2>
+<!-- Autoridades y Docentes -->
+<section class="autoridades-section" id="docentes" aria-labelledby="docentes-title">
+  <h2 id="docentes-title" class="section-title">Autoridades y Plana Docente</h2>
 
   <div class="autoridades-layout">
-
     <!-- Sidebar de Años -->
-    <aside class="year-sidebar">
-      <h3 class="year-sidebar-title">Año</h3>
-      @for (year of years; track year) {
-      <button class="year-btn" [class.active]="selectedYear === year" (click)="selectYear(year)">{{ year }}</button>
-      }
+    <aside class="year-sidebar" aria-label="Filtrar por año académico">
+      <h3 class="year-sidebar-title">Año Académico</h3>
+      <div class="year-btn-list" role="tablist">
+        @for (year of years(); track year) {
+        <button class="year-btn" [class.active]="selectedYear() === year" (click)="selectYear(year)" role="tab" [attr.aria-selected]="selectedYear() === year">
+          {{ year }}
+        </button>
+        }
+      </div>
     </aside>
 
     <!-- Contenido -->
     <div class="autoridades-content">
-
       <!-- Filtro por áreas -->
-      <div class="area-filter-bar">
-        <button class="area-chip" [class.active]="selectedArea === null" (click)="selectArea(null)">
-          Todos
+      <div class="area-filter-bar" role="group" aria-label="Filtrar por área de especialidad">
+        <button class="area-chip" [class.active]="selectedArea() === null" (click)="selectArea(null)">
+          Todas las áreas
         </button>
         @for (area of availableAreas(); track area) {
-        <button class="area-chip" [class.active]="selectedArea === area" (click)="selectArea(area)">
+        <button class="area-chip" [class.active]="selectedArea() === area" (click)="selectArea(area)">
           {{ area }}
         </button>
         }
       </div>
 
-      @if (currentPersonal.length > 0) {
+      @if (currentPersonal().length > 0) {
       <div class="autoridades-grid">
-        @for (persona of currentPersonal; track persona.id) {
-        <div class="autor-card" [class.autor-placeholder]="!persona.foto" (click)="openProfile(persona)">
-          @if (persona.foto) {
-          <img [src]="persona.foto" [alt]="persona.nombre" class="autor-img" />
-          } @else {
-          <div class="placeholder-img">
-            <i class="fas fa-user"></i>
+        @for (persona of currentPersonal(); track persona.id) {
+        <div class="autor-card" [class.autor-placeholder]="!persona.foto" (click)="openProfile(persona)" (keydown.enter)="openProfile(persona)" tabindex="0" role="button" [attr.aria-label]="'Ver perfil profesional de ' + persona.nombre">
+          <div class="autor-img-wrap">
+            @if (persona.foto) {
+            <img src="images/avatar-placeholder.png" [src]="persona.foto" [alt]="persona.nombre" width="280" height="280" class="autor-img" loading="lazy" decoding="async" (error)="onImgError($event)" />
+            } @else {
+            <div class="placeholder-img" aria-hidden="true">
+              <i class="fas fa-user-graduate"></i>
+            </div>
+            }
           </div>
-          }
           <div class="autor-info">
             <h3 class="autor-name">{{ persona.nombre }}</h3>
             <p class="autor-role">{{ persona.cargo }}</p>
@@ -180,39 +183,43 @@
         }
       </div>
       } @else {
-      <p class="empty-msg">Sin personal registrado para {{ selectedYear }}.</p>
+      <div class="empty-state-notice">
+        <i class="fa-solid fa-chalkboard-user" aria-hidden="true"></i>
+        <p>No se encontraron registros de plana docente para el año {{ selectedYear() }}.</p>
+      </div>
       }
-
     </div>
   </div>
 </section>
 
-<!-- MODAL PERFIL -->
+<!-- MODAL PERFIL DOCENTE -->
 @if (activeProfile()) {
-<div class="profile-backdrop" (click)="closeProfile()">
+<div class="profile-backdrop" (click)="closeProfile()" role="dialog" aria-modal="true" aria-labelledby="modal-docente-nombre">
   <div class="profile-modal" (click)="$event.stopPropagation()">
-
-    <button class="profile-close" (click)="closeProfile()">×</button>
+    <button class="profile-close" (click)="closeProfile()" aria-label="Cerrar ventana de perfil">×</button>
 
     <div class="profile-top">
       <div class="profile-avatar">
         @if (activeProfile()!.foto) {
-        <img [src]="activeProfile()!.foto" [alt]="activeProfile()!.nombre" />
+        <img src="images/avatar-placeholder.png" [src]="activeProfile()!.foto" [alt]="activeProfile()!.nombre" width="160" height="160" (error)="onImgError($event)" />
         } @else {
-        <div class="profile-avatar-placeholder">
-          <i class="fas fa-user"></i>
+        <div class="profile-avatar-placeholder" aria-hidden="true">
+          <i class="fas fa-user-graduate"></i>
         </div>
         }
       </div>
 
       <div class="profile-info">
-        <h2 class="profile-name">{{ activeProfile()!.nombre }}</h2>
+        <h2 id="modal-docente-nombre" class="profile-name">{{ activeProfile()!.nombre }}</h2>
         <p class="profile-role">{{ activeProfile()!.cargo }}</p>
         @if (activeProfile()!.area) {
         <span class="profile-area-badge">{{ activeProfile()!.area }}</span>
         }
         @if (activeProfile()!.email) {
-        <p class="profile-email"><i class="fas fa-envelope"></i> {{ activeProfile()!.email }}</p>
+        <p class="profile-email">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+          <a [href]="'mailto:' + activeProfile()!.email">{{ activeProfile()!.email }}</a>
+        </p>
         }
         @if (activeProfile()!.descripcion) {
         <p class="profile-desc">{{ activeProfile()!.descripcion }}</p>
@@ -220,17 +227,26 @@
       </div>
     </div>
 
-    <!-- CV -->
+    <!-- CV Section -->
     @if (activeProfile()!.pdf_url) {
     <div class="profile-cv-section">
       <div class="profile-cv-header">
-        <i class="fas fa-file-pdf"></i>
-        <span>Currículum Vitae</span>
+        <i class="fas fa-file-pdf" aria-hidden="true"></i>
+        <span>Hoja de Vida / Currículum Vitae</span>
       </div>
-      <iframe [src]="safePdfUrl()!" class="profile-cv-iframe"></iframe>
+      <iframe [src]="safePdfUrl()!" title="Currículum Vitae en PDF" class="profile-cv-iframe"></iframe>
     </div>
     }
+  </div>
+</div>
+}
 
+<!-- MODAL VISOR ORGANIGRAMA -->
+@if (imageViewer()) {
+<div class="modal-viewer-backdrop" (click)="closeImageViewer()" role="dialog" aria-modal="true" aria-label="Visor ampliado del organigrama">
+  <div class="modal-viewer-content" (click)="$event.stopPropagation()">
+    <button class="modal-viewer-close" (click)="closeImageViewer()" aria-label="Cerrar visor">×</button>
+    <img src="images/organigrama-institucional-ii.png" alt="Organigrama Institucional Completo" class="modal-viewer-img" />
   </div>
 </div>
 }

@@ -1,4 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 interface Taller {
@@ -30,9 +31,11 @@ interface YearData {
 
 @Component({
   selector: 'app-psicopedagogico',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './psicopedagógico.html',
   styleUrl: './psicopedagógico.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Psicopedagogico {
   activeTab: 'presentacion' | 'talleres' | 'campanas' | 'reporte' = 'presentacion';

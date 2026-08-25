@@ -50,16 +50,19 @@ const storage = multer.diskStorage({
     }
 });
 
+const allowedMimeExtMap = {
+    'application/pdf': ['.pdf'],
+    'image/png': ['.png'],
+    'image/jpeg': ['.jpg', '.jpeg'],
+    'image/jpg': ['.jpg', '.jpeg']
+};
+
 const fileFilter = (req, file, cb) => {
 
-    const allowedTypes = [
-        'application/pdf',
-        'image/png',
-        'image/jpeg',
-        'image/jpg'
-    ];
+    const ext = path.extname(file.originalname).toLowerCase();
+    const allowedExtensions = allowedMimeExtMap[file.mimetype];
 
-    if (allowedTypes.includes(file.mimetype)) {
+    if (allowedExtensions && allowedExtensions.includes(ext)) {
         cb(null, true);
     } else {
         cb(

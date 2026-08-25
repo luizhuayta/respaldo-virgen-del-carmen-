@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 interface Imagen {
   src: string;
@@ -14,9 +15,11 @@ interface YearDataSS {
 
 @Component({
   selector: 'app-servicio-social',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './servicio-social.html',
   styleUrl: './servicio-social.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ServicioSocial {
   selectedYear = 2024;

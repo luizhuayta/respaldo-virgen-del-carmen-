@@ -1,10 +1,19 @@
-<section class="hero-component">
-  <div class="hero-content">
-    <h1>Inversiones 2026</h1>
-    <p>Instituto de Educación Superior Pedagógico Público Virgen del Carmen</p>
-  </div>
-</section>
+<main class="transparencia-detail-page">
+  <section class="hero-component" aria-labelledby="inversiones-title">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fa-solid fa-coins" aria-hidden="true"></i>
+        <span>Transparencia Institucional</span>
+      </div>
+      <h1 id="inversiones-title">Inversiones y Donaciones</h1>
+      <p class="hero-subtitle">
+        Rendición de cuentas, balance de inversiones en infraestructura, equipamiento y donaciones recibidas por
+        el I.E.S.P.P. Virgen del Carmen.
+      </p>
+    </div>
+  </section>
 
-<section class="contenedor-pdf">
-  <app-vista-archivos [documents]="inversionesDocs()"></app-vista-archivos>
-</section>
+  <section class="contenedor-pdf" aria-label="Documentos de inversiones institucionales">
+    <app-vista-archivos [documents]="inversionesDocs()"></app-vista-archivos>
+  </section>
+</main>

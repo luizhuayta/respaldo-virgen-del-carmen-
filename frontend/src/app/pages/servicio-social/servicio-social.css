@@ -1,273 +1,382 @@
-/* ===========================
-   HERO SECTION
-   =========================== */
+:host {
+  display: block;
+  --color-primary: #323f7c;
+  --color-primary-dark: #1a2456;
+  --color-primary-light: #eaf0ff;
+  --color-secondary: #f28c1b;
+  --color-secondary-hover: #d97a0e;
+  --color-secondary-light: #fff4e5;
+  --color-bg-canvas: #f5f7fb;
+  --color-surface: #ffffff;
+  --color-text-main: #2d3748;
+  --color-text-dark: #1a2456;
+  --color-text-muted: #8a9bc4;
+  --color-text-secondary: #6c757d;
+  --color-border-subtle: #eef0f7;
+  --color-border-medium: #e0e6ed;
+  --card-radius: 16px;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ss-page {
+  background-color: var(--color-bg-canvas, #f5f7fb);
+  min-height: 80vh;
+}
+
+/* ===== HERO COMPONENT ===== */
 .hero-component {
-  background-image: url('/images/banner-hero-nosotros.png');
-  padding: 80px 20px;
+  background: linear-gradient(135deg, #1a2456 0%, #323f7c 100%);
+  padding: 60px 24px;
   text-align: center;
+  color: #ffffff;
+  position: relative;
+}
+
+.hero-content {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px);
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  margin-bottom: 16px;
 }
 
 .hero-content h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 16px;
-  color: #1e3a8a;
+  font-size: clamp(2rem, 3.8vw, 2.75rem);
+  font-weight: 800;
+  margin-bottom: 12px;
+  line-height: 1.2;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
-/* ===========================
-   CONTENIDO PRINCIPAL
-   =========================== */
-.ss-main {
-  background: #f5f7fb;
-  padding: 40px 20px 64px;
-}
-
-/* ===========================
-   LAYOUT DOS COLUMNAS
-   =========================== */
-.page-layout {
-  max-width: 1140px;
+.hero-subtitle {
+  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+  line-height: 1.6;
+  color: #eaf0ff;
+  max-width: 720px;
   margin: 0 auto;
-  display: flex;
-  align-items: flex-start;
-  gap: 24px;
 }
 
-/* ---- Sidebar de Años ---- */
+/* ===== MAIN SECTION & LAYOUT ===== */
+.ss-main {
+  padding: 40px 24px 72px;
+}
+
+.page-layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+/* Year Sidebar */
 .year-sidebar {
-  flex-shrink: 0;
-  width: 130px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(50, 63, 124, 0.12);
-  padding: 22px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  background: var(--color-surface, #ffffff);
+  border-radius: var(--card-radius, 16px);
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(50, 63, 124, 0.06);
+  border: 1px solid var(--color-border-subtle, #eef0f7);
   position: sticky;
-  top: 20px;
+  top: 90px;
 }
 
 .year-sidebar-title {
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: #aab0c8;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  text-align: center;
-  margin: 0 0 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eef0f7;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--color-primary-dark, #1a2456);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.year-sidebar-title i {
+  color: var(--color-secondary, #f28c1b);
+}
+
+.year-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .year-btn {
-  width: 100%;
-  padding: 11px 8px;
-  border: none;
-  background: transparent;
-  color: #778;
-  border-radius: 8px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: var(--color-bg-canvas, #f5f7fb);
+  color: var(--color-text-main, #2d3748);
+  font-weight: 700;
   font-size: 0.95rem;
-  font-weight: 600;
-  font-family: 'Poppins', sans-serif;
+  text-align: left;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
-  text-align: center;
-  letter-spacing: 0.02em;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  min-height: 44px;
 }
 
-.year-btn:hover:not(.active) {
-  background: #f0f3fa;
-  color: #323f7c;
-  transform: translateX(2px);
+.year-btn:hover {
+  background: var(--color-primary-light, #eaf0ff);
+  color: var(--color-primary-dark, #1a2456);
 }
 
 .year-btn.active {
-  background: linear-gradient(135deg, #323f7c 0%, #4a5a9e 100%);
+  background: var(--color-primary, #323f7c);
   color: #ffffff;
-  box-shadow: 0 4px 14px rgba(50, 63, 124, 0.35);
-  transform: translateX(2px);
+  border-color: var(--color-primary, #323f7c);
 }
 
-/* ---- Área de contenido ---- */
+/* Container */
 .ss-container {
-  flex: 1;
+  background: var(--color-surface, #ffffff);
+  border-radius: var(--card-radius, 16px);
+  padding: 36px;
+  box-shadow: 0 4px 20px rgba(50, 63, 124, 0.06);
+  border: 1px solid var(--color-border-subtle, #eef0f7);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
   min-width: 0;
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 14px rgba(50, 63, 124, 0.1);
-  padding: 36px 32px;
 }
 
-/* ---- Mensaje vacío ---- */
-.empty-msg {
-  color: #aab0c8;
-  font-size: 0.95rem;
-  text-align: center;
-  padding: 48px 0;
-  font-style: italic;
+.ss-header-box {
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--color-border-subtle, #eef0f7);
 }
 
-/* Título principal */
 .ss-title {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #323f7c;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-bottom: 20px;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--color-primary-dark, #1a2456);
+  margin: 0;
 }
 
-/* Intro */
+/* Intro Card */
+.ss-intro-card {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  background: var(--color-bg-canvas, #f5f7fb);
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid var(--color-border-subtle, #eef0f7);
+}
+
+.ss-intro-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--color-primary-light, #eaf0ff);
+  color: var(--color-primary, #323f7c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
 .ss-intro {
-  color: #444;
-  font-size: 0.95rem;
-  line-height: 1.85;
-  margin-bottom: 24px;
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: var(--color-text-main, #2d3748);
+  margin: 0;
 }
 
-/* Funciones */
-.ss-funciones-label {
-  font-weight: 700;
-  color: #1a1a2e;
-  font-size: 0.95rem;
-  margin-bottom: 10px;
+/* Sections */
+.ss-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.ss-funciones-list {
-  list-style: disc;
-  padding-left: 24px;
-  margin-bottom: 36px;
-  color: #444;
-  font-size: 0.93rem;
-  line-height: 2;
-}
-
-/* ===========================
-   TÍTULOS DE SECCIÓN
-   =========================== */
 .ss-section-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #323f7c;
-  margin-bottom: 20px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--color-primary-dark, #1a2456);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
 }
 
-/* ===========================
-   ÁMBITO DE INTERVENCIÓN
-   =========================== */
+.ss-section-title i {
+  color: var(--color-secondary, #f28c1b);
+}
+
+/* Funciones List */
+.ss-funciones-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.ss-funciones-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #fafbff;
+  border-radius: 10px;
+  border: 1px solid var(--color-border-subtle, #eef0f7);
+  font-size: 0.93rem;
+  line-height: 1.5;
+  color: var(--color-text-main, #2d3748);
+}
+
+.ss-funciones-list li i {
+  color: #16a34a;
+  margin-top: 3px;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+/* Ámbitos Grid */
 .ss-ambito-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-bottom: 36px;
-  text-align: center;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
 }
 
 .ss-ambito-item {
+  margin: 0;
+  background: var(--color-bg-canvas, #f5f7fb);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid var(--color-border-subtle, #eef0f7);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
 .ss-ambito-img {
   width: 100%;
-  max-height: 220px;
+  max-height: 180px;
   object-fit: contain;
-  display: block;
+  border-radius: 8px;
 }
 
-/* ===========================
-   DIVISOR ONDULADO
-   =========================== */
-.ss-wavy-divider {
-  width: 100%;
-  height: 16px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 16' preserveAspectRatio='none'%3E%3Cpath d='M0 8 Q10 0 20 8 Q30 16 40 8 Q50 0 60 8 Q70 16 80 8 Q90 0 100 8 Q110 16 120 8' stroke='%23323f7c' stroke-width='2' fill='none'/%3E%3C/svg%3E");
-  background-repeat: repeat-x;
-  background-size: 120px 16px;
-  margin: 8px 0 36px;
-  opacity: 0.5;
+.ss-ambito-caption {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-primary-dark, #1a2456);
+  text-align: center;
 }
 
-/* ===========================
-   GRILLA DE IMÁGENES (TALLERES)
-   =========================== */
+/* Talleres Grid */
 .ss-img-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  margin-bottom: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
 }
 
-.ss-img-grid img {
+.ss-img-card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--color-border-subtle, #eef0f7);
+}
+
+.ss-img-card img {
   width: 100%;
-  border-radius: 8px;
-  box-shadow: 0 3px 12px rgba(50, 63, 124, 0.12);
+  height: 220px;
+  object-fit: cover;
   display: block;
 }
 
-/* ===========================
-   BIBLIOGRAFÍA
-   =========================== */
-.ss-biblio-title {
-  font-size: 0.97rem;
-  font-weight: 700;
-  color: #323f7c;
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  line-height: 1.6;
+  padding: 48px 24px;
+  color: var(--color-text-secondary, #6c757d);
+  gap: 12px;
 }
 
-/* ===========================
-   RESPONSIVE
-   =========================== */
-@media (max-width: 768px) {
-  .hero-content h1 {
-    font-size: 2rem;
-  }
+.empty-state i {
+  font-size: 3rem;
+  color: var(--color-text-muted, #8a9bc4);
+}
 
+.empty-state p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Focus Visible */
+button:focus-visible {
+  outline: 2px solid var(--color-secondary, #f28c1b);
+  outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
   .page-layout {
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
 
   .year-sidebar {
-    width: 100%;
-    flex-direction: row;
-    flex-wrap: wrap;
     position: static;
-    padding: 14px;
-    gap: 8px;
-    border-radius: 10px;
   }
 
-  .year-sidebar-title {
-    width: 100%;
-    text-align: left;
-    margin: 0 0 4px;
-    padding-bottom: 6px;
+  .year-list {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 4px;
   }
 
   .year-btn {
-    flex: 1;
-    min-width: 64px;
-    padding: 9px 4px;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-component {
+    padding: 40px 16px;
   }
 
-  .year-btn:hover:not(.active),
-  .year-btn.active {
-    transform: none;
+  .ss-main {
+    padding: 24px 12px 48px;
   }
 
   .ss-container {
-    padding: 22px 16px;
+    padding: 20px 16px;
+    gap: 24px;
   }
 
-  .ss-ambito-grid {
-    grid-template-columns: 1fr;
+  .ss-intro-card {
+    flex-direction: column;
   }
 
   .ss-img-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .year-btn {
+    transition: none !important;
   }
 }

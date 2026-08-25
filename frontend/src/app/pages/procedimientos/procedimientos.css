@@ -1,58 +1,85 @@
+:host {
+  display: block;
+  --color-primary: #323f7c;
+  --color-primary-dark: #1a2456;
+  --color-primary-light: #eaf0ff;
+  --color-secondary: #f28c1b;
+  --color-bg-canvas: #f5f7fb;
+  --color-surface: #ffffff;
+  --color-text-main: #2d3748;
+  --color-text-secondary: #6c757d;
+  --color-border-subtle: #eef0f7;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.transparencia-detail-page {
+  background-color: var(--color-bg-canvas, #f5f7fb);
+  min-height: 80vh;
+}
+
+/* ===== HERO COMPONENT ===== */
 .hero-component {
-  background-image: url('/images/banner-hero-nosotros.png');
-  padding: 80px 20px;
+  background: linear-gradient(135deg, #1a2456 0%, #323f7c 100%);
+  padding: 60px 24px;
   text-align: center;
+  color: #ffffff;
+  position: relative;
+}
+
+.hero-content {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px);
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  margin-bottom: 16px;
 }
 
 .hero-content h1 {
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #1e3a8a;
+  font-size: clamp(2rem, 3.8vw, 2.75rem);
+  font-weight: 800;
+  margin-bottom: 12px;
+  line-height: 1.2;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
-.hero-content p {
-  font-size: 1rem;
-  color: #323f7c;
+.hero-subtitle {
+  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+  line-height: 1.6;
+  color: #eaf0ff;
+  max-width: 720px;
+  margin: 0 auto;
 }
 
+/* ===== CONTENEDOR PDF ===== */
 .contenedor-pdf {
-  padding: 40px 20px;
-  background: #f5f7fb;
-  display: flex;
-  justify-content: center;
+  padding: 40px 24px 72px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* --- RESPONSIVE DESIGN */
 @media (max-width: 768px) {
   .hero-component {
-    padding: 60px 15px !important;
-  }
-
-  .hero-content h1 {
-    font-size: 2.2rem !important;
-    line-height: 1.2;
-  }
-
-  .hero-content p {
-    font-size: 0.95rem !important;
+    padding: 40px 16px;
   }
 
   .contenedor-pdf {
-    padding: 20px 10px !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-component {
-    padding: 40px 10px !important;
-  }
-
-  .hero-content h1 {
-    font-size: 1.8rem !important;
-  }
-
-  .hero-content p {
-    font-size: 0.85rem !important;
+    padding: 24px 12px 48px;
   }
 }

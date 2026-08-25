@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 interface Imagen {
   src: string;
@@ -19,9 +20,11 @@ interface YearDataSM {
 
 @Component({
   selector: 'app-soporte-medico',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './soporte-medico.html',
   styleUrl: './soporte-medico.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SoporteMedico {
   selectedYear = 2024;

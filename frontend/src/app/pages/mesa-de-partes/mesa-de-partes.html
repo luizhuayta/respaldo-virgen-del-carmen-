@@ -1,551 +1,448 @@
-<!-- Hero Section -->
-<section class="hero-component">
-  <div class="hero-content">
-    <h1>Mesa de Partes Virtual</h1>
-
-    <p>
-      Instituto de Educación Superior
-      Pedagógico Público Virgen del Carmen
-    </p>
-  </div>
-</section>
-
-<!-- Contenido -->
-<section class="mdp-main">
-
-  <div class="mdp-container">
-
-    <!-- Cabecera -->
-    <div class="mdp-card-header">
-
-      <h2>
-        <i class="fas fa-inbox"></i>
-        Mesa de Partes Virtual
-      </h2>
-
-      <p>
-        Formulario para el registro y envío
-        de documentos institucionales.
+<main class="mesa-partes-page">
+  <!-- Hero Section -->
+  <section class="hero-component" aria-labelledby="mdp-title">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fa-solid fa-envelope-open-text" aria-hidden="true"></i>
+        <span>Trámites Digitales Oficiales</span>
+      </div>
+      <h1 id="mdp-title">Mesa de Partes Virtual</h1>
+      <p class="hero-subtitle">
+        Plataforma oficial para la recepción, registro y seguimiento de solicitudes, recursos y documentos
+        dirigidos a las dependencias del I.E.S.P.P. Virgen del Carmen de Paucartambo.
       </p>
-
     </div>
-
-    <!-- FORMULARIO -->
-    <div class="mdp-card">
-
-      <form (ngSubmit)="enviar()" #f="ngForm">
-
-        <div class="mdp-two-col">
-
-          <!-- IZQUIERDA -->
-          <div class="mdp-section">
-
-            <h3 class="section-heading">
-              <i class="fas fa-user"></i>
-              Datos del Remitente
-            </h3>
-
-            <div class="form-group">
-
-              <label>
-                Nombre Completo
-              </label>
-
-              <input type="text" placeholder="Ej. Juan Pérez" [(ngModel)]="form.nombres" name="nombres" required />
-
-            </div>
-
-            <div class="form-group">
-
-              <label>
-                DNI / RUC
-              </label>
-
-              <input type="text" placeholder="Ej. 123456789" [(ngModel)]="form.dni" name="dni" required />
-
-            </div>
-
-            <div class="form-group">
-
-              <label>
-                Correo Electrónico
-              </label>
-
-              <input type="email" placeholder="ejemplo@email.com" [(ngModel)]="form.correo" name="correo" required />
-
-            </div>
-
-            <div class="form-group">
-
-              <label>
-                Número de Celular/Teléfono
-              </label>
-
-              <input type="tel" placeholder="Ej. +51 987654321" [(ngModel)]="form.telefono" name="telefono" required />
-
-            </div>
-
-            <div class="form-group">
-
-              <label>
-                Condición
-              </label>
-
-              <select [(ngModel)]="form.condicion" name="condicion" required>
-
-                <option value="" disabled selected>
-                  Selecciona tu condición
-                </option>
-
-                <option>
-                  Estudiante
-                </option>
-
-                <option>
-                  Docente
-                </option>
-
-                <option>
-                  Administrativo
-                </option>
-
-                <option>
-                  Egresado
-                </option>
-
-                <option>
-                  Externo
-                </option>
-
-              </select>
-
-            </div>
-
-            <div class="form-group">
-
-              <label>
-                Código de Verificación
-              </label>
-
-              <div class="captcha-wrap">
-
-                <input type="text" placeholder="Ingrese el código" [(ngModel)]="captchaInput" name="captcha" required />
-
-                <div class="captcha-img" (click)="generarCaptcha()" title="Clic para refrescar">
-                  {{ captchaCode }}
-                </div>
-
-              </div>
-
-              <small>
-                Ingrese el código de la imagen
-                para verificar que no es un bot
-              </small>
-
-            </div>
-
-          </div>
-
-          <!-- DERECHA -->
-          <div class="mdp-section">
-
-            <h3 class="section-heading">
-              <i class="fas fa-file-alt"></i>
-              Datos del Documento
-            </h3>
-
-            <div class="form-group">
-
-              <label>
-                Tipo de Documento
-              </label>
-
-              <select [(ngModel)]="form.tipoDoc" name="tipoDoc" required>
-
-                <option value="" disabled selected>
-                  Selecciona el tipo
-                </option>
-
-                <option>
-                  Solicitud
-                </option>
-
-                <option>
-                  Recurso de reconsideración
-                </option>
-
-                <option>
-                  Apelación
-                </option>
-
-                <option>
-                  Constancia
-                </option>
-
-                <option>
-                  Certificado
-                </option>
-
-                <option>
-                  Otro
-                </option>
-
-              </select>
-
-            </div>
-
-            <div class="form-group">
-
-              <label>
-                Asunto
-              </label>
-
-              <input type="text" placeholder="Asunto del documento" [(ngModel)]="form.asunto" name="asunto" required />
-
-            </div>
-
-            <div class="form-group">
-
-              <label>
-                Mensaje
-              </label>
-
-              <textarea rows="5" placeholder="Mensaje o descripción detallada del documento" [(ngModel)]="form.mensaje"
-                name="mensaje"></textarea>
-
-            </div>
-
-            <div class="form-group">
-
-              <label>
-                Cantidad de Folios
-              </label>
-
-              <input type="number" min="1" [(ngModel)]="form.folios" name="folios" required />
-
-            </div>
-
-            <div class="form-group">
-
-              <label>
-                Adjuntar Archivo
-              </label>
-
-              <div class="file-input-wrap">
-
-                <i class="fas fa-upload"></i>
-
-                <span>
-                  Elegir archivo
-                </span>
-
-                <input type="file" accept=".pdf,.jpg,.jpeg,.png" (change)="onFileSelected($event)" />
-
-              </div>
-
-              <small>
-                Máximo 10MB. Para documentos
-                más grandes utilice el campo
-                "Link de Documento"
-              </small>
-
-            </div>
-
-            <div class="form-group">
-
-              <label>
-                Link de Documento (Opcional)
-              </label>
-
-              <input type="url" placeholder="https://ejemplo.com/documento.pdf" [(ngModel)]="form.linkDocumento"
-                name="linkDocumento" />
-
-              <small>
-                Use este campo para documentos
-                mayores a 10MB
-              </small>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <!-- BOTÓN -->
-        <button type="submit" class="btn-enviar" [disabled]="f.invalid || isSubmitting">
-
-          @if (!isSubmitting) {
-
-          <span>
-            Enviar Documento
-          </span>
-
-          }
-
-          @if (isSubmitting) {
-
-          <span>
-            Enviando documento...
-          </span>
-
-          }
-
-        </button>
-
-      </form>
-
-      <!-- CONSULTAR -->
-      <div class="mdp-tracking">
-
+  </section>
+
+  <!-- Contenido Principal -->
+  <section class="mdp-main" aria-label="Formulario de ingreso de documentos">
+    <div class="mdp-container">
+      
+      <!-- Cabecera de la Tarjeta -->
+      <div class="mdp-card-header">
+        <h2>
+          <i class="fa-solid fa-inbox" aria-hidden="true"></i>
+          Registro de Documento Digital
+        </h2>
         <p>
-          ¿Ya tienes un código de seguimiento?
+          Complete los datos del remitente y adjunte los documentos sustentatorios en formato PDF o enlace web.
         </p>
+      </div>
 
-        <button class="btn-tracking" (click)="toggleTracking()">
+      <!-- FORMULARIO -->
+      <div class="mdp-card">
+        <form (ngSubmit)="enviar()" #f="ngForm" novalidate>
+          <div class="mdp-two-col">
 
-          Consultar Trámite
+            <!-- COLUMNA IZQUIERDA: REMITENTE -->
+            <fieldset class="mdp-section">
+              <legend class="section-heading">
+                <i class="fa-solid fa-user" aria-hidden="true"></i>
+                Datos del Remitente
+              </legend>
 
-        </button>
+              <div class="form-group">
+                <label for="mdp-nombres">Nombre Completo <span class="req">*</span></label>
+                <input
+                  id="mdp-nombres"
+                  type="text"
+                  placeholder="Ej. María Quispe Huamán"
+                  [(ngModel)]="form.nombres"
+                  name="nombres"
+                  required
+                  autocomplete="name"
+                />
+              </div>
 
-        @if (showTracking) {
+              <div class="form-group">
+                <label for="mdp-dni">DNI / RUC <span class="req">*</span></label>
+                <input
+                  id="mdp-dni"
+                  type="text"
+                  placeholder="Ej. 72345678"
+                  [(ngModel)]="form.dni"
+                  name="dni"
+                  required
+                  maxlength="11"
+                />
+              </div>
 
-        <div class="tracking-input">
+              <div class="form-group">
+                <label for="mdp-correo">Correo Electrónico <span class="req">*</span></label>
+                <input
+                  id="mdp-correo"
+                  type="email"
+                  placeholder="ejemplo@correo.com"
+                  [(ngModel)]="form.correo"
+                  name="correo"
+                  required
+                  autocomplete="email"
+                />
+                <small>Recibirá las notificaciones y estado de su trámite en este correo.</small>
+              </div>
 
-          <input type="text" placeholder="Ingresa tu código de seguimiento" [(ngModel)]="trackingCode"
-            name="trackingCode" />
+              <div class="form-group">
+                <label for="mdp-telefono">Número de Celular / Teléfono <span class="req">*</span></label>
+                <input
+                  id="mdp-telefono"
+                  type="tel"
+                  placeholder="Ej. 987654321"
+                  [(ngModel)]="form.telefono"
+                  name="telefono"
+                  required
+                  autocomplete="tel"
+                />
+              </div>
 
-          <button class="btn-consultar" (click)="consultar()" [disabled]="!trackingCode.trim() || isConsulting">
+              <div class="form-group">
+                <label for="mdp-condicion">Condición del Remitente <span class="req">*</span></label>
+                <select id="mdp-condicion" [(ngModel)]="form.condicion" name="condicion" required>
+                  <option value="" disabled selected>Selecciona tu condición</option>
+                  <option value="Estudiante">Estudiante</option>
+                  <option value="Docente">Docente</option>
+                  <option value="Administrativo">Personal Administrativo</option>
+                  <option value="Egresado">Egresado / Graduado</option>
+                  <option value="Externo">Público Externo / Ciudadano</option>
+                </select>
+              </div>
 
-            {{ isConsulting ? 'Consultando...' : 'Consultar' }}
+              <div class="form-group">
+                <label for="mdp-captcha">Código de Verificación <span class="req">*</span></label>
+                <div class="captcha-wrap">
+                  <input
+                    id="mdp-captcha"
+                    type="text"
+                    placeholder="Código de 5 dígitos"
+                    [ngModel]="captchaInput()"
+                    (ngModelChange)="captchaInput.set($event)"
+                    name="captcha"
+                    required
+                    maxlength="5"
+                  />
+                  <button
+                    type="button"
+                    class="captcha-img"
+                    (click)="generarCaptcha()"
+                    title="Clic para refrescar código de seguridad"
+                    aria-label="Refrescar código de seguridad"
+                  >
+                    {{ captchaCode() }}
+                  </button>
+                </div>
+                <small>Ingrese los números de la imagen para validar su solicitud.</small>
+              </div>
+            </fieldset>
 
+            <!-- COLUMNA DERECHA: DOCUMENTO -->
+            <fieldset class="mdp-section">
+              <legend class="section-heading">
+                <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+                Datos del Documento
+              </legend>
+
+              <div class="form-group">
+                <label for="mdp-tipodoc">Tipo de Documento <span class="req">*</span></label>
+                <select id="mdp-tipodoc" [(ngModel)]="form.tipoDoc" name="tipoDoc" required>
+                  <option value="" disabled selected>Selecciona el tipo</option>
+                  <option value="Solicitud">Solicitud (FUT)</option>
+                  <option value="Recurso de reconsideración">Recurso de Reconsideración</option>
+                  <option value="Apelación">Recurso de Apelación</option>
+                  <option value="Constancia">Trámite de Constancia</option>
+                  <option value="Certificado">Trámite de Certificado</option>
+                  <option value="Oficio">Oficio / Carta Externa</option>
+                  <option value="Otro">Otro Documento</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="mdp-asunto">Asunto del Trámite <span class="req">*</span></label>
+                <input
+                  id="mdp-asunto"
+                  type="text"
+                  placeholder="Ej. Solicitud de constancia de egresado"
+                  [(ngModel)]="form.asunto"
+                  name="asunto"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="mdp-mensaje">Detalle / Fundamentación</label>
+                <textarea
+                  id="mdp-mensaje"
+                  rows="4"
+                  placeholder="Describa brevemente la solicitud o fundamentación..."
+                  [(ngModel)]="form.mensaje"
+                  name="mensaje"
+                ></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="mdp-folios">Cantidad de Folios (Páginas) <span class="req">*</span></label>
+                <input
+                  id="mdp-folios"
+                  type="number"
+                  min="1"
+                  [(ngModel)]="form.folios"
+                  name="folios"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="mdp-file">Adjuntar Archivo (PDF / Imagen)</label>
+                <div class="file-input-wrap">
+                  <i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i>
+                  <span>{{ selectedFile ? selectedFile.name : 'Seleccionar archivo (máx. 10MB)' }}</span>
+                  <input
+                    id="mdp-file"
+                    type="file"
+                    accept=".pdf,.jpg,.jpeg,.png,.webp"
+                    (change)="onFileSelected($event)"
+                  />
+                </div>
+                <small>Para expedientes mayores a 10MB, utilice el campo de enlace web inferior.</small>
+              </div>
+
+              <div class="form-group">
+                <label for="mdp-link">Enlace del Documento (Opcional - Google Drive / OneDrive)</label>
+                <input
+                  id="mdp-link"
+                  type="url"
+                  placeholder="https://drive.google.com/..."
+                  [(ngModel)]="form.linkDocumento"
+                  name="linkDocumento"
+                />
+              </div>
+            </fieldset>
+
+          </div>
+
+          <!-- BOTÓN ENVIAR -->
+          <div class="mdp-actions">
+            <button
+              type="submit"
+              class="btn-enviar"
+              [disabled]="f.invalid || isSubmitting()"
+            >
+              @if (!isSubmitting()) {
+                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+                <span>Enviar Documento a Mesa de Partes</span>
+              } @else {
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+                <span>Enviando documento...</span>
+              }
+            </button>
+          </div>
+        </form>
+
+        <!-- SECCIÓN SEGUIMIENTO / CONSULTA -->
+        <div class="mdp-tracking">
+          <div class="tracking-divider">
+            <span>¿Ya ingresó un documento?</span>
+          </div>
+
+          <button
+            type="button"
+            class="btn-tracking-toggle"
+            (click)="toggleTracking()"
+            [attr.aria-expanded]="showTracking()"
+            aria-controls="tracking-panel"
+          >
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <span>Consultar Estado de Trámite por Código</span>
+            <i class="fa-solid fa-chevron-down toggle-chevron" [class.rotated]="showTracking()" aria-hidden="true"></i>
           </button>
 
+          @if (showTracking()) {
+            <div id="tracking-panel" class="tracking-input-box">
+              <div class="tracking-input-group">
+                <label for="mdp-track-code" class="sr-only">Código de Seguimiento</label>
+                <input
+                  id="mdp-track-code"
+                  type="text"
+                  placeholder="Ej. MP-2026-XXXX"
+                  [ngModel]="trackingCode()"
+                  (ngModelChange)="trackingCode.set($event)"
+                  name="trackingCode"
+                />
+                <button
+                  type="button"
+                  class="btn-consultar"
+                  (click)="consultar()"
+                  [disabled]="!trackingCode().trim() || isConsulting()"
+                >
+                  @if (isConsulting()) {
+                    <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+                    <span>Consultando...</span>
+                  } @else {
+                    <i class="fa-solid fa-search" aria-hidden="true"></i>
+                    <span>Consultar</span>
+                  }
+                </button>
+              </div>
+
+              @if (consultaError()) {
+                <p class="consulta-error" role="alert">
+                  <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+                  <span>{{ consultaError() }}</span>
+                </p>
+              }
+            </div>
+          }
         </div>
 
-        @if (consultaError) {
-        <p class="consulta-error">
-          <i class="fas fa-exclamation-circle"></i>
-          {{ consultaError }}
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL ÉXITO -->
+  @if (showSuccessModal()) {
+    <div class="modal-backdrop" (click)="closeModal()">
+      <div
+        class="modal-card modal-success"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="success-modal-title"
+        (click)="$event.stopPropagation()"
+      >
+        <button type="button" class="modal-close" (click)="closeModal()" aria-label="Cerrar modal">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+
+        <div class="modal-icon-wrap" aria-hidden="true">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+
+        <h2 id="success-modal-title">¡Documento Registrado con Éxito!</h2>
+        <p class="modal-desc">
+          Su trámite ha ingresado satisfactoriamente a la Mesa de Partes Virtual del I.E.S.P.P. Virgen del Carmen.
         </p>
+
+        <div class="tracking-code-box">
+          <span class="code-label">Código de Seguimiento</span>
+          <strong class="code-value">{{ trackingCode() }}</strong>
+        </div>
+
+        <p class="modal-note">
+          Guarde este código para realizar consultas posteriores del estado de su expediente.
+          También hemos enviado una copia de confirmación a su correo electrónico.
+        </p>
+
+        <button type="button" class="btn-modal-primary" (click)="closeModal()">
+          Entendido, finalizar
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- MODAL CONSULTA RESULTADO -->
+  @if (showConsultaModal() && consultaResult(); as item) {
+    <div class="modal-backdrop" (click)="closeConsultaModal()">
+      <div
+        class="modal-card modal-consulta"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="consulta-modal-title"
+        (click)="$event.stopPropagation()"
+      >
+        <button type="button" class="modal-close" (click)="closeConsultaModal()" aria-label="Cerrar detalles">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+
+        <div class="consulta-header">
+          <div>
+            <span class="consulta-eyebrow">Estado de Expediente</span>
+            <h2 id="consulta-modal-title">Trámite N.° {{ item.tracking_code }}</h2>
+          </div>
+          <span [class]="'status-badge ' + getStatusClass(item.processing_status)">
+            {{ item.processing_status }}
+          </span>
+        </div>
+
+        <div class="status-callout" [ngClass]="'status-callout--' + getStatusClass(item.processing_status)">
+          <i class="fa-solid fa-info-circle" aria-hidden="true"></i>
+          <p>{{ getStatusMessage(item.processing_status) }}</p>
+        </div>
+
+        <div class="consulta-grid">
+          <div class="info-field">
+            <span class="info-label">Remitente</span>
+            <span class="info-val">{{ item.full_name }}</span>
+          </div>
+          <div class="info-field">
+            <span class="info-label">DNI / RUC</span>
+            <span class="info-val">{{ item.DNI_RUC }}</span>
+          </div>
+          <div class="info-field">
+            <span class="info-label">Condición</span>
+            <span class="info-val">{{ item.c_condition }}</span>
+          </div>
+          <div class="info-field">
+            <span class="info-label">Tipo de Documento</span>
+            <span class="info-val">{{ item.document_type }}</span>
+          </div>
+          <div class="info-field info-field--full">
+            <span class="info-label">Asunto</span>
+            <span class="info-val font-bold">{{ item.v_subject }}</span>
+          </div>
+          @if (item.v_message) {
+            <div class="info-field info-field--full">
+              <span class="info-label">Mensaje / Fundamentación</span>
+              <p class="info-val-msg">{{ item.v_message }}</p>
+            </div>
+          }
+          <div class="info-field">
+            <span class="info-label">Folios</span>
+            <span class="info-val">{{ item.number_of_pages }}</span>
+          </div>
+          <div class="info-field">
+            <span class="info-label">Fecha de Envío</span>
+            <span class="info-val">{{ formatDate(item.createdAt) }}</span>
+          </div>
+        </div>
+
+        <!-- Archivos / Enlaces -->
+        @if (item.attached_file_url) {
+          <div class="attached-file-box">
+            <div class="attached-info">
+              <i class="fa-solid fa-file-pdf pdf-red" aria-hidden="true"></i>
+              <span class="file-name">{{ getFileName(item.attached_file_url) }}</span>
+            </div>
+            <button
+              type="button"
+              class="btn-file-open"
+              (click)="abrirArchivo(getFileUrl(item.attached_file_url))"
+            >
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+              <span>Ver Archivo Adjunto</span>
+            </button>
+          </div>
         }
 
+        @if (item.document_url) {
+          <div class="attached-file-box">
+            <div class="attached-info">
+              <i class="fa-solid fa-link link-blue" aria-hidden="true"></i>
+              <span class="file-name">Enlace Externo del Documento</span>
+            </div>
+            <button
+              type="button"
+              class="btn-file-open"
+              (click)="abrirArchivo(item.document_url)"
+            >
+              <i class="fa-solid fa-external-link" aria-hidden="true"></i>
+              <span>Abrir Enlace</span>
+            </button>
+          </div>
         }
 
+        <div class="modal-footer">
+          <button type="button" class="btn-modal-close-wide" (click)="closeConsultaModal()">
+            Cerrar Consulta
+          </button>
+        </div>
       </div>
-
     </div>
-
-  </div>
-
-</section>
-
-<!-- MODAL -->
-
-@if (showSuccessModal) {
-
-<div class="modal-overlay">
-  <div class="success-modal">
-    <button class="modal-close" (click)="closeModal()">
-      ×
-    </button>
-    <div class="modal-icon">
-      <i class="fas fa-check-circle"></i>
-    </div>
-    <h2>
-      Documento enviado correctamente
-    </h2>
-    <p>
-      Su solicitud fue registrada
-      satisfactoriamente en la
-      Mesa de Partes Virtual.
-
-    </p>
-    <p>
-      La institución atenderá
-      su solicitud en el menor
-      tiempo posible.
-    </p>
-    <div class="tracking-box">
-      <span class="tracking-label">Código de seguimiento</span>
-      <strong>
-        {{ trackingCode }}
-      </strong>
-    </div>
-    <p class="tracking-note">
-      Guarde este código para
-      consultar el estado de
-      su trámite posteriormente.
-    </p>
-  </div>
-</div>
-}
-
-@if (showConsultaModal && consultaResult) {
-
-<div class="modal-overlay" (click)="closeConsultaModal()">
-
-  <div class="consulta-modal" (click)="$event.stopPropagation()">
-
-    <button class="modal-close" (click)="closeConsultaModal()">
-      ×
-    </button>
-
-    <div class="consulta-header">
-
-      <h2>
-        <i class="fas fa-file-alt"></i>
-        Detalles del Trámite
-      </h2>
-
-      <span [class]="'status-badge ' + getStatusClass(consultaResult.processing_status)">
-        {{ consultaResult.processing_status }}
-      </span>
-
-    </div>
-
-    <div class="consulta-tracking-box">
-      <span class="tracking-label">Código de Seguimiento</span>
-      <strong>{{ consultaResult.tracking_code }}</strong>
-    </div>
-
-    <div class="consulta-status-message" [class.msg-pendiente]="consultaResult.processing_status === 'Pendiente'"
-      [class.msg-aceptado]="consultaResult.processing_status === 'Aceptado'"
-      [class.msg-rechazado]="consultaResult.processing_status === 'Rechazado'"
-      [class.msg-finalizado]="consultaResult.processing_status === 'Finalizado'">
-
-      <i class="fas" [class.fa-clock]="consultaResult.processing_status === 'Pendiente'"
-        [class.fa-check-circle]="consultaResult.processing_status === 'Aceptado'"
-        [class.fa-times-circle]="consultaResult.processing_status === 'Rechazado'"
-        [class.fa-flag-checkered]="consultaResult.processing_status === 'Finalizado'">
-      </i>
-
-      <span>
-        {{ getStatusMessage(consultaResult.processing_status) }}
-      </span>
-
-    </div>
-
-    <div class="consulta-grid">
-
-      <div class="consulta-field">
-        <span class="field-label">Nombre Completo</span>
-        <span class="field-value">{{ consultaResult.full_name }}</span>
-      </div>
-
-      <div class="consulta-field">
-        <span class="field-label">DNI / RUC</span>
-        <span class="field-value">{{ consultaResult.DNI_RUC }}</span>
-      </div>
-
-      <div class="consulta-field">
-        <span class="field-label">Correo Electrónico</span>
-        <span class="field-value">{{ consultaResult.email }}</span>
-      </div>
-
-      <div class="consulta-field">
-        <span class="field-label">Teléfono</span>
-        <span class="field-value">{{ consultaResult.phone_number }}</span>
-      </div>
-
-      <div class="consulta-field">
-        <span class="field-label">Condición</span>
-        <span class="field-value">{{ consultaResult.c_condition }}</span>
-      </div>
-
-      <div class="consulta-field">
-        <span class="field-label">Tipo de Documento</span>
-        <span class="field-value">{{ consultaResult.document_type }}</span>
-      </div>
-
-      <div class="consulta-field consulta-field--full">
-        <span class="field-label">Asunto</span>
-        <span class="field-value">{{ consultaResult.v_subject }}</span>
-      </div>
-
-      <div class="consulta-field consulta-field--full">
-        <span class="field-label">Mensaje</span>
-        <span class="field-value consulta-message">{{ consultaResult.v_message }}</span>
-      </div>
-
-      <div class="consulta-field">
-        <span class="field-label">Cantidad de Folios</span>
-        <span class="field-value">{{ consultaResult.number_of_pages }}</span>
-      </div>
-
-      <div class="consulta-field">
-        <span class="field-label">Fecha de Envío</span>
-        <span class="field-value">{{ formatDate(consultaResult.createdAt) }}</span>
-      </div>
-
-    </div>
-
-    @if (consultaResult.attached_file_url) {
-
-    <div class="consulta-file">
-
-      <div class="consulta-file-info">
-
-        @if (getFileType(consultaResult.attached_file_url) === 'pdf') {
-        <i class="fas fa-file-pdf consulta-file-icon pdf-icon"></i>
-        }
-
-        @if (getFileType(consultaResult.attached_file_url) === 'image') {
-        <img [src]="getFileUrl(consultaResult.attached_file_url)" alt="Vista previa" class="consulta-file-preview" />
-        }
-
-        <span class="consulta-file-name">
-          {{ getFileName(consultaResult.attached_file_url) }}
-        </span>
-
-      </div>
-
-      <button class="btn-ver-archivo" (click)="abrirArchivo(getFileUrl(consultaResult.attached_file_url))">
-        <i class="fas fa-external-link-alt"></i>
-        Ver Archivo Adjunto
-      </button>
-
-    </div>
-
-    }
-
-    @if (consultaResult.document_url) {
-
-    <div class="consulta-file">
-
-      <div class="consulta-file-info">
-        <i class="fas fa-link consulta-file-icon link-icon"></i>
-        <span class="consulta-file-name">Enlace del Documento</span>
-      </div>
-
-      <button class="btn-ver-archivo btn-ver-link" (click)="abrirArchivo(consultaResult.document_url)">
-        <i class="fas fa-external-link-alt"></i>
-        Abrir Enlace
-      </button>
-
-    </div>
-
-    }
-
-    <button class="btn-close-consulta" (click)="closeConsultaModal()">
-      Cerrar
-    </button>
-
-  </div>
-
-</div>
-
-}
-
-@if (isSubmitting) {
-
-<div class="loading-overlay">
-
-  <div class="loader"></div>
-
-  <p>
-    Enviando documento...
-  </p>
-
-</div>
-
-}
+  }
+</main>

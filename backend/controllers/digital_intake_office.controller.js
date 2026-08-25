@@ -151,6 +151,10 @@ exports.updateDigitalIntake = async (req, res) => {
         const { processing_status } = req.body;
 
         const tramite = await db.DigitalIntakeOffice.findByPk(id);
+
+        if (!tramite)
+            return res.status(404).json({ message: 'Trámite no encontrado' });
+
         const estadoActual = tramite.processing_status;
 
         if (estadoActual === 'Finalizado') {

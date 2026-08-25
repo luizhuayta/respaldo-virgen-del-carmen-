@@ -1,87 +1,125 @@
-<!-- Hero Section -->
-<section class="hero-component">
-  <div class="hero-content">
-    <h1>Servicio Social</h1>
-    <p>Instituto de Educación Superior Pedagógico Público Virgen del Carmen</p>
-  </div>
-</section>
-
-<!-- Contenido Principal -->
-<section class="ss-main">
-  <div class="page-layout">
-
-    <!-- Sidebar de Años -->
-    <aside class="year-sidebar">
-      <h3 class="year-sidebar-title">Año</h3>
-      @for (year of years; track year) {
-        <button
-          class="year-btn"
-          [class.active]="selectedYear === year"
-          (click)="selectYear(year)"
-        >
-          {{ year }}
-        </button>
-      }
-    </aside>
-
-    <!-- Área de Contenido -->
-    <div class="ss-container">
-
-      <!-- Título -->
-      <h2 class="ss-title">Servicio Social del IESPP Virgen del Carmen — {{ selectedYear }}</h2>
-
-      @if (hasContent) {
-
-        <!-- Descripción -->
-        @if (currentData.intro) {
-          <p class="ss-intro">{{ currentData.intro }}</p>
-        }
-
-        <!-- Funciones -->
-        @if (currentData.funciones.length > 0) {
-          <p class="ss-funciones-label">FUNCIONES:</p>
-          <ul class="ss-funciones-list">
-            @for (funcion of currentData.funciones; track $index) {
-              <li>{{ funcion }}</li>
-            }
-          </ul>
-        }
-
-        <!-- Ámbito de intervención -->
-        @if (currentData.ambitoImagenes.length > 0) {
-          <h3 class="ss-section-title">Ámbito de intervención:</h3>
-          <div class="ss-ambito-grid">
-            @for (img of currentData.ambitoImagenes; track img.src) {
-              <div class="ss-ambito-item">
-                <img [src]="img.src" [alt]="img.alt" class="ss-ambito-img" />
-              </div>
-            }
-          </div>
-
-          <!-- Divisor ondulado -->
-          <div class="ss-wavy-divider"></div>
-        }
-
-        <!-- Talleres -->
-        @if (currentData.talleresImagenes.length > 0) {
-          <h3 class="ss-section-title">Talleres</h3>
-          <div class="ss-img-grid">
-            @for (img of currentData.talleresImagenes; track img.src) {
-              <img [src]="img.src" [alt]="img.alt" />
-            }
-          </div>
-        }
-
-        <!-- Bibliografía -->
-        <p class="ss-biblio-title">
-          Listado de bibliografía sobre las Situaciones y Casos de Estudio que Interfieren
-          en el Aprendizaje de los Estudiantes
-        </p>
-
-      } @else {
-        <p class="empty-msg">Sin contenido disponible para {{ selectedYear }}.</p>
-      }
-
+<main class="ss-page">
+  <!-- Hero Section -->
+  <section class="hero-component" aria-labelledby="ss-title">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fa-solid fa-people-roof" aria-hidden="true"></i>
+        <span>Bienestar & Comunidad</span>
+      </div>
+      <h1 id="ss-title">Servicio Social</h1>
+      <p class="hero-subtitle">
+        Atención personalizada, evaluación socioeconómica y acompañamiento solidario para promover la equidad
+        y el bienestar integral de la comunidad educativa del I.E.S.P.P. Virgen del Carmen.
+      </p>
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- Contenido Principal -->
+  <section class="ss-main" aria-label="Contenido anual de servicio social">
+    <div class="page-layout">
+
+      <!-- Sidebar de Años -->
+      <aside class="year-sidebar" aria-label="Selector de año lectivo">
+        <h2 class="year-sidebar-title">
+          <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+          <span>Año Lectivo</span>
+        </h2>
+        <div class="year-list" role="tablist" aria-label="Años disponibles">
+          @for (year of years; track year) {
+            <button
+              class="year-btn"
+              [class.active]="selectedYear === year"
+              (click)="selectYear(year)"
+              role="tab"
+              [attr.aria-selected]="selectedYear === year"
+            >
+              {{ year }}
+            </button>
+          }
+        </div>
+      </aside>
+
+      <!-- Área de Contenido -->
+      <div class="ss-container">
+
+        <!-- Título -->
+        <div class="ss-header-box">
+          <h2 class="ss-title">Servicio Social Institucional — Año {{ selectedYear }}</h2>
+        </div>
+
+        @if (hasContent) {
+
+          <!-- Descripción -->
+          @if (currentData.intro) {
+            <div class="ss-intro-card">
+              <div class="ss-intro-icon" aria-hidden="true">
+                <i class="fa-solid fa-hands-holding-circle"></i>
+              </div>
+              <p class="ss-intro">{{ currentData.intro }}</p>
+            </div>
+          }
+
+          <!-- Funciones -->
+          @if (currentData.funciones.length > 0) {
+            <section class="ss-section" aria-labelledby="funciones-heading">
+              <h3 id="funciones-heading" class="ss-section-title">
+                <i class="fa-solid fa-clipboard-check" aria-hidden="true"></i>
+                <span>Funciones Principales</span>
+              </h3>
+              <ul class="ss-funciones-list" role="list">
+                @for (funcion of currentData.funciones; track $index) {
+                  <li role="listitem">
+                    <i class="fa-solid fa-check" aria-hidden="true"></i>
+                    <span>{{ funcion }}</span>
+                  </li>
+                }
+              </ul>
+            </section>
+          }
+
+          <!-- Ámbito de intervención -->
+          @if (currentData.ambitoImagenes.length > 0) {
+            <section class="ss-section" aria-labelledby="ambito-heading">
+              <h3 id="ambito-heading" class="ss-section-title">
+                <i class="fa-solid fa-shapes" aria-hidden="true"></i>
+                <span>Ámbitos de Intervención</span>
+              </h3>
+              <div class="ss-ambito-grid">
+                @for (img of currentData.ambitoImagenes; track img.src) {
+                  <figure class="ss-ambito-item">
+                    <img [src]="img.src" [alt]="img.alt" class="ss-ambito-img" loading="lazy" />
+                    <figcaption class="ss-ambito-caption">{{ img.alt }}</figcaption>
+                  </figure>
+                }
+              </div>
+            </section>
+          }
+
+          <!-- Talleres -->
+          @if (currentData.talleresImagenes.length > 0) {
+            <section class="ss-section" aria-labelledby="talleres-heading">
+              <h3 id="talleres-heading" class="ss-section-title">
+                <i class="fa-solid fa-images" aria-hidden="true"></i>
+                <span>Evidencias y Talleres de Sensibilización</span>
+              </h3>
+              <div class="ss-img-grid">
+                @for (img of currentData.talleresImagenes; track img.src) {
+                  <div class="ss-img-card">
+                    <img [src]="img.src" [alt]="img.alt" loading="lazy" />
+                  </div>
+                }
+              </div>
+            </section>
+          }
+
+        } @else {
+          <div class="empty-state">
+            <i class="fa-solid fa-folder-open" aria-hidden="true"></i>
+            <p>Sin contenido de servicio social disponible para el año {{ selectedYear }}.</p>
+          </div>
+        }
+
+      </div>
+    </div>
+  </section>
+</main>

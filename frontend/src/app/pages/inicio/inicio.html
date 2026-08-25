@@ -1,188 +1,213 @@
 <section class="hero">
   <div class="hero-slides">
     <img *ngFor="let img of heroImages; let i = index" [src]="img.src" [alt]="img.alt" class="hero-bg"
-      [class.active]="i === currentHeroIndex" />
+      [class.active]="i === currentHeroIndex"
+      width="1920" height="520"
+      [attr.loading]="i === 0 ? 'eager' : 'lazy'"
+      [attr.fetchpriority]="i === 0 ? 'high' : 'low'"
+      decoding="async" />
   </div>
 
   <div class="overlay"></div>
 
   <div class="hero-content">
-    <h1>INSTITUTO DE<br />EDUCACIÓN SUPERIOR</h1>
-    <p>Forma tu futuro con<br />excelencia y transparencia</p>
+    <h1>I.E.S.P.P. VIRGEN DEL CARMEN</h1>
+    <p>Formación pedagógica de excelencia con vocación, integridad y transparencia</p>
   </div>
 
-  <!-- Botones -->
-
-  <section class="buttons-section">
+  <!-- Botones de Acción Rápida -->
+  <section class="buttons-section" aria-label="Accesos destacados principales">
     <div class="buttons-container">
       <!-- Carreras -->
-      <a routerLink="/programas" class="btn-card carreras">
-        <div class="icon">
+      <a routerLink="/programas" class="btn-card carreras" aria-label="Ver programas de estudios y carreras pedagógicas">
+        <div class="icon" aria-hidden="true">
           <i class="fas fa-graduation-cap"></i>
         </div>
-        <span>Carreras</span>
+        <span>Carreras Pedagógicas</span>
       </a>
 
       <!-- Licencia -->
       <a routerLink="/licenciamiento" class="btn-card licencia" [class.active]="licenciaActiva"
+        [attr.aria-expanded]="licenciaActiva"
+        aria-label="Conoce el proceso de licenciamiento institucional bajo la Ley N.° 30512 del MINEDU"
         (click)="toggleLicencia($event)">
         <div id="licenciaBtn">
           <!-- CONTENIDO NORMAL -->
           <div class="front">
-            <div class="icon">
+            <div class="icon" aria-hidden="true">
               <i class="fas fa-award"></i>
             </div>
             <span>Licenciamiento</span>
           </div>
 
           <!-- PANEL ANIMADO EXTERNO -->
-          <div class="licencia-popup">
-            <img src="images/licencia.png" alt="Licencia" />
+          <div class="licencia-popup" aria-hidden="true">
+            <div class="licencia-popup-card">
+              <i class="fa-solid fa-certificate"></i>
+              <strong>Adecuación CBC</strong>
+              <span>Ley N.° 30512 — MINEDU</span>
+            </div>
           </div>
         </div>
       </a>
     </div>
   </section>
 
-  <!-- Botones laterales -->
-  <a target="_blank" href="https://share.google/DsKX1Yyh9tc2eetBU" class="side-buttons">
-    <div class="side-item">
-      <div class="side-btn">
-        <img src="icons/icon_eva.png" alt="Video" />
+  <!-- Botones laterales a plataformas -->
+  <aside class="side-buttons" aria-label="Accesos directos a plataformas y aulas virtuales">
+    <a target="_blank" href="https://share.google/DsKX1Yyh9tc2eetBU" rel="noopener noreferrer" class="side-item" aria-label="Acceder al Campus Virtual EVA">
+      <div class="side-btn" aria-hidden="true">
+        <img src="icons/icon_eva.png" alt="" width="30" height="30" />
       </div>
-      <span class="side-text">Plataforma EVA</span>
-    </div>
-
-    <a target="_blank" href="https://www.microsoft.com/es-es/microsoft-teams/log-in" class="side-item">
-      <div class="side-btn">
-        <img src="icons/icon_aula.png" alt="aula virtual" />
-      </div>
-      <span class="side-text">Aula virtual</span>
+      <span class="side-text">Campus Virtual EVA</span>
     </a>
 
-    <div class="side-item">
-      <div class="side-btn">
-        <img src="icons/icon_biblioteca.png" alt="Biblioteca virtual" />
+    <a target="_blank" href="https://www.microsoft.com/es-es/microsoft-teams/log-in" rel="noopener noreferrer" class="side-item" aria-label="Acceder al Aula Virtual Microsoft Teams">
+      <div class="side-btn" aria-hidden="true">
+        <img src="icons/icon_aula.png" alt="" width="30" height="30" />
       </div>
-      <span class="side-text">Biblioteca virtual</span>
-    </div>
-  </a>
+      <span class="side-text">Aula Virtual Teams</span>
+    </a>
 
-  <!-- WhatsApp -->
-  <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="whatsapp">
-    <i class="fab fa-whatsapp"></i>
+    <a target="_blank" href="https://share.google/DsKX1Yyh9tc2eetBU" rel="noopener noreferrer" class="side-item" aria-label="Acceder a la Biblioteca Digital">
+      <div class="side-btn" aria-hidden="true">
+        <img src="icons/icon_biblioteca.png" alt="" width="30" height="30" />
+      </div>
+      <span class="side-text">Biblioteca Digital</span>
+    </a>
+  </aside>
+
+  <!-- WhatsApp institucional -->
+  <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="whatsapp" aria-label="Contactar al I.E.S.P.P. Virgen del Carmen por WhatsApp">
+    <i class="fab fa-whatsapp" aria-hidden="true"></i>
   </a>
 </section>
 
 <!-- MAIN CONTENT -->
 <section class="main-content">
   <div class="container">
-    <!-- Transparencia -->
-    <section class="gestion-section">
+    <!-- Transparencia y Gestión -->
+    <section class="gestion-section" aria-labelledby="gestion-title">
       <div class="container">
-        <h2 class="section-title">Transparencia y Gestión Institucional</h2>
-        <div class="gestion-grid">
-          <a routerLink="/becas" class="gestion-card">
-            <i class="fa-solid fa-medal"></i>
-            <h3>Becas y Créditos</h3>
-            <p>Apoyos económicos y financiamiento</p>
-          </a>
+        <h2 id="gestion-title" class="section-title">Transparencia y Gestión Institucional</h2>
 
-          <a routerLink="/costos" class="gestion-card">
-            <i class="fa-solid fa-money-bill-wave"></i>
-            <h3>Costos</h3>
-            <p>Matrículas, pensiones y derechos</p>
-          </a>
+        <div class="gestion-groups">
+          <section class="gestion-group" aria-labelledby="group-postulantes">
+            <h3 id="group-postulantes" class="gestion-group-title">Para postulantes</h3>
+            <div class="gestion-grid">
+              <a routerLink="/admision" class="gestion-card">
+                <i class="fa-solid fa-user-plus" aria-hidden="true"></i>
+                <h4>Admisión</h4>
+                <p>Cronograma, requisitos y vacantes</p>
+              </a>
 
-          <a [routerLink]="['/nosotros']" fragment="docentes" class="gestion-card">
-            <i class="fa-solid fa-chalkboard-user"></i>
-            <h3>Docentes</h3>
-            <p>Planas y perfiles profesionales</p>
-          </a>
+              <a routerLink="/becas" class="gestion-card">
+                <i class="fa-solid fa-medal" aria-hidden="true"></i>
+                <h4>Becas y Créditos</h4>
+                <p>Convenios y apoyos socioeconómicos</p>
+              </a>
 
-          <a routerLink="/estadisticas" class="gestion-card">
-            <i class="fa-solid fa-chart-line"></i>
-            <h3>Estadísticas</h3>
-            <p>Indicadores académicos</p>
-          </a>
+              <a routerLink="/costos" class="gestion-card">
+                <i class="fa-solid fa-money-bill-wave" aria-hidden="true"></i>
+                <h4>Costos</h4>
+                <p>Tasas académicas y conceptos de pago</p>
+              </a>
 
-          <a routerLink="/reglamentos" class="gestion-card">
-            <i class="fa-solid fa-file-lines"></i>
-            <h3>Reglamento</h3>
-            <p>Normativa institucional</p>
-          </a>
+              <a [routerLink]="['/nosotros']" fragment="docentes" class="gestion-card">
+                <i class="fa-solid fa-chalkboard-user" aria-hidden="true"></i>
+                <h4>Docentes</h4>
+                <p>Plana docente y perfil profesional</p>
+              </a>
+            </div>
+          </section>
 
-          <a routerLink="/inversiones" class="gestion-card">
-            <i class="fa-solid fa-coins"></i>
-            <h3>Inversiones</h3>
-            <p>Presupuesto y ejecución</p>
-          </a>
+          <section class="gestion-group" aria-labelledby="group-estudiantes">
+            <h3 id="group-estudiantes" class="gestion-group-title">Para estudiantes y comunidad educativa</h3>
+            <div class="gestion-grid">
+              <a routerLink="/mesa-de-partes" class="gestion-card">
+                <i class="fa-solid fa-envelope-open-text" aria-hidden="true"></i>
+                <h4>Mesa de Partes</h4>
+                <p>Trámites virtuales y solicitudes</p>
+              </a>
 
-          <a routerLink="/procedimientos" class="gestion-card">
-            <i class="fa-solid fa-list-check"></i>
-            <h3>Procedimientos</h3>
-            <p>Trámites y requisitos</p>
-          </a>
+              <a routerLink="/procedimientos" class="gestion-card">
+                <i class="fa-solid fa-list-check" aria-hidden="true"></i>
+                <h4>Procedimientos</h4>
+                <p>Guía de trámites académicos</p>
+              </a>
 
-          <a routerLink="/mesa-de-partes" class="gestion-card">
-            <i class="fa-solid fa-envelope-open-text"></i>
-            <h3>Mesa de Partes</h3>
-            <p>Recepción de documentos</p>
-          </a>
+              <a href="https://share.google/DsKX1Yyh9tc2eetBU" target="_blank" rel="noopener noreferrer" class="gestion-card">
+                <i class="fa-solid fa-laptop-code" aria-hidden="true"></i>
+                <h4>Campus Virtual EVA</h4>
+                <p>Entorno virtual de aprendizaje</p>
+              </a>
 
-          <a href="https://share.google/DsKX1Yyh9tc2eetBU" target="_blank" rel="noopener" class="gestion-card">
-            <i class="fa-solid fa-laptop-code"></i>
-            <h3>Plataforma EVA</h3>
-            <p>Entorno virtual de aprendizaje</p>
-          </a>
+              <a href="https://www.microsoft.com/es-es/microsoft-teams/log-in" target="_blank" rel="noopener noreferrer"
+                class="gestion-card">
+                <i class="fa-solid fa-book-open-reader" aria-hidden="true"></i>
+                <h4>Biblioteca Virtual</h4>
+                <p>Catálogo y recursos académicos</p>
+              </a>
 
-          <a routerLink="/admision" class="gestion-card">
-            <i class="fa-solid fa-user-plus"></i>
-            <h3>Admisión</h3>
-            <p>Proceso de admisión</p>
-          </a>
+              <a routerLink="/estadisticas" class="gestion-card">
+                <i class="fa-solid fa-user-graduate" aria-hidden="true"></i>
+                <h4>Egresados</h4>
+                <p>Bolsa laboral y seguimiento</p>
+              </a>
+            </div>
+          </section>
 
-          <a href="https://www.microsoft.com/es-es/microsoft-teams/log-in" target="_blank" rel="noopener"
-            class="gestion-card">
-            <i class="fa-solid fa-book-open-reader"></i>
-            <h3>Biblioteca Virtual</h3>
-            <p>Recursos bibliográficos</p>
-          </a>
+          <section class="gestion-group" aria-labelledby="group-transparencia">
+            <h3 id="group-transparencia" class="gestion-group-title">Transparencia y rendición de cuentas</h3>
+            <div class="gestion-grid">
+              <a routerLink="/transparencia" class="gestion-card">
+                <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+                <h4>Transparencia</h4>
+                <p>Transparencia activa y resoluciones</p>
+              </a>
 
-          <a routerLink="/estadisticas" class="gestion-card">
-            <i class="fa-solid fa-user-graduate"></i>
-            <h3>Egresados</h3>
-            <p>Seguimiento de egresados</p>
-          </a>
+              <a routerLink="/reglamentos" class="gestion-card">
+                <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+                <h4>Reglamentos</h4>
+                <p>Reglamento institucional y directivas</p>
+              </a>
 
-          <a routerLink="/transparencia" class="gestion-card">
-            <i class="fa-solid fa-shield-halved"></i>
-            <h3>Transparencia</h3>
-            <p>Información institucional</p>
-          </a>
+              <a routerLink="/inversiones" class="gestion-card">
+                <i class="fa-solid fa-coins" aria-hidden="true"></i>
+                <h4>Inversiones</h4>
+                <p>Presupuesto y ejecución institucional</p>
+              </a>
 
-          <a routerLink="/repositorio" class="gestion-card">
-            <i class="fa-solid fa-database"></i>
-            <h3>Repositorio</h3>
-            <p>Documentos académicos</p>
-          </a>
+              <a routerLink="/estadisticas" class="gestion-card">
+                <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+                <h4>Estadísticas</h4>
+                <p>Indicadores de rendimiento y matrícula</p>
+              </a>
+
+              <a routerLink="/repositorio" class="gestion-card">
+                <i class="fa-solid fa-database" aria-hidden="true"></i>
+                <h4>Repositorio</h4>
+                <p>Tesis y producción académica</p>
+              </a>
+            </div>
+          </section>
         </div>
       </div>
     </section>
 
-    <!-- Servicios -->
+    <!-- Servicios Complementarios -->
     <div class="servicios-section">
-      <h2>Otros Servicios</h2>
+      <h2>Programas y Capacitación Continua</h2>
       <div class="servicios-grid">
         <div class="servicio-card">
           <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&h=360&fit=crop"
-            alt="Curso de idiomas" />
-          <div class="servicio-label">Curso de idiomas</div>
+            alt="Programa de formación en lenguas originarias y extranjeras" width="600" height="360" loading="lazy" decoding="async" (error)="onImageError($event, 'news')" />
+          <div class="servicio-label">Centro de Idiomas (Quechua / Inglés)</div>
         </div>
         <div class="servicio-card">
           <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=360&fit=crop"
-            alt="Curso de Capacitación" />
-          <div class="servicio-label">Curso de Capacitación</div>
+            alt="Talleres y cursos de actualización y especialización docente" width="600" height="360" loading="lazy" decoding="async" (error)="onImageError($event, 'news')" />
+          <div class="servicio-label">Talleres de Actualización Docente</div>
         </div>
       </div>
     </div>
@@ -190,15 +215,13 @@
     <!-- Top Grid: Noticias (3) + Comunicados (2) -->
     <div class="top-grid">
       <!-- Noticias -->
-      <div class="news-section">
-        <h2>Últimas Noticias</h2>
+      <section class="news-section" aria-labelledby="noticias-title">
+        <h2 id="noticias-title">Noticias Institucionales</h2>
         @for (noticia of latestNoticias(); track noticia.id) {
-        <a routerLink="/noticias" class="news-card">
-          <img [src]="noticia.img_url" [alt]="noticia.title" />
+        <a routerLink="/noticias" class="news-card" [attr.aria-label]="'Leer noticia institucional: ' + noticia.title">
+          <img [src]="noticia.img_url" [alt]="noticia.title || 'Noticia institucional'" width="400" height="250" loading="lazy" decoding="async" (error)="onImageError($event, 'news')" />
           <div class="news-body">
-            <strong>
-              <p class="news-title">{{ noticia.title }}</p>
-            </strong>
+            <p class="news-title">{{ noticia.title }}</p>
             <span class="news-date">
               {{ noticia.createdAt | date:'dd/MM/yyyy' }}
             </span>
@@ -206,45 +229,52 @@
         </a>
         }
         @if (latestNoticias().length === 0) {
-        <p style="color:#999; font-size:0.9rem">Sin noticias por ahora.</p>
+        <div class="empty-state-notice">
+          <i class="fa-solid fa-newspaper" aria-hidden="true"></i>
+          <p>No hay noticias publicadas recientemente. Las novedades institucionales se actualizarán periódicamente.</p>
+        </div>
         }
-      </div>
+      </section>
 
       <!-- Comunicados -->
-      <div class="comunicados-section">
-        <h2>Comunicados</h2>
+      <section class="comunicados-section" aria-labelledby="comunicados-title">
+        <h2 id="comunicados-title">Comunicados Oficiales</h2>
 
         @for (com of latestComunicados(); track com.id) {
-        <div class="comunicado-item">
+        <article class="comunicado-item">
           <div class="comunicado-text">
-            <strong>
-              <p>{{ com.title }}</p>
-            </strong>
+            <p class="comunicado-title">{{ com.title }}</p>
             <span class="news-date">{{ com.createdAt | date:'dd/MM/yyyy' }}</span>
           </div>
 
           <div class="comunicado-media">
-            <img [src]="com.img_url" [alt]="com.title" />
-            <a [routerLink]="['/comunicado', com.id]" class="ver-mas">Ver más</a>
+            <img [src]="com.img_url" [alt]="com.title || 'Comunicado institucional'" width="120" height="70" loading="lazy" decoding="async" (error)="onImageError($event, 'comunicado')" />
+            <a [routerLink]="['/comunicado', com.id]" class="ver-mas" [attr.aria-label]="'Ver comunicado oficial: ' + com.title">Ver comunicado</a>
           </div>
-        </div>
+        </article>
         }
 
         @if (latestComunicados().length === 0) {
-        <p style="color:#999; font-size:0.9rem">Sin comunicados por ahora.</p>
+        <div class="empty-state-notice">
+          <i class="fa-solid fa-bullhorn" aria-hidden="true"></i>
+          <p>No hay comunicados oficiales activos en este momento.</p>
+        </div>
         }
-      </div>
+      </section>
     </div>
 
-    <!-- Carousel -->
-    <div class="carousel" #carousel>
-      <div class="carousel-track" #track>
-        <a class="carousel-item" *ngFor="let item of items" [href]="item.url"
-          [attr.target]="item.url.startsWith('http') ? '_blank' : '_self'"
-          [attr.rel]="item.url.startsWith('http') ? 'noopener noreferrer' : null">
-          <img [src]="item.image" [alt]="item.alt" />
-        </a>
+    <!-- Carousel de Enlaces Institucionales -->
+    <section class="carousel-section" aria-label="Enlaces y portales institucionales aliados del sector educación">
+      <div class="carousel" #carousel>
+        <div class="carousel-track" #track>
+          <a class="carousel-item" *ngFor="let item of items" [href]="item.url"
+            [attr.target]="item.url.startsWith('http') ? '_blank' : '_self'"
+            [attr.rel]="item.url.startsWith('http') ? 'noopener noreferrer' : null"
+            [attr.aria-label]="'Visitar portal: ' + item.alt">
+            <img [src]="item.image" [alt]="item.alt" width="220" height="100" loading="lazy" decoding="async" />
+          </a>
+        </div>
       </div>
-    </div>
+    </section>
   </div>
 </section>

@@ -38,8 +38,12 @@ const storage = multer.diskStorage({
     }
 });
 
+const allowedExtensions = ['.pdf'];
+
 const fileFilter = (req, file, cb) => {
-    if (file.mimetype === 'application/pdf') {
+    const ext = path.extname(file.originalname).toLowerCase();
+
+    if (file.mimetype === 'application/pdf' && allowedExtensions.includes(ext)) {
         cb(null, true);
     } else {
         cb(new Error('Solo PDFs'), false);

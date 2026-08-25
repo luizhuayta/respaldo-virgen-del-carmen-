@@ -1,47 +1,59 @@
-<div class="top-bar"></div>
-
-<nav class="navbar">
-  <div class="logo">
-    <img routerLink="/inicio" src="images/Logo_inicio.png" alt="Logo" />
+<div class="top-bar">
+  <div class="top-bar-container">
+    <span class="top-bar-tag">I.E.S.P.P. VIRGEN DEL CARMEN</span>
+    <span class="top-bar-info">Adecuación CBC — Ley N.° 30512 | MINEDU</span>
   </div>
-  <!-- Botón hamburguesa -->
-  <button
-    class="menu-toggle"
-    (click)="toggleMenu()"
-    [attr.aria-expanded]="isMenuOpen"
-    aria-label="Abrir menú"
-  >
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
+</div>
 
-  <!-- Menú -->
-  <div class="nav-content" [class.active]="isMenuOpen">
-    <ul class="menu">
-      <li>
-        <a routerLink="/inicio" routerLinkActive="nav-active" (click)="closeMenu()">INICIO</a>
-      </li>
-      <li>
-        <a routerLink="/nosotros" routerLinkActive="nav-active" (click)="closeMenu()">NOSOTROS</a>
-      </li>
-      <li>
-        <a routerLink="/programas" routerLinkActive="nav-active" (click)="closeMenu()">PROGRAMAS</a>
-      </li>
-      <li>
-        <a routerLink="/admision" routerLinkActive="nav-active" (click)="closeMenu()">ADMISIÓN</a>
-      </li>
-      <li>
-        <a routerLink="/noticias" routerLinkActive="nav-active" (click)="closeMenu()">NOTICIAS</a>
-      </li>
-      <li>
-        <a routerLink="/servicios" routerLinkActive="nav-active" (click)="closeMenu()">SERVICIOS</a>
-      </li>
-    </ul>
+<header class="header-main" role="banner">
+  <nav class="navbar" role="navigation" aria-label="Navegación principal">
+    <div class="logo">
+      <a routerLink="/inicio" aria-label="Ir a la página principal del I.E.S.P.P. Virgen del Carmen">
+        <img src="images/Logo_inicio.png" alt="I.E.S.P.P. Virgen del Carmen - Portal Oficial" width="260" height="60" decoding="async" />
+      </a>
+    </div>
 
-    <a routerLink="/transparencia" routerLinkActive="btn-transparencia-active"
-       class="btn-transparencia" (click)="closeMenu()">
-      TRANSPARENCIA
-    </a>
-  </div>
-</nav>
+    <!-- Botón hamburguesa -->
+    <button
+      class="menu-toggle"
+      [class.active]="isMenuOpen"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="isMenuOpen"
+      aria-controls="mainNav"
+      aria-label="Abrir menú de navegación"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- Menú -->
+    <div id="mainNav" class="nav-content" [class.active]="isMenuOpen">
+      <ul class="menu">
+        <li>
+          <a routerLink="/inicio" routerLinkActive="nav-active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">INICIO</a>
+        </li>
+        <li>
+          <a routerLink="/nosotros" routerLinkActive="nav-active" (click)="closeMenu()">NOSOTROS</a>
+        </li>
+        <li>
+          <a routerLink="/programas" routerLinkActive="nav-active" (click)="closeMenu()">PROGRAMAS</a>
+        </li>
+        <li>
+          <a routerLink="/admision" routerLinkActive="nav-active" (click)="closeMenu()">ADMISIÓN</a>
+        </li>
+        <li>
+          <a routerLink="/noticias" routerLinkActive="nav-active" (click)="closeMenu()">NOTICIAS</a>
+        </li>
+        <li>
+          <a routerLink="/servicios" routerLinkActive="nav-active" (click)="closeMenu()">SERVICIOS</a>
+        </li>
+      </ul>
+
+      <a routerLink="/transparencia" routerLinkActive="btn-transparencia-active"
+         class="btn-transparencia" (click)="closeMenu()" aria-label="Acceder al Portal de Transparencia Institucional">
+        TRANSPARENCIA
+      </a>
+    </div>
+  </nav>
+</header>
