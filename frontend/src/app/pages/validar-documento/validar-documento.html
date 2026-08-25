@@ -1,0 +1,91 @@
+<div class="validation-container">
+  <div class="validation-card">
+    <div class="header">
+      <h1>Verificación de Documento</h1>
+      <p class="subtitle">Sistema de Validación de Documentos Oficiales</p>
+    </div>
+
+    @if (isLoading) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Validando documento...</p>
+    </div>
+    } @else if (isValid) {
+    <div class="success-card">
+      <div class="success-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      </div>
+      <h2>Documento Válido</h2>
+      <p class="success-message">Este documento ha sido verificado oficialmente por la institución.</p>
+      
+      <div class="document-details">
+        <div class="detail-row">
+          <span class="label">Código de Seguimiento:</span>
+          <span class="value">{{ documentData.code }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Tipo de Documento:</span>
+          <span class="value">{{ documentData.documentType }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Asunto:</span>
+          <span class="value">{{ documentData.subject }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Estado:</span>
+          <span class="value status-badge {{ getStatusClass(documentData.status) }}">
+            {{ documentData.status }}
+          </span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Fecha de Emisión:</span>
+          <span class="value">{{ formatDate(documentData.issueDate) }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Hash de Integridad:</span>
+          <span class="value hash">{{ documentData.documentHash }}</span>
+        </div>
+      </div>
+
+      <div class="verification-seal">
+        <div class="seal-content">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <span>Verificado Oficialmente</span>
+        </div>
+      </div>
+    </div>
+    } @else {
+    <div class="error-card">
+      <div class="error-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="15" y1="9" x2="9" y2="15"></line>
+          <line x1="9" y1="9" x2="15" y2="15"></line>
+        </svg>
+      </div>
+      <h2>Documento No Válido</h2>
+      <p class="error-message">{{ errorMessage }}</p>
+      
+      <div class="error-details">
+        <p>Posibles razones:</p>
+        <ul>
+          <li>El UUID proporcionado no existe en nuestro sistema</li>
+          <li>El documento ha sido archivado o eliminado</li>
+          <li>El enlace de verificación ha expirado</li>
+          <li>Error en el formato del UUID</li>
+        </ul>
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn-primary" (click)="validateDocument()">Intentar Nuevamente</button>
+        <a href="/mesa-de-partes" class="btn-secondary">Ir a Mesa de Partes</a>
+      </div>
+    </div>
+    }
+  </div>
+</div>

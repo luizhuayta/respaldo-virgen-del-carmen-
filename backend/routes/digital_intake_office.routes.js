@@ -7,5 +7,7 @@ router.post('/digital_intake_office/create', uploadDigitalIntakeOffice.single('a
 router.get('/digital_intake_office/list', DigitalIntakeOfficeControllers.getDigitalIntake);
 router.put('/digital_intake_office/update/:id', DigitalIntakeOfficeControllers.updateDigitalIntake);
 router.delete('/digital_intake_office/delete/:id/:del', DigitalIntakeOfficeControllers.deleteDigitalIntake);
+router.get('/tramites/validar/:uuid', DigitalIntakeOfficeControllers.validateDocument);
+router.post('/tramites/regenerate-qr/:id', DigitalIntakeOfficeControllers.regenerateQRCode);
 
 module.exports = router;

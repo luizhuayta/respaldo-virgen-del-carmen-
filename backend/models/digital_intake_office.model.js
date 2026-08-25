@@ -8,6 +8,16 @@ const Digital_Intake_Office = sequelize.define('Digital_Intake_Office', {
         primaryKey: true,
         allowNull: false
     },
+    uuid: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
+        unique: true
+    },
+    documentHash: {
+        type: DataTypes.STRING(255),
+        allowNull: true
+    },
     full_name: {
         type: DataTypes.STRING(255),
         allowNull: false

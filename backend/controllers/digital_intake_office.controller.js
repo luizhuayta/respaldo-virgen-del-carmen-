@@ -3,6 +3,8 @@ const buildDigitalIntakeOfficeQuery = require('../helpers/digital_intake_office.
 const deleteFile = require('../middlewares/deleteFile');
 const { where } = require('sequelize');
 const sendDigitalIntakeMail = require('../helpers/sendDigitalIntakeMail');
+const generateQRCode = require('../helpers/qrGenerator');
+const crypto = require('crypto');
 
 const generateTrackingCode = async (
     full_name,
@@ -91,6 +93,10 @@ exports.createDigitalIntake = async (req, res) => {
             DNI_RUC
         );
 
+        // Generate document hash for integrity verification
+        const documentContent = `${tracking_code}-${v_subject}-${full_name}-${DNI_RUC}`;
+        const documentHash = crypto.createHash('sha256').update(documentContent).digest('hex');
+
         const newDigitalIntake = await db.DigitalIntakeOffice.create({
             full_name,
             DNI_RUC,
@@ -106,8 +112,22 @@ exports.createDigitalIntake = async (req, res) => {
             document_url,
             processing_status: 'Pendiente',
             tracking_code,
-            description
+            description,
+            documentHash
         });
+
+        // Generate QR code for document verification
+        try {
+            console.log('=== CONTROLLER: About to generate QR code ===');
+            console.log('Document UUID:', newDigitalIntake.uuid);
+            console.log('Environment FRONTEND_URL:', process.env.FRONTEND_URL);
+            const qrCodeBase64 = await generateQRCode(newDigitalIntake.uuid);
+            newDigitalIntake.qrCode = qrCodeBase64;
+            console.log('=== CONTROLLER: QR code generated successfully ===');
+        } catch (qrError) {
+            console.error('Error generating QR code:', qrError);
+            // Continue without QR code if generation fails
+        }
 
         sendDigitalIntakeMail(newDigitalIntake).catch(err => console.error('Error enviando correo:', err));
 
@@ -211,5 +231,80 @@ exports.deleteDigitalIntake = async (req, res) => {
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: 'Error interno al eliminar el trámite.' });
+    }
+};
+
+exports.validateDocument = async (req, res) => {
+    try {
+        const { uuid } = req.params;
+
+        const document = await db.DigitalIntakeOffice.findOne({
+            where: { 
+                uuid,
+                status: true
+            },
+            attributes: [
+                'uuid',
+                'tracking_code',
+                'document_type',
+                'v_subject',
+                'processing_status',
+                'createdAt',
+                'full_name',
+                'documentHash'
+            ]
+        });
+
+        if (!document) {
+            return res.status(404).json({ 
+                valid: false,
+                message: 'Documento no encontrado o inválido' 
+            });
+        }
+
+        // Return non-sensitive document metadata for verification
+        return res.status(200).json({
+            valid: true,
+            document: {
+                code: document.tracking_code,
+                documentType: document.document_type,
+                subject: document.v_subject,
+                status: document.processing_status,
+                issueDate: document.createdAt,
+                documentHash: document.documentHash
+            }
+        });
+    } catch (error) {
+        console.error('Error validating document:', error);
+        return res.status(500).json({ 
+            valid: false,
+            message: 'Error interno al validar el documento' 
+        });
+    }
+};
+
+exports.regenerateQRCode = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const document = await db.DigitalIntakeOffice.findByPk(id);
+        if (!document) {
+            return res.status(404).json({ message: 'Documento no encontrado' });
+        }
+
+        console.log('=== REGENERATING QR CODE ===');
+        console.log('Document UUID:', document.uuid);
+        console.log('Environment FRONTEND_URL:', process.env.FRONTEND_URL);
+
+        const qrCodeBase64 = await generateQRCode(document.uuid);
+        
+        return res.status(200).json({ 
+            message: 'QR code regenerado exitosamente',
+            qrCode: qrCodeBase64,
+            uuid: document.uuid
+        });
+    } catch (error) {
+        console.error('Error regenerating QR code:', error);
+        return res.status(500).json({ message: 'Error al regenerar QR code' });
     }
 };

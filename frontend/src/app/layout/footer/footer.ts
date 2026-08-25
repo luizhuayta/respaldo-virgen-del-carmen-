@@ -15,6 +15,7 @@ export class Footer implements OnInit {
   private http = inject(HttpClient);
 
   contacto = signal<any>(null);
+  qrCodeUrl = signal<string>('');
 
   ngOnInit(): void {
     this.http.get<any[]>(`${environment.apiUrl}/contacts/list`).subscribe({
@@ -23,5 +24,9 @@ export class Footer implements OnInit {
         if (activo) this.contacto.set(activo);
       }
     });
+
+    // Generate QR code URL for document validation
+    const frontendUrl = environment.baseUrl || 'http://localhost:4200';
+    this.qrCodeUrl.set(`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(frontendUrl + '/validar-documento')}`);
   }
 }

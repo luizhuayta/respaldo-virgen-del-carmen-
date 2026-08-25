@@ -37,6 +37,7 @@ import { authGuard } from './core/auth/auth.guard';
 import { PublicLayout } from './layout/public-layout/public-layout';
 import { Reclamaciones } from './pages/reclamaciones/reclamaciones';
 import { AdminReclamaciones } from './admin/admin-reclamaciones/admin-reclamaciones';
+import { ValidarDocumento } from './pages/validar-documento/validar-documento';
 
 export const routes: Routes = [
   { path: 'admin/login', component: AdminLogin, title: 'Admin — Login' },
@@ -87,7 +88,8 @@ export const routes: Routes = [
       { path: 'estadisticas', component: Estadisticas, title: 'Estadisticas' },
       { path: 'repositorio', component: Repositorio, title: 'Repositorio Institucional' },
       { path: 'repositorio/:id', component: RepositorioDetalle, title: 'Detalle — Repositorio' },
-      { path: 'reclamaciones', component: Reclamaciones, title: 'Reclamaciones' }
+      { path: 'reclamaciones', component: Reclamaciones, title: 'Reclamaciones' },
+      { path: 'validar-documento/:uuid', component: ValidarDocumento, title: 'Validar Documento' }
     ]
   }
 ];
