@@ -69,9 +69,11 @@ app.use('/api', appRoutes.AuthRoutes);
 app.use('/api', appRoutes.DigitalIntakeOfficeRoutes);
 app.use('/api', appRoutes.ReclamacionRoutes);
 app.use('/api', appRoutes.chatbotRoutes);
+app.use('/api', appRoutes.UploadRoutes);
 
 app.use('/pdf', express.static(path.join(__dirname, 'public/pdf')));
 app.use('/personal_cv', express.static(path.join(__dirname, 'public/personal_cv')));
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 app.get('/', (req, res) => {
     res.send('Bienvenido');
