@@ -1,0 +1,61 @@
+.aviso-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 12000;
+}
+
+.aviso-dialog {
+  width: 420px;
+  max-width: 92vw;
+  background: var(--adm-surface, #ffffff);
+  color: var(--adm-ink, #1a2456);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(26, 36, 86, 0.2);
+}
+
+.aviso-dialog h2 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+}
+
+.aviso-dialog p {
+  margin: 0 0 20px;
+  font-size: 0.9rem;
+  color: var(--adm-muted, #5b6478);
+}
+
+.aviso-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.aviso-actions button {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-seguir {
+  background: var(--adm-muted-bg, #eef0f6);
+  color: var(--adm-ink, #1a2456);
+}
+
+.btn-descartar {
+  background: var(--adm-danger, #c0392b);
+  color: #fff;
+}
+
+.btn-guardar {
+  background: var(--adm-brand, #f28c1b);
+  color: #fff;
+}

@@ -1,0 +1,12 @@
+<div class="aviso-backdrop">
+  <div class="aviso-dialog" role="dialog" aria-modal="true" aria-labelledby="ttl-aviso" tabindex="-1"
+    cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="seguir.emit()">
+    <h2 id="ttl-aviso">Hay cambios sin guardar</h2>
+    <p>Si sale ahora, se perderán los cambios de esta pantalla.</p>
+    <div class="aviso-actions">
+      <button type="button" class="btn-seguir" (click)="seguir.emit()">Seguir aquí</button>
+      <button type="button" class="btn-descartar" (click)="descartar.emit()">Descartar</button>
+      <button type="button" class="btn-guardar" cdkFocusInitial (click)="guardar.emit()">Guardar</button>
+    </div>
+  </div>
+</div>

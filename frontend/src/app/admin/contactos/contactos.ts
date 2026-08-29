@@ -1,26 +1,27 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, computed, HostListener } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 import { ToastService } from '../compartido/toast';
+import { AvisoCambios } from '../compartido/aviso-cambios';
+import { PuedeSalirConCambios } from '../compartido/salir-con-cambios';
 
 @Component({
   selector: 'app-contactos',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, AvisoCambios],
   templateUrl: './contactos.html',
   styleUrl: './contactos.css',
 })
-export class AdminContactos implements OnInit {
+export class AdminContactos implements OnInit, PuedeSalirConCambios {
 
   private http = inject(HttpClient);
   private toast = inject(ToastService);
   private API = `${environment.apiUrl}/contacts`;
 
   contact = signal<any>(null);
-
-  isEditMode = signal(false);
   isNew = signal(false);
+  showAviso = signal(false);
 
   formData = signal<any>({
     id: null,
@@ -33,11 +34,49 @@ export class AdminContactos implements OnInit {
     description: ''
   });
 
+  original = signal<any>({
+    id: null,
+    phone: '',
+    email: '',
+    location: '',
+    facebook: '',
+    instagram: '',
+    tiktok: '',
+    description: ''
+  });
+
+  dirty = computed(() => JSON.stringify(this.original()) !== JSON.stringify(this.formData()));
+
+  private resolver: ((ok: boolean) => void) | null = null;
+
   ngOnInit(): void {
     this.loadContact();
   }
 
-  // LOAD
+  @HostListener('window:beforeunload', ['$event'])
+  avisar(e: BeforeUnloadEvent) { if (this.dirty()) e.preventDefault(); }
+
+  confirmarSalida(): Promise<boolean> {
+    this.showAviso.set(true);
+    return new Promise(resolve => { this.resolver = resolve; });
+  }
+
+  onAvisoGuardar() {
+    this.save(true);
+  }
+
+  onAvisoDescartar() {
+    this.showAviso.set(false);
+    this.resolver?.(true);
+    this.resolver = null;
+  }
+
+  onAvisoSeguir() {
+    this.showAviso.set(false);
+    this.resolver?.(false);
+    this.resolver = null;
+  }
+
   loadContact() {
     this.http.get<any[]>(`${this.API}/list`)
       .subscribe({
@@ -48,7 +87,7 @@ export class AdminContactos implements OnInit {
 
             this.contact.set(c);
 
-            this.formData.set({
+            const copy = {
               id: c.id,
               phone: c.phone,
               email: c.email,
@@ -57,14 +96,15 @@ export class AdminContactos implements OnInit {
               instagram: c.instagram,
               tiktok: c.tiktok,
               description: c.description
-            });
+            };
 
-            this.isEditMode.set(false);
+            this.formData.set({ ...copy });
+            this.original.set({ ...copy });
             this.isNew.set(false);
 
           } else {
-            this.isEditMode.set(true);
             this.isNew.set(true);
+            this.original.set({ ...this.formData() });
           }
 
         },
@@ -72,49 +112,47 @@ export class AdminContactos implements OnInit {
       });
   }
 
-  // ACTIONS
-  enableEdit() {
-    this.isEditMode.set(true);
-  }
-
-  cancelEdit() {
-    if (this.contact()) {
-      this.formData.set({
-        id: this.contact().id,
-        phone: this.contact().phone,
-        email: this.contact().email,
-        location: this.contact().location,
-        facebook: this.contact().facebook,
-        instagram: this.contact().instagram,
-        tiktok: this.contact().tiktok,
-        description: this.contact().description
-      });
-    }
-
-    this.isEditMode.set(false);
-  }
-
-  save() {
+  save(alSalir = false) {
     if (this.isNew()) {
-      this.create();
+      this.create(alSalir);
     } else {
-      this.update();
+      this.update(alSalir);
     }
   }
 
-  create() {
+  create(alSalir = false) {
     this.http.post(`${this.API}/create`, this.formData())
       .subscribe({
-        next: () => { this.toast.success('Contactos guardados correctamente.'); this.loadContact(); },
-        error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
+        next: () => this.trasGuardar(alSalir),
+        error: () => this.falloGuardar(alSalir)
       });
   }
 
-  update() {
+  update(alSalir = false) {
     this.http.put(`${this.API}/update/${this.formData().id}`, this.formData())
       .subscribe({
-        next: () => { this.toast.success('Contactos guardados correctamente.'); this.loadContact(); },
-        error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
+        next: () => this.trasGuardar(alSalir),
+        error: () => this.falloGuardar(alSalir)
       });
+  }
+
+  private trasGuardar(alSalir: boolean) {
+    this.toast.success('Contactos guardados correctamente.');
+    this.original.set({ ...this.formData() });
+    this.isNew.set(false);
+    if (alSalir) {
+      this.showAviso.set(false);
+      this.resolver?.(true);
+      this.resolver = null;
+    }
+  }
+
+  private falloGuardar(alSalir: boolean) {
+    this.toast.error('No se pudo guardar. Inténtelo de nuevo.');
+    if (alSalir) {
+      this.showAviso.set(false);
+      this.resolver?.(false);
+      this.resolver = null;
+    }
   }
 }

@@ -2,7 +2,8 @@
 
 .form-card {
   padding: 25px;
-  background-color: #2a2a3d;
+  background-color: var(--adm-surface);
+  color: var(--adm-ink);
 }
 
 .form-grid-2 {
@@ -25,21 +26,15 @@
 
 label {
   font-size: 12px;
-  color: #fff;
+  color: var(--adm-ink);
 }
 
 input, textarea {
   padding: 10px;
   border-radius: 8px;
-  border: none;
-  background: #fff;
-  color: #2a2a3d;
-}
-
-input:disabled,
-textarea:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+  border: 1px solid var(--adm-line);
+  background: var(--adm-surface);
+  color: var(--adm-ink);
 }
 
 /* header actions */
@@ -58,12 +53,8 @@ textarea:disabled {
   cursor: pointer;
 }
 
-.btn-cancel {
-  background: #444;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 8px;
-  color: white;
-  cursor: pointer;
+.btn-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 

@@ -7,64 +7,54 @@
     </div>
 
     <div class="header-actions">
-
-      @if (!isEditMode()) {
-      <button class="btn-add" (click)="enableEdit()">
-        <i class="fas fa-pen"></i> Editar
-      </button>
-      }
-
-      @if (isEditMode()) {
-      <button class="btn-cancel" (click)="cancelEdit()">Cancelar</button>
-      <button class="btn-save" (click)="save()">Guardar</button>
-      }
-
+      <button class="btn-save" (click)="save()" [disabled]="!dirty()">Guardar</button>
     </div>
   </div>
 
   <div class="admin-card form-card-lg">
 
-    <!-- HISTORIA -->
     <div class="form-block">
       <label>Historia</label>
       <quill-editor [ngModel]="formData().history" (ngModelChange)="formData.update(f => ({ ...f, history: $event }))"
-        [modules]="quillConfig" theme="snow" [readOnly]="!isEditMode()">
+        [modules]="quillConfig" theme="snow">
       </quill-editor>
     </div>
 
-    <!-- MISIÓN -->
     <div class="form-block">
       <label>Misión</label>
       <quill-editor [ngModel]="formData().mision" (ngModelChange)="formData.update(f => ({ ...f, mision: $event }))"
-        [modules]="quillConfig" theme="snow" [readOnly]="!isEditMode()">
+        [modules]="quillConfig" theme="snow">
       </quill-editor>
     </div>
 
-    <!-- VISIÓN -->
     <div class="form-block">
       <label>Visión</label>
       <quill-editor [ngModel]="formData().vision" (ngModelChange)="formData.update(f => ({ ...f, vision: $event }))"
-        [modules]="quillConfig" theme="snow" [readOnly]="!isEditMode()">
+        [modules]="quillConfig" theme="snow">
       </quill-editor>
     </div>
 
-    <!-- VALORES -->
     <div class="form-block">
       <label>Valores</label>
       <quill-editor [ngModel]="formData().values" (ngModelChange)="formData.update(f => ({ ...f, values: $event }))"
-        [modules]="quillConfig" theme="snow" [readOnly]="!isEditMode()">
+        [modules]="quillConfig" theme="snow">
       </quill-editor>
     </div>
 
-    <!-- DESCRIPCIÓN -->
     <div class="form-block">
       <label>Descripción adicional</label>
       <quill-editor [ngModel]="formData().description"
-        (ngModelChange)="formData.update(f => ({ ...f, description: $event }))" [modules]="quillConfig" theme="snow"
-        [readOnly]="!isEditMode()">
+        (ngModelChange)="formData.update(f => ({ ...f, description: $event }))" [modules]="quillConfig" theme="snow">
       </quill-editor>
     </div>
 
   </div>
 
 </div>
+
+@if (showAviso()) {
+<app-aviso-cambios
+  (guardar)="onAvisoGuardar()"
+  (descartar)="onAvisoDescartar()"
+  (seguir)="onAvisoSeguir()" />
+}

@@ -6,20 +6,8 @@
       <p class="page-sub">Información institucional visible al público</p>
     </div>
 
-    <!-- acciones -->
     <div class="header-actions">
-
-      @if (!isEditMode()) {
-      <button class="btn-add" (click)="enableEdit()">
-        <i class="fas fa-pen"></i> Editar
-      </button>
-      }
-
-      @if (isEditMode()) {
-      <button class="btn-cancel" (click)="cancelEdit()">Cancelar</button>
-      <button class="btn-save" (click)="save()">Guardar</button>
-      }
-
+      <button class="btn-save" (click)="save()" [disabled]="!dirty()">Guardar</button>
     </div>
   </div>
 
@@ -27,44 +15,42 @@
 
     <div class="form-grid-2">
 
-      <!-- LEFT -->
       <div class="form-column">
 
         <label>Teléfono</label>
-        <input [ngModel]="formData().phone" (ngModelChange)="formData.update(f => ({ ...f, phone: $event }))"
-          [disabled]="!isEditMode()">
+        <input [ngModel]="formData().phone" (ngModelChange)="formData.update(f => ({ ...f, phone: $event }))">
         <label>Email</label>
-        <input [ngModel]="formData().email" (ngModelChange)="formData.update(f => ({ ...f, email: $event }))"
-          [disabled]="!isEditMode()">
+        <input [ngModel]="formData().email" (ngModelChange)="formData.update(f => ({ ...f, email: $event }))">
         <label>Ubicación</label>
-        <input [ngModel]="formData().location" (ngModelChange)="formData.update(f => ({ ...f, location: $event }))"
-          [disabled]="!isEditMode()">
+        <input [ngModel]="formData().location" (ngModelChange)="formData.update(f => ({ ...f, location: $event }))">
       </div>
 
-      <!-- RIGHT -->
       <div class="form-column">
 
         <label>Facebook</label>
-        <input [ngModel]="formData().facebook" (ngModelChange)="formData.update(f => ({ ...f, facebook: $event }))"
-          [disabled]="!isEditMode()">
+        <input [ngModel]="formData().facebook" (ngModelChange)="formData.update(f => ({ ...f, facebook: $event }))">
         <label>Instagram</label>
-        <input [ngModel]="formData().instagram" (ngModelChange)="formData.update(f => ({ ...f, instagram: $event }))"
-          [disabled]="!isEditMode()">
+        <input [ngModel]="formData().instagram" (ngModelChange)="formData.update(f => ({ ...f, instagram: $event }))">
         <label>TikTok</label>
-        <input [ngModel]="formData().tiktok" (ngModelChange)="formData.update(f => ({ ...f, tiktok: $event }))"
-          [disabled]="!isEditMode()">
+        <input [ngModel]="formData().tiktok" (ngModelChange)="formData.update(f => ({ ...f, tiktok: $event }))">
       </div>
 
     </div>
 
-    <!-- DESCRIPTION FULL WIDTH -->
     <div class="form-full">
       <label>Descripción</label>
       <textarea [ngModel]="formData().description"
-        (ngModelChange)="formData.update(f => ({ ...f, description: $event }))" [disabled]="!isEditMode()">
+        (ngModelChange)="formData.update(f => ({ ...f, description: $event }))">
       </textarea>
     </div>
 
   </div>
 
 </div>
+
+@if (showAviso()) {
+<app-aviso-cambios
+  (guardar)="onAvisoGuardar()"
+  (descartar)="onAvisoDescartar()"
+  (seguir)="onAvisoSeguir()" />
+}

@@ -37,6 +37,7 @@ import { authGuard } from './core/auth/auth.guard';
 import { PublicLayout } from './layout/public-layout/public-layout';
 import { Reclamaciones } from './pages/reclamaciones/reclamaciones';
 import { AdminReclamaciones } from './admin/admin-reclamaciones/admin-reclamaciones';
+import { salirConCambios } from './admin/compartido/salir-con-cambios';
 
 export const routes: Routes = [
   { path: 'admin/login', component: AdminLogin, title: 'Admin — Login' },
@@ -50,8 +51,8 @@ export const routes: Routes = [
       { path: 'noticias', component: AdminNoticias, title: 'Admin — Noticias' },
       { path: 'comunicados', component: AdminComunicados, title: 'Admin — Comunicados' },
       { path: 'personal-academico', component: AdminPersonal, title: 'Admin — Personal Académico' },
-      { path: 'trayectoria', component: AdminTrayectoria, title: 'Admin - Trayectoria' },
-      { path: 'contactos', component: AdminContactos, title: 'Admin - Contactos' },
+      { path: 'trayectoria', component: AdminTrayectoria, title: 'Admin - Trayectoria', canDeactivate: [salirConCambios] },
+      { path: 'contactos', component: AdminContactos, title: 'Admin - Contactos', canDeactivate: [salirConCambios] },
       { path: 'investigaciones', component: AdminInvestigaciones, title: 'Admin - Investigaciones' },
       { path: 'usuarios', component: AdminUsuarios, title: 'Admin - Usuarios' },
       { path: 'documentos', component: AdminDocumentos, title: 'Admin - Documentos' },

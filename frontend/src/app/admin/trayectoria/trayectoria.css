@@ -50,11 +50,7 @@
   cursor: pointer;
 }
 
-.btn-cancel {
-  background: #444;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 8px;
-  color: white;
-  cursor: pointer;
+.btn-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
