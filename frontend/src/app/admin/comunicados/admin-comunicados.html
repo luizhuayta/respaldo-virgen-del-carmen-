@@ -140,25 +140,11 @@
 
       <div class="modal-header">
         <h2 id="ttl-del-comunicado">Eliminar Comunicado</h2>
-
-        <div class="header-actions">
-          <button class="btn-help" (click)="showTooltip()">
-            ?
-          </button>
-
-          <button class="close-btn" (click)="closeDeleteModal()">×</button>
-        </div>
+        <button class="close-btn" (click)="closeDeleteModal()">×</button>
       </div>
 
       <div class="modal-body">
         <p>¿Qué deseas hacer con este comunicado?</p>
-
-        @if (tooltipVisible()) {
-        <div class="tooltip-box">
-          Desactivar: Los datos no serán visibles en el portal público, pero aún se conservan.<br>
-          Eliminar: Los datos se borran definitivamente.
-        </div>
-        }
       </div>
 
       <div class="modal-footer">

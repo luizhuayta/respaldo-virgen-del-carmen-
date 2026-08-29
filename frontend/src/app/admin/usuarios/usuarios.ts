@@ -138,18 +138,8 @@ export class AdminUsuarios implements OnInit {
     });
   }
 
-  delete(id: number) {
-    if (!confirm('¿Desactivar usuario?')) return;
-
-    this.http.delete(`${this.API}/delete/${id}`).subscribe({
-      next: () => this.loadData(), // importante: NO eliminar del array
-      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
-    });
-  }
-
   deleteModal = signal(false);
   deleteTargetId = signal<number | null>(null);
-  tooltipVisible = signal(false);
 
   openDeleteModal(id: number) {
     this.deleteTargetId.set(id);
@@ -174,13 +164,5 @@ export class AdminUsuarios implements OnInit {
   closeDeleteModal() {
     this.deleteModal.set(false);
     this.deleteTargetId.set(null);
-  }
-
-  showTooltip() {
-    this.tooltipVisible.set(true);
-
-    setTimeout(() => {
-      this.tooltipVisible.set(false);
-    }, 3000);
   }
 }

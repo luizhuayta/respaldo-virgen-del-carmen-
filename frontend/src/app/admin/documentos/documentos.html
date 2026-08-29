@@ -10,7 +10,6 @@
     </button>
   </div>
 
-  <!-- SECCIONES DESPLEGABLES gaaa -->
   @for (type of sectionTypes; track type) {
   <div class="seccion-card">
 
@@ -101,16 +100,7 @@
 
       <div class="modal-header">
         <h2 id="ttl-documento">{{ isEditMode() ? 'Editar Documento' : 'Agregar Documento' }}</h2>
-        <div class="header-actions">
-          <button class="btn-theme" (click)="toggleEditorTheme()">
-            @if (editorTheme() === 'dark') {
-            <i class="fa-solid fa-sun"></i>
-            } @else {
-            <i class="fa-solid fa-moon"></i>
-            }
-          </button>
-          <button class="close-btn" (click)="closeModal()">×</button>
-        </div>
+        <button class="close-btn" (click)="closeModal()">×</button>
       </div>
 
       <div class="modal-body">
@@ -152,13 +142,6 @@
             </div>
           </div>
         </div>
-        <!--
-        <div class="editor-section">
-          <quill-editor [(ngModel)]="formData.content" [modules]="quillConfig" theme="snow" class="full-editor"
-            [class.editor-dark]="editorTheme() === 'dark'" [class.editor-light]="editorTheme() === 'light'">
-          </quill-editor>
-        </div>
-        -->
         
       </div>
 
@@ -187,21 +170,16 @@
 
       <div class="modal-header">
         <h2 id="ttl-del-documento">Eliminar Documento</h2>
-        <div class="header-actions">
-          <button class="btn-help" (click)="showTooltip()">?</button>
-          <button class="close-btn" (click)="closeDeleteModal()">×</button>
-        </div>
+        <button class="close-btn" (click)="closeDeleteModal()">×</button>
       </div>
 
       <div class="modal-body">
         <p>¿Qué deseas hacer con este documento?</p>
-
-        <div class="tooltip-box">
+        <p>
           Advertencia: El archivo será elimanado en ambos casos, asegurese de hacer una copia de seguridad.<br>
           Desactivar: Los datos no serán visibles en el portal público, pero aún se conservan.<br>
           Eliminar: Los datos se borran definitivamente.
-        </div>
-        
+        </p>
       </div>
 
       <div class="modal-footer">

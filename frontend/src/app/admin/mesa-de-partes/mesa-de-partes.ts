@@ -134,23 +134,8 @@ export class MesaDePartesAdmin implements OnInit {
     });
   }
 
-  eliminarTramite(id: number): void {
-    if (confirm('¿Está completamente seguro de que desea eliminar este ticket? Esta acción no se puede deshacer.')) {
-      this.http.delete(`${environment.apiUrl}/digital_intake_office/delete/${id}`).subscribe({
-        next: () => {
-          this.toast.success('Trámite eliminado correctamente.');
-          this.tramites.update(listaActual => listaActual.filter(t => t.id !== id));
-        },
-        error: () => {
-          this.toast.error('No se pudo guardar. Inténtelo de nuevo.');
-        }
-      });
-    }
-  }
-
   deleteModal = signal(false);
   deleteTargetId = signal<number | null>(null);
-  tooltipVisible = signal(false);
 
   openDeleteModal(id: number) {
     this.deleteTargetId.set(id);
@@ -169,10 +154,5 @@ export class MesaDePartesAdmin implements OnInit {
   closeDeleteModal() {
     this.deleteModal.set(false);
     this.deleteTargetId.set(null);
-  }
-
-  showTooltip() {
-    this.tooltipVisible.set(true);
-    setTimeout(() => this.tooltipVisible.set(false), 3000);
   }
 }

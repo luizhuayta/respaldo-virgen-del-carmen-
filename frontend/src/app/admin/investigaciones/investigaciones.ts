@@ -182,14 +182,6 @@ export class AdminInvestigaciones implements OnInit {
     });
   }
 
-  delete(id: number) {
-    if (!confirm('¿Desactivar investigación?')) return;
-    this.http.delete(`${this.API}/delete/${id}`).subscribe({
-      next: () => this.loadData(),
-      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
-    });
-  }
-
   editorTheme = signal<'dark' | 'light'>('light');
 
   quillConfig = {
@@ -220,7 +212,6 @@ export class AdminInvestigaciones implements OnInit {
 
   deleteModal = signal(false);
   deleteTargetId = signal<number | null>(null);
-  tooltipVisible = signal(false);
 
   openDeleteModal(id: number) {
     this.deleteTargetId.set(id);
@@ -239,10 +230,5 @@ export class AdminInvestigaciones implements OnInit {
   closeDeleteModal() {
     this.deleteModal.set(false);
     this.deleteTargetId.set(null);
-  }
-
-  showTooltip() {
-    this.tooltipVisible.set(true);
-    setTimeout(() => this.tooltipVisible.set(false), 3000);
   }
 }

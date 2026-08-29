@@ -24,7 +24,6 @@ export class AdminComunicados implements OnInit {
 
   deleteModal = signal(false);
   deleteTargetId = signal<number | null>(null);
-  tooltipVisible = signal(false);
 
   showModal = signal(false);
   isEditMode = signal(false);
@@ -182,14 +181,6 @@ export class AdminComunicados implements OnInit {
   closeDeleteModal() {
     this.deleteModal.set(false);
     this.deleteTargetId.set(null);
-  }
-
-  showTooltip() {
-    this.tooltipVisible.set(true);
-
-    setTimeout(() => {
-      this.tooltipVisible.set(false);
-    }, 3000);
   }
 
 }

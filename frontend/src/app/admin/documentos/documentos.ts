@@ -1,7 +1,6 @@
-import { Component, OnInit, Type, inject, signal, computed } from '@angular/core';
+import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { QuillModule } from 'ngx-quill';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { A11yModule } from '@angular/cdk/a11y';
 import { environment } from '../../../environments/environment';
@@ -10,7 +9,7 @@ import { ToastService } from '../compartido/toast';
 @Component({
   selector: 'app-documentos',
   standalone: true,
-  imports: [FormsModule, QuillModule, A11yModule],
+  imports: [FormsModule, A11yModule],
   templateUrl: './documentos.html',
   styleUrl: './documentos.css',
 })
@@ -164,27 +163,6 @@ export class AdminDocumentos implements OnInit {
     });
   }
 
-  delete(id: number) {
-    if (!confirm('¿Desactivar documento?')) return;
-    this.http.delete(`${this.API}/delete/${id}`).subscribe({
-      next: () => this.loadData(),
-      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
-    });
-  }
-
-  editorTheme = signal<'dark' | 'light'>('light');
-
-  quillConfig = {
-    toolbar: [
-      ['bold', 'italic', 'underline', 'strike'],
-      [{ header: [1, 2, 3, false] }],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      [{ align: [] }],
-      ['link', 'image'],
-      ['clean']
-    ]
-  };
-
   pdfViewer = signal<SafeResourceUrl | null>(null);
 
   openPdfViewer(event: Event, url: SafeResourceUrl) {
@@ -196,13 +174,8 @@ export class AdminDocumentos implements OnInit {
     this.pdfViewer.set(null);
   }
 
-  toggleEditorTheme() {
-    this.editorTheme.set(this.editorTheme() === 'dark' ? 'light' : 'dark');
-  }
-
   deleteModal = signal(false);
   deleteTargetId = signal<number | null>(null);
-  tooltipVisible = signal(false);
 
   openDeleteModal(id: number) {
     this.deleteTargetId.set(id);
@@ -227,13 +200,5 @@ export class AdminDocumentos implements OnInit {
   closeDeleteModal() {
     this.deleteModal.set(false);
     this.deleteTargetId.set(null);
-  }
-
-  showTooltip() {
-    this.tooltipVisible.set(true);
-
-    setTimeout(() => {
-      this.tooltipVisible.set(false);
-    }, 3000);
   }
 }

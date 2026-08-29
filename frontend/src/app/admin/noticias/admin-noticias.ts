@@ -125,18 +125,6 @@ export class AdminNoticias implements OnInit {
     });
   }
 
-  delete(id: number) {
-    if (!confirm('¿Cambiar estado de la noticia?')) return;
-
-    this.http.delete(`${this.API}/delete/${id}`).subscribe({
-      next: () => {
-        this.toast.success('Noticia actualizada correctamente.');
-        this.loadData();
-      },
-      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
-    });
-  }
-
   // Image Viewer
   openImageViewer(event: Event) {
     event.stopPropagation();
@@ -168,7 +156,6 @@ export class AdminNoticias implements OnInit {
 
   deleteModal = signal(false);
   deleteTargetId = signal<number | null>(null);
-  tooltipVisible = signal(false);
 
   openDeleteModal(id: number) {
     this.deleteTargetId.set(id);
@@ -193,13 +180,5 @@ export class AdminNoticias implements OnInit {
   closeDeleteModal() {
     this.deleteModal.set(false);
     this.deleteTargetId.set(null);
-  }
-
-  showTooltip() {
-    this.tooltipVisible.set(true);
-
-    setTimeout(() => {
-      this.tooltipVisible.set(false);
-    }, 3000);
   }
 }

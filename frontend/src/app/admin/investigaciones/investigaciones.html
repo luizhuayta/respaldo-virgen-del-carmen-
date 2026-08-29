@@ -179,21 +179,16 @@
       cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="closeDeleteModal()" (click)="$event.stopPropagation()">
       <div class="modal-header">
         <h2 id="ttl-del-investigacion">Eliminar Investigación</h2>
-        <div class="header-actions">
-          <button class="btn-help" (click)="showTooltip()">?</button>
-          <button class="close-btn" (click)="closeDeleteModal()">×</button>
-        </div>
+        <button class="close-btn" (click)="closeDeleteModal()">×</button>
       </div>
 
       <div class="modal-body">
         <p>¿Qué deseas hacer con esta investigación?</p>
-        
-        <div class="tooltip-box">
+        <p>
           Advertencia: El archivo será eliminado en ambos casos, asegúrese de hacer una copia de seguridad.<br>
           Desactivar: Los datos no serán visibles en el portal público, pero aún se conservan.<br>
           Eliminar: Los datos se borran definitivamente.
-        </div>
-        
+        </p>
       </div>
 
       <div class="modal-footer">

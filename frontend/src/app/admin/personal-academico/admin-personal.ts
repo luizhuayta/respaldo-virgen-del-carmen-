@@ -222,7 +222,6 @@ export class AdminPersonal implements OnInit {
 
   deleteModal = signal(false);
   deleteTargetId = signal<number | null>(null);
-  tooltipVisible = signal(false);
 
   openDeleteModal(id: number) {
     this.deleteTargetId.set(id);
@@ -241,10 +240,5 @@ export class AdminPersonal implements OnInit {
   closeDeleteModal() {
     this.deleteModal.set(false);
     this.deleteTargetId.set(null);
-  }
-
-  showTooltip() {
-    this.tooltipVisible.set(true);
-    setTimeout(() => this.tooltipVisible.set(false), 3000);
   }
 }

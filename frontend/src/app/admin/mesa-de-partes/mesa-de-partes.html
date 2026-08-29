@@ -79,7 +79,7 @@
           } @empty {
 
           <tr>
-            <td colspan="7" class="text-center py-4">
+            <td colspan="8" class="text-center py-4">
               No se encontraron trámites registrados.
             </td>
           </tr>
@@ -344,21 +344,11 @@
       cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="closeDeleteModal()" (click)="$event.stopPropagation()">
       <div class="modal-header">
         <h2 id="ttl-del-tramite">Eliminar Trámite</h2>
-        <div class="header-actions">
-          <button class="btn-help" (click)="showTooltip()">?</button>
-          <button class="close-btn" (click)="closeDeleteModal()">×</button>
-        </div>
+        <button class="close-btn" (click)="closeDeleteModal()">×</button>
       </div>
 
       <div class="modal-body">
         <p>¿Qué deseas hacer con esta investigación?</p>
-        @if (tooltipVisible()) {
-        <div class="tooltip-box">
-          Advertencia: El archivo será eliminado en el segundo caso, asegúrese de hacer una copia de seguridad.<br>
-          Desactivar: Los datos no serán visibles en el portal público, pero aún se conservan.<br>
-          Eliminar: Los datos se borran definitivamente.
-        </div>
-        }
       </div>
 
       <div class="modal-footer">

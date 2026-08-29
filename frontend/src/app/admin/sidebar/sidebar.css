@@ -126,21 +126,6 @@
   flex: 1;
 }
 
-/* ---- Footer ---- */
-.sidebar-footer {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px 26px 24px;
-  color: #8a9bc4;
-  font-size: 0.85rem;
-}
-
-.sidebar-footer .sidebar-icon {
-  font-size: 1.2rem;
-  color: #8a9bc4;
-}
-
 .logout-btn {
   background: #1a2456;
   color: white;

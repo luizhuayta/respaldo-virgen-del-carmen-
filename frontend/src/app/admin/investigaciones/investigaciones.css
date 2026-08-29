@@ -26,7 +26,7 @@
   background: #1c1c2b;
 }
 
-.pdf-thumb iframe
+.pdf-thumb iframe,
 .pdf-preview-frame iframe {
   width: 100%;
   height: 100%;
