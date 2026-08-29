@@ -1,22 +1,28 @@
 /* ===========================
-   HERO
+   HERO - MODERNIZADO SEGÚN ESTÁNDARES SUNEDU
    =========================== */
 .hero-component {
   background-image: url('/images/banner-hero-nosotros.png');
   padding: 80px 20px;
   text-align: center;
+  background-size: cover;
+  background-position: center;
 }
 
 .hero-content h1 {
   font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 10px;
+  font-weight: 700;
+  margin-bottom: 12px;
   color: #1e3a8a;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.2;
 }
 
 .hero-content p {
   font-size: 1rem;
   color: #323f7c;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.5;
 }
 
 /* ===========================
@@ -100,33 +106,33 @@
 }
 
 /* ===========================
-   GRUPOS DE CAMPO
+   GRUPOS DE CAMPO - MODERNIZADO SEGÚN ESTÁNDARES SUNEDU
    =========================== */
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  margin-bottom: 16px;
+  gap: 6px;
+  margin-bottom: 18px;
 }
 
 .form-group label {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  color: #444;
+  color: #333;
+  font-family: 'Poppins', sans-serif;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
-  padding: 10px 13px;
-  border: 1.5px solid #d0d8ee;
-  border-radius: 7px;
-  font-size: 0.91rem;
+  padding: 12px 14px;
+  border: 2px solid #d0d8ee;
+  border-radius: 8px;
+  font-size: 0.95rem;
   font-family: 'Poppins', sans-serif;
   color: #333;
   background: #fafbff;
-  transition: border-color 0.2s;
-  outline: none;
+  transition: all 0.2s ease;
 }
 
 .form-group input:focus,
@@ -134,16 +140,20 @@
 .form-group textarea:focus {
   border-color: #323f7c;
   background: white;
+  outline: 3px solid rgba(50, 63, 124, 0.2);
+  outline-offset: 0;
 }
 
 .form-group textarea {
   resize: vertical;
+  min-height: 100px;
 }
 
 .form-group small {
-  font-size: 0.77rem;
-  color: #888;
+  font-size: 0.8rem;
+  color: #666;
   line-height: 1.4;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* ===========================
@@ -211,11 +221,11 @@
 }
 
 /* ===========================
-   BOTÓN ENVIAR
+   BOTÓN ENVIAR - MODERNIZADO SEGÚN ESTÁNDARES SUNEDU
    =========================== */
 .btn-enviar {
   width: 100%;
-  padding: 15px;
+  padding: 16px;
   background: #323f7c;
   color: white;
   border: none;
@@ -225,22 +235,29 @@
   font-family: 'Poppins', sans-serif;
   cursor: pointer;
   letter-spacing: 0.03em;
-  transition: background 0.2s ease, transform 0.15s ease;
-  margin-top: 4px;
+  transition: all 0.2s ease;
+  margin-top: 8px;
 }
 
 .btn-enviar:hover:not(:disabled) {
   background: #253070;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(50, 63, 124, 0.3);
+}
+
+.btn-enviar:focus {
+  outline: 3px solid #f28c1b;
+  outline-offset: 2px;
 }
 
 .btn-enviar:disabled {
   background: #b0bce8;
   cursor: not-allowed;
+  opacity: 0.7;
 }
 
 /* ===========================
-   CONSULTAR TRÁMITE
+   CONSULTAR TRÁMITE - MODERNIZADO SEGÚN ESTÁNDARES SUNEDU
    =========================== */
 .mdp-tracking {
   margin-top: 20px;
@@ -248,30 +265,37 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .mdp-tracking p {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: #555;
+  font-family: 'Poppins', sans-serif;
 }
 
 .btn-tracking {
-  padding: 9px 24px;
+  padding: 10px 24px;
   background: #e8ecf8;
   color: #323f7c;
-  border: 1.5px solid #b0bce8;
-  border-radius: 7px;
+  border: 2px solid #b0bce8;
+  border-radius: 8px;
   font-size: 0.9rem;
   font-weight: 600;
   font-family: 'Poppins', sans-serif;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition: all 0.2s ease;
 }
 
 .btn-tracking:hover {
   background: #323f7c;
   color: white;
+  border-color: #323f7c;
+}
+
+.btn-tracking:focus {
+  outline: 3px solid #f28c1b;
+  outline-offset: 2px;
 }
 
 .tracking-input {
@@ -283,29 +307,48 @@
 
 .tracking-input input {
   flex: 1;
-  padding: 10px 14px;
-  border: 1.5px solid #d0d8ee;
-  border-radius: 7px;
+  padding: 12px 14px;
+  border: 2px solid #d0d8ee;
+  border-radius: 8px;
   font-size: 0.9rem;
   font-family: 'Poppins', sans-serif;
   outline: none;
+  transition: all 0.2s ease;
+}
+
+.tracking-input input:focus {
+  border-color: #323f7c;
+  outline: 3px solid rgba(50, 63, 124, 0.2);
 }
 
 .btn-consultar {
-  padding: 10px 20px;
+  padding: 12px 20px;
   background: #f28c1b;
   color: white;
   border: none;
-  border-radius: 7px;
+  border-radius: 8px;
   font-size: 0.9rem;
   font-weight: 600;
   font-family: 'Poppins', sans-serif;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
 }
 
 .btn-consultar:hover {
   background: #d97a0f;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(242, 140, 27, 0.3);
+}
+
+.btn-consultar:focus {
+  outline: 3px solid #323f7c;
+  outline-offset: 2px;
+}
+
+.btn-consultar:disabled {
+  background: #e0a868;
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
 /* ===========================

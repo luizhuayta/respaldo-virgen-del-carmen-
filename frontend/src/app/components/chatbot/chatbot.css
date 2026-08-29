@@ -1,96 +1,111 @@
 /* ============================================================
-   BOTÓN FLOTANTE (FAB)
+   CHATBOT MODERNIZADO SEGÚN ESTÁNDARES SUNEDU
+   Colores originales: #1e3a8a, #3b82f6, #f97316
+   ============================================================ */
+
+/* ============================================================
+   BOTÓN FLOTANTE (FAB) - MEJOR ACCESIBILIDAD WCAG
    ============================================================ */
 .chat-fab {
   position: fixed;
   bottom: 20px;
   right: 20px;
   z-index: 9999;
-  width: 58px;
-  height: 58px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #1e3a8a, #323f7c);
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
   color: #fff;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.35rem;
-  box-shadow: 0 6px 24px rgba(50, 63, 124, 0.45);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  font-size: 1.4rem;
+  box-shadow: 0 6px 24px rgba(30, 58, 138, 0.45);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Poppins', sans-serif;
 }
 
 .chat-fab:hover {
-  transform: scale(1.1) translateY(-2px);
-  box-shadow: 0 10px 32px rgba(50, 63, 124, 0.55);
+  transform: scale(1.1) translateY(-3px);
+  box-shadow: 0 10px 32px rgba(30, 58, 138, 0.55);
+  background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+}
+
+.chat-fab:focus {
+  outline: 3px solid #f97316;
+  outline-offset: 3px;
 }
 
 .chat-fab--open {
-  background: linear-gradient(135deg, #c0392b, #e74c3c);
+  background: linear-gradient(135deg, #f97316, #ea580c);
 }
 
 .chat-fab__badge {
   position: absolute;
-  top: -4px;
-  right: -4px;
-  width: 20px;
-  height: 20px;
-  background: #f28c1b;
+  top: -5px;
+  right: -5px;
+  width: 22px;
+  height: 22px;
+  background: #f97316;
   color: #fff;
   border-radius: 50%;
-  font-size: 0.68rem;
-  font-weight: 800;
+  font-size: 0.7rem;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 2px solid #fff;
   animation: pulse-badge 2s infinite;
+  font-family: 'Poppins', sans-serif;
 }
 
 @keyframes pulse-badge {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.2); }
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7); }
+  50% { transform: scale(1.15); box-shadow: 0 0 0 8px rgba(249, 115, 22, 0); }
 }
 
 /* ============================================================
-   VENTANA DEL CHAT
+   VENTANA DEL CHAT - DISEÑO INSTITUCIONAL SUNEDU
    ============================================================ */
 .chat-window {
   position: fixed;
   bottom: 90px;
   right: 20px;
   z-index: 9998;
-  width: 360px;
-  height: min(520px, calc(100dvh - 220px));
-  max-height: min(520px, calc(100dvh - 220px));
+  width: 380px;
+  height: min(540px, calc(100dvh - 220px));
+  max-height: min(540px, calc(100dvh - 220px));
   background: #ffffff;
-  border-radius: 18px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18), 0 4px 16px rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(30, 58, 138, 0.2), 0 4px 16px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  animation: chat-appear 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: chat-appear 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 2px solid #e0e6ed;
 }
 
 @keyframes chat-appear {
-  from { opacity: 0; transform: translateY(20px) scale(0.96); }
+  from { opacity: 0; transform: translateY(20px) scale(0.95); }
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* ── Header ── */
+/* ── Header - Estilo institucional SUNEDU ── */
 .chat-header {
-  background: linear-gradient(135deg, #1e3a8a, #323f7c);
-  padding: 14px 16px;
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  padding: 16px 18px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   flex-shrink: 0;
+  border-bottom: 3px solid #f97316;
 }
 
 .chat-header__avatar {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: #ffffff;
   display: flex;
@@ -99,6 +114,7 @@
   flex-shrink: 0;
   overflow: hidden;
   padding: 3px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .chat-header__avatar img {
@@ -115,193 +131,244 @@
 
 .chat-header__name {
   color: #fff;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 700;
   line-height: 1.2;
+  font-family: 'Poppins', sans-serif;
 }
 
 .chat-header__sub {
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.75rem;
+  font-family: 'Poppins', sans-serif;
 }
 
 .chat-header__close {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.2);
   border: none;
   color: #fff;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.78rem;
-  transition: background 0.2s ease;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
   flex-shrink: 0;
 }
 
-.chat-header__close:hover { background: rgba(255, 255, 255, 0.3); }
+.chat-header__close:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: scale(1.1);
+}
 
-/* ── Mensajes ── */
+.chat-header__close:focus {
+  outline: 3px solid #f97316;
+  outline-offset: 2px;
+}
+
+/* ── Mensajes - Mejor interactividad SUNEDU ── */
 .chat-messages {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 14px 12px;
+  padding: 16px 14px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
   background: #f5f7fb;
   scroll-behavior: smooth;
   min-height: 0;
 }
 
-.chat-messages::-webkit-scrollbar { width: 4px; }
-.chat-messages::-webkit-scrollbar-track { background: transparent; }
-.chat-messages::-webkit-scrollbar-thumb { background: #c4cfe0; border-radius: 4px; }
+.chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
 
-/* ── Mensaje base ── */
+.chat-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: #c4cfe0;
+  border-radius: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+  background: #a8b8d0;
+}
+
+/* ── Mensaje base - Animaciones mejoradas ── */
 .msg {
   display: flex;
   align-items: flex-end;
-  gap: 8px;
-  max-width: 92%;
-  animation: msg-in 0.25s ease;
+  gap: 10px;
+  max-width: 94%;
+  animation: msg-in 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes msg-in {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(10px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .msg--bot { align-self: flex-start; }
 .msg--user { align-self: flex-end; flex-direction: row-reverse; }
 
 .msg__avatar {
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #1e3a8a, #323f7c);
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   flex-shrink: 0;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 8px rgba(30, 58, 138, 0.15);
 }
 
 .msg__content {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   min-width: 0;
 }
 
-/* ── Burbujas ── */
+/* ── Burbujas - Diseño institucional SUNEDU ── */
 .msg__bubble {
-  padding: 10px 14px;
-  border-radius: 16px;
-  font-size: 0.83rem;
-  line-height: 1.55;
+  padding: 12px 16px;
+  border-radius: 18px;
+  font-size: 0.85rem;
+  line-height: 1.5;
   word-wrap: break-word;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.2s ease;
 }
 
 .msg--bot .msg__bubble,
 .msg--bot .msg__bubble * {
   background: #ffffff !important;
   color: #374151 !important;
-  border-radius: 4px 16px 16px 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  border-radius: 6px 18px 18px 18px;
+  box-shadow: 0 2px 12px rgba(30, 58, 138, 0.1);
+  border: 1px solid #e0e6ed;
 }
 
 .msg--user .msg__bubble {
-  background: linear-gradient(135deg, #1e3a8a, #323f7c);
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
   color: #ffffff;
-  border-radius: 16px 4px 16px 16px;
+  border-radius: 18px 6px 18px 18px;
   text-align: right;
+  box-shadow: 0 2px 12px rgba(30, 58, 138, 0.2);
 }
 
-/* ── Hora ── */
+/* ── Hora - Mejor legibilidad ── */
 .msg__time {
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   color: #9ca3af;
   padding: 0 4px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .msg--user .msg__time { text-align: right; }
 
-/* ── Links de navegación ── */
+/* ── Links de navegación - Interactividad mejorada ── */
 .msg__links {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  margin-top: 2px;
+  gap: 6px;
+  margin-top: 4px;
 }
 
 .msg__link {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  color: #323f7c;
-  font-size: 0.76rem;
+  gap: 8px;
+  color: #1e3a8a;
+  font-size: 0.78rem;
   font-weight: 600;
   text-decoration: none;
-  padding: 5px 10px;
+  padding: 8px 14px;
   background: #eef1fb;
-  border-radius: 8px;
-  border: 1px solid #c5cfe8;
-  transition: background 0.2s ease, color 0.2s ease;
+  border-radius: 10px;
+  border: 2px solid #c5cfe8;
+  transition: all 0.2s ease;
   width: fit-content;
+  font-family: 'Poppins', sans-serif;
 }
 
 .msg__link:hover {
-  background: #323f7c;
+  background: #1e3a8a;
   color: #ffffff;
+  border-color: #1e3a8a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
 }
 
-/* ── Quick replies ── */
+.msg__link:focus {
+  outline: 3px solid #f97316;
+  outline-offset: 2px;
+}
+
+/* ── Quick replies - Mejor interactividad ── */
 .msg__quick-replies {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 6px;
+  gap: 8px;
+  margin-top: 8px;
 }
 
 .quick-reply {
   background: #ffffff;
-  color: #323f7c;
-  border: 1.5px solid #c5cfe8;
-  border-radius: 16px;
-  padding: 5px 12px;
-  font-size: 0.74rem;
+  color: #1e3a8a;
+  border: 2px solid #c5cfe8;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 0.76rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.18s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
+  font-family: 'Poppins', sans-serif;
 }
 
 .quick-reply:hover {
-  background: #323f7c;
+  background: #1e3a8a;
   color: #ffffff;
-  border-color: #323f7c;
+  border-color: #1e3a8a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
 }
 
-/* ── Typing indicator ── */
+.quick-reply:focus {
+  outline: 3px solid #f97316;
+  outline-offset: 2px;
+}
+
+/* ── Typing indicator - Más visible ── */
 .typing-indicator {
   display: flex;
   align-items: center;
-  gap: 5px;
-  padding: 12px 16px;
-  min-width: 56px;
+  gap: 6px;
+  padding: 14px 18px;
+  min-width: 60px;
+  background: #ffffff;
+  border-radius: 6px 18px 18px 18px;
+  box-shadow: 0 2px 12px rgba(30, 58, 138, 0.1);
+  border: 1px solid #e0e6ed;
 }
 
 .typing-indicator span {
-  width: 7px;
-  height: 7px;
-  background: #9ca3af;
+  width: 8px;
+  height: 8px;
+  background: #3b82f6;
   border-radius: 50%;
-  animation: typing-bounce 1.2s infinite;
+  animation: typing-bounce 1.4s infinite;
 }
 
 .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
@@ -309,79 +376,184 @@
 
 @keyframes typing-bounce {
   0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
-  40% { transform: translateY(-6px); opacity: 1; }
+  40% { transform: translateY(-8px); opacity: 1; }
 }
 
-/* ── Input area ── */
+/* ── Input area - Accesibilidad WCAG mejorada ── */
 .chat-input-area {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 14px;
+  gap: 10px;
+  padding: 14px 16px;
   background: #ffffff;
-  border-top: 1px solid #e2e8f0;
+  border-top: 2px solid #e0e6ed;
   flex-shrink: 0;
 }
 
 .chat-input {
   flex: 1;
-  border: 1.5px solid #d1dae8;
+  border: 2px solid #d1dae8;
   border-radius: 24px;
-  padding: 9px 16px;
-  font-size: 0.82rem;
+  padding: 10px 18px;
+  font-size: 0.85rem;
   font-family: 'Poppins', sans-serif;
-  color: #1a2560;
+  color: #1e3a8a;
   background: #f5f7fb;
   outline: none;
-  transition: border-color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
-.chat-input:focus { border-color: #323f7c; background: #fff; }
-.chat-input::placeholder { color: #9ca3af; }
+.chat-input:focus {
+  border-color: #3b82f6;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.chat-input::placeholder {
+  color: #9ca3af;
+  font-family: 'Poppins', sans-serif;
+}
 
 .chat-send {
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #1e3a8a, #323f7c);
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
   color: #fff;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.82rem;
+  font-size: 0.9rem;
   flex-shrink: 0;
-  transition: transform 0.18s ease, background 0.18s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
 }
 
 .chat-send:hover:not(:disabled) {
-  background: #f28c1b;
-  transform: scale(1.08);
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 6px 16px rgba(249, 115, 22, 0.3);
+}
+
+.chat-send:focus {
+  outline: 3px solid #f97316;
+  outline-offset: 2px;
 }
 
 .chat-send:disabled {
   opacity: 0.4;
-  cursor: default;
+  cursor: not-allowed;
+  transform: none;
 }
 
 /* ============================================================
-   RESPONSIVE
+   RESPONSIVE DESIGN - OPTIMIZADO SEGÚN ESTÁNDARES SUNEDU
    ============================================================ */
 @media (max-width: 480px) {
   .chat-window {
-    width: calc(100vw - 20px);
-    right: 10px;
-    bottom: 86px;
-    height: min(460px, calc(100dvh - 200px));
-    max-height: min(460px, calc(100dvh - 200px));
+    width: calc(100vw - 24px);
+    right: 12px;
+    bottom: 90px;
+    height: min(480px, calc(100dvh - 200px));
+    max-height: min(480px, calc(100dvh - 200px));
+    border-radius: 12px;
   }
 
   .chat-fab {
-    bottom: 14px;
-    right: 14px;
+    bottom: 16px;
+    right: 16px;
+    width: 54px;
+    height: 54px;
+    font-size: 1.2rem;
+  }
+
+  .chat-fab__badge {
+    width: 20px;
+    height: 20px;
+    font-size: 0.65rem;
+  }
+
+  .chat-header {
+    padding: 14px 16px;
+  }
+
+  .chat-header__avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .chat-header__name {
+    font-size: 0.85rem;
+  }
+
+  .chat-header__sub {
+    font-size: 0.7rem;
+  }
+
+  .chat-messages {
+    padding: 14px 12px;
+    gap: 12px;
+  }
+
+  .msg {
+    max-width: 96%;
+  }
+
+  .msg__avatar {
+    width: 28px;
+    height: 28px;
+    font-size: 0.75rem;
+  }
+
+  .msg__bubble {
+    padding: 10px 14px;
+    font-size: 0.82rem;
+  }
+
+  .quick-reply {
+    padding: 7px 14px;
+    font-size: 0.72rem;
+  }
+
+  .chat-input-area {
+    padding: 12px 14px;
+  }
+
+  .chat-input {
+    padding: 9px 16px;
+    font-size: 0.82rem;
+  }
+
+  .chat-send {
+    width: 38px;
+    height: 38px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .chat-window {
+    width: calc(100vw - 16px);
+    right: 8px;
+    bottom: 85px;
+  }
+
+  .chat-fab {
+    bottom: 12px;
+    right: 12px;
     width: 50px;
     height: 50px;
-    font-size: 1.1rem;
+  }
+
+  .msg__bubble {
+    font-size: 0.8rem;
+    padding: 9px 12px;
+  }
+
+  .quick-reply {
+    padding: 6px 12px;
+    font-size: 0.7rem;
   }
 }

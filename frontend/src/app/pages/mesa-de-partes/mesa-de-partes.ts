@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ChangeDetectorRef, NgZone } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef, NgZone, signal, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { timeout } from 'rxjs';
@@ -29,6 +29,26 @@ export class MesaDePartes implements OnInit {
   consultaResult: any = null;
   showConsultaModal = false;
   consultaError = '';
+
+  // Signals para estados reactivos
+  loadingTracking = signal(false);
+  errorTracking = signal<string | null>(null);
+  trackingResult = signal<any | null>(null);
+
+  // Stepper reactivo de seguimiento
+  trackingSteps = computed(() => {
+    const result = this.trackingResult();
+    if (!result) return [];
+    
+    const status = result.processing_status || 'Pendiente';
+    const steps = [
+      { label: 'Recibido', completed: true, current: status === 'Pendiente' },
+      { label: 'En Proceso', completed: status === 'En Progreso' || status === 'Aceptado' || status === 'Finalizado', current: status === 'En Progreso' },
+      { label: 'Resuelto', completed: status === 'Finalizado' || status === 'Resuelto', current: status === 'Finalizado' || status === 'Resuelto' }
+    ];
+    
+    return steps;
+  });
 
   selectedFile: File | null = null;
 
@@ -222,54 +242,58 @@ export class MesaDePartes implements OnInit {
   }
 
   consultar(): void {
-
     if (!this.trackingCode.trim() || this.isConsulting) return;
 
-    this.isConsulting = true;
-    this.consultaError = '';
-    this.consultaResult = null;
+    this.loadingTracking.set(true);
+    this.errorTracking.set(null);
+    this.trackingResult.set(null);
 
     this.http.get<any[]>(
       `${environment.apiUrl}/digital_intake_office/list`
     ).pipe(
       timeout(15000)
     ).subscribe({
-
       next: (list) => {
         this.zone.run(() => {
-          this.isConsulting = false;
+          this.loadingTracking.set(false);
 
           const found = list.find(
             (item) => item.tracking_code === this.trackingCode.trim()
           );
 
           if (found) {
+            this.trackingResult.set(found);
             this.consultaResult = found;
             this.showConsultaModal = true;
-            this.consultaError = '';
+            this.errorTracking.set(null);
           } else {
-            this.consultaError =
-              'No se encontró ningún trámite con ese código.';
+            this.errorTracking.set('No se encontró ningún trámite con ese código.');
           }
           this.cdr.detectChanges();
         });
       },
-
       error: (error) => {
         this.zone.run(() => {
-          this.isConsulting = false;
-          this.consultaError = error.name === 'TimeoutError'
+          this.loadingTracking.set(false);
+          this.errorTracking.set(error.name === 'TimeoutError'
             ? 'El servidor tardó demasiado. Verifique que esté activo e intente nuevamente.'
-            : 'Error al consultar el trámite. Intente nuevamente.';
+            : 'Error al consultar el trámite. Intente nuevamente.');
           this.cdr.detectChanges();
         });
       }
     });
   }
 
+  // Método de reintento para consulta
+  retryTracking(): void {
+    this.consultar();
+  }
+
   closeConsultaModal(): void {
     this.showConsultaModal = false;
     this.consultaResult = null;
+    this.trackingResult.set(null);
+    this.errorTracking.set(null);
   }
 
   getFileUrl(relativePath: string): string {

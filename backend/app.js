@@ -12,6 +12,25 @@ const appRoutes = require('./routes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Validar variables de entorno críticas (ajustado para nombres existentes)
+const requiredEnvVars = ['JWT_SECRET'];
+const dbEnvVars = ['DB_HOST', 'DB_USER', 'DB_PASSWORD', 'DB_NAME', 'DB_NAME', 'DATABASE_URL'];
+const missingEnvVars = requiredEnvVars.filter(varName => !process.env[varName]);
+
+// Solo advertir si faltan variables de base de datos, no detener servidor
+const missingDbVars = dbEnvVars.filter(varName => !process.env[varName]);
+if (missingDbVars.length > 0) {
+    console.warn('⚠️  Advertencia: Variables de base de datos no encontradas:', missingDbVars.join(', '));
+    console.warn('El servidor intentará iniciarse con configuración alternativa.');
+}
+
+if (missingEnvVars.length > 0) {
+    console.error('❌ Error: Faltan variables de entorno críticas:');
+    missingEnvVars.forEach(varName => console.error(`   - ${varName}`));
+    console.error('El servidor no se iniciará por razones de seguridad.');
+    process.exit(1);
+}
+
 app.use(cors({
     origin: [
         'https://eespvirgendelcarmen.edu.pe',
@@ -69,7 +88,9 @@ app.use('/api', appRoutes.AuthRoutes);
 app.use('/api', appRoutes.DigitalIntakeOfficeRoutes);
 app.use('/api', appRoutes.ReclamacionRoutes);
 app.use('/api', appRoutes.chatbotRoutes);
+app.use('/api', appRoutes.ImageRoutes);
 
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
 app.use('/pdf', express.static(path.join(__dirname, 'public/pdf')));
 app.use('/personal_cv', express.static(path.join(__dirname, 'public/personal_cv')));
 

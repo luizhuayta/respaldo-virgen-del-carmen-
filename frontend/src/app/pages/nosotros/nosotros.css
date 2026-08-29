@@ -1,4 +1,4 @@
-/* ===== RESET & BASE ===== */
+/* ===== NOSOTROS MODERNIZADO SEGÚN ESTÁNDARES SUNEDU ===== */
 * {
   margin: 0;
   padding: 0;
@@ -6,16 +6,9 @@
 }
 
 body {
-  font-family:
-    system-ui,
-    -apple-system,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    sans-serif;
-  background-color: #f0f8ff;
+  font-family: 'Poppins', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);
   color: #1e3a8a;
-  /* azul */
 }
 
 /* Utilidades */
@@ -23,26 +16,43 @@ body {
   display: none;
 }
 
-/* ===== HERO SECTION ===== */
+/* ===== HERO SECTION - Estilo institucional SUNEDU ===== */
 .hero-section {
-  min-height: 500px;
+  min-height: 550px;
   display: flex;
   align-items: center;
   padding: 0 5rem;
-  /* px-20 = 80px */
   position: relative;
-  background-image: url('/images/banner-hero-nosotros.png');
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #1e3a8a 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+  overflow: hidden;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('/images/banner-hero-nosotros.png') center/cover;
+  opacity: 0.15;
+  mix-blend-mode: overlay;
 }
 
 .hero-container {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 2.5rem;
-  /* gap-10 = 40px */
   align-items: center;
   width: 100%;
   padding-bottom: 4rem;
-  /* pb-16 = 64px */
 }
 
 .hero-content {
@@ -50,21 +60,28 @@ body {
 }
 
 .hero-title {
-  font-size: 3rem;
-  /* text-5xl = 48px */
-  font-weight: bold;
-  margin-bottom: 1rem;
-  /* mb-4 = 16px */
-  color: #1e3a8a;
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
+  font-family: 'Poppins', sans-serif;
 }
 
 .hero-description {
   font-size: 1.25rem;
-  /* text-xl = 20px */
-  line-height: 1.625;
-  /* leading-relaxed */
+  line-height: 1.7;
   margin-bottom: 2rem;
-  color: #1e3a8a;
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 500;
+  max-width: 600px;
+  position: relative;
+  z-index: 1;
+  font-family: 'Poppins', sans-serif;
 }
 
 .hero-image {
@@ -80,18 +97,15 @@ body {
   object-fit: contain;
 }
 
-/* ===== BOTONES FLOTANTES ===== */
+/* ===== BOTONES FLOTANTES - Accesibilidad WCAG SUNEDU ===== */
 .buttons-section {
   position: relative;
-  z-index: 10;
-  margin-top: -4rem;
-  /* -mt-16 = -64px */
+  z-index: 20;
+  margin-top: -3rem;
   display: flex;
   justify-content: center;
-  gap: 2rem;
-  /* gap-8 = 32px */
+  gap: 1.5rem;
   padding: 0 2.5rem;
-  /* px-10 = 40px */
   flex-wrap: wrap;
 }
 
@@ -100,57 +114,75 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
-  /* gap-3 = 12px */
-  background-color: white;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
   color: #1e3a8a;
-  font-weight: bold;
+  font-weight: 700;
   padding: 2rem;
-  /* p-8 = 32px */
-  border-radius: 1rem;
-  /* rounded-2xl = 16px */
-  box-shadow:
-    0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 8px 10px -6px rgba(0, 0, 0, 0.1);
-  border: 1px solid #f3f4f6;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(30, 58, 138, 0.15);
+  border: 2px solid rgba(30, 58, 138, 0.1);
   width: 16rem;
-  /* w-64 = 256px */
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+}
+
+.floating-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.floating-btn:hover::before {
+  left: 100%;
 }
 
 .floating-btn:hover {
-  box-shadow: 0 25px 30px -12px rgba(0, 0, 0, 0.25);
-  border-color: #f97316;
-  /* naranja */
-  transform: translateY(-4px);
-  /* hover:-translate-y-1 */
+  box-shadow: 0 20px 50px rgba(30, 58, 138, 0.25);
+  border-color: #3b82f6;
+  transform: translateY(-8px) scale(1.03);
+  background: linear-gradient(135deg, #ffffff 0%, #e0f2fe 100%);
+}
+
+.floating-btn:focus {
+  outline: 3px solid #f97316;
+  outline-offset: 2px;
 }
 
 .btn-icon {
-  width: 3rem;
-  /* w-12 = 48px */
-  height: 3rem;
-  /* h-12 = 48px */
+  width: 3.5rem;
+  height: 3.5rem;
+  color: #3b82f6;
+  transition: transform 0.3s ease;
+}
+
+.floating-btn:hover .btn-icon {
+  transform: scale(1.15);
   color: #1e3a8a;
 }
 
 .btn-text {
   font-size: 1.125rem;
-  /* text-lg = 18px */
 }
 
-/* ===== ÁREA DE CONTENIDO DINÁMICO ===== */
+/* ===== ÁREA DE CONTENIDO DINÁMICO - Estilo institucional SUNEDU ===== */
 .content-area {
   padding: 4rem 5rem;
-  /* py-16 px-20 */
-  background-color: #f0f8ff;
-  border-bottom: 1px solid #e5e7eb;
+  background: linear-gradient(180deg, #ffffff 0%, #f0f9ff 100%);
+  border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 .content-container {
   max-width: 56rem;
-  /* max-w-4xl = 896px */
   margin: 0 auto;
 }
 
@@ -159,36 +191,48 @@ body {
 }
 
 .section-title {
-  font-size: 1.875rem;
-  font-weight: bold;
+  font-size: 2.25rem;
+  font-weight: 800;
   color: #1e3a8a;
-  margin-bottom: 1.5rem;
-  /* mb-6 = 24px */
+  margin-bottom: 2rem;
+  letter-spacing: -0.01em;
+  position: relative;
+  display: inline-block;
+  font-family: 'Poppins', sans-serif;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #f97316, #ea580c);
+  border-radius: 2px;
 }
 
 .content-title {
-  font-size: 1.875rem;
-  /* text-3xl = 30px */
-  font-weight: bold;
+  font-size: 2rem;
+  font-weight: 800;
   color: #1e3a8a;
   margin-bottom: 1.5rem;
-  /* mb-6 = 24px */
+  letter-spacing: -0.01em;
+  font-family: 'Poppins', sans-serif;
 }
 
 .content-paragraph {
   font-size: 1.125rem;
-  /* text-lg = 18px */
   color: #374151;
-  /* gray-700 */
   line-height: 1.625;
+  font-family: 'Poppins', sans-serif;
 }
 
-/* Grid de valores */
+/* Grid de valores - Estilo institucional SUNEDU */
 .valores-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
-  /* gap-6 = 24px */
   text-align: left;
   max-width: 48rem;
   margin: 2rem auto 0;
@@ -197,21 +241,27 @@ body {
 .valor-card {
   background-color: #f9fafb;
   padding: 1.25rem;
-  /* p-5 = 20px */
   border-radius: 0.5rem;
-  /* rounded-lg */
   border-left: 4px solid #f97316;
-  /* border-naranja */
+  transition: all 0.3s ease;
+}
+
+.valor-card:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.15);
 }
 
 .valor-title {
   color: #1e3a8a;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
 }
 
 .valores-html p {
   color: #374151;
   margin: 0 0 4px 0;
   line-height: 1.6;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* Animación fade */
@@ -227,7 +277,7 @@ body {
   }
 }
 
-/* ===== SECCIÓN ===== */
+/* ===== SECCIÓN ORGANIGRAMA - Estilo institucional SUNEDU ===== */
 .organigrama-section {
   padding: 6rem 2rem;
   background: linear-gradient(135deg, #eaf4ff, #f8fbff);
@@ -235,14 +285,12 @@ body {
   justify-content: center;
 }
 
-/* ===== CONTENEDOR ===== */
 .organigrama-container {
   max-width: 1200px;
   width: 100%;
   text-align: center;
 }
 
-/* ===== CARD GLASS ===== */
 .organigrama-card {
   background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(12px);
@@ -250,9 +298,9 @@ body {
   padding: 30px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
   animation: fadeUp 1s ease forwards;
+  border: 2px solid rgba(59, 130, 246, 0.1);
 }
 
-/* ===== IMAGEN ===== */
 .organigrama-img {
   display: flex;
   justify-content: center;
@@ -263,18 +311,19 @@ body {
   max-width: 900px;
   border-radius: 16px;
   cursor: pointer;
-  transition:
-    transform 0.4s ease,
-    box-shadow 0.4s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* HOVER */
 .organigrama-img img:hover {
   transform: scale(1.04);
   box-shadow: 0 30px 70px rgba(0, 0, 0, 0.25);
 }
 
-/* ===== ANIMACIÓN ===== */
+.organigrama-img img:focus {
+  outline: 3px solid #f97316;
+  outline-offset: 2px;
+}
+
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -343,11 +392,10 @@ body {
   }
 }
 
-/* ===== ORGANIGRAMA ===== */
+/* ===== ORGANIGRAMA - Modern Design with Zoom ===== */
 .organigrama-section {
-  padding: 4rem 5rem;
-  background-color: #f0f8ff;
-  background-color: #f0f8ff;
+  padding: 5rem 5rem;
+  background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);
 }
 
 .organigrama-container {
@@ -355,14 +403,15 @@ body {
 }
 
 .organigrama-img-wrapper {
-  margin-top: 1.5rem;
-  background: white;
-  border-radius: 1rem;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-  border: 1px solid #e5e7eb;
-  padding: 2rem;
+  margin-top: 2rem;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(30, 58, 138, 0.15);
+  border: 2px solid rgba(59, 130, 246, 0.2);
+  padding: 2.5rem;
   overflow: hidden;
   animation: fadeInUp 0.6s ease both;
+  position: relative;
 }
 
 @keyframes fadeInUp {
@@ -377,20 +426,32 @@ body {
   }
 }
 
-.organigrama-img {
-  display: block;
-  max-width: 100%;
-  max-height: 580px;
-  width: auto;
-  height: auto;
-  margin: 0 auto;
-  width: 60%;
+.organigrama-block {
+  position: relative;
+  display: inline-block;
+  width: 100%;
 }
 
-/* ===== AUTORIDADES Y DOCENTES ===== */
+.organigrama-block img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
+}
+
+.organigrama-block img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 25px 50px rgba(30, 58, 138, 0.2);
+}
+
+/* ===== AUTORIDADES Y DOCENTES - Estilo institucional SUNEDU ===== */
 .autoridades-section {
-  padding: 0 80px 80px 80px;
-  background-color: #f0f8ff;
+  padding: 4rem 5rem;
+  background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);
 }
 
 .autoridades-layout {
@@ -416,6 +477,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 0.5rem;
+  font-family: 'Poppins', sans-serif;
 }
 
 .year-btn {
@@ -429,11 +491,17 @@ body {
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: center;
+  font-family: 'Poppins', sans-serif;
 }
 
 .year-btn:hover {
   border-color: #1e3a8a;
   color: #1e3a8a;
+}
+
+.year-btn:focus {
+  outline: 3px solid #f97316;
+  outline-offset: 2px;
 }
 
 .year-btn.active {
@@ -457,29 +525,31 @@ body {
   color: #6b7280;
   font-size: 1rem;
   padding: 2rem 0;
+  font-family: 'Poppins', sans-serif;
 }
 
-/* Tarjeta de autoridad */
+/* Tarjeta de autoridad - Estilo institucional SUNEDU */
 .autor-card {
   position: relative;
-  height: 350px;
-  border-radius: 0.75rem;
-  /* rounded-xl */
+  height: 380px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  box-shadow: 0 10px 30px rgba(30, 58, 138, 0.15);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
-  height: 350px;
-  border-radius: 0.75rem;
-  /* rounded-xl */
-  overflow: hidden;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-  cursor: pointer;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid rgba(59, 130, 246, 0.1);
 }
 
 .autor-card:hover {
-  transform: scale(1.02);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(30, 58, 138, 0.25);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.autor-card:focus {
+  outline: 3px solid #f97316;
+  outline-offset: 2px;
 }
 
 .autor-img {
@@ -500,10 +570,11 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: white;
-  padding: 1rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  padding: 1.25rem;
   text-align: center;
   border-top: 4px solid #f97316;
+  backdrop-filter: blur(10px);
 }
 
 .autor-name {
@@ -515,6 +586,7 @@ body {
   white-space: nowrap;
   text-overflow: ellipsis;
   margin-bottom: 0.25rem;
+  font-family: 'Poppins', sans-serif;
 }
 
 .autor-role {
@@ -525,6 +597,7 @@ body {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* Placeholder para fotos que faltan */
@@ -846,22 +919,23 @@ body {
   transform: scale(1.02);
 }
 
-/* ===== HISTORIA ===== */
+/* ===== HISTORIA - Modern Design ===== */
 .historia-section {
   display: flex;
   justify-content: center;
-  padding: 3rem 1.5rem;
-  background: #f0f8ff;
+  padding: 4rem 2rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f0f9ff 100%);
 }
 
-/* CONTENEDOR 90% */
+/* CONTENEDOR - Modern Card */
 .historia-card {
   width: 90%;
   max-width: 1200px;
-  background: white;
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 24px;
+  padding: 3rem;
+  box-shadow: 0 20px 60px rgba(30, 58, 138, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.1);
 }
 
 /* LAYOUT EN PARALELO */
@@ -872,13 +946,19 @@ body {
   align-items: start;
 }
 
-/* IMAGEN */
+/* IMAGEN - Modern Styling */
 .historia-image img {
   width: 100%;
   height: 100%;
-  max-height: 420px;
+  max-height: 450px;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s ease;
+}
+
+.historia-image img:hover {
+  transform: scale(1.02);
 }
 
 /* TEXTO */
@@ -897,6 +977,7 @@ body {
 
   display: -webkit-box;
   -webkit-line-clamp: 6;
+  line-clamp: 6;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -904,6 +985,7 @@ body {
 /* cuando se expande */
 .historia-text.expanded {
   -webkit-line-clamp: unset;
+  line-clamp: unset;
 }
 
 /* párrafos */
@@ -932,13 +1014,22 @@ body {
   text-align: justify;
 }
 
-/* BOTÓN */
+/* BOTÓN - Modern Styling */
 .ver-mas {
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  color: #f97316;
-  font-weight: 600;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #3b82f6;
+  font-weight: 700;
   cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ver-mas:hover {
+  color: #1e3a8a;
+  transform: translateX(4px);
 }
 
 @media (max-width: 1024px) {
@@ -959,6 +1050,7 @@ body {
 
   .historia-text {
     -webkit-line-clamp: 4;
+    line-clamp: 4;
     font-size: 0.95rem;
   }
 }
@@ -966,20 +1058,69 @@ body {
 @media (max-width: 480px) {
   .historia-text {
     -webkit-line-clamp: 3;
+    line-clamp: 3;
   }
 }
 
-/* IMAGE VIEWER */
+/* IMAGE VIEWER - Modern Modal */
 .image-viewer {
   position: fixed;
   inset: 0;
-  background: rgba(238, 234, 234, 0.9);
-
-  z-index: 9999; /* clave */
-  
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 9999;
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.image-viewer img {
+  max-width: 95%;
+  max-height: 95%;
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: zoomIn 0.4s ease;
+}
+
+.image-viewer-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  font-size: 40px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  font-weight: 300;
+  line-height: 1;
+}
+
+.image-viewer-close:hover {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  border-color: #ef4444;
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .buttons-section {
@@ -1006,19 +1147,33 @@ body {
 
 .preview-zoom-btn {
   position: absolute;
-  bottom: 12px;
-  right: 12px;
-  z-index: 5;
+  bottom: 16px;
+  right: 16px;
+  z-index: 10;
 
-  background: rgba(0, 0, 0, 0.6);
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
   border: none;
   color: white;
 
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
 
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3);
+}
+
+.preview-zoom-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 25px rgba(30, 58, 138, 0.4);
+}
+
+.preview-zoom-btn i {
+  font-size: 1.25rem;
 }
 
 .rich-content {
@@ -1083,78 +1238,84 @@ body {
 .rich-content {
   max-width: 750px;
 }
-/* ===== FILTRO POR ÁREAS ===== */
+/* ===== FILTRO POR ÁREAS - Modern Design ===== */
 .area-filter-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 1.5rem;
+  gap: 12px;
+  margin-bottom: 2rem;
 }
 
 .area-chip {
-  padding: 6px 16px;
+  padding: 10px 20px;
   border-radius: 999px;
   border: 2px solid #e5e7eb;
   background: white;
   color: #374151;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .area-chip:hover {
-  border-color: #1e3a8a;
-  color: #1e3a8a;
+  border-color: #3b82f6;
+  color: #3b82f6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
 }
 
 .area-chip.active {
-  background: #1e3a8a;
-  border-color: #1e3a8a;
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  border-color: #3b82f6;
   color: white;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
 }
 
-/* TAG EN CARD */
+/* TAG EN CARD - Modern Design */
 .autor-area-tag {
   display: inline-block;
-  margin-top: 4px;
-  font-size: 0.72rem;
-  font-weight: 600;
+  margin-top: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
   color: #f97316;
-  background: rgba(249, 115, 22, 0.1);
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(234, 88, 12, 0.1) 100%);
   border: 1px solid rgba(249, 115, 22, 0.3);
   border-radius: 999px;
-  padding: 2px 10px;
+  padding: 4px 12px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
+  letter-spacing: 0.02em;
 }
 
-/* ===== MODAL PERFIL ===== */
+/* ===== MODAL PERFIL - Modern Design ===== */
 .profile-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(6px);
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
   z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
-  animation: fadeIn 0.2s ease;
+  padding: 1.5rem;
+  animation: fadeIn 0.3s ease;
 }
 
 .profile-modal {
   position: relative;
-  background: white;
-  border-radius: 20px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 24px;
   width: 100%;
-  max-width: 780px;
+  max-width: 800px;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.25);
-  animation: slideUp 0.25s ease;
+  box-shadow: 0 30px 80px rgba(30, 58, 138, 0.3);
+  animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(59, 130, 246, 0.1);
 }
 
 @keyframes slideUp {
@@ -1164,42 +1325,50 @@ body {
 
 .profile-close {
   position: absolute;
-  top: 14px;
-  right: 18px;
-  background: #f3f4f6;
+  top: 16px;
+  right: 20px;
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
   border: none;
-  font-size: 22px;
-  width: 36px;
-  height: 36px;
+  font-size: 24px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   cursor: pointer;
   color: #374151;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s;
+  transition: all 0.3s ease;
   z-index: 2;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.profile-close:hover { background: #e5e7eb; }
+.profile-close:hover { 
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  transform: rotate(90deg);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+ }
 
-/* TOP */
+/* TOP - Modern Design */
 .profile-top {
   display: flex;
-  gap: 1.5rem;
-  padding: 2rem 2rem 1.5rem;
-  border-bottom: 1px solid #f3f4f6;
+  gap: 2rem;
+  padding: 2.5rem 2.5rem 2rem;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.1);
   align-items: flex-start;
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.03) 0%, transparent 100%);
 }
 
 .profile-avatar {
   flex-shrink: 0;
-  width: 130px;
-  height: 170px;
-  border-radius: 14px;
+  width: 140px;
+  height: 180px;
+  border-radius: 16px;
   overflow: hidden;
-  background: #e5e7eb;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+  box-shadow: 0 10px 30px rgba(30, 58, 138, 0.2);
+  border: 2px solid rgba(59, 130, 246, 0.2);
 }
 
 .profile-avatar img {
@@ -1227,10 +1396,11 @@ body {
 }
 
 .profile-name {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: #1e3a8a;
   line-height: 1.3;
+  letter-spacing: -0.01em;
 }
 
 .profile-role {
@@ -1241,14 +1411,15 @@ body {
 
 .profile-area-badge {
   display: inline-block;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 700;
   color: #f97316;
-  background: rgba(249, 115, 22, 0.1);
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(234, 88, 12, 0.1) 100%);
   border: 1px solid rgba(249, 115, 22, 0.3);
   border-radius: 999px;
-  padding: 3px 12px;
+  padding: 6px 16px;
   width: fit-content;
+  letter-spacing: 0.02em;
 }
 
 .profile-email {
@@ -1291,10 +1462,11 @@ body {
 
 .profile-cv-iframe {
   width: 100%;
-  height: 480px;
+  height: 500px;
   border: none;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(30, 58, 138, 0.15);
+  background: #f8fafc;
 }
 
 @media (max-width: 600px) {
@@ -1320,16 +1492,16 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: white;
-  padding: 0.75rem 0.875rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  padding: 1rem;
   border-top: 4px solid #f97316;
-  /* NUEVO: altura fija + flex para alinear contenido */
-  height: 110px;
+  height: 120px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 2px;
+  gap: 4px;
   overflow: hidden;
+  backdrop-filter: blur(10px);
 }
 
 /* 2. autor-name — 2 líneas con ellipsis */
@@ -1340,6 +1512,7 @@ body {
   line-height: 1.35;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   word-break: break-word;
@@ -1353,6 +1526,7 @@ body {
   line-height: 1.35;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   word-break: break-word;

@@ -1,0 +1,256 @@
+/* ===== ESTILOS GLOBALES MODERNOS - UX OPTIMIZADA ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  font-family: 'Poppins', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(180deg, #f0f9ff 0%, #e8edf5 100%);
+  color: #1e3a8a;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ===== SCROLLBAR PERSONALIZADA ===== */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e8edf5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  border-radius: 10px;
+  border: 2px solid #e8edf5;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+}
+
+/* ===== SELECCIÓN DE TEXTO ===== */
+::selection {
+  background: rgba(249, 115, 22, 0.3);
+  color: #1e3a8a;
+}
+
+/* ===== ANIMACIONES GLOBALES ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* ===== CLASES DE UTILIDAD DE ANIMACIÓN ===== */
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== LINKS GLOBALES ===== */
+a {
+  color: #1e3a8a;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #f97316;
+}
+
+a:focus {
+  outline: 3px solid #f97316;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ===== BOTONES GLOBALES ===== */
+button {
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:focus {
+  outline: 3px solid #f97316;
+  outline-offset: 2px;
+}
+
+/* ===== IMÁGENES ===== */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ===== CONTENEDORES ===== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ===== EFECTOS GLASSMORPHISM ===== */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.glass-dark {
+  background: rgba(30, 58, 138, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* ===== SOMBRAS MODERNAS ===== */
+.shadow-sm {
+  box-shadow: 0 2px 8px rgba(30, 58, 138, 0.1);
+}
+
+.shadow-md {
+  box-shadow: 0 4px 16px rgba(30, 58, 138, 0.15);
+}
+
+.shadow-lg {
+  box-shadow: 0 8px 24px rgba(30, 58, 138, 0.2);
+}
+
+.shadow-xl {
+  box-shadow: 0 16px 48px rgba(30, 58, 138, 0.25);
+}
+
+/* ===== BORDES MODERNOS ===== */
+.border-gradient {
+  border: 2px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, #1e3a8a, #3b82f6) border-box;
+}
+
+/* ===== TIPADO DE TEXTO ===== */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  color: #1e3a8a;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+/* ===== SPACINGS ===== */
+.section {
+  padding: 80px 0;
+}
+
+.section-sm {
+  padding: 40px 0;
+}
+
+.section-lg {
+  padding: 120px 0;
+}
+
+/* ===== RESPONSIVE GLOBALES ===== */
+@media (max-width: 768px) {
+  html {
+    scroll-padding-top: 70px;
+  }
+  
+  .section {
+    padding: 60px 0;
+  }
+  
+  .section-lg {
+    padding: 80px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    scroll-padding-top: 60px;
+  }
+  
+  .section {
+    padding: 40px 0;
+  }
+  
+  .section-sm {
+    padding: 30px 0;
+  }
+}

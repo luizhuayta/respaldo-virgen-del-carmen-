@@ -1,4 +1,4 @@
-/* Reset básico */
+/* ===== HEADER DESIGN MODERNIZADO - UX OPTIMIZADA ===== */
 * {
   margin: 0;
   padding: 0;
@@ -7,66 +7,148 @@
 
 body {
   background-color: #ffffff;
-  font-family: Arial, sans-serif;
+  font-family: 'Poppins', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
-/* Top bar */
+/* Top bar - Estilo institucional SUNEDU con efectos modernos */
 .top-bar {
-  height: 40px;
-  background-color: #323f7c;
+  height: 48px;
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  box-shadow: 0 2px 10px rgba(30, 58, 138, 0.2);
+  position: relative;
+  overflow: hidden;
 }
 
-/* Navbar */
+.top-bar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Navbar - Sticky con glassmorphism moderno */
 .navbar {
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 20px;
-  background-color: #ffffff;
+  padding: 16px 32px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(30, 58, 138, 0.1);
+  transition: all 0.3s ease;
 }
 
-/* Logo */
+.navbar.scrolled {
+  padding: 12px 32px;
+  box-shadow: 0 8px 30px rgba(30, 58, 138, 0.15);
+}
+
+/* Logo - Efectos modernos */
 .logo img {
-  width: 180px;
+  width: 200px;
   height: auto;
   cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 2px 8px rgba(30, 58, 138, 0.1));
 }
 
-/* Botón hamburguesa */
+.logo img:hover {
+  transform: scale(1.05) translateY(-2px);
+  filter: drop-shadow(0 4px 16px rgba(30, 58, 138, 0.2));
+}
+
+.logo img:focus {
+  outline: 3px solid #f97316;
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Botón hamburguesa - Animación moderna */
 .menu-toggle {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 5px;
-  background: none;
+  gap: 6px;
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
   border: none;
   cursor: pointer;
   z-index: 1100;
+  padding: 12px;
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
+}
+
+.menu-toggle:hover {
+  background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(30, 58, 138, 0.3);
+}
+
+.menu-toggle:focus {
+  outline: 3px solid #f97316;
+  outline-offset: 2px;
 }
 
 .menu-toggle span {
-  width: 25px;
+  width: 28px;
   height: 3px;
-  background-color: #323f7c;
-  border-radius: 2px;
-  transition: all 0.3s ease;
+  background: #ffffff;
+  border-radius: 3px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Contenedor del menú */
+.menu-toggle:hover span:nth-child(1) {
+  transform: translateX(4px);
+}
+
+.menu-toggle:hover span:nth-child(3) {
+  transform: translateX(-4px);
+}
+
+/* Contenedor del menú - Efectos modernos */
 .nav-content {
   position: absolute;
   top: 100%;
   left: 0;
   width: 100%;
-  background-color: #ffffff;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px 0;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 32px 0;
+  box-shadow: 0 20px 60px rgba(30, 58, 138, 0.2);
+  border-radius: 0 0 20px 20px;
+  border-top: 3px solid #f97316;
+  animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Estado activo */
@@ -74,75 +156,94 @@ body {
   display: flex;
 }
 
-/* Menú */
+/* Menú - Estilo institucional SUNEDU */
 .menu {
   list-style: none;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 6px;
 }
 
 .menu li a {
   text-decoration: none;
-  color: #323f7c;
-  font-size: 18px;
-  transition: color 0.3s ease;
+  color: #1e3a8a;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  position: relative;
+  font-family: 'Poppins', sans-serif;
 }
 
 .menu li a:hover {
-  color: #f28c1b;
+  color: #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
+  transform: translateY(-2px);
+}
+
+.menu li a:focus {
+  outline: 3px solid #f97316;
+  outline-offset: 2px;
 }
 
 .menu li a.nav-active {
-  color: #f28c1b;
+  color: #3b82f6;
+  background: rgba(59, 130, 246, 0.15);
   font-weight: 700;
+  border-left: 4px solid #f97316;
 }
 
 @media (min-width: 992px) {
   .menu li a.nav-active {
-    position: relative;
-  }
-
-  .menu li a.nav-active::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #f28c1b;
-    border-radius: 2px;
+    border-left: none;
+    border-bottom: 3px solid #f97316;
   }
 }
 
+/* Botón transparencia - Estilo institucional SUNEDU */
 .btn-transparencia.btn-transparencia-active {
-  background-color: #323f7c;
-  box-shadow: 0 0 0 3px rgba(50, 63, 124, 0.25);
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3);
 }
 
-/* Botón */
 .btn-transparencia {
-  margin-top: 20px;
-  width: 200px;
-  height: 45px;
-  background-color: #f28c1b;
+  margin-top: 16px;
+  width: 220px;
+  height: 48px;
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
   color: white;
-  border-radius: 6px;
+  border-radius: 8px;
   text-decoration: none;
-  font-weight: bold;
-  font-size: 16px;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.5px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+  border: none;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
 }
 
 .btn-transparencia:hover,
 .btn-transparencia:focus {
-  background-color: #323f7c;
-  transform: scale(1.03);
+  background: linear-gradient(135deg, #ea580c 0%, #dc2626 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+}
+
+.btn-transparencia:focus {
+  outline: 3px solid #1e3a8a;
+  outline-offset: 2px;
+}
+
+.btn-transparencia:active {
+  transform: translateY(0);
 }
 
 ::ng-deep .developer-credit a {
@@ -152,66 +253,77 @@ body {
 ::ng-deep .developer-credit a:hover {
   text-decoration: underline;
 }
+
 /* ===== DESKTOP ===== */
 @media (min-width: 992px) {
   .menu-toggle {
     display: none;
   }
+  
   .navbar {
-    gap: 30px;
+    gap: 48px;
+    padding: 16px 48px;
   }
-}
 
   .nav-content {
     position: static;
     display: flex !important;
     flex-direction: row;
     align-items: center;
-    gap: 40px;
+    gap: 8px;
     box-shadow: none;
     width: auto;
     padding: 0;
+    animation: none;
+    border-top: none;
   }
 
   .menu {
     flex-direction: row;
-    gap: 38px;
+    gap: 4px;
+  }
+
+  .menu li a {
+    padding: 10px 20px;
+    font-size: 14px;
   }
 
   .btn-transparencia {
     margin-top: 0;
-    width: 210px;
-    height: 50px;
-    font-size: 18px;
+    width: 200px;
+    height: 44px;
+    font-size: 14px;
   }
 
   .logo img {
-    width: 260px;
+    width: 240px;
   }
+}
 
-/* --- RESPONSIVE DESIGN */
+/* --- RESPONSIVE DESIGN --- */
 @media (max-width: 991px) {
   .navbar {
-    padding: 10px 15px;
+    padding: 12px 20px;
     position: relative;
-    border-bottom: 1px solid #f0f0f0;
   }
 
   .nav-content {
     display: none !important;
     position: absolute;
     top: 100%;
-    right: 15px;
-    width: 200px;
+    right: 20px;
+    width: 280px;
     left: auto !important;
     background-color: #ffffff;
     flex-direction: column !important;
     align-items: center !important;
-    padding: 5px 0;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-    border-radius: 8px;
-    border: 1px solid #eee;
+    padding: 20px 0;
+    box-shadow: 0 20px 60px rgba(30, 58, 138, 0.2);
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
     z-index: 2000;
+    animation: slideDown 0.3s ease;
+    border-top: 3px solid #f97316;
   }
 
   .nav-content.active {
@@ -222,7 +334,7 @@ body {
     display: flex !important;
     flex-direction: column !important;
     width: 100%;
-    gap: 0 !important;
+    gap: 4px !important;
   }
 
   .menu li {
@@ -231,14 +343,16 @@ body {
   }
 
   .menu li a {
-    padding: 10px 15px;
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    border-bottom: 1px solid #f5f5f5;
+    padding: 14px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: 0;
+    border-bottom: 1px solid #f0f0f0;
     text-align: center;
     display: block !important;
-    color: #323f7c;
+    color: #1e3a8a;
+    border-radius: 0;
   }
 
   .menu li:last-child a {
@@ -246,23 +360,26 @@ body {
   }
 
   .btn-transparencia {
-    width: calc(100% - 30px) !important;
-    margin: 0px auto !important;
-    height: 40px !important;
-    font-size: 13px !important;
+    width: calc(100% - 40px) !important;
+    margin: 16px auto 0 !important;
+    height: 48px !important;
+    font-size: 14px !important;
     display: flex !important;
     position: static !important;
   }
 
   .menu-toggle.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 6px);
+    transform: rotate(45deg) translate(6px, 6px);
+    background: #ffffff;
   }
 
   .menu-toggle.active span:nth-child(2) {
     opacity: 0;
+    transform: scaleX(0);
   }
 
   .menu-toggle.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -6px);
+    transform: rotate(-45deg) translate(6px, -6px);
+    background: #ffffff;
   }
 }

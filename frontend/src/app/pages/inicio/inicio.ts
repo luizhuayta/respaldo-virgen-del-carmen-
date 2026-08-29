@@ -28,6 +28,14 @@ export class Inicio implements OnInit, AfterViewInit, OnDestroy {
   private http = inject(HttpClient);
   private api = environment.apiUrl;
 
+  // Signals independientes para estados de carga y error
+  loadingNoticias = signal(false);
+  errorNoticias = signal<string | null>(null);
+  loadingComunicados = signal(false);
+  errorComunicados = signal<string | null>(null);
+  loadingContact = signal(false);
+  errorContact = signal<string | null>(null);
+
   latestNoticias = signal<any[]>([]);
   latestComunicados = signal<any[]>([]);
   contact = signal<any | null>(null);
@@ -99,6 +107,7 @@ export class Inicio implements OnInit, AfterViewInit, OnDestroy {
   private didDrag = false;
 
   private listeners: (() => void)[] = [];
+  private subscriptions: any[] = [];
 
   constructor(
     private renderer: Renderer2,
@@ -107,20 +116,99 @@ export class Inicio implements OnInit, AfterViewInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.http.get<any[]>(`${this.api}/news/list`).subscribe({
-      next: data => this.latestNoticias.set(data.filter(n => n.status).slice(0, 3))
-    });
-    this.http.get<any[]>(`${this.api}/press_releases/list`).subscribe({
-      next: data => this.latestComunicados.set(data.filter(n => n.status).slice(0, 3))
-    });
+    // Cargar datos independientemente
+    this.loadNoticias();
+    this.loadComunicados();
+    this.loadContact();
+  }
 
-    this.http.get<any[]>(`${this.api}/contacts/list`).subscribe({
-      next: data => {
-        if (data.length > 0) {
-          this.contact.set(data[0]);
+  // Método independiente para cargar noticias
+  loadNoticias(): void {
+    this.loadingNoticias.set(true);
+    this.errorNoticias.set(null);
+    
+    this.http.get<any[]>(`${this.api}/news/list`).subscribe({
+      next: (data) => {
+        // Validar que sea un array válido
+        if (Array.isArray(data)) {
+          this.latestNoticias.set(data.filter(n => n.status).slice(0, 3));
+        } else {
+          this.errorNoticias.set('Formato de respuesta inválido');
+          this.latestNoticias.set([]);
         }
+        this.loadingNoticias.set(false);
+      },
+      error: (err) => {
+        console.error('Error cargando noticias:', err);
+        this.errorNoticias.set('Error al cargar noticias');
+        this.latestNoticias.set([]);
+        this.loadingNoticias.set(false);
       }
     });
+  }
+
+  // Método de reintento para noticias
+  retryNoticias(): void {
+    this.loadNoticias();
+  }
+
+  // Método independiente para cargar comunicados
+  loadComunicados(): void {
+    this.loadingComunicados.set(true);
+    this.errorComunicados.set(null);
+    
+    this.http.get<any[]>(`${this.api}/press_releases/list`).subscribe({
+      next: (data) => {
+        // Validar que sea un array válido
+        if (Array.isArray(data)) {
+          this.latestComunicados.set(data.filter(n => n.status).slice(0, 3));
+        } else {
+          this.errorComunicados.set('Formato de respuesta inválido');
+          this.latestComunicados.set([]);
+        }
+        this.loadingComunicados.set(false);
+      },
+      error: (err) => {
+        console.error('Error cargando comunicados:', err);
+        this.errorComunicados.set('Error al cargar comunicados');
+        this.latestComunicados.set([]);
+        this.loadingComunicados.set(false);
+      }
+    });
+  }
+
+  // Método de reintento para comunicados
+  retryComunicados(): void {
+    this.loadComunicados();
+  }
+
+  // Método independiente para cargar contacto
+  loadContact(): void {
+    this.loadingContact.set(true);
+    this.errorContact.set(null);
+    
+    this.http.get<any[]>(`${this.api}/contacts/list`).subscribe({
+      next: (data) => {
+        // Validar que sea un array válido
+        if (Array.isArray(data) && data.length > 0) {
+          this.contact.set(data[0]);
+        } else {
+          this.contact.set(null);
+        }
+        this.loadingContact.set(false);
+      },
+      error: (err) => {
+        console.error('Error cargando contacto:', err);
+        this.errorContact.set('Error al cargar información de contacto');
+        this.contact.set(null);
+        this.loadingContact.set(false);
+      }
+    });
+  }
+
+  // Método de reintento para contacto
+  retryContact(): void {
+    this.loadContact();
   }
 
   ngAfterViewInit() {
@@ -133,10 +221,20 @@ export class Inicio implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    if (this.animationId !== null) cancelAnimationFrame(this.animationId);
-    this.listeners.forEach((fn) => fn());
+  ngOnDestroy(): void {
+    // Limpiar todos los listeners
+    this.listeners.forEach(listener => listener());
+    this.listeners = [];
+    
+    // Limpiar todas las suscripciones
+    this.subscriptions.forEach(sub => {
+      if (sub && typeof sub.unsubscribe === 'function') {
+        sub.unsubscribe();
+      }
+    });
+    this.subscriptions = [];
 
+    if (this.animationId !== null) cancelAnimationFrame(this.animationId);
     if (this.heroInterval) clearInterval(this.heroInterval);
   }
 

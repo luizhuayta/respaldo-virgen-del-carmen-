@@ -145,6 +145,32 @@ exports.getDigitalIntake = async (req, res) => {
     }
 }
 
+exports.trackDigitalIntake = async (req, res) => {
+    try {
+        const { code } = req.query;
+
+        if (!code) {
+            return res.status(400).json({ message: 'Código de seguimiento requerido' });
+        }
+
+        const tramite = await db.DigitalIntakeOffice.findOne({
+            where: {
+                tracking_code: code,
+                status: true
+            }
+        });
+
+        if (!tramite) {
+            return res.status(404).json({ message: 'Trámite no encontrado' });
+        }
+
+        res.status(200).json(tramite);
+    } catch (error) {
+        console.error(error.message);
+        return res.status(500).json({ message: 'Error interno del servidor. Inténtelo de nuevo más tarde.' });
+    }
+}
+
 exports.updateDigitalIntake = async (req, res) => {
     try {
         const { id } = req.params;

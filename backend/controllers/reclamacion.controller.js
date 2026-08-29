@@ -118,4 +118,30 @@ const respondReclamacion = async (req, res) => {
     }
 };
 
-module.exports = { createReclamacion, getReclamaciones, respondReclamacion };
+const trackReclamacion = async (req, res) => {
+    try {
+        const { code } = req.query;
+
+        if (!code) {
+            return res.status(400).json({ error: 'Código de seguimiento requerido' });
+        }
+
+        const reclamacion = await db.Reclamacion.findOne({
+            where: {
+                tracking_code: code,
+                status: true
+            }
+        });
+
+        if (!reclamacion) {
+            return res.status(404).json({ error: 'Reclamación no encontrada' });
+        }
+
+        return res.status(200).json(reclamacion);
+    } catch (error) {
+        console.error('Error al consultar reclamación:', error);
+        return res.status(500).json({ error: 'Error interno del servidor' });
+    }
+};
+
+module.exports = { createReclamacion, getReclamaciones, respondReclamacion, trackReclamacion };

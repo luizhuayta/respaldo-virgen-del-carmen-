@@ -86,8 +86,8 @@
 
     @case ('organigrama') {
     <div class="content-text organigrama-block">
-      <img src="images/organigrama-institucional-ii.png" alt="Organigrama" />
-      <button class="preview-zoom-btn" (click)="openImageViewer($event)">
+      <img src="images/organigrama-institucional-ii.png" alt="Organigrama" (click)="openImageViewer($event)" />
+      <button class="preview-zoom-btn" (click)="openImageViewer($event)" title="Ampliar organigrama">
         <i class="fas fa-expand"></i>
       </button>
     </div>
@@ -186,6 +186,14 @@
     </div>
   </div>
 </section>
+
+<!-- IMAGE VIEWER MODAL -->
+@if (imageViewer()) {
+<div class="image-viewer" (click)="closeImageViewer()">
+  <img src="images/organigrama-institucional-ii.png" alt="Organigrama ampliado" (click)="$event.stopPropagation()" />
+  <button class="image-viewer-close" (click)="closeImageViewer()" title="Cerrar">×</button>
+</div>
+}
 
 <!-- MODAL PERFIL -->
 @if (activeProfile()) {

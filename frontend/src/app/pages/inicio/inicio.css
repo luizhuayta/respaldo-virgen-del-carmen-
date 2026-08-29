@@ -1,9 +1,8 @@
-/* HERO */
+/* HERO - MODERNIZADO SEGÚN ESTÁNDARES SUNEDU */
 .hero {
   position: relative;
   height: 520px;
   z-index: 1;
-  /* menor que el navbar */
 }
 
 /* Contenedor de slides */
@@ -32,7 +31,7 @@
   opacity: 1;
 }
 
-/* Dots indicadores */
+/* Dots indicadores - Accesibilidad WCAG SUNEDU */
 .hero-dots {
   position: absolute;
   bottom: 10px;
@@ -49,48 +48,65 @@
 }
 
 .hero-dot {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.5);
-  border: none;
+  background: rgba(255, 255, 255, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.8);
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s ease;
+}
+
+.hero-dot:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: scale(1.1);
+}
+
+.hero-dot:focus {
+  outline: 3px solid #f97316;
+  outline-offset: 2px;
 }
 
 .hero-dot.active {
   background: white;
+  border-color: white;
+  transform: scale(1.15);
 }
 
-/* Overlay */
+/* Overlay - Mejor contraste para accesibilidad SUNEDU */
 .overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.5);
 }
 
-/* Texto */
+/* Texto - Tipografía institucional SUNEDU */
 .hero-content {
   position: absolute;
   top: 140px;
   left: 60px;
   color: white;
+  max-width: 600px;
 }
 
 .hero-content h1 {
-  font-size: 40px;
-  font-weight: 800;
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .hero-content p {
-  font-size: 26px;
-  font-weight: 600;
-  line-height: 100%;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.4;
   margin-top: 10px;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .buttons-section {
@@ -106,24 +122,56 @@
   gap: 20px;
 }
 
-/* CARDS */
+/* CARDS - MODERNIZADO CON MEJOR ESPACIADO Y UX */
 .btn-card {
-  width: 130px;
-  height: 160px;
-  background: #2f3f7f;
-  border-radius: 10px;
+  width: 140px;
+  height: 170px;
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  border-radius: 12px;
   color: white;
   text-align: center;
   cursor: pointer;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 24px rgba(30, 58, 138, 0.25);
   position: relative;
   overflow: hidden;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.btn-card:hover::before {
+  left: 100%;
+}
+
+.btn-card:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 16px 40px rgba(30, 58, 138, 0.35);
+  border-color: rgba(255, 255, 255, 0.4);
+  background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+}
+
+.btn-card:focus {
+  outline: 3px solid #f97316;
+  outline-offset: 3px;
+}
+
+.btn-card:active {
+  transform: translateY(-4px) scale(1.02);
 }
 
 .btn-card .icon {
@@ -132,6 +180,8 @@
 
 .btn-card span {
   font-size: 14px;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* BOTÓN BASE */
@@ -452,7 +502,7 @@
   }
 }
 
-/* ===== MAIN CONTENT ===== */
+/* ===== MAIN CONTENT - MODERNIZADO SEGÚN ESTÁNDARES SUNEDU ===== */
 .main-content {
   background: #e8edf5;
   padding: 100px 20px 60px;
@@ -464,11 +514,13 @@
 }
 
 .section-title {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 700;
   color: #1d3557;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   position: relative;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.3;
 }
 
 /* News & Comunicados Grid (3:2) */
@@ -482,28 +534,52 @@
 
 .news-section h2,
 .comunicados-section h2 {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
   color: #1d3557;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .news-card {
   display: block;
   text-decoration: none;
   cursor: pointer;
-  background: #ffffff;
-  border-radius: 14px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  box-shadow: 0 4px 20px rgba(30, 58, 138, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid rgba(59, 130, 246, 0.1);
+  position: relative;
+}
+
+.news-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #1e3a8a, #3b82f6, #f97316);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.news-card:hover::before {
+  transform: scaleX(1);
 }
 
 .news-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 16px 40px rgba(30, 58, 138, 0.2);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.news-card:focus {
+  outline: 3px solid #f97316;
+  outline-offset: 3px;
 }
 
 .news-card img {
@@ -511,42 +587,83 @@
   height: 220px;
   object-fit: cover;
   display: block;
+  transition: transform 0.5s ease;
+}
+
+.news-card:hover img {
+  transform: scale(1.05);
 }
 
 .news-card .news-body {
-  padding: 16px;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .news-card .news-body p {
-  font-size: 13.5px;
-  color: #555;
-  line-height: 1.5;
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.6;
+  font-family: 'Poppins', sans-serif;
+  transition: color 0.2s ease;
 }
 
-/* Comunicados */
+.news-card:hover .news-body p {
+  color: #1e3a8a;
+}
+
+/* Comunicados - MODERNIZADO CON EFECTOS MEJORADOS */
 .comunicados-section {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 20px;
 }
 
 .comunicado-item {
-  background: #dfe6ef;
+  background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%);
   border-radius: 12px;
-  padding: 18px;
-
+  padding: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 15px;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid rgba(59, 130, 246, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.comunicado-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, #1e3a8a, #3b82f6);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.4s ease;
+}
+
+.comunicado-item:hover::before {
+  transform: scaleY(1);
 }
 
 .comunicado-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-6px) translateX(4px);
+  box-shadow: 0 12px 30px rgba(30, 58, 138, 0.15);
+  border-color: rgba(59, 130, 246, 0.3);
+  background: linear-gradient(135deg, #ffffff 0%, #e8edf5 100%);
+}
+
+.comunicado-item:focus {
+  outline: 3px solid #f97316;
+  outline-offset: 3px;
+}
+
+.comunicado-item:active {
+  transform: translateY(-3px) translateX(2px);
 }
 
 /* TEXTO */
@@ -556,14 +673,18 @@
 
 .comunicado-text strong {
   color: #1d3557;
-  font-size: 15px;
+  font-size: 16px;
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
 }
 
 .comunicado-text p {
-  font-size: 13px;
+  font-size: 14px;
   color: #555;
+  line-height: 1.5;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* IMAGEN + LINK */
@@ -578,49 +699,78 @@
   height: 70px;
   object-fit: cover;
   border-radius: 6px;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 }
 
 /* BOTÓN VER MÁS */
 .ver-mas {
-  font-size: 12px;
+  font-size: 13px;
   color: #2f3f7f;
   text-decoration: none;
   font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  transition: color 0.2s ease;
 }
 
 .ver-mas:hover {
   text-decoration: underline;
+  color: #f97316;
 }
 
-/* Servicios */
+.ver-mas:focus {
+  outline: 2px solid #f97316;
+  outline-offset: 2px;
+}
+
+/* Servicios - MODERNIZADO CON EFECTOS MEJORADOS */
 .servicios-section h2 {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
-  color: #1d3557;
-  margin-bottom: 16px;
+  color: #1e3a8a;
+  margin-bottom: 18px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .servicios-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 24px;
   margin-bottom: 40px;
 }
 
 .servicio-card {
-  background: white;
-  border-radius: 14px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  box-shadow: 0 4px 20px rgba(30, 58, 138, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid rgba(59, 130, 246, 0.1);
+  text-decoration: none;
+  position: relative;
+}
+
+.servicio-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(30, 58, 138, 0.05), rgba(59, 130, 246, 0.05));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.servicio-card:hover::after {
+  opacity: 1;
 }
 
 .servicio-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 16px 40px rgba(30, 58, 138, 0.2);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.servicio-card:focus {
+  outline: 3px solid #f97316;
+  outline-offset: 3px;
 }
 
 .servicio-card img {
@@ -628,23 +778,35 @@
   height: 180px;
   object-fit: cover;
   display: block;
+  transition: transform 0.5s ease;
+}
+
+.servicio-card:hover img {
+  transform: scale(1.08);
 }
 
 .servicio-card .servicio-label {
-  padding: 14px;
+  padding: 20px;
   text-align: center;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
-  color: #1d3557;
+  color: #1e3a8a;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  z-index: 1;
+  transition: color 0.2s ease;
 }
 
+.servicio-card:hover .servicio-label {
+  color: #3b82f6;
+}
+
+/* Carrusel - MODERNIZADO SEGÚN ESTÁNDARES SUNEDU */
 .carousel {
   width: 100%;
   max-width: 1100px;
-  /* Ancho total del carrusel */
   margin: 0 auto 40px;
   overflow: hidden;
-  /* Corta lo que sobresale */
   cursor: grab;
   position: relative;
   user-select: none;
@@ -656,32 +818,32 @@
 
 .carousel-track {
   display: flex;
-  gap: 15px;
-  /* Espaciado entre tarjetas */
+  gap: 16px;
   will-change: transform;
-  padding: 10px 0;
+  padding: 12px 0;
 }
 
 .carousel-item {
-  /* Para mostrar ~3.5 items, el ancho es (100% / 3.5) */
   min-width: 270px;
   height: 140px;
   flex-shrink: 0;
 
   background: white;
-  border-radius: 12px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e0e6ed;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  border: 2px solid #e0e6ed;
+  transition: all 0.2s ease;
 
-  /* Estilos de enlace */
   text-decoration: none;
   cursor: pointer;
+}
+
+.carousel-item:focus {
+  outline: 3px solid #f97316;
+  outline-offset: 2px;
 }
 
 .carousel-item img {
@@ -689,7 +851,6 @@
   max-height: 70%;
   object-fit: contain;
   pointer-events: none;
-  /* Evita que la imagen interfiera con el arrastre */
 }
 
 .carousel-item:hover {
@@ -698,11 +859,12 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
+/* Gestión - MODERNIZADO SEGÚN ESTÁNDARES SUNEDU */
 .gestion-section {
   background: #f5f7fb;
   padding: 50px 5%;
   margin-bottom: 30px;
-  border-radius: 14px;
+  border-radius: 12px;
 }
 
 .gestion-grid {
@@ -714,13 +876,18 @@
 
 .gestion-card {
   background: white;
-  border-radius: 16px;
+  border-radius: 12px;
   padding: 24px 20px;
   text-align: center;
   text-decoration: none;
   transition: all 0.3s ease;
-  border: 1px solid #e9ecef;
+  border: 2px solid #e9ecef;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.gestion-card:focus {
+  outline: 3px solid #f97316;
+  outline-offset: 2px;
 }
 
 .gestion-card i {
@@ -733,12 +900,15 @@
   font-size: 18px;
   color: #1d3557;
   margin-bottom: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
 }
 
 .gestion-card p {
   font-size: 13px;
   color: #6c757d;
   line-height: 1.4;
+  font-family: 'Poppins', sans-serif;
 }
 
 .gestion-card:hover {
@@ -908,10 +1078,11 @@
   }
 }
 
+/* News Cards - MODERNIZADO SEGÚN ESTÁNDARES SUNEDU */
 .news-card {
   display: flex;
   flex-direction: column;
-  height: 100%; /* uniformidad */
+  height: 100%;
 }
 
 .news-card img {
@@ -921,17 +1092,19 @@
 }
 
 .news-body {
-  padding: 14px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 /* TÍTULO: máximo 2 líneas */
 .news-title {
-  font-size: 14px;
+  font-size: 15px;
   color: #333;
   line-height: 1.4;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
 
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -944,11 +1117,179 @@
 .news-date {
   font-size: 12px;
   color: #888;
+  font-family: 'Poppins', sans-serif;
 }
-
 
 .news-section {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+/* ===== RESPONSIVE DESIGN MODERNIZADO SEGÚN ESTÁNDARES SUNEDU ===== */
+@media (max-width: 768px) {
+  .hero {
+    height: 400px;
+  }
+
+  .hero-content {
+    top: 80px;
+    left: 30px;
+    max-width: 90%;
+  }
+
+  .hero-content h1 {
+    font-size: 28px;
+  }
+
+  .hero-content p {
+    font-size: 18px;
+  }
+
+  .hero-dots {
+    right: 15px;
+    bottom: 15px;
+  }
+
+  .buttons-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn-card {
+    width: 110px;
+    height: 140px;
+  }
+
+  .btn-card span {
+    font-size: 12px;
+  }
+
+  .top-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .news-card img {
+    height: 180px;
+  }
+
+  .comunicado-item {
+    flex-direction: column;
+    padding: 15px;
+    gap: 12px;
+  }
+
+  .comunicado-media {
+    width: 100%;
+  }
+
+  .servicios-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .carousel {
+    max-width: 100%;
+  }
+
+  .carousel-item {
+    min-width: 220px;
+    height: 120px;
+  }
+
+  .gestion-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .gestion-card {
+    padding: 20px 15px;
+  }
+
+  .gestion-card i {
+    font-size: 32px;
+  }
+
+  .gestion-card h3 {
+    font-size: 16px;
+  }
+
+  .main-content {
+    padding: 60px 15px 40px;
+  }
+
+  .section-title {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    height: 320px;
+  }
+
+  .hero-content {
+    top: 60px;
+    left: 20px;
+  }
+
+  .hero-content h1 {
+    font-size: 22px;
+  }
+
+  .hero-content p {
+    font-size: 16px;
+  }
+
+  .btn-card {
+    width: 95px;
+    height: 120px;
+  }
+
+  .btn-card span {
+    font-size: 11px;
+  }
+
+  .btn-card .icon {
+    font-size: 24px;
+  }
+
+  .gestion-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .gestion-card {
+    padding: 18px 12px;
+  }
+
+  .gestion-card h3 {
+    font-size: 14px;
+  }
+
+  .gestion-card p {
+    font-size: 12px;
+  }
+
+  .carousel-item {
+    min-width: 180px;
+    height: 100px;
+  }
+
+  .news-card img {
+    height: 160px;
+  }
+
+  .news-body {
+    padding: 12px;
+  }
+
+  .section-title {
+    font-size: 20px;
+  }
+
+  .main-content {
+    padding: 50px 12px 30px;
+  }
 }
