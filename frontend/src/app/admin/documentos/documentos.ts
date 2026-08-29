@@ -3,18 +3,21 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { A11yModule } from '@angular/cdk/a11y';
 import { environment } from '../../../environments/environment';
+import { ToastService } from '../compartido/toast';
 
 @Component({
   selector: 'app-documentos',
   standalone: true,
-  imports: [FormsModule, QuillModule],
+  imports: [FormsModule, QuillModule, A11yModule],
   templateUrl: './documentos.html',
   styleUrl: './documentos.css',
 })
 export class AdminDocumentos implements OnInit {
   private sanitizer = inject(DomSanitizer);
   private http = inject(HttpClient);
+  private toast = inject(ToastService);
   private API = `${environment.apiUrl}/academic_papers`;
   private BASE = environment.baseUrl;
 
@@ -144,8 +147,8 @@ export class AdminDocumentos implements OnInit {
     });
     if (this.selectedFile) fd.append('file', this.selectedFile);
     this.http.post(`${this.API}/create`, fd).subscribe({
-      next: () => { this.loadData(); this.closeModal(); },
-      error: err => console.error(err)
+      next: () => { this.toast.success('Documento creado correctamente.'); this.loadData(); this.closeModal(); },
+      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 
@@ -156,8 +159,8 @@ export class AdminDocumentos implements OnInit {
     });
     if (this.selectedFile) fd.append('file', this.selectedFile);
     this.http.put(`${this.API}/update/${this.formData.id}`, fd).subscribe({
-      next: () => { this.loadData(); this.closeModal(); },
-      error: err => console.error(err)
+      next: () => { this.toast.success('Documento actualizado correctamente.'); this.loadData(); this.closeModal(); },
+      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 
@@ -165,11 +168,11 @@ export class AdminDocumentos implements OnInit {
     if (!confirm('¿Desactivar documento?')) return;
     this.http.delete(`${this.API}/delete/${id}`).subscribe({
       next: () => this.loadData(),
-      error: err => console.error(err)
+      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 
-  editorTheme = signal<'dark' | 'light'>('dark');
+  editorTheme = signal<'dark' | 'light'>('light');
 
   quillConfig = {
     toolbar: [
@@ -213,10 +216,11 @@ export class AdminDocumentos implements OnInit {
 
     this.http.delete(`${this.API}/delete/${id}/${del}`).subscribe({
       next: () => {
+        this.toast.success('Acción realizada correctamente.');
         this.loadData();
         this.closeDeleteModal();
       },
-      error: err => console.error(err)
+      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 

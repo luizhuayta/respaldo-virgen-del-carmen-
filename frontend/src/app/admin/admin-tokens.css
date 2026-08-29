@@ -1,0 +1,10 @@
+.admin-shell {
+  --adm-brand:#f28c1b; --adm-brand-hover:#d97a0e;   /* SOLO acciones */
+  --adm-ink:#1a2456;   --adm-ink-soft:#8a9bc4;
+  --adm-surface:#ffffff; --adm-bg:#f5f7fb; --adm-line:#e6e9f2;
+  --adm-ok:#1a8a4a;     --adm-ok-bg:#eafaf1;      /* Activo / Publicado */
+  --adm-warn:#c47000;   --adm-warn-bg:#fff4e5;    /* SOLO Pendiente */
+  --adm-danger:#c0392b; --adm-danger-bg:#fdecea;
+  --adm-muted:#5b6478;  --adm-muted-bg:#eef0f6;   /* Inactivo vive aquí */
+  --adm-radius:12px;    --adm-shadow:0 2px 14px rgba(50,63,124,.08);
+}

@@ -2,6 +2,7 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../../../environments/environment';
+import { ToastService } from '../compartido/toast';
 
 @Component({
   selector: 'app-contactos',
@@ -13,6 +14,7 @@ import { environment } from '../../../environments/environment';
 export class AdminContactos implements OnInit {
 
   private http = inject(HttpClient);
+  private toast = inject(ToastService);
   private API = `${environment.apiUrl}/contacts`;
 
   contact = signal<any>(null);
@@ -66,7 +68,7 @@ export class AdminContactos implements OnInit {
           }
 
         },
-        error: err => console.error(err)
+        error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
       });
   }
 
@@ -103,16 +105,16 @@ export class AdminContactos implements OnInit {
   create() {
     this.http.post(`${this.API}/create`, this.formData())
       .subscribe({
-        next: () => this.loadContact(),
-        error: err => console.error(err)
+        next: () => { this.toast.success('Contactos guardados correctamente.'); this.loadContact(); },
+        error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
       });
   }
 
   update() {
     this.http.put(`${this.API}/update/${this.formData().id}`, this.formData())
       .subscribe({
-        next: () => this.loadContact(),
-        error: err => console.error(err)
+        next: () => { this.toast.success('Contactos guardados correctamente.'); this.loadContact(); },
+        error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
       });
   }
 }

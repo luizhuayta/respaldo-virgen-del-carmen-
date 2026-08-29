@@ -67,7 +67,7 @@
               <td>{{ i.year }}</td>
 
               <td>
-                <span class="badge" [class.badge-blue]="i.status" [class.badge-orange]="!i.status">
+                <span class="badge" [class.badge-green]="i.status" [class.badge-gray]="!i.status">
                   {{ i.status ? 'Activo' : 'Inactivo' }}
                 </span>
               </td>
@@ -95,11 +95,12 @@
 
   <!-- MODAL (sin cambios) -->
   @if (showModal()) {
-  <div class="modal-backdrop">
-    <div class="modal modal-xl" (click)="$event.stopPropagation()">
+  <div class="modal-backdrop" (click)="closeModal()">
+    <div class="modal modal-xl" role="dialog" aria-modal="true" aria-labelledby="ttl-documento" tabindex="-1"
+      cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="closeModal()" (click)="$event.stopPropagation()">
 
       <div class="modal-header">
-        <h2>{{ isEditMode() ? 'Editar Documento' : 'Agregar Documento' }}</h2>
+        <h2 id="ttl-documento">{{ isEditMode() ? 'Editar Documento' : 'Agregar Documento' }}</h2>
         <div class="header-actions">
           <button class="btn-theme" (click)="toggleEditorTheme()">
             @if (editorTheme() === 'dark') {
@@ -115,7 +116,7 @@
       <div class="modal-body">
         <div class="form-grid-2">
           <div>
-            <input [(ngModel)]="formData.title" placeholder="Título">
+            <input [(ngModel)]="formData.title" placeholder="Título" cdkFocusInitial>
             <select [(ngModel)]="formData.type">
               <option value="Programas">Programas</option>
               <option value="Admisión">Admisión</option>
@@ -173,17 +174,19 @@
   }
 
   @if (pdfViewer()) {
-  <div class="pdf-viewer" (click)="closePdfViewer()">
+  <div class="pdf-viewer" role="dialog" aria-modal="true" aria-label="Vista del documento" tabindex="-1"
+    cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="closePdfViewer()" (click)="closePdfViewer()">
     <iframe [src]="pdfViewer()" (click)="$event.stopPropagation()"></iframe>
   </div>
   }
 
   @if (deleteModal()) {
   <div class="modal-backdrop" (click)="closeDeleteModal()">
-    <div class="modal confirm-modal" (click)="$event.stopPropagation()">
+    <div class="modal confirm-modal" role="dialog" aria-modal="true" aria-labelledby="ttl-del-documento" tabindex="-1"
+      cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="closeDeleteModal()" (click)="$event.stopPropagation()">
 
       <div class="modal-header">
-        <h2>Eliminar Documento</h2>
+        <h2 id="ttl-del-documento">Eliminar Documento</h2>
         <div class="header-actions">
           <button class="btn-help" (click)="showTooltip()">?</button>
           <button class="close-btn" (click)="closeDeleteModal()">×</button>

@@ -2,18 +2,21 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { A11yModule } from '@angular/cdk/a11y';
 import { environment } from '../../../environments/environment';
+import { ToastService } from '../compartido/toast';
 
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [FormsModule, DatePipe],
+  imports: [FormsModule, DatePipe, A11yModule],
   templateUrl: './usuarios.html',
   styleUrl: './usuarios.css',
 })
 export class AdminUsuarios implements OnInit {
 
   private http = inject(HttpClient);
+  private toast = inject(ToastService);
   private API = `${environment.apiUrl}/users`;
 
   usuarios = signal<any[]>([]);
@@ -52,7 +55,7 @@ export class AdminUsuarios implements OnInit {
           }))
         );
       },
-      error: err => console.error(err)
+      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 
@@ -109,10 +112,11 @@ export class AdminUsuarios implements OnInit {
   create() {
     this.http.post(`${this.API}/create`, this.formData).subscribe({
       next: () => {
+        this.toast.success('Usuario creado correctamente.');
         this.loadData();
         this.closeModal();
       },
-      error: err => console.error(err)
+      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 
@@ -126,10 +130,11 @@ export class AdminUsuarios implements OnInit {
 
     this.http.put(`${this.API}/update/${this.formData.id}`, body).subscribe({
       next: () => {
+        this.toast.success('Usuario actualizado correctamente.');
         this.loadData();
         this.closeModal();
       },
-      error: err => console.error(err)
+      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 
@@ -138,7 +143,7 @@ export class AdminUsuarios implements OnInit {
 
     this.http.delete(`${this.API}/delete/${id}`).subscribe({
       next: () => this.loadData(), // importante: NO eliminar del array
-      error: err => console.error(err)
+      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 
@@ -158,10 +163,11 @@ export class AdminUsuarios implements OnInit {
 
     this.http.delete(`${this.API}/delete/${id}/${del}`).subscribe({
       next: () => {
+        this.toast.success('Acción realizada correctamente.');
         this.loadData();
         this.closeDeleteModal();
       },
-      error: err => console.error(err)
+      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 

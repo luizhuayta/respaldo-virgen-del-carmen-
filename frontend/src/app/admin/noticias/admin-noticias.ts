@@ -3,18 +3,21 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { QuillModule } from 'ngx-quill';
 import { DatePipe } from '@angular/common';
+import { A11yModule } from '@angular/cdk/a11y';
 import { environment } from '../../../environments/environment';
+import { ToastService } from '../compartido/toast';
 
 @Component({
   selector: 'app-admin-noticias',
   standalone: true,
-  imports: [FormsModule, QuillModule, DatePipe],
+  imports: [FormsModule, QuillModule, DatePipe, A11yModule],
   templateUrl: './admin-noticias.html',
   styleUrl: './admin-noticias.css',
 })
 export class AdminNoticias implements OnInit {
 
   private http = inject(HttpClient);
+  private toast = inject(ToastService);
   private API = `${environment.apiUrl}/news`;
 
   noticias = signal<any[]>([]);
@@ -23,7 +26,7 @@ export class AdminNoticias implements OnInit {
   isEditMode = signal(false);
   imageViewer = signal(false);
 
-  editorTheme = signal<'dark' | 'light'>('dark');
+  editorTheme = signal<'dark' | 'light'>('light');
 
   formData: any = {
     id: null,
@@ -103,20 +106,22 @@ export class AdminNoticias implements OnInit {
   create() {
     this.http.post(`${this.API}/create`, this.formData).subscribe({
       next: () => {
-        this.loadData(); // ← SIEMPRE recargar (consistencia)
+        this.toast.success('Noticia creada correctamente.');
+        this.loadData();
         this.closeModal();
       },
-      error: err => console.error(err)
+      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 
   update() {
     this.http.put(`${this.API}/update/${this.formData.id}`, this.formData).subscribe({
       next: () => {
+        this.toast.success('Noticia actualizada correctamente.');
         this.loadData();
         this.closeModal();
       },
-      error: err => console.error(err)
+      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 
@@ -125,9 +130,10 @@ export class AdminNoticias implements OnInit {
 
     this.http.delete(`${this.API}/delete/${id}`).subscribe({
       next: () => {
-        this.loadData(); // ← CLAVE: NO eliminar del array
+        this.toast.success('Noticia actualizada correctamente.');
+        this.loadData();
       },
-      error: err => console.error(err)
+      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 
@@ -176,10 +182,11 @@ export class AdminNoticias implements OnInit {
 
     this.http.delete(`${this.API}/delete/${id}/${del}`).subscribe({
       next: () => {
+        this.toast.success('Acción realizada correctamente.');
         this.loadData();
         this.closeDeleteModal();
       },
-      error: err => console.error(err)
+      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 

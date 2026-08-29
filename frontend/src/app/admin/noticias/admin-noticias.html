@@ -33,7 +33,7 @@
           <td>{{ n.fecha | date:'yyyy-MM-dd' }}</td>
 
           <td>
-            <span class="badge" [class.badge-blue]="n.status" [class.badge-orange]="!n.status">
+            <span class="badge" [class.badge-green]="n.status" [class.badge-gray]="!n.status">
               {{ n.status ? 'Publicado' : 'No Publicado' }}
             </span>
           </td>
@@ -55,11 +55,12 @@
   </div>
 
   @if (showModal()) {
-  <div class="modal-backdrop">
-    <div class="modal" (click)="$event.stopPropagation()">
+  <div class="modal-backdrop" (click)="closeModal()">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="ttl-noticia" tabindex="-1"
+      cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="closeModal()" (click)="$event.stopPropagation()">
 
       <div class="modal-header">
-        <h2>{{ isEditMode() ? 'Editar Noticia' : 'Agregar Noticia' }}</h2>
+        <h2 id="ttl-noticia">{{ isEditMode() ? 'Editar Noticia' : 'Agregar Noticia' }}</h2>
 
         <div class="header-actions">
           <button class="btn-theme" (click)="toggleEditorTheme()">
@@ -79,7 +80,7 @@
         <div class="form-grid-2">
 
           <div>
-            <input [(ngModel)]="formData.title" placeholder="Título">
+            <input [(ngModel)]="formData.title" placeholder="Título" cdkFocusInitial>
             <input [(ngModel)]="formData.img_url" placeholder="URL imagen">
             <textarea [(ngModel)]="formData.description" placeholder="Descripción breve"></textarea>
           </div>
@@ -123,17 +124,19 @@
   }
 
   @if (imageViewer()) {
-  <div class="image-viewer" (click)="closeImageViewer()">
+  <div class="image-viewer" role="dialog" aria-modal="true" aria-label="Vista de imagen" tabindex="-1"
+    cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="closeImageViewer()" (click)="closeImageViewer()">
     <img [src]="formData.img_url" (click)="$event.stopPropagation()">
   </div>
   }
 
   @if (deleteModal()) {
   <div class="modal-backdrop" (click)="closeDeleteModal()">
-    <div class="modal confirm-modal" (click)="$event.stopPropagation()">
+    <div class="modal confirm-modal" role="dialog" aria-modal="true" aria-labelledby="ttl-del-noticia" tabindex="-1"
+      cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="closeDeleteModal()" (click)="$event.stopPropagation()">
 
       <div class="modal-header">
-        <h2>Eliminar Noticia</h2>
+        <h2 id="ttl-del-noticia">Eliminar Noticia</h2>
 
         <div class="header-actions">
           <button class="btn-help" (click)="showTooltip()">

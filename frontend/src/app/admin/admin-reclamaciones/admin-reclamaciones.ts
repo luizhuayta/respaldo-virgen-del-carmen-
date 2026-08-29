@@ -2,11 +2,13 @@ import { Component, OnInit, inject, ChangeDetectorRef, NgZone } from '@angular/c
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { timeout } from 'rxjs';
+import { A11yModule } from '@angular/cdk/a11y';
 import { environment } from '../../../environments/environment';
+import { ToastService } from '../compartido/toast';
 
 @Component({
   selector: 'app-admin-reclamaciones',
-  imports: [FormsModule],
+  imports: [FormsModule, A11yModule],
   templateUrl: './admin-reclamaciones.html',
   styleUrl: './admin-reclamaciones.css',
 })
@@ -14,6 +16,7 @@ export class AdminReclamaciones implements OnInit {
   private http = inject(HttpClient);
   private cdr = inject(ChangeDetectorRef);
   private zone = inject(NgZone);
+  private toast = inject(ToastService);
 
   reclamaciones: any[] = [];
   filtered: any[] = [];
@@ -30,8 +33,6 @@ export class AdminReclamaciones implements OnInit {
 
   respondForm = { admin_response: '', processing_status: '' };
   isSaving = false;
-  saveError = '';
-  saveSuccess = '';
 
   ngOnInit(): void {
     this.cargar();
@@ -85,8 +86,6 @@ export class AdminReclamaciones implements OnInit {
       admin_response: item.admin_response || '',
       processing_status: item.processing_status || 'En Proceso'
     };
-    this.saveError = '';
-    this.saveSuccess = '';
     this.showRespondModal = true;
   }
 
@@ -98,12 +97,10 @@ export class AdminReclamaciones implements OnInit {
 
   guardarRespuesta(): void {
     if (!this.respondForm.admin_response.trim() || !this.respondForm.processing_status) {
-      this.saveError = 'Completa la respuesta y el estado.';
+      this.toast.error('Completa la respuesta y el estado.');
       return;
     }
     this.isSaving = true;
-    this.saveError = '';
-    this.saveSuccess = '';
 
     this.http.put<any>(`${environment.apiUrl}/reclamaciones/respond/${this.selectedItem.id}`, this.respondForm)
       .pipe(timeout(10000))
@@ -114,15 +111,15 @@ export class AdminReclamaciones implements OnInit {
             const idx = this.reclamaciones.findIndex(r => r.id === updated.id);
             if (idx >= 0) this.reclamaciones[idx] = updated;
             this.applyFilters();
-            this.saveSuccess = 'Respuesta guardada correctamente.';
-            setTimeout(() => this.closeModals(), 1200);
+            this.toast.success('Respuesta guardada correctamente.');
+            this.closeModals();
             this.cdr.detectChanges();
           });
         },
         error: () => {
           this.zone.run(() => {
             this.isSaving = false;
-            this.saveError = 'Error al guardar. Intente nuevamente.';
+            this.toast.error('No se pudo guardar. Inténtelo de nuevo.');
             this.cdr.detectChanges();
           });
         }

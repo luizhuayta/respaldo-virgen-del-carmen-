@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 import { environment } from '../../../environments/environment';
+import { ToastService } from '../compartido/toast';
 
 @Component({
   selector: 'app-trayectoria',
@@ -14,6 +15,7 @@ import { environment } from '../../../environments/environment';
 export class AdminTrayectoria implements OnInit {
 
   private http = inject(HttpClient);
+  private toast = inject(ToastService);
   private API = `${environment.apiUrl}/career`;
 
   career = signal<any>(null);
@@ -62,7 +64,7 @@ export class AdminTrayectoria implements OnInit {
           }
 
         },
-        error: err => console.error(err)
+        error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
       });
   }
 
@@ -97,16 +99,16 @@ export class AdminTrayectoria implements OnInit {
   create() {
     this.http.post(`${this.API}/create`, this.formData())
       .subscribe({
-        next: () => this.loadCareer(),
-        error: err => console.error(err)
+        next: () => { this.toast.success('Trayectoria guardada correctamente.'); this.loadCareer(); },
+        error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
       });
   }
 
   update() {
     this.http.put(`${this.API}/update/${this.formData().id}`, this.formData())
       .subscribe({
-        next: () => this.loadCareer(),
-        error: err => console.error(err)
+        next: () => { this.toast.success('Trayectoria guardada correctamente.'); this.loadCareer(); },
+        error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
       });
   }
 

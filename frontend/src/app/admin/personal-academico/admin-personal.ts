@@ -2,12 +2,14 @@ import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { A11yModule } from '@angular/cdk/a11y';
 import { environment } from '../../../environments/environment';
+import { ToastService } from '../compartido/toast';
 
 @Component({
   selector: 'app-admin-personal',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, A11yModule],
   templateUrl: './admin-personal.html',
   styleUrl: './admin-personal.css',
 })
@@ -15,6 +17,7 @@ export class AdminPersonal implements OnInit {
 
   private http = inject(HttpClient);
   private sanitizer = inject(DomSanitizer);
+  private toast = inject(ToastService);
 
   apiUrl = `${environment.apiUrl}/academic_personal`;
   apiBase = environment.baseUrl;
@@ -205,15 +208,15 @@ export class AdminPersonal implements OnInit {
 
   create() {
     this.http.post(`${this.apiUrl}/create`, this.buildFormData()).subscribe({
-      next: () => { this.loadData(); this.closeModal(); },
-      error: err => console.error(err)
+      next: () => { this.toast.success('Personal creado correctamente.'); this.loadData(); this.closeModal(); },
+      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 
   update() {
     this.http.put(`${this.apiUrl}/update/${this.formData.id}`, this.buildFormData()).subscribe({
-      next: () => { this.loadData(); this.closeModal(); },
-      error: err => console.error(err)
+      next: () => { this.toast.success('Personal actualizado correctamente.'); this.loadData(); this.closeModal(); },
+      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 
@@ -230,8 +233,8 @@ export class AdminPersonal implements OnInit {
     const id = this.deleteTargetId();
     if (!id) return;
     this.http.delete(`${this.apiUrl}/delete/${id}/${del}`).subscribe({
-      next: () => { this.loadData(); this.closeDeleteModal(); },
-      error: err => console.error(err)
+      next: () => { this.toast.success('Acción realizada correctamente.'); this.loadData(); this.closeDeleteModal(); },
+      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 

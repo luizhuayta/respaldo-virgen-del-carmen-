@@ -121,9 +121,10 @@
 <!-- MODAL: Detalle -->
 @if (showDetailModal && selectedItem) {
 <div class="ar-modal-backdrop" (click)="closeModals()">
-  <div class="ar-modal" (click)="$event.stopPropagation()">
+  <div class="ar-modal" role="dialog" aria-modal="true" aria-labelledby="ttl-reclamo" tabindex="-1"
+    cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="closeModals()" (click)="$event.stopPropagation()">
     <div class="ar-modal-header">
-      <h2><i class="fas fa-file-alt"></i> Detalle del Reclamo Nº {{ formatId(selectedItem.id) }}</h2>
+      <h2 id="ttl-reclamo"><i class="fas fa-file-alt"></i> Detalle del Reclamo Nº {{ formatId(selectedItem.id) }}</h2>
       <button class="btn-close-modal" (click)="closeModals()"><i class="fas fa-times"></i></button>
     </div>
     <div class="ar-modal-body">
@@ -199,9 +200,10 @@
 <!-- MODAL: Responder -->
 @if (showRespondModal && selectedItem) {
 <div class="ar-modal-backdrop" (click)="closeModals()">
-  <div class="ar-modal" (click)="$event.stopPropagation()">
+  <div class="ar-modal" role="dialog" aria-modal="true" aria-labelledby="ttl-responder" tabindex="-1"
+    cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="closeModals()" (click)="$event.stopPropagation()">
     <div class="ar-modal-header">
-      <h2><i class="fas fa-reply"></i> Responder Reclamo Nº {{ formatId(selectedItem.id) }}</h2>
+      <h2 id="ttl-responder"><i class="fas fa-reply"></i> Responder Reclamo Nº {{ formatId(selectedItem.id) }}</h2>
       <button class="btn-close-modal" (click)="closeModals()"><i class="fas fa-times"></i></button>
     </div>
     <div class="ar-modal-body">
@@ -209,16 +211,9 @@
         <strong>{{ fullName }}</strong> — {{ selectedItem.claim_type }} — {{ formatDate(selectedItem.createdAt) }}
       </p>
 
-      @if (saveError) {
-      <div class="ar-save-error"><i class="fas fa-exclamation-circle"></i> {{ saveError }}</div>
-      }
-      @if (saveSuccess) {
-      <div class="ar-save-success"><i class="fas fa-check-circle"></i> {{ saveSuccess }}</div>
-      }
-
       <div class="rec-group" style="margin-bottom: 16px;">
         <label>Estado del Reclamo</label>
-        <select [(ngModel)]="respondForm.processing_status" name="resp_status">
+        <select [(ngModel)]="respondForm.processing_status" name="resp_status" cdkFocusInitial>
           <option value="En Proceso">En Proceso</option>
           <option value="Respondido">Respondido</option>
           <option value="Cerrado">Cerrado</option>

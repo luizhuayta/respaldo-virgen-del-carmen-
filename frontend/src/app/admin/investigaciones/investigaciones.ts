@@ -3,18 +3,21 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { A11yModule } from '@angular/cdk/a11y';
 import { environment } from '../../../environments/environment';
+import { ToastService } from '../compartido/toast';
 
 @Component({
   selector: 'app-investigaciones',
   standalone: true,
-  imports: [FormsModule, QuillModule],
+  imports: [FormsModule, QuillModule, A11yModule],
   templateUrl: './investigaciones.html',
   styleUrl: './investigaciones.css',
 })
 export class AdminInvestigaciones implements OnInit {
   private sanitizer = inject(DomSanitizer);
   private http = inject(HttpClient);
+  private toast = inject(ToastService);
   private API = `${environment.apiUrl}/investigations`;
   private BASE = environment.baseUrl;
 
@@ -162,8 +165,8 @@ export class AdminInvestigaciones implements OnInit {
     });
     if (this.selectedFile) fd.append('file', this.selectedFile);
     this.http.post(`${this.API}/create`, fd).subscribe({
-      next: () => { this.loadData(); this.closeModal(); },
-      error: err => console.error(err)
+      next: () => { this.toast.success('Investigación creada correctamente.'); this.loadData(); this.closeModal(); },
+      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 
@@ -174,8 +177,8 @@ export class AdminInvestigaciones implements OnInit {
     });
     if (this.selectedFile) fd.append('file', this.selectedFile);
     this.http.put(`${this.API}/update/${this.formData.id}`, fd).subscribe({
-      next: () => { this.loadData(); this.closeModal(); },
-      error: err => console.error(err)
+      next: () => { this.toast.success('Investigación actualizada correctamente.'); this.loadData(); this.closeModal(); },
+      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 
@@ -183,11 +186,11 @@ export class AdminInvestigaciones implements OnInit {
     if (!confirm('¿Desactivar investigación?')) return;
     this.http.delete(`${this.API}/delete/${id}`).subscribe({
       next: () => this.loadData(),
-      error: err => console.error(err)
+      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 
-  editorTheme = signal<'dark' | 'light'>('dark');
+  editorTheme = signal<'dark' | 'light'>('light');
 
   quillConfig = {
     toolbar: [
@@ -228,8 +231,8 @@ export class AdminInvestigaciones implements OnInit {
     const id = this.deleteTargetId();
     if (!id) return;
     this.http.delete(`${this.API}/delete/${id}/${del}`).subscribe({
-      next: () => { this.loadData(); this.closeDeleteModal(); },
-      error: err => console.error(err)
+      next: () => { this.toast.success('Acción realizada correctamente.'); this.loadData(); this.closeDeleteModal(); },
+      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 

@@ -112,10 +112,10 @@
   text-transform: capitalize;
 }
 
-.badge-green  { background: #eafaf1; color: #1a8a4a; }
-.badge-gray   { background: #f0f2f8; color: #778;    }
+.badge-green  { background: var(--adm-ok-bg); color: var(--adm-ok); }
+.badge-gray   { background: var(--adm-muted-bg); color: var(--adm-muted); }
 .badge-blue   { background: #eaf0ff; color: #323f7c; }
-.badge-orange { background: #fff4e5; color: #c47000; }
+.badge-orange { background: var(--adm-muted-bg); color: var(--adm-muted); }
 
 /* ---- Icon Buttons ---- */
 .btn-icon {

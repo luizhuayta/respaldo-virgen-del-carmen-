@@ -7,11 +7,13 @@ import {
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../core/auth/auth.service';
+import { ToastService } from '../compartido/toast';
+import { ToastHost } from '../compartido/toast-host';
 
 @Component({
   selector: 'app-admin-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, ToastHost],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
@@ -23,6 +25,7 @@ export class AdminLogin implements AfterViewInit {
   password = signal('');
 
   private auth = inject(AuthService);
+  private toast = inject(ToastService);
 
   login() {
 
@@ -40,11 +43,8 @@ export class AdminLogin implements AfterViewInit {
         ]);
       },
 
-      error: (err) => {
-
-        console.error(err);
-
-        alert('Usuario o contraseña incorrectos');
+      error: () => {
+        this.toast.error('Usuario o contraseña incorrectos');
       }
     });
   }

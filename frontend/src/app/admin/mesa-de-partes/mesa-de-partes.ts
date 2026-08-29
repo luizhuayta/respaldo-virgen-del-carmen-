@@ -2,12 +2,14 @@ import { Component, OnInit, inject, signal, ChangeDetectorRef } from '@angular/c
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { A11yModule } from '@angular/cdk/a11y';
 import { environment } from '../../../environments/environment';
+import { ToastService } from '../compartido/toast';
 
 @Component({
   selector: 'app-admin-mesa-de-partes',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, A11yModule],
   templateUrl: './mesa-de-partes.html',
   styleUrl: './mesa-de-partes.css'
 })
@@ -15,6 +17,7 @@ export class MesaDePartesAdmin implements OnInit {
   private http = inject(HttpClient);
   private sanitizer = inject(DomSanitizer);
   private cdRef: ChangeDetectorRef = inject(ChangeDetectorRef);
+  private toast = inject(ToastService);
 
   private BASE = environment.baseUrl;
   tramites = signal<any[]>([]);
@@ -49,8 +52,8 @@ export class MesaDePartesAdmin implements OnInit {
           })
         );
       },
-      error: (err) => {
-        console.error('Error al cargar la mesa de partes:', err);
+      error: () => {
+        this.toast.error('No se pudo guardar. Inténtelo de nuevo.');
       }
     });
   }
@@ -121,12 +124,12 @@ export class MesaDePartesAdmin implements OnInit {
 
         this.isLoading = false;
 
+        this.toast.success('Estado actualizado correctamente.');
         this.cdRef.detectChanges();
       },
-      error: (err) => {
-        console.error('Error al actualizar estado:', err);
+      error: () => {
         this.isLoading = false;
-        alert('Ocurrió un error al intentar cambiar el estado del documento.');
+        this.toast.error('Ocurrió un error al intentar cambiar el estado del documento.');
       }
     });
   }
@@ -135,10 +138,11 @@ export class MesaDePartesAdmin implements OnInit {
     if (confirm('¿Está completamente seguro de que desea eliminar este ticket? Esta acción no se puede deshacer.')) {
       this.http.delete(`${environment.apiUrl}/digital_intake_office/delete/${id}`).subscribe({
         next: () => {
+          this.toast.success('Trámite eliminado correctamente.');
           this.tramites.update(listaActual => listaActual.filter(t => t.id !== id));
         },
-        error: (err) => {
-          console.error('Error al eliminar trámite:', err);
+        error: () => {
+          this.toast.error('No se pudo guardar. Inténtelo de nuevo.');
         }
       });
     }
@@ -157,8 +161,8 @@ export class MesaDePartesAdmin implements OnInit {
     const id = this.deleteTargetId();
     if (!id) return;
     this.http.delete(`${this.BASE}/api/digital_intake_office/delete/${id}/${del}`).subscribe({
-      next: () => { this.obtenerTramites(); this.closeDeleteModal(); },
-      error: err => console.error(err)
+      next: () => { this.toast.success('Acción realizada correctamente.'); this.obtenerTramites(); this.closeDeleteModal(); },
+      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 

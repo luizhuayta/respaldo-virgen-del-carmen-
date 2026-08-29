@@ -64,7 +64,7 @@
             </td>
 
             <td>
-              <span class="badge" [class.badge-blue]="tramite.status" [class.badge-orange]="!tramite.status">
+              <span class="badge" [class.badge-green]="tramite.status" [class.badge-gray]="!tramite.status">
                 {{ tramite.status ? 'Activo' : 'Inactivo' }}
               </span>
             </td>
@@ -92,7 +92,8 @@
 
   @if (showModal && tramiteSeleccionado) {
   <div class="modal-overlay-premium">
-    <div class="admin-modal-premium">
+    <div class="admin-modal-premium" role="dialog" aria-modal="true" aria-labelledby="ttl-tramite" tabindex="-1"
+      cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="cerrarModal()">
 
       <div class="modal-premium-header">
         <div class="header-title-box">
@@ -100,7 +101,7 @@
             ID: #{{ tramiteSeleccionado.id }}
           </span>
 
-          <h3>Evaluación y Control de Trámite</h3>
+          <h3 id="ttl-tramite">Evaluación y Control de Trámite</h3>
 
           <div class="current-status-box">
             <span class="badge" [ngClass]="{
@@ -307,11 +308,12 @@
 
   <div class="pdf-floating-overlay" (click)="cerrarPdfFlotante()">
 
-    <div class="pdf-floating-window" (click)="$event.stopPropagation()">
+    <div class="pdf-floating-window" role="dialog" aria-modal="true" aria-labelledby="ttl-pdf-flotante" tabindex="-1"
+      cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="cerrarPdfFlotante()" (click)="$event.stopPropagation()">
 
       <div class="pdf-floating-header">
 
-        <h5>
+        <h5 id="ttl-pdf-flotante">
           <i class="fas fa-file-pdf"></i>
 
           Modo de Inspección Ampliado —
@@ -338,9 +340,10 @@
 
   @if (deleteModal()) {
   <div class="modal-backdrop" (click)="closeDeleteModal()">
-    <div class="modal confirm-modal" (click)="$event.stopPropagation()">
+    <div class="modal confirm-modal" role="dialog" aria-modal="true" aria-labelledby="ttl-del-tramite" tabindex="-1"
+      cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="closeDeleteModal()" (click)="$event.stopPropagation()">
       <div class="modal-header">
-        <h2>Eliminar Trámite</h2>
+        <h2 id="ttl-del-tramite">Eliminar Trámite</h2>
         <div class="header-actions">
           <button class="btn-help" (click)="showTooltip()">?</button>
           <button class="close-btn" (click)="closeDeleteModal()">×</button>

@@ -4,9 +4,9 @@
 input, select {
   padding: 10px;
   border-radius: 8px;
-  border: none;
-  background: #2a2a3d;
-  color: #fff;
+  border: 1px solid var(--adm-line);
+  background: var(--adm-surface);
+  color: var(--adm-ink);
 }
 
 /* ===== SECCIONES DESPLEGABLES ===== */

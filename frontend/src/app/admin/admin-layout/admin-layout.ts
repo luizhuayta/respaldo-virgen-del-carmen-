@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Sidebar } from '../sidebar/sidebar';
+import { ToastHost } from '../compartido/toast-host';
 
 const ROUTE_TITLES: Record<string, string> = {
   '/admin/dashboard': 'Dashboard',
@@ -19,7 +20,7 @@ const ROUTE_TITLES: Record<string, string> = {
 
 @Component({
   selector: 'app-admin-layout',
-  imports: [RouterOutlet, Sidebar],
+  imports: [RouterOutlet, Sidebar, ToastHost],
   templateUrl: './admin-layout.html',
   styleUrl: './admin-layout.css',
 })

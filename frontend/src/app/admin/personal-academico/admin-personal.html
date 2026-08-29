@@ -71,7 +71,7 @@
                 }
               </td>
               <td>
-                <span class="badge" [class.badge-blue]="p.status" [class.badge-orange]="!p.status">
+                <span class="badge" [class.badge-green]="p.status" [class.badge-gray]="!p.status">
                   {{ p.status ? 'Activo' : 'Inactivo' }}
                 </span>
               </td>
@@ -96,10 +96,11 @@
 
   <!-- MODAL CREAR / EDITAR -->
   @if (showModal()) {
-  <div class="modal-backdrop">
-    <div class="modal modal-wide">
+  <div class="modal-backdrop" (click)="closeModal()">
+    <div class="modal modal-wide" role="dialog" aria-modal="true" aria-labelledby="ttl-personal" tabindex="-1"
+      cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="closeModal()" (click)="$event.stopPropagation()">
       <div class="modal-header">
-        <h2>{{ isEditMode() ? 'Editar Personal Académico' : 'Agregar Personal Académico' }}</h2>
+        <h2 id="ttl-personal">{{ isEditMode() ? 'Editar Personal Académico' : 'Agregar Personal Académico' }}</h2>
         <button class="close-btn" (click)="closeModal()">×</button>
       </div>
 
@@ -107,7 +108,7 @@
 
         <div class="modal-form-col">
           <div class="form-grid">
-            <input [(ngModel)]="formData.names" placeholder="Nombres">
+            <input [(ngModel)]="formData.names" placeholder="Nombres" cdkFocusInitial>
             <input [(ngModel)]="formData.last_names" placeholder="Apellidos">
             <select [(ngModel)]="formData.type">
               <option value="Autoridad">Autoridad</option>
@@ -178,9 +179,10 @@
   <!-- MODAL ELIMINAR -->
   @if (deleteModal()) {
   <div class="modal-backdrop" (click)="closeDeleteModal()">
-    <div class="modal confirm-modal" (click)="$event.stopPropagation()">
+    <div class="modal confirm-modal" role="dialog" aria-modal="true" aria-labelledby="ttl-del-personal" tabindex="-1"
+      cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="closeDeleteModal()" (click)="$event.stopPropagation()">
       <div class="modal-header">
-        <h2>Eliminar Personal</h2>
+        <h2 id="ttl-del-personal">Eliminar Personal</h2>
         <div class="header-actions">
           <button class="btn-help" (click)="showTooltip()">?</button>
           <button class="close-btn" (click)="closeDeleteModal()">×</button>
@@ -207,9 +209,10 @@
   <!-- VISOR PDF FLOTANTE -->
   @if (pdfViewerUrl()) {
   <div class="pdf-viewer-backdrop" (click)="closePdfViewer()">
-    <div class="pdf-viewer-modal" (click)="$event.stopPropagation()">
+    <div class="pdf-viewer-modal" role="dialog" aria-modal="true" aria-labelledby="ttl-pdf-cv" tabindex="-1"
+      cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="closePdfViewer()" (click)="$event.stopPropagation()">
       <div class="pdf-viewer-header">
-        <span class="pdf-viewer-title"><i class="fas fa-file-pdf"></i> Curriculum Vitae</span>
+        <span class="pdf-viewer-title" id="ttl-pdf-cv"><i class="fas fa-file-pdf"></i> Curriculum Vitae</span>
         <button class="close-btn" (click)="closePdfViewer()">×</button>
       </div>
       <iframe [src]="pdfViewerUrl()!" class="pdf-viewer-iframe"></iframe>

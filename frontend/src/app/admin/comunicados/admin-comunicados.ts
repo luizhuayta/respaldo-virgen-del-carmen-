@@ -3,18 +3,21 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 import { DatePipe } from '@angular/common';
+import { A11yModule } from '@angular/cdk/a11y';
 import { environment } from '../../../environments/environment';
+import { ToastService } from '../compartido/toast';
 
 @Component({
   selector: 'app-admin-comunicados',
   standalone: true,
-  imports: [FormsModule, QuillModule, DatePipe],
+  imports: [FormsModule, QuillModule, DatePipe, A11yModule],
   templateUrl: './admin-comunicados.html',
   styleUrl: './admin-comunicados.css',
 })
 export class AdminComunicados implements OnInit {
 
   private http = inject(HttpClient);
+  private toast = inject(ToastService);
   apiUrl = `${environment.apiUrl}/press_releases`;
 
   comunicados = signal<any[]>([]);
@@ -104,20 +107,22 @@ export class AdminComunicados implements OnInit {
   create() {
     this.http.post(`${this.apiUrl}/create`, this.formData).subscribe({
       next: () => {
+        this.toast.success('Comunicado creado correctamente.');
         this.loadData();
         this.closeModal();
       },
-      error: err => console.error(err)
+      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 
   update() {
     this.http.put(`${this.apiUrl}/update/${this.formData.id}`, this.formData).subscribe({
       next: () => {
+        this.toast.success('Comunicado actualizado correctamente.');
         this.loadData();
         this.closeModal();
       },
-      error: err => console.error(err)
+      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 
@@ -134,7 +139,7 @@ export class AdminComunicados implements OnInit {
   }
 
   // Editor Quill
-  editorTheme = signal<'dark' | 'light'>('dark');
+  editorTheme = signal<'dark' | 'light'>('light');
 
   toggleEditorTheme() {
     this.editorTheme.set(
@@ -166,10 +171,11 @@ export class AdminComunicados implements OnInit {
 
     this.http.delete(`${this.apiUrl}/delete/${id}/${del}`).subscribe({
       next: () => {
+        this.toast.success('Acción realizada correctamente.');
         this.loadData();
         this.closeDeleteModal();
       },
-      error: err => console.error(err)
+      error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 

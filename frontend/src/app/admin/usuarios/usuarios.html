@@ -39,7 +39,7 @@
           <td>{{ u.fecha | date:'yyyy-MM-dd' }}</td>
 
           <td>
-            <span class="badge" [class.badge-blue]="u.status" [class.badge-orange]="!u.status">
+            <span class="badge" [class.badge-green]="u.status" [class.badge-gray]="!u.status">
               {{ u.status ? 'Activo' : 'Inactivo' }}
             </span>
           </td>
@@ -61,11 +61,12 @@
   </div>
 
   @if (showModal()) {
-  <div class="modal-backdrop">
-    <div class="modal modal-xl" (click)="$event.stopPropagation()">
+  <div class="modal-backdrop" (click)="closeModal()">
+    <div class="modal modal-xl" role="dialog" aria-modal="true" aria-labelledby="ttl-usuario" tabindex="-1"
+      cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="closeModal()" (click)="$event.stopPropagation()">
 
       <div class="modal-header">
-        <h2>{{ isEditMode() ? 'Editar Usuario' : 'Agregar Usuario' }}</h2>
+        <h2 id="ttl-usuario">{{ isEditMode() ? 'Editar Usuario' : 'Agregar Usuario' }}</h2>
         <button class="close-btn" (click)="closeModal()">×</button>
       </div>
 
@@ -74,7 +75,7 @@
         <div class="form-grid-2">
 
           <div>
-            <input [(ngModel)]="formData.names" placeholder="Nombres">
+            <input [(ngModel)]="formData.names" placeholder="Nombres" cdkFocusInitial>
             <input [(ngModel)]="formData.last_names" placeholder="Apellidos">
             <input [(ngModel)]="formData.username" placeholder="Usuario">
 
@@ -103,10 +104,11 @@
 
   @if (deleteModal()) {
   <div class="modal-backdrop" (click)="closeDeleteModal()">
-    <div class="modal confirm-modal" (click)="$event.stopPropagation()">
+    <div class="modal confirm-modal" role="dialog" aria-modal="true" aria-labelledby="ttl-del-usuario" tabindex="-1"
+      cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="closeDeleteModal()" (click)="$event.stopPropagation()">
 
       <div class="modal-header">
-        <h2>Eliminar Usuario</h2>
+        <h2 id="ttl-del-usuario">Eliminar Usuario</h2>
 
         <div class="header-actions">
           <button class="btn-help" (click)="showTooltip()">
