@@ -56,7 +56,7 @@ export const routes: Routes = [
       { path: 'usuarios', component: AdminUsuarios, title: 'Admin - Usuarios' },
       { path: 'documentos', component: AdminDocumentos, title: 'Admin - Documentos' },
       { path: 'mesa-de-partes', component: MesaDePartesAdmin, title: 'Admin — Mesa de Partes' },
-      { path: 'admin-reclamaciones', component: AdminReclamaciones, title: 'Admin - Reclamaciones' }
+      { path: 'admin-reclamaciones', component: AdminReclamaciones, title: 'Admin - Libro de Reclamaciones' }
     ],
   },
   {

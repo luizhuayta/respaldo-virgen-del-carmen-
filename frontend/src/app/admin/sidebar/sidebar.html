@@ -15,13 +15,23 @@
   <div class="sidebar-divider"></div>
 
   <!-- Navigation -->
-  <nav class="sidebar-nav">
-    @for (item of menuItems; track item.route) {
+  <nav class="sidebar-nav" aria-label="Secciones del panel">
+    <a class="sidebar-item" [routerLink]="dashboard.route" routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }" #dashRla="routerLinkActive"
+      [attr.aria-current]="dashRla.isActive ? 'page' : null">
+      <i [class]="dashboard.icon" class="sidebar-icon"></i>
+      <span class="sidebar-label">{{ dashboard.label }}</span>
+    </a>
+
+    @for (group of menuGroups; track group.label) {
+    <h3 class="sidebar-section-label">{{ group.label }}</h3>
+    @for (item of group.items; track item.route) {
     <a class="sidebar-item" [routerLink]="item.route" routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: item.route === '/admin/dashboard' }">
+      #rla="routerLinkActive" [attr.aria-current]="rla.isActive ? 'page' : null">
       <i [class]="item.icon" class="sidebar-icon"></i>
       <span class="sidebar-label">{{ item.label }}</span>
     </a>
+    }
     }
   </nav>
 

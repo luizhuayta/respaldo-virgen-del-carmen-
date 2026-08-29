@@ -15,7 +15,7 @@ const ROUTE_TITLES: Record<string, string> = {
   '/admin/usuarios': 'Usuarios',
   '/admin/documentos': 'Documentos',
   '/admin/mesa-de-partes': 'Mesa de partes',
-  '/admin/admin-reclamaciones': 'Reclamaciones'
+  '/admin/admin-reclamaciones': 'Libro de Reclamaciones'
 };
 
 @Component({
