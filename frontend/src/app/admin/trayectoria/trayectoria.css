@@ -40,6 +40,11 @@
   overflow-y: auto;
 }
 
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
 /* botones */
 .btn-save {
   background: #3b82f6;
