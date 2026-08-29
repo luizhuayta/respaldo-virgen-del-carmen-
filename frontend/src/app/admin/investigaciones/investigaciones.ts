@@ -6,11 +6,12 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { A11yModule } from '@angular/cdk/a11y';
 import { environment } from '../../../environments/environment';
 import { ToastService } from '../compartido/toast';
+import { AvisoCambios } from '../compartido/aviso-cambios';
 
 @Component({
   selector: 'app-investigaciones',
   standalone: true,
-  imports: [FormsModule, QuillModule, A11yModule],
+  imports: [FormsModule, QuillModule, A11yModule, AvisoCambios],
   templateUrl: './investigaciones.html',
   styleUrl: './investigaciones.css',
 })
@@ -86,6 +87,10 @@ export class AdminInvestigaciones implements OnInit {
     pdf_url: ''
   };
 
+  snapshot = '';
+  mostrarErrores = signal(false);
+  showAviso = signal(false);
+
   ngOnInit() {
     this.loadData();
   }
@@ -124,6 +129,8 @@ export class AdminInvestigaciones implements OnInit {
   openCreateModal() {
     this.isEditMode.set(false);
     this.resetForm();
+    this.snapshot = JSON.stringify({ ...this.formData, pdf_url: '' });
+    this.mostrarErrores.set(false);
     this.showModal.set(true);
   }
 
@@ -139,11 +146,37 @@ export class AdminInvestigaciones implements OnInit {
       pdf_url: i.pdf_url
     };
     this.selectedFile = null;
+    this.snapshot = JSON.stringify({ ...this.formData, pdf_url: '' });
+    this.mostrarErrores.set(false);
     this.showModal.set(true);
   }
 
   closeModal() {
+    const actual = JSON.stringify({ ...this.formData, pdf_url: '' });
+    if (actual !== this.snapshot || this.selectedFile) {
+      this.showAviso.set(true);
+      return;
+    }
+    this.cerrarModal();
+  }
+
+  cerrarModal() {
+    this.showAviso.set(false);
     this.showModal.set(false);
+    this.mostrarErrores.set(false);
+  }
+
+  onAvisoGuardar() {
+    this.showAviso.set(false);
+    this.save();
+  }
+
+  onAvisoDescartar() {
+    this.cerrarModal();
+  }
+
+  onAvisoSeguir() {
+    this.showAviso.set(false);
   }
 
   resetForm() {
@@ -154,7 +187,20 @@ export class AdminInvestigaciones implements OnInit {
     this.selectedFile = null;
   }
 
+  camposFaltantes(): string[] {
+    const f: string[] = [];
+    if (!this.formData.title?.trim()) f.push('Título');
+    if (!this.formData.description?.trim()) f.push('Descripción');
+    return f;
+  }
+
   save() {
+    const faltan = this.camposFaltantes();
+    if (faltan.length) {
+      this.mostrarErrores.set(true);
+      this.toast.error(`Faltan campos obligatorios: ${faltan.join(', ')}`);
+      return;
+    }
     this.isEditMode() ? this.update() : this.create();
   }
 
@@ -165,7 +211,7 @@ export class AdminInvestigaciones implements OnInit {
     });
     if (this.selectedFile) fd.append('file', this.selectedFile);
     this.http.post(`${this.API}/create`, fd).subscribe({
-      next: () => { this.toast.success('Investigación creada correctamente.'); this.loadData(); this.closeModal(); },
+      next: () => { this.toast.success('Investigación creada correctamente.'); this.loadData(); this.cerrarModal(); },
       error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
@@ -177,7 +223,7 @@ export class AdminInvestigaciones implements OnInit {
     });
     if (this.selectedFile) fd.append('file', this.selectedFile);
     this.http.put(`${this.API}/update/${this.formData.id}`, fd).subscribe({
-      next: () => { this.toast.success('Investigación actualizada correctamente.'); this.loadData(); this.closeModal(); },
+      next: () => { this.toast.success('Investigación actualizada correctamente.'); this.loadData(); this.cerrarModal(); },
       error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }

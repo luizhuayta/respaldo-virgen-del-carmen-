@@ -109,6 +109,14 @@ input, textarea, select {
   color: var(--adm-ink);
 }
 
+.modal label {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--adm-ink);
+}
+
 /* =========================
    PREVIEW (MEJORADO)
 ========================= */

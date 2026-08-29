@@ -6,11 +6,13 @@ import { DatePipe } from '@angular/common';
 import { A11yModule } from '@angular/cdk/a11y';
 import { environment } from '../../../environments/environment';
 import { ToastService } from '../compartido/toast';
+import { SelectorImagen } from '../compartido/selector-imagen';
+import { AvisoCambios } from '../compartido/aviso-cambios';
 
 @Component({
   selector: 'app-admin-comunicados',
   standalone: true,
-  imports: [FormsModule, QuillModule, DatePipe, A11yModule],
+  imports: [FormsModule, QuillModule, DatePipe, A11yModule, SelectorImagen, AvisoCambios],
   templateUrl: './admin-comunicados.html',
   styleUrl: './admin-comunicados.css',
 })
@@ -35,6 +37,10 @@ export class AdminComunicados implements OnInit {
     img_url: '',
     description: ''
   };
+
+  snapshot = '';
+  mostrarErrores = signal(false);
+  showAviso = signal(false);
 
   ngOnInit(): void {
     this.loadData();
@@ -63,6 +69,8 @@ export class AdminComunicados implements OnInit {
   openCreateModal() {
     this.isEditMode.set(false);
     this.resetForm();
+    this.snapshot = JSON.stringify(this.formData);
+    this.mostrarErrores.set(false);
     this.showModal.set(true);
   }
 
@@ -77,11 +85,36 @@ export class AdminComunicados implements OnInit {
       description: com.description
     };
 
+    this.snapshot = JSON.stringify(this.formData);
+    this.mostrarErrores.set(false);
     this.showModal.set(true);
   }
 
   closeModal() {
+    if (JSON.stringify(this.formData) !== this.snapshot) {
+      this.showAviso.set(true);
+      return;
+    }
+    this.cerrarModal();
+  }
+
+  cerrarModal() {
+    this.showAviso.set(false);
     this.showModal.set(false);
+    this.mostrarErrores.set(false);
+  }
+
+  onAvisoGuardar() {
+    this.showAviso.set(false);
+    this.save();
+  }
+
+  onAvisoDescartar() {
+    this.cerrarModal();
+  }
+
+  onAvisoSeguir() {
+    this.showAviso.set(false);
   }
 
   resetForm() {
@@ -95,12 +128,21 @@ export class AdminComunicados implements OnInit {
   }
 
   // Creación, Lectura y Actualización
+  camposFaltantes(): string[] {
+    const f: string[] = [];
+    if (!this.formData.title?.trim()) f.push('Título');
+    if (!this.formData.description?.trim()) f.push('Descripción');
+    return f;
+  }
+
   save() {
-    if (this.isEditMode()) {
-      this.update();
-    } else {
-      this.create();
+    const faltan = this.camposFaltantes();
+    if (faltan.length) {
+      this.mostrarErrores.set(true);
+      this.toast.error(`Faltan campos obligatorios: ${faltan.join(', ')}`);
+      return;
     }
+    this.isEditMode() ? this.update() : this.create();
   }
 
   create() {
@@ -108,7 +150,7 @@ export class AdminComunicados implements OnInit {
       next: () => {
         this.toast.success('Comunicado creado correctamente.');
         this.loadData();
-        this.closeModal();
+        this.cerrarModal();
       },
       error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
@@ -119,7 +161,7 @@ export class AdminComunicados implements OnInit {
       next: () => {
         this.toast.success('Comunicado actualizado correctamente.');
         this.loadData();
-        this.closeModal();
+        this.cerrarModal();
       },
       error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });

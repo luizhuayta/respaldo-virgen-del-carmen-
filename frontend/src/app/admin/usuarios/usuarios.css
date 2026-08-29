@@ -5,18 +5,6 @@
   grid-template-columns: 1fr !important;
 }
 
-.preview {
-  display: none !important;
-}
-
-.modal-body {
-  padding-bottom: 0;
-}
-
-.editor-section {
-  margin-top: 15px;
-}
-
 .modal {
-    width: 500px;
+    width: 520px;
 }

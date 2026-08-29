@@ -136,6 +136,20 @@
 .btn-edit:hover   { background: #d0dcff; }
 .btn-delete:hover { background: #f9c9c5; }
 
+.obligatorio { color: var(--adm-danger); }
+
+.campo-error {
+  border-color: var(--adm-danger) !important;
+}
+
+.modal-body label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--adm-ink, #1a2456);
+  margin-top: 10px;
+}
+
 /*---Modal de eliminación---*/
 .confirm-modal {
   width: 400px;

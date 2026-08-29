@@ -106,8 +106,11 @@
       <div class="modal-body">
         <div class="form-grid-2">
           <div>
-            <input [(ngModel)]="formData.title" placeholder="Título" cdkFocusInitial>
-            <select [(ngModel)]="formData.type">
+            <label for="dc-titulo">Título <span class="obligatorio" aria-hidden="true">*</span></label>
+            <input id="dc-titulo" [(ngModel)]="formData.title" required aria-required="true" cdkFocusInitial
+              [class.campo-error]="mostrarErrores() && !formData.title?.trim()">
+            <label for="dc-tipo">Tipo</label>
+            <select id="dc-tipo" [(ngModel)]="formData.type">
               <option value="Programas">Programas</option>
               <option value="Admisión">Admisión</option>
               <option value="Horarios">Horarios</option>
@@ -118,8 +121,11 @@
               <option value="Procedimientos">Procedimientos</option>
               <option value="Becas y Créditos">Becas y Créditos</option>
             </select>
-            <input [(ngModel)]="formData.year" placeholder="Año">
-            <textarea [(ngModel)]="formData.description" placeholder="Descripción"></textarea>
+            <label for="dc-anio">Año</label>
+            <input id="dc-anio" [(ngModel)]="formData.year">
+            <label for="dc-desc">Descripción <span class="obligatorio" aria-hidden="true">*</span></label>
+            <textarea id="dc-desc" [(ngModel)]="formData.description"
+              [class.campo-error]="mostrarErrores() && !formData.description?.trim()"></textarea>
             <div class="file-upload-wrapper">
               <label for="pdf-upload" class="custom-file-upload">
                 <i class="fas fa-cloud-upload-alt"></i>
@@ -175,11 +181,8 @@
 
       <div class="modal-body">
         <p>¿Qué deseas hacer con este documento?</p>
-        <p>
-          Advertencia: El archivo será elimanado en ambos casos, asegurese de hacer una copia de seguridad.<br>
-          Desactivar: Los datos no serán visibles en el portal público, pero aún se conservan.<br>
-          Eliminar: Los datos se borran definitivamente.
-        </p>
+        <p><strong>Desactivar</strong> conserva el PDF y solo lo oculta del portal público.
+          <strong>Eliminar</strong> borra el registro y el archivo.</p>
       </div>
 
       <div class="modal-footer">
@@ -199,3 +202,10 @@
   }
 
 </div>
+
+@if (showAviso()) {
+<app-aviso-cambios
+  (guardar)="onAvisoGuardar()"
+  (descartar)="onAvisoDescartar()"
+  (seguir)="onAvisoSeguir()" />
+}

@@ -108,20 +108,32 @@
 
         <div class="modal-form-col">
           <div class="form-grid">
-            <input [(ngModel)]="formData.names" placeholder="Nombres" cdkFocusInitial>
-            <input [(ngModel)]="formData.last_names" placeholder="Apellidos">
-            <select [(ngModel)]="formData.type">
+            <label for="pe-nombres">Nombres <span class="obligatorio" aria-hidden="true">*</span></label>
+            <input id="pe-nombres" [(ngModel)]="formData.names" required aria-required="true" cdkFocusInitial
+              [class.campo-error]="mostrarErrores() && !formData.names?.trim()">
+            <label for="pe-apellidos">Apellidos <span class="obligatorio" aria-hidden="true">*</span></label>
+            <input id="pe-apellidos" [(ngModel)]="formData.last_names"
+              [class.campo-error]="mostrarErrores() && !formData.last_names?.trim()">
+            <label for="pe-tipo">Tipo</label>
+            <select id="pe-tipo" [(ngModel)]="formData.type">
               <option value="Autoridad">Autoridad</option>
               <option value="Docente">Docente</option>
               <option value="Administrativo">Administrativo</option>
               <option value="Complementario">Complementario</option>
             </select>
-            <input [(ngModel)]="formData.institucional_email" placeholder="Correo Institucional">
-            <input [(ngModel)]="formData.position" placeholder="Cargo">
-            <input [(ngModel)]="formData.area" placeholder="Área">
-            <input [(ngModel)]="formData.grade" placeholder="Grado (Abreviatura)">
-            <input [(ngModel)]="formData.year" placeholder="Año">
-            <input [(ngModel)]="formData.img_url" placeholder="URL de imagen">
+            <label for="pe-email">Correo institucional</label>
+            <input id="pe-email" [(ngModel)]="formData.institucional_email">
+            <label for="pe-cargo">Cargo</label>
+            <input id="pe-cargo" [(ngModel)]="formData.position">
+            <label for="pe-area">Área</label>
+            <input id="pe-area" [(ngModel)]="formData.area">
+            <label for="pe-grado">Grado (abreviatura)</label>
+            <input id="pe-grado" [(ngModel)]="formData.grade">
+            <label for="pe-anio">Año</label>
+            <input id="pe-anio" [(ngModel)]="formData.year">
+            <app-selector-imagen [url]="formData.img_url" (urlChange)="formData.img_url = $event" />
+            <label for="pe-img">URL de imagen</label>
+            <input id="pe-img" [(ngModel)]="formData.img_url" placeholder="O pegue una URL">
           </div>
 
           <div class="pdf-upload-area" (click)="pdfInput.click()" (dragover)="$event.preventDefault()" (drop)="onPdfDrop($event)">
@@ -187,6 +199,8 @@
       </div>
       <div class="modal-body">
         <p>¿Qué deseas hacer con este registro?</p>
+        <p>Desactivar: los datos no serán visibles en el portal público, pero aún se conservan.<br>
+          Eliminar: los datos se borran definitivamente.</p>
       </div>
       <div class="modal-footer">
         <button class="btn-cancel" (click)="closeDeleteModal()">Cancelar</button>
@@ -212,3 +226,10 @@
   }
 
 </div>
+
+@if (showAviso()) {
+<app-aviso-cambios
+  (guardar)="onAvisoGuardar()"
+  (descartar)="onAvisoDescartar()"
+  (seguir)="onAvisoSeguir()" />
+}

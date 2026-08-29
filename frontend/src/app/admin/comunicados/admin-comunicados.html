@@ -78,11 +78,18 @@
         <div class="form-grid-2">
 
           <div>
-            <input [(ngModel)]="formData.title" placeholder="Título" cdkFocusInitial>
+            <label for="cm-titulo">Título <span class="obligatorio" aria-hidden="true">*</span></label>
+            <input id="cm-titulo" [(ngModel)]="formData.title" required aria-required="true" cdkFocusInitial
+              [class.campo-error]="mostrarErrores() && !formData.title?.trim()">
 
-            <input [(ngModel)]="formData.img_url" placeholder="URL imagen">
+            <app-selector-imagen [url]="formData.img_url" (urlChange)="formData.img_url = $event" />
 
-            <textarea [(ngModel)]="formData.description" placeholder="Descripción breve"></textarea>
+            <label for="cm-img">URL de imagen</label>
+            <input id="cm-img" [(ngModel)]="formData.img_url" placeholder="O pegue una URL">
+
+            <label for="cm-desc">Descripción <span class="obligatorio" aria-hidden="true">*</span></label>
+            <textarea id="cm-desc" [(ngModel)]="formData.description"
+              [class.campo-error]="mostrarErrores() && !formData.description?.trim()"></textarea>
           </div>
 
           <!-- PREVIEW -->
@@ -145,6 +152,8 @@
 
       <div class="modal-body">
         <p>¿Qué deseas hacer con este comunicado?</p>
+        <p>Desactivar: los datos no serán visibles en el portal público, pero aún se conservan.<br>
+          Eliminar: los datos se borran definitivamente.</p>
       </div>
 
       <div class="modal-footer">
@@ -164,3 +173,10 @@
   }
 
 </div>
+
+@if (showAviso()) {
+<app-aviso-cambios
+  (guardar)="onAvisoGuardar()"
+  (descartar)="onAvisoDescartar()"
+  (seguir)="onAvisoSeguir()" />
+}

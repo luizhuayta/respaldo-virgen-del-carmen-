@@ -5,11 +5,12 @@ import { DatePipe } from '@angular/common';
 import { A11yModule } from '@angular/cdk/a11y';
 import { environment } from '../../../environments/environment';
 import { ToastService } from '../compartido/toast';
+import { AvisoCambios } from '../compartido/aviso-cambios';
 
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [FormsModule, DatePipe, A11yModule],
+  imports: [FormsModule, DatePipe, A11yModule, AvisoCambios],
   templateUrl: './usuarios.html',
   styleUrl: './usuarios.css',
 })
@@ -32,6 +33,10 @@ export class AdminUsuarios implements OnInit {
     password: '',
     description: ''
   };
+
+  snapshot = '';
+  mostrarErrores = signal(false);
+  showAviso = signal(false);
 
   ngOnInit(): void {
     this.loadData();
@@ -65,6 +70,8 @@ export class AdminUsuarios implements OnInit {
   openCreateModal() {
     this.isEditMode.set(false);
     this.resetForm();
+    this.snapshot = JSON.stringify(this.formData);
+    this.mostrarErrores.set(false);
     this.showModal.set(true);
   }
 
@@ -80,11 +87,36 @@ export class AdminUsuarios implements OnInit {
       description: u.description
     };
 
+    this.snapshot = JSON.stringify(this.formData);
+    this.mostrarErrores.set(false);
     this.showModal.set(true);
   }
 
   closeModal() {
+    if (JSON.stringify(this.formData) !== this.snapshot) {
+      this.showAviso.set(true);
+      return;
+    }
+    this.cerrarModal();
+  }
+
+  cerrarModal() {
+    this.showAviso.set(false);
     this.showModal.set(false);
+    this.mostrarErrores.set(false);
+  }
+
+  onAvisoGuardar() {
+    this.showAviso.set(false);
+    this.save();
+  }
+
+  onAvisoDescartar() {
+    this.cerrarModal();
+  }
+
+  onAvisoSeguir() {
+    this.showAviso.set(false);
   }
 
   resetForm() {
@@ -101,12 +133,23 @@ export class AdminUsuarios implements OnInit {
   // =========================
   // CRUD
   // =========================
+  camposFaltantes(): string[] {
+    const f: string[] = [];
+    if (!this.formData.names?.trim()) f.push('Nombres');
+    if (!this.formData.last_names?.trim()) f.push('Apellidos');
+    if (!this.formData.username?.trim()) f.push('Usuario');
+    if (!this.isEditMode() && !this.formData.password?.trim()) f.push('Contraseña');
+    return f;
+  }
+
   save() {
-    if (this.isEditMode()) {
-      this.update();
-    } else {
-      this.create();
+    const faltan = this.camposFaltantes();
+    if (faltan.length) {
+      this.mostrarErrores.set(true);
+      this.toast.error(`Faltan campos obligatorios: ${faltan.join(', ')}`);
+      return;
     }
+    this.isEditMode() ? this.update() : this.create();
   }
 
   create() {
@@ -114,7 +157,7 @@ export class AdminUsuarios implements OnInit {
       next: () => {
         this.toast.success('Usuario creado correctamente.');
         this.loadData();
-        this.closeModal();
+        this.cerrarModal();
       },
       error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
@@ -132,7 +175,7 @@ export class AdminUsuarios implements OnInit {
       next: () => {
         this.toast.success('Usuario actualizado correctamente.');
         this.loadData();
-        this.closeModal();
+        this.cerrarModal();
       },
       error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });

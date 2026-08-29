@@ -1,0 +1,28 @@
+.sel-img {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 12px 14px;
+  border: 2px dashed var(--adm-line, #e6e9f2);
+  border-radius: 10px;
+  background: var(--adm-bg, #f5f7fb);
+  color: var(--adm-muted, #5b6478);
+  cursor: pointer;
+  font-size: 13px;
+  min-height: 50px;
+}
+
+.sel-img:hover {
+  border-color: var(--adm-brand, #f28c1b);
+}
+
+.sel-img input {
+  display: none;
+}
+
+.sel-img i {
+  color: var(--adm-brand, #f28c1b);
+  font-size: 18px;
+  flex-shrink: 0;
+}

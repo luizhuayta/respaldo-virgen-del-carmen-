@@ -83,6 +83,13 @@ select {
   color: var(--adm-ink);
 }
 
+.modal label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--adm-ink);
+}
+
 /* CONTENEDOR GENERAL */
 .preview {
   margin-top: 20px;

@@ -1,19 +1,21 @@
-import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { A11yModule } from '@angular/cdk/a11y';
 import { environment } from '../../../environments/environment';
 import { ToastService } from '../compartido/toast';
+import { SelectorImagen } from '../compartido/selector-imagen';
+import { AvisoCambios } from '../compartido/aviso-cambios';
 
 @Component({
   selector: 'app-admin-personal',
   standalone: true,
-  imports: [FormsModule, A11yModule],
+  imports: [FormsModule, A11yModule, SelectorImagen, AvisoCambios],
   templateUrl: './admin-personal.html',
   styleUrl: './admin-personal.css',
 })
-export class AdminPersonal implements OnInit {
+export class AdminPersonal implements OnInit, OnDestroy {
 
   private http = inject(HttpClient);
   private sanitizer = inject(DomSanitizer);
@@ -67,6 +69,11 @@ export class AdminPersonal implements OnInit {
     description: ''
   };
 
+  snapshot = '';
+  mostrarErrores = signal(false);
+  showAviso = signal(false);
+  private pdfObjectUrl: string | null = null;
+
   ngOnInit(): void {
     this.loadData();
   }
@@ -109,17 +116,30 @@ export class AdminPersonal implements OnInit {
   }
 
   setPdf(file: File) {
+    this.revokePdfUrl();
     this.selectedPdfFile.set(file);
     this.selectedPdfName.set(file.name);
-    const url = URL.createObjectURL(file);
-    this.pdfPreviewUrl.set(this.sanitizer.bypassSecurityTrustResourceUrl(url));
+    this.pdfObjectUrl = URL.createObjectURL(file);
+    this.pdfPreviewUrl.set(this.sanitizer.bypassSecurityTrustResourceUrl(this.pdfObjectUrl));
   }
 
   removePdf(event: Event) {
     event.stopPropagation();
+    this.revokePdfUrl();
     this.selectedPdfFile.set(null);
     this.selectedPdfName.set('');
     this.pdfPreviewUrl.set(null);
+  }
+
+  private revokePdfUrl() {
+    if (this.pdfObjectUrl) {
+      URL.revokeObjectURL(this.pdfObjectUrl);
+      this.pdfObjectUrl = null;
+    }
+  }
+
+  ngOnDestroy() {
+    this.revokePdfUrl();
   }
 
   // PDF viewer
@@ -135,6 +155,8 @@ export class AdminPersonal implements OnInit {
   openCreateModal() {
     this.isEditMode.set(false);
     this.resetForm();
+    this.snapshot = JSON.stringify(this.formData);
+    this.mostrarErrores.set(false);
     this.showModal.set(true);
   }
 
@@ -157,12 +179,37 @@ export class AdminPersonal implements OnInit {
     this.selectedPdfFile.set(null);
     this.selectedPdfName.set('');
     this.pdfPreviewUrl.set(null);
+    this.snapshot = JSON.stringify(this.formData);
+    this.mostrarErrores.set(false);
     this.showModal.set(true);
   }
 
   closeModal() {
+    if (JSON.stringify(this.formData) !== this.snapshot || this.selectedPdfFile()) {
+      this.showAviso.set(true);
+      return;
+    }
+    this.cerrarModal();
+  }
+
+  cerrarModal() {
+    this.showAviso.set(false);
     this.showModal.set(false);
+    this.mostrarErrores.set(false);
     this.removePdf(new Event(''));
+  }
+
+  onAvisoGuardar() {
+    this.showAviso.set(false);
+    this.save();
+  }
+
+  onAvisoDescartar() {
+    this.cerrarModal();
+  }
+
+  onAvisoSeguir() {
+    this.showAviso.set(false);
   }
 
   resetForm() {
@@ -185,7 +232,20 @@ export class AdminPersonal implements OnInit {
     this.pdfPreviewUrl.set(null);
   }
 
+  camposFaltantes(): string[] {
+    const f: string[] = [];
+    if (!this.formData.names?.trim()) f.push('Nombres');
+    if (!this.formData.last_names?.trim()) f.push('Apellidos');
+    return f;
+  }
+
   save() {
+    const faltan = this.camposFaltantes();
+    if (faltan.length) {
+      this.mostrarErrores.set(true);
+      this.toast.error(`Faltan campos obligatorios: ${faltan.join(', ')}`);
+      return;
+    }
     this.isEditMode() ? this.update() : this.create();
   }
 
@@ -208,14 +268,14 @@ export class AdminPersonal implements OnInit {
 
   create() {
     this.http.post(`${this.apiUrl}/create`, this.buildFormData()).subscribe({
-      next: () => { this.toast.success('Personal creado correctamente.'); this.loadData(); this.closeModal(); },
+      next: () => { this.toast.success('Personal creado correctamente.'); this.loadData(); this.cerrarModal(); },
       error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }
 
   update() {
     this.http.put(`${this.apiUrl}/update/${this.formData.id}`, this.buildFormData()).subscribe({
-      next: () => { this.toast.success('Personal actualizado correctamente.'); this.loadData(); this.closeModal(); },
+      next: () => { this.toast.success('Personal actualizado correctamente.'); this.loadData(); this.cerrarModal(); },
       error: () => this.toast.error('No se pudo guardar. Inténtelo de nuevo.')
     });
   }

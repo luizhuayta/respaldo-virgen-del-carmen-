@@ -75,16 +75,25 @@
         <div class="form-grid-2">
 
           <div>
-            <input [(ngModel)]="formData.names" placeholder="Nombres" cdkFocusInitial>
-            <input [(ngModel)]="formData.last_names" placeholder="Apellidos">
-            <input [(ngModel)]="formData.username" placeholder="Usuario">
+            <label for="us-nombres">Nombres <span class="obligatorio" aria-hidden="true">*</span></label>
+            <input id="us-nombres" [(ngModel)]="formData.names" required aria-required="true" cdkFocusInitial
+              [class.campo-error]="mostrarErrores() && !formData.names?.trim()">
+            <label for="us-apellidos">Apellidos <span class="obligatorio" aria-hidden="true">*</span></label>
+            <input id="us-apellidos" [(ngModel)]="formData.last_names"
+              [class.campo-error]="mostrarErrores() && !formData.last_names?.trim()">
+            <label for="us-user">Usuario <span class="obligatorio" aria-hidden="true">*</span></label>
+            <input id="us-user" [(ngModel)]="formData.username"
+              [class.campo-error]="mostrarErrores() && !formData.username?.trim()">
 
             <!-- solo en creación -->
             @if (!isEditMode()) {
-            <input type="password" [(ngModel)]="formData.password" placeholder="Contraseña">
+            <label for="us-pass">Contraseña <span class="obligatorio" aria-hidden="true">*</span></label>
+            <input id="us-pass" type="password" [(ngModel)]="formData.password"
+              [class.campo-error]="mostrarErrores() && !formData.password?.trim()">
             }
 
-            <textarea [(ngModel)]="formData.description" placeholder="Descripción"></textarea>
+            <label for="us-desc">Descripción</label>
+            <textarea id="us-desc" [(ngModel)]="formData.description"></textarea>
           </div>
 
         </div>
@@ -114,6 +123,8 @@
 
       <div class="modal-body">
         <p>¿Qué deseas hacer con este usuario?</p>
+        <p><strong>Desactivar</strong> quita el acceso al panel de administración, pero el registro se conserva.
+          <strong>Eliminar</strong> borra el registro definitivamente.</p>
       </div>
 
       <div class="modal-footer">
@@ -133,3 +144,10 @@
   }
 
 </div>
+
+@if (showAviso()) {
+<app-aviso-cambios
+  (guardar)="onAvisoGuardar()"
+  (descartar)="onAvisoDescartar()"
+  (seguir)="onAvisoSeguir()" />
+}

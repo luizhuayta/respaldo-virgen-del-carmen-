@@ -1,0 +1,13 @@
+<div class="sel-img" (click)="fileInput.click()" (dragover)="$event.preventDefault()" (drop)="onDrop($event)">
+  <input #fileInput type="file" accept="image/jpeg,image/png,image/gif,image/webp" (change)="onFile($event)">
+  <i class="fas fa-image"></i>
+  <span>
+    @if (subiendo()) {
+      Subiendo…
+    } @else if (nombre()) {
+      {{ nombre() }}
+    } @else {
+      Haz clic o arrastra una imagen (JPEG, PNG, GIF o WebP, máx. 5 MB)
+    }
+  </span>
+</div>
