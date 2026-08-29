@@ -26,10 +26,12 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((err) => {
 
-      if ((err.status === 401 || err.status === 403) && !req.url.includes('/auth/login')) {
+      const expired =
+        err.status === 401 ||
+        (err.status === 403 && String(err.error?.message || '').includes('Token inválido'));
 
+      if (expired && !req.url.includes('/auth/login')) {
         sessionStorage.removeItem('token');
-
         window.location.href = '/admin/login';
       }
 
