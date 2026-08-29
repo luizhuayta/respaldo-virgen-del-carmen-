@@ -1,9 +1,75 @@
 <div class="dash-page">
 
+  <div class="dash-section atend-section">
+    <h2 class="section-title">Por atender</h2>
+    <div class="atend-grid">
+
+      <div class="atend-card">
+        <div class="atend-head">
+          <div class="atend-icon atend-icon--mesa">
+            <i class="fas fa-inbox"></i>
+          </div>
+          <div>
+            <h3 class="atend-title">Mesa de Partes</h3>
+            @if (pendientesMesa().length > 0) {
+            <span class="atend-count">{{ pendientesMesa().length }} pendientes</span>
+            }
+          </div>
+        </div>
+
+        @if (pendientesMesa().length === 0) {
+        <p class="atend-empty">No hay trámites pendientes</p>
+        } @else {
+        <ul class="atend-list">
+          @for (t of antiguosMesa(); track t.id) {
+          <li>
+            <strong>{{ nombreTramite(t) }}</strong>
+            <span>{{ t.tracking_code || t.codigo_seguimiento }}</span>
+            <time>{{ t.created_at || t.fecha || t.createdAt | date:'dd/MM/yyyy' }}</time>
+          </li>
+          }
+        </ul>
+        }
+
+        <a class="atend-btn" routerLink="/admin/mesa-de-partes">Ir a la bandeja</a>
+      </div>
+
+      <div class="atend-card">
+        <div class="atend-head">
+          <div class="atend-icon atend-icon--libro">
+            <i class="fas fa-book-open"></i>
+          </div>
+          <div>
+            <h3 class="atend-title">Libro de Reclamaciones</h3>
+            @if (pendientesReclamos().length > 0) {
+            <span class="atend-count">{{ pendientesReclamos().length }} pendientes</span>
+            }
+          </div>
+        </div>
+
+        @if (pendientesReclamos().length === 0) {
+        <p class="atend-empty">No hay reclamaciones pendientes</p>
+        } @else {
+        <ul class="atend-list">
+          @for (r of antiguosReclamos(); track r.id) {
+          <li>
+            <strong>{{ nombreReclamo(r) }}</strong>
+            <span>{{ r.tracking_code }}</span>
+            <time>{{ r.createdAt | date:'dd/MM/yyyy' }}</time>
+          </li>
+          }
+        </ul>
+        }
+
+        <a class="atend-btn" routerLink="/admin/admin-reclamaciones">Ir a la bandeja</a>
+      </div>
+
+    </div>
+  </div>
+
   <!-- Welcome Banner -->
   <div class="dash-banner">
 
-    <!-- Fondo animado -->
     <div class="banner-bg">
       <div class="main_spinner">
         <div class="center_mass"></div>
@@ -12,7 +78,6 @@
       </div>
     </div>
 
-    <!-- Contenido -->
     <div class="banner-text">
       <h1 class="banner-title">¡Bienvenido, Administrador!</h1>
       <p class="banner-sub">Panel de gestión — IESPP Virgen del Carmen</p>
@@ -27,7 +92,7 @@
   <!-- Stat Cards -->
   <div class="dash-cards">
 
-    <div class="dash-card dash-card--blue">
+    <a class="dash-card dash-card--blue" routerLink="/admin/noticias">
       <div class="card-top">
         <span class="card-label">Noticias</span>
         <div class="card-icon">
@@ -35,12 +100,9 @@
         </div>
       </div>
       <span class="card-value">{{ totalNoticias() }}</span>
-      <span class="card-trend">
-        <i class="fas fa-circle-check"></i> Publicadas
-      </span>
-    </div>
+    </a>
 
-    <div class="dash-card dash-card--orange">
+    <a class="dash-card dash-card--orange" routerLink="/admin/comunicados">
       <div class="card-top">
         <span class="card-label">Comunicados</span>
         <div class="card-icon">
@@ -48,12 +110,9 @@
         </div>
       </div>
       <span class="card-value">{{ totalComunicados() }}</span>
-      <span class="card-trend">
-        <i class="fas fa-circle-check"></i> Publicados
-      </span>
-    </div>
+    </a>
 
-    <div class="dash-card dash-card--green">
+    <a class="dash-card dash-card--green" routerLink="/admin/personal-academico">
       <div class="card-top">
         <span class="card-label">Personal Académico</span>
         <div class="card-icon">
@@ -61,10 +120,7 @@
         </div>
       </div>
       <span class="card-value">{{ totalPersonal() }}</span>
-      <span class="card-trend">
-        <i class="fas fa-circle-check"></i> Registrados
-      </span>
-    </div>
+    </a>
 
   </div>
 
@@ -73,39 +129,21 @@
     <h2 class="section-title">Actividad reciente</h2>
     <div class="activity-list">
 
-      @for (item of recentNoticias(); track item.id) {
+      @for (item of actividadReciente(); track item.id) {
       <div class="activity-item">
-        <div class="activity-dot dot-blue"></div>
+        <div class="activity-dot"
+          [class.dot-blue]="item.kind === 'noticia'"
+          [class.dot-orange]="item.kind === 'comunicado'"
+          [class.dot-green]="item.kind === 'personal'"></div>
         <div class="activity-body">
-          <span class="activity-text">Noticia <strong>"{{ item.title }}"</strong> publicada</span>
-          <span class="activity-time">{{ item.createdAt | date:'dd MMM yyyy' }}</span>
+          <span class="activity-text">{{ item.text }}</span>
+          <span class="activity-time">{{ item.date | date:'dd MMM yyyy' }}</span>
         </div>
       </div>
       }
 
-      @for (item of recentComunicados(); track item.id) {
-      <div class="activity-item">
-        <div class="activity-dot dot-orange"></div>
-        <div class="activity-body">
-          <span class="activity-text">Comunicado <strong>"{{ item.title }}"</strong> emitido</span>
-          <span class="activity-time">{{ item.createdAt | date:'dd MMM yyyy' }}</span>
-        </div>
-      </div>
-      }
-
-      @for (item of recentPersonal(); track item.id) {
-      <div class="activity-item">
-        <div class="activity-dot dot-green"></div>
-        <div class="activity-body">
-          <span class="activity-text">{{ item.type }} <strong>{{ item.names }} {{ item.last_names }}</strong>
-            registrado/a</span>
-          <span class="activity-time">{{ item.createdAt | date:'dd MMM yyyy' }}</span>
-        </div>
-      </div>
-      }
-
-      @if (recentNoticias().length === 0 && recentComunicados().length === 0 && recentPersonal().length === 0) {
-      <p style="color: #999; font-size: 0.9rem;">No hay actividad reciente.</p>
+      @if (actividadReciente().length === 0) {
+      <p class="activity-empty">No hay actividad reciente.</p>
       }
 
     </div>
