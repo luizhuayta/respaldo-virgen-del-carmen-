@@ -1,5 +1,6 @@
 import { Component, OnInit, inject, signal, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { A11yModule } from '@angular/cdk/a11y';
@@ -9,7 +10,7 @@ import { ToastService } from '../compartido/toast';
 @Component({
   selector: 'app-admin-mesa-de-partes',
   standalone: true,
-  imports: [CommonModule, A11yModule],
+  imports: [CommonModule, FormsModule, A11yModule],
   templateUrl: './mesa-de-partes.html',
   styleUrl: './mesa-de-partes.css'
 })
@@ -28,6 +29,8 @@ export class MesaDePartesAdmin implements OnInit {
   isLoading = false;
 
   mostrarPdfFlotante = signal<boolean>(false);
+  confirmNombre = '';
+  confirmCodigo = '';
 
   ngOnInit(): void {
     this.obtenerTramites();
@@ -62,6 +65,8 @@ export class MesaDePartesAdmin implements OnInit {
     this.tramiteSeleccionado = tramite;
     this.showModal = true;
     this.mostrarPdfFlotante.set(false);
+    this.confirmNombre = '';
+    this.confirmCodigo = '';
 
     const rutaRelativa = tramite.attached_file_url || tramite.archivo || tramite.document_url || tramite.link_documento;
     if (rutaRelativa) {
@@ -88,10 +93,23 @@ export class MesaDePartesAdmin implements OnInit {
     this.tramiteSeleccionado = null;
     this.pdfSafeUrl = null;
     this.mostrarPdfFlotante.set(false);
+    this.confirmNombre = '';
+    this.confirmCodigo = '';
+  }
+
+  confirmacionValida(): boolean {
+    const t = this.tramiteSeleccionado;
+    if (!t) return false;
+    const nombre = (t.full_name || '').trim();
+    const codigo = (t.tracking_code || '').trim();
+    return !!nombre && !!codigo
+      && this.confirmNombre.trim() === nombre
+      && this.confirmCodigo.trim() === codigo;
   }
 
   actualizarEstado(nuevoEstado: 'Aceptado' | 'Rechazado' | 'Finalizado'): void {
     if (!this.tramiteSeleccionado || this.isLoading) return;
+    if (nuevoEstado !== 'Finalizado' && !this.confirmacionValida()) return;
 
     const id = this.tramiteSeleccionado.id;
     const payload = { processing_status: nuevoEstado };
@@ -129,7 +147,7 @@ export class MesaDePartesAdmin implements OnInit {
       },
       error: () => {
         this.isLoading = false;
-        this.toast.error('Ocurrió un error al intentar cambiar el estado del documento.');
+        this.toast.error('Ocurrió un error al intentar cambiar el estado de este trámite.');
       }
     });
   }

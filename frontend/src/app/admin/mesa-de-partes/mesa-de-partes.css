@@ -323,10 +323,39 @@
 /* ===== BOTONES ACCIÓN ===== */
 .modal-premium-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   margin-top: 18px;
   padding-top: 16px;
   border-top: 2px dashed #e2e8f0;
+}
+
+.confirm-escrito {
+  flex: 1 0 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.confirm-escrito p {
+  margin: 0 0 6px;
+  font-size: 0.82rem;
+  color: #475569;
+}
+
+.confirm-escrito label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--adm-ink, #1a2456);
+}
+
+.confirm-escrito input {
+  padding: 8px 10px;
+  border: 1px solid var(--adm-line, #e6e9f2);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--adm-ink, #1a2456);
 }
 
 .btn-premium-action {

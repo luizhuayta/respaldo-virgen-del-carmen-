@@ -15,8 +15,8 @@
             <th>Nombres y Apellidos</th>
             <th>Fecha</th>
             <th>Progreso de Trámite</th>
-            <th>Código de Seguiminento</th>
-            <th>Observación</th>
+            <th>Código de seguimiento</th>
+            <th>Detalle</th>
             <th>Estado</th>
             <th>Acciones</th>
           </tr>
@@ -217,14 +217,22 @@
 
             @if (tramiteSeleccionado.statusNormalized === 'Pendiente') {
 
+            <div class="confirm-escrito">
+              <p>Para aceptar o rechazar este trámite, escriba el nombre del remitente y el código de seguimiento.</p>
+              <label for="mdp-confirm-nombre">Nombre del remitente</label>
+              <input id="mdp-confirm-nombre" [(ngModel)]="confirmNombre" autocomplete="off">
+              <label for="mdp-confirm-codigo">Código de seguimiento</label>
+              <input id="mdp-confirm-codigo" [(ngModel)]="confirmCodigo" autocomplete="off">
+            </div>
+
             <button class="btn-premium-action btn-p-approve" (click)="actualizarEstado('Aceptado')"
-              [disabled]="isLoading">
+              [disabled]="isLoading || !confirmacionValida()">
 
               Aceptar Trámite
             </button>
 
             <button class="btn-premium-action btn-p-reject" (click)="actualizarEstado('Rechazado')"
-              [disabled]="isLoading">
+              [disabled]="isLoading || !confirmacionValida()">
 
               Rechazar Trámite
             </button>
@@ -263,7 +271,7 @@
             <div class="preview-header-bar">
               <h5>
                 <i class="fas fa-file-pdf text-danger"></i>
-                Previsualizacion del Documento
+                Previsualización del documento
               </h5>
 
               <button (click)="abrirPdfFlotante()" class="btn-external-link" title="Maximizar en ventana flotante">
@@ -288,7 +296,7 @@
                 <i class="fas fa-folder-open mb-3"></i>
 
                 <p>
-                  No se cargó un archivo digital para este ticket.
+                  No se cargó un archivo digital para este trámite.
                 </p>
               </div>
 
@@ -348,7 +356,9 @@
       </div>
 
       <div class="modal-body">
-        <p>¿Qué deseas hacer con esta investigación?</p>
+        <p>¿Qué deseas hacer con este trámite?</p>
+        <p><strong>Desactivar</strong> conserva el PDF y solo lo oculta del portal público.
+          <strong>Eliminar</strong> borra el registro y el archivo.</p>
       </div>
 
       <div class="modal-footer">
