@@ -9,11 +9,11 @@
       <h2>I.E.S.P.P. <br>Virgen del Carmen</h2>
 
       <div class="input-group">
-        <input [(ngModel)]="username" placeholder="Usuario">
+        <input [ngModel]="username()" (ngModelChange)="username.set($event)" placeholder="Usuario" autocomplete="username">
       </div>
 
       <div class="input-group password-group">
-        <input [(ngModel)]="password" [type]="showPassword() ? 'text' : 'password'" placeholder="Contraseña">
+        <input [ngModel]="password()" (ngModelChange)="password.set($event)" [type]="showPassword() ? 'text' : 'password'" placeholder="Contraseña" autocomplete="current-password">
         <button type="button" class="toggle-btn" (click)="togglePassword()">
           <i [class]="showPassword() ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"></i>
         </button>

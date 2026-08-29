@@ -23,11 +23,6 @@
   color: var(--adm-muted);
 }
 
-.badge-orange {
-  background: var(--adm-muted-bg);
-  color: var(--adm-muted);
-}
-
 /* MODAL */
 .modal-backdrop {
   position: fixed;

@@ -221,13 +221,6 @@ select {
   border: 1px solid var(--adm-line);
 }
 
-/* inactivo */
-.badge-orange {
-  background: var(--adm-muted-bg);
-  color: var(--adm-muted);
-  border: 1px solid var(--adm-line);
-}
-
 /* secciones desplegables */
 .seccion-card {
   background: #fff;
