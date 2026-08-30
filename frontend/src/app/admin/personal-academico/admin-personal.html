@@ -3,7 +3,7 @@
   <div class="page-header">
     <div>
       <h1 class="page-title">Personal Académico</h1>
-      <p class="page-sub">Gestión de autoridades y docentes</p>
+      <p class="page-sub">Autoridades, docentes y personal</p>
     </div>
     <button class="btn-add" (click)="openCreateModal()">
       <i class="fas fa-plus"></i> Agregar
@@ -27,15 +27,19 @@
     @if (isSectionOpen(type)) {
     <div class="seccion-body">
       @if (groupedPersonal()[type].length === 0) {
-      <p class="seccion-vacia">No hay personal en esta sección.</p>
+      <div class="seccion-vacia empty-state">
+        <i class="fas fa-users" aria-hidden="true"></i>
+        <p>No hay personal en esta sección.</p>
+        <button class="btn-add" (click)="openCreateModal()"><i class="fas fa-plus"></i> Agregar</button>
+      </div>
       } @else {
       <div class="admin-card">
         <table class="admin-table">
           <thead>
             <tr>
-              <th>#</th>
-              <th>Nombres y Apellidos</th>
-              <th>Correo Institucional</th>
+              <th>N.º</th>
+              <th>Nombres y apellidos</th>
+              <th>Correo institucional</th>
               <th>Cargo</th>
               <th>Área</th>
               <th>Tipo</th>
@@ -76,10 +80,10 @@
                 </span>
               </td>
               <td class="td-actions">
-                <button class="btn-icon btn-edit" (click)="openEditModal(p)">
+                <button class="btn-icon btn-edit" (click)="openEditModal(p)" aria-label="Editar personal">
                   <i class="fas fa-pen"></i>
                 </button>
-                <button class="btn-icon btn-delete" (click)="openDeleteModal(p.id)">
+                <button class="btn-icon btn-delete" (click)="openDeleteModal(p.id)" aria-label="Eliminar personal">
                   <i class="fas fa-trash"></i>
                 </button>
               </td>

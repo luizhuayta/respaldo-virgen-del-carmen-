@@ -3,7 +3,7 @@
   <div class="page-header">
     <div>
       <h1 class="page-title">Investigaciones</h1>
-      <p class="page-sub">Gestión de investigaciones académicas</p>
+      <p class="page-sub">Producción académica publicada</p>
     </div>
     <button class="btn-add" (click)="openCreateModal()">
       <i class="fas fa-plus"></i> Agregar
@@ -36,11 +36,18 @@
 
   </div>
 
+  @if (filteredInvestigaciones().length === 0) {
+  <div class="admin-card empty-state">
+    <i class="fas fa-book-open" aria-hidden="true"></i>
+    <p>No hay investigaciones que coincidan con la consulta.</p>
+    <button class="btn-add" (click)="openCreateModal()"><i class="fas fa-plus"></i> Agregar</button>
+  </div>
+  } @else {
   <div class="admin-card">
     <table class="admin-table">
       <thead>
         <tr>
-          <th>#</th>
+          <th>N.º</th>
           <th>Documento</th>
           <th>Título</th>
           <th>Autor</th>
@@ -79,26 +86,20 @@
           </td>
 
           <td class="td-actions">
-            <button class="btn-icon btn-edit" (click)="openEditModal(i)">
+            <button class="btn-icon btn-edit" (click)="openEditModal(i)" aria-label="Editar investigación">
               <i class="fas fa-pen"></i>
             </button>
-            <button class="btn-icon btn-delete" (click)="openDeleteModal(i.id)">
+            <button class="btn-icon btn-delete" (click)="openDeleteModal(i.id)" aria-label="Eliminar investigación">
               <i class="fas fa-trash"></i>
             </button>
           </td>
         </tr>
         }
 
-        @if (filteredInvestigaciones().length === 0) {
-        <tr>
-          <td colspan="7" style="text-align:center; padding: 30px; color: #999;">
-            No se encontraron resultados.
-          </td>
-        </tr>
-        }
       </tbody>
     </table>
   </div>
+  }
 
   <!-- MODAL -->
   @if (showModal()) {

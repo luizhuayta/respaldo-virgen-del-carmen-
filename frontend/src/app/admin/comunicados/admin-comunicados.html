@@ -3,18 +3,25 @@
   <div class="page-header">
     <div>
       <h1 class="page-title">Comunicados</h1>
-      <p class="page-sub">Gestión de comunicados institucionales</p>
+      <p class="page-sub">Avisos y comunicados del portal</p>
     </div>
     <button class="btn-add" (click)="openCreateModal()">
       <i class="fas fa-plus"></i> Agregar
     </button>
   </div>
 
+  @if (comunicados().length === 0) {
+  <div class="admin-card empty-state">
+    <i class="fas fa-bullhorn" aria-hidden="true"></i>
+    <p>Aún no hay comunicados publicados.</p>
+    <button class="btn-add" (click)="openCreateModal()"><i class="fas fa-plus"></i> Agregar</button>
+  </div>
+  } @else {
   <div class="admin-card">
     <table class="admin-table">
       <thead>
         <tr>
-          <th>#</th>
+          <th>N.º</th>
           <th>Asunto</th>
           <th>Fecha</th>
           <th>Estado</th>
@@ -37,11 +44,11 @@
             </span>
           </td>
           <td class="td-actions">
-            <button class="btn-icon btn-edit" (click)="openEditModal(com)">
+            <button class="btn-icon btn-edit" (click)="openEditModal(com)" aria-label="Editar comunicado">
               <i class="fas fa-pen"></i>
             </button>
 
-            <button class="btn-icon btn-delete" (click)="openDeleteModal(com.id)">
+            <button class="btn-icon btn-delete" (click)="openDeleteModal(com.id)" aria-label="Eliminar comunicado">
               <i class="fas fa-trash"></i>
             </button>
           </td>
@@ -51,6 +58,7 @@
       </tbody>
     </table>
   </div>
+  }
   @if (showModal()) {
   <div class="modal-backdrop" (click)="closeModal()">
     <div class="modal modal-xl" role="dialog" aria-modal="true" aria-labelledby="ttl-comunicado" tabindex="-1"

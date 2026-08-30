@@ -5,9 +5,9 @@
 /* ---- Page Header ---- */
 .page-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
   gap: 16px;
   flex-wrap: wrap;
 }
@@ -15,43 +15,46 @@
 .page-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1a2456;
+  color: var(--adm-ink);
   margin: 0 0 4px;
 }
 
 .page-sub {
-  color: #8a9bc4;
-  font-size: 0.88rem;
+  color: var(--adm-muted);
+  font-size: 0.82rem;
   margin: 0;
 }
 
 /* ---- Add Button ---- */
 .btn-add {
-  display: flex;
+  min-height: 40px;
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  background: #f28c1b;
-  color: #ffffff;
-  border: none;
+  background: var(--adm-brand);
+  color: var(--adm-surface);
+  border: 1px solid var(--adm-brand);
   border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 0.88rem;
+  padding: 8px 16px;
+  font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s ease, box-shadow 0.2s ease;
+  transition: background 0.2s ease, border-color 0.2s ease;
   white-space: nowrap;
 }
 
 .btn-add:hover {
-  background: #d97a0e;
-  box-shadow: 0 4px 12px rgba(242, 140, 27, 0.35);
+  background: var(--adm-brand-hover);
+  border-color: var(--adm-brand-hover);
 }
 
 /* ---- Card container ---- */
 .admin-card {
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 2px 14px rgba(50, 63, 124, 0.08);
+  background: var(--adm-surface);
+  border: 1px solid var(--adm-line);
+  border-radius: var(--adm-radius);
+  box-shadow: none;
   overflow: hidden;
 }
 
@@ -63,24 +66,24 @@
 }
 
 .admin-table thead {
-  background: #f5f7fb;
+  background: var(--adm-bg);
 }
 
 .admin-table th {
   text-align: left;
-  padding: 14px 18px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #8a9bc4;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  border-bottom: 1px solid #eef0f7;
+  padding: 10px 16px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--adm-muted);
+  text-transform: none;
+  letter-spacing: 0;
+  border-bottom: 1px solid var(--adm-line);
 }
 
 .admin-table td {
-  padding: 14px 18px;
-  color: #2d3a5e;
-  border-bottom: 1px solid #f0f2f8;
+  padding: 10px 16px;
+  color: var(--adm-ink);
+  border-bottom: 1px solid var(--adm-line);
 }
 
 .admin-table tbody tr:last-child td {
@@ -88,13 +91,18 @@
 }
 
 .admin-table tbody tr:hover {
-  background: #fafbff;
+  background: var(--adm-bg);
+}
+
+.admin-table th:first-child,
+.admin-table td:first-child {
+  width: 56px;
 }
 
 .td-id {
-  color: #aab0c8;
+  color: var(--adm-ink-soft);
   font-weight: 600;
-  width: 48px;
+  width: 56px;
 }
 
 .td-actions {
@@ -120,20 +128,118 @@
 .btn-icon {
   width: 32px;
   height: 32px;
-  border: none;
+  border: 1px solid transparent;
   border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   font-size: 0.75rem;
-  transition: background 0.2s ease;
+  background: transparent;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
-.btn-edit   { background: #eaf0ff; color: #323f7c; }
-.btn-delete { background: #fdecea; color: #c0392b; }
-.btn-edit:hover   { background: #d0dcff; }
-.btn-delete:hover { background: #f9c9c5; }
+.btn-edit { color: var(--adm-ink); }
+.btn-delete { color: var(--adm-danger); }
+.btn-edit:hover,
+.btn-delete:hover { background: var(--adm-muted-bg); }
+
+.btn-add:focus-visible,
+.btn-save:focus-visible,
+.btn-cancel:focus-visible,
+.btn-icon:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--adm-brand);
+  outline-offset: 2px;
+}
+
+.btn-save,
+.btn-cancel {
+  min-height: 40px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-save {
+  background: var(--adm-brand);
+  color: var(--adm-surface);
+  border: 1px solid var(--adm-brand);
+}
+
+.btn-save:hover:not(:disabled) {
+  background: var(--adm-brand-hover);
+  border-color: var(--adm-brand-hover);
+}
+
+.btn-cancel {
+  background: var(--adm-surface);
+  color: var(--adm-muted);
+  border: 1px solid var(--adm-line);
+}
+
+.btn-cancel:hover {
+  background: var(--adm-bg);
+  color: var(--adm-ink);
+}
+
+.btn-save:disabled,
+.btn-add:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+input:not([type='file']),
+select {
+  min-height: 40px;
+}
+
+input:not([type='file']),
+select,
+textarea {
+  border: 1px solid var(--adm-line);
+  border-radius: 8px;
+  background: var(--adm-surface);
+  color: var(--adm-ink);
+  font: inherit;
+}
+
+input:not([type='file']):focus,
+select:focus,
+textarea:focus {
+  border-color: var(--adm-brand);
+  outline: none;
+}
+
+.empty-state {
+  min-height: 176px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--adm-muted);
+  text-align: center;
+}
+
+.empty-state i {
+  color: var(--adm-ink-soft);
+  font-size: 1.25rem;
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 0.84rem;
+}
+
+.empty-state .btn-add {
+  margin-top: 8px;
+}
 
 .obligatorio { color: var(--adm-danger); }
 
@@ -156,20 +262,28 @@
 }
 
 /* botones */
-.btn-warning {
-  background: #f59e0b;
-  color: white;
-  border: none;
-  padding: 10px 15px;
+.btn-warning,
+.btn-danger {
+  min-height: 40px;
+  padding: 8px 16px;
   border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
   cursor: pointer;
 }
 
+.btn-warning {
+  background: var(--adm-surface);
+  color: var(--adm-ink);
+  border: 1px solid var(--adm-line);
+}
+
+.btn-warning:hover {
+  background: var(--adm-bg);
+}
+
 .btn-danger {
-  background: #ef4444;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 8px;
-  cursor: pointer;
+  background: var(--adm-danger);
+  color: var(--adm-surface);
+  border: 1px solid var(--adm-danger);
 }

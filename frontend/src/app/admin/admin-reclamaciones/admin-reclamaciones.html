@@ -4,7 +4,7 @@
   <div class="page-header">
     <div>
       <h1 class="page-title">Libro de Reclamaciones</h1>
-      <p class="page-sub">Gestión y revisión de reclamos recibidos</p>
+      <p class="page-sub">Reclamos recibidos</p>
     </div>
     <button class="btn-reload" (click)="cargar()" [disabled]="isLoading">
       <i class="fas fa-sync-alt" [class.fa-spin]="isLoading"></i> Actualizar
@@ -65,11 +65,17 @@
 
   <!-- Tabla -->
   @if (!isLoading) {
+  @if (filtered.length === 0) {
+  <div class="table-wrap empty-state">
+    <i class="fas fa-inbox" aria-hidden="true"></i>
+    <p>No hay reclamos que coincidan con los filtros.</p>
+  </div>
+  } @else {
   <div class="table-wrap">
     <table class="ar-table">
       <thead>
         <tr>
-          <th>Nº</th>
+          <th>N.º</th>
           <th>Fecha</th>
           <th>Reclamante</th>
           <th>DNI</th>
@@ -106,14 +112,11 @@
             </div>
           </td>
         </tr>
-        } @empty {
-        <tr>
-          <td colspan="7" class="td-empty">No hay reclamos que coincidan con los filtros.</td>
-        </tr>
         }
       </tbody>
     </table>
   </div>
+  }
   }
 
 </div>

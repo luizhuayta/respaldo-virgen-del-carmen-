@@ -13,7 +13,7 @@
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--adm-line);
 }
 
 .docente-avatar i {
@@ -44,10 +44,11 @@
 .modal {
   width: 500px;
   background: var(--adm-surface);
-  border-radius: 16px;
+  border: 1px solid var(--adm-line);
+  border-radius: var(--adm-radius);
   padding: 20px;
   color: var(--adm-ink);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--adm-shadow);
   animation: fadeIn 0.2s ease;
 }
 
@@ -108,9 +109,7 @@ select {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow:
-    0 10px 25px rgba(0, 0, 0, 0.08),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+  box-shadow: none;
 }
 
 /* IMAGEN */
@@ -147,21 +146,15 @@ select {
 }
 
 .btn-save {
-  background: #3b82f6;
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 8px;
-  cursor: pointer;
+  background: var(--adm-brand);
+  border: 1px solid var(--adm-brand);
+  color: var(--adm-surface);
 }
 
 .btn-cancel {
-  background: #444;
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 8px;
-  cursor: pointer;
+  background: var(--adm-surface);
+  border: 1px solid var(--adm-line);
+  color: var(--adm-muted);
 }
 
 /* ANIMACIÓN */
@@ -197,16 +190,15 @@ select {
 
 /* año */
 .badge-year {
-  background: rgba(59, 130, 246, 0.12);
-  color: #3b82f6;
-  border: 1px solid rgba(59, 130, 246, 0.3);
+  background: #eaf0ff;
+  color: #323f7c;
+  border: 1px solid var(--adm-line);
 }
 
-/* activo */
 .badge-blue {
-  background: rgba(59, 130, 246, 0.15);
-  color: #3b82f6;
-  border: 1px solid rgba(59, 130, 246, 0.3);
+  background: #eaf0ff;
+  color: #323f7c;
+  border: 1px solid var(--adm-line);
 }
 
 .badge-green {
@@ -223,10 +215,11 @@ select {
 
 /* secciones desplegables */
 .seccion-card {
-  background: #fff;
-  border-radius: 10px;
-  margin-bottom: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  background: var(--adm-surface);
+  border: 1px solid var(--adm-line);
+  border-radius: var(--adm-radius);
+  margin-bottom: 16px;
+  box-shadow: none;
   overflow: hidden;
 }
 
@@ -235,15 +228,15 @@ select {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
-  background: #fff;
+  padding: 16px;
+  background: var(--adm-surface);
   border: none;
   cursor: pointer;
   transition: background 0.2s ease;
 }
 
 .seccion-header:hover {
-  background: #f5f7ff;
+  background: var(--adm-bg);
 }
 
 .seccion-header-left {
@@ -253,19 +246,19 @@ select {
 }
 
 .seccion-icon {
-  color: #ff9100;
+  color: var(--adm-brand);
   font-size: 1.1rem;
 }
 
 .seccion-titulo {
   font-weight: 700;
   font-size: 1rem;
-  color: #323f7c;
+  color: var(--adm-ink);
 }
 
 .seccion-badge {
-  background: #eef0fb;
-  color: #323f7c;
+  background: var(--adm-muted-bg);
+  color: var(--adm-muted);
   font-size: 0.75rem;
   font-weight: 700;
   padding: 2px 10px;
@@ -273,19 +266,19 @@ select {
 }
 
 .seccion-chevron {
-  color: #323f7c;
+  color: var(--adm-ink);
   font-size: 0.9rem;
 }
 
 .seccion-body {
-  padding: 0 20px 20px;
+  padding: 0 16px 16px;
   animation: slideDown 0.2s ease;
 }
 
 .seccion-vacia {
-  color: #999;
+  color: var(--adm-muted);
   font-size: 0.9rem;
-  padding: 12px 0;
+  padding: 24px;
   text-align: center;
 }
 
@@ -333,28 +326,28 @@ select {
   align-items: center;
   gap: 10px;
   padding: 12px 16px;
-  border: 2px dashed rgba(255,255,255,0.15);
+  border: 2px dashed var(--adm-line);
   border-radius: 10px;
-  background: #2a2a3d;
+  background: var(--adm-bg);
   cursor: pointer;
   transition: border-color 0.2s, background 0.2s;
   min-height: 50px;
 }
 
 .pdf-upload-area:hover {
-  border-color: #3b82f6;
-  background: #2f2f45;
+  border-color: var(--adm-brand);
+  background: var(--adm-bg);
 }
 
 .pdf-upload-icon {
   font-size: 20px;
-  color: #f87171;
+  color: var(--adm-brand);
   flex-shrink: 0;
 }
 
 .pdf-upload-label {
   font-size: 13px;
-  color: #aaa;
+  color: var(--adm-muted);
   flex: 1;
   white-space: nowrap;
   overflow: hidden;
@@ -364,7 +357,7 @@ select {
 .pdf-remove-btn {
   background: none;
   border: none;
-  color: #f87171;
+  color: var(--adm-danger);
   cursor: pointer;
   font-size: 14px;
   padding: 2px 6px;
@@ -373,7 +366,7 @@ select {
 }
 
 .pdf-remove-btn:hover {
-  background: rgba(248, 113, 113, 0.15);
+  background: var(--adm-danger-bg);
 }
 
 /* ===== PDF PREVIEW ===== */
@@ -387,7 +380,7 @@ select {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  box-shadow: none;
 }
 
 .pdf-iframe {
@@ -402,17 +395,17 @@ select {
   align-items: center;
   gap: 5px;
   font-size: 12px;
-  color: #f87171;
+  color: var(--adm-ink);
   text-decoration: none;
   padding: 3px 8px;
   border-radius: 6px;
-  border: 1px solid rgba(248,113,113,0.3);
-  background: rgba(248,113,113,0.08);
+  border: 1px solid transparent;
+  background: transparent;
   transition: background 0.2s;
 }
 
 .btn-pdf-link:hover {
-  background: rgba(248,113,113,0.18);
+  background: var(--adm-muted-bg);
 }
 /* ===== VISOR PDF FLOTANTE ===== */
 .pdf-viewer-backdrop {
@@ -436,7 +429,7 @@ select {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+  box-shadow: none;
   animation: fadeIn 0.2s ease;
 }
 
@@ -459,7 +452,7 @@ select {
 }
 
 .pdf-viewer-title i {
-  color: #f87171;
+  color: var(--adm-danger);
   font-size: 18px;
 }
 

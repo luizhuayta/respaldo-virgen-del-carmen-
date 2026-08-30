@@ -2,19 +2,25 @@
   <div class="page-header">
     <div>
       <h1 class="page-title">Mesa de Partes</h1>
-      <p class="page-sub">Gestión y revisión de trámites institucionales recibidos</p>
+      <p class="page-sub">Trámites recibidos</p>
     </div>
   </div>
 
+  @if (tramites().length === 0) {
+  <div class="mdp-admin-card empty-state">
+    <i class="fas fa-inbox" aria-hidden="true"></i>
+    <p>No hay trámites registrados.</p>
+  </div>
+  } @else {
   <div class="mdp-admin-card">
     <div class="table-responsive">
       <table class="mdp-table">
         <thead>
           <tr>
-            <th>#</th>
-            <th>Nombres y Apellidos</th>
+            <th>N.º</th>
+            <th>Nombres y apellidos</th>
             <th>Fecha</th>
-            <th>Progreso de Trámite</th>
+            <th>Progreso del trámite</th>
             <th>Código de seguimiento</th>
             <th>Detalle</th>
             <th>Estado</th>
@@ -76,19 +82,12 @@
             </td>
           </tr>
 
-          } @empty {
-
-          <tr>
-            <td colspan="8" class="text-center py-4">
-              No se encontraron trámites registrados.
-            </td>
-          </tr>
-
           }
         </tbody>
       </table>
     </div>
   </div>
+  }
 
   @if (showModal && tramiteSeleccionado) {
   <div class="modal-overlay-premium">

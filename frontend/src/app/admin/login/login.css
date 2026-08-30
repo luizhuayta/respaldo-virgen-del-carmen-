@@ -35,9 +35,7 @@
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow:
-    0 10px 40px rgba(0,0,0,0.6),
-    inset 0 0 20px rgba(255,255,255,0.05);
+  box-shadow: none;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -73,7 +71,7 @@ button {
   padding: 12px;
   border-radius: 10px;
   border: none;
-  background: linear-gradient(135deg, #323f7c, #c47000);
+  background: #f28c1b;
   color: white;
   cursor: pointer;
   font-weight: 600;
@@ -81,8 +79,7 @@ button {
 }
 
 button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(196, 112, 0, 0.4);
+  background: #d97a0e;
 }
 
 html, body {

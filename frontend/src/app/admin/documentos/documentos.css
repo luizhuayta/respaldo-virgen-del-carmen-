@@ -11,10 +11,11 @@ input, select {
 
 /* ===== SECCIONES DESPLEGABLES ===== */
 .seccion-card {
-  background: #fff;
-  border-radius: 10px;
-  margin-bottom: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  background: var(--adm-surface);
+  border: 1px solid var(--adm-line);
+  border-radius: var(--adm-radius);
+  margin-bottom: 16px;
+  box-shadow: none;
   overflow: hidden;
 }
 
@@ -23,15 +24,15 @@ input, select {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
-  background: #fff;
+  padding: 16px;
+  background: var(--adm-surface);
   border: none;
   cursor: pointer;
   transition: background 0.2s ease;
 }
 
 .seccion-header:hover {
-  background: #f5f7ff;
+  background: var(--adm-bg);
 }
 
 .seccion-header-left {
@@ -41,19 +42,19 @@ input, select {
 }
 
 .seccion-icon {
-  color: #ff9100;
+  color: var(--adm-brand);
   font-size: 1.1rem;
 }
 
 .seccion-titulo {
   font-weight: 700;
   font-size: 1rem;
-  color: #323f7c;
+  color: var(--adm-ink);
 }
 
 .seccion-badge {
-  background: #eef0fb;
-  color: #323f7c;
+  background: var(--adm-muted-bg);
+  color: var(--adm-muted);
   font-size: 0.75rem;
   font-weight: 700;
   padding: 2px 10px;
@@ -61,20 +62,20 @@ input, select {
 }
 
 .seccion-chevron {
-  color: #323f7c;
+  color: var(--adm-ink);
   font-size: 0.9rem;
   transition: transform 0.2s ease;
 }
 
 .seccion-body {
-  padding: 0 20px 20px;
+  padding: 0 16px 16px;
   animation: slideDown 0.2s ease;
 }
 
 .seccion-vacia {
-  color: #999;
+  color: var(--adm-muted);
   font-size: 0.9rem;
-  padding: 12px 0;
+  padding: 24px;
   text-align: center;
 }
 

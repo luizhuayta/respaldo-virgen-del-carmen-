@@ -3,7 +3,7 @@
   <div class="page-header">
     <div>
       <h1 class="page-title">Documentos</h1>
-      <p class="page-sub">Gestión de documentos académicos</p>
+      <p class="page-sub">Documentos disponibles en el portal</p>
     </div>
     <button class="btn-add" (click)="openCreateModal()">
       <i class="fas fa-plus"></i> Agregar
@@ -28,13 +28,17 @@
     <div class="seccion-body">
 
       @if (groupedDocs()[type].length === 0) {
-      <p class="seccion-vacia">No hay documentos en esta sección.</p>
+      <div class="seccion-vacia empty-state">
+        <i class="fas fa-file" aria-hidden="true"></i>
+        <p>No hay documentos en esta sección.</p>
+        <button class="btn-add" (click)="openCreateModal()"><i class="fas fa-plus"></i> Agregar</button>
+      </div>
       } @else {
       <div class="admin-card">
         <table class="admin-table">
           <thead>
             <tr>
-              <th>#</th>
+              <th>N.º</th>
               <th>Documento</th>
               <th>Título</th>
               <th>Tipo</th>
@@ -72,10 +76,10 @@
               </td>
 
               <td class="td-actions">
-                <button class="btn-icon btn-edit" (click)="openEditModal(i)">
+                <button class="btn-icon btn-edit" (click)="openEditModal(i)" aria-label="Editar documento">
                   <i class="fas fa-pen"></i>
                 </button>
-                <button class="btn-icon btn-delete" (click)="openDeleteModal(i.id)">
+                <button class="btn-icon btn-delete" (click)="openDeleteModal(i.id)" aria-label="Eliminar documento">
                   <i class="fas fa-trash"></i>
                 </button>
               </td>

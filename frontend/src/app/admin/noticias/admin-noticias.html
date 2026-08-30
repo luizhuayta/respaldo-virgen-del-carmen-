@@ -3,18 +3,25 @@
   <div class="page-header">
     <div>
       <h1 class="page-title">Noticias</h1>
-      <p class="page-sub">Gestión de noticias institucionales</p>
+      <p class="page-sub">Publicaciones del portal</p>
     </div>
     <button class="btn-add" (click)="openCreateModal()">
       <i class="fas fa-plus"></i> Agregar
     </button>
   </div>
 
+  @if (noticias().length === 0) {
+  <div class="admin-card empty-state">
+    <i class="fas fa-newspaper" aria-hidden="true"></i>
+    <p>Aún no hay noticias publicadas.</p>
+    <button class="btn-add" (click)="openCreateModal()"><i class="fas fa-plus"></i> Agregar</button>
+  </div>
+  } @else {
   <div class="admin-card">
     <table class="admin-table">
       <thead>
         <tr>
-          <th>#</th>
+          <th>N.º</th>
           <th>Título</th>
           <th>Fecha</th>
           <th>Estado</th>
@@ -39,11 +46,11 @@
           </td>
 
           <td class="td-actions">
-            <button class="btn-icon btn-edit" (click)="openEditModal(n)">
+            <button class="btn-icon btn-edit" (click)="openEditModal(n)" aria-label="Editar noticia">
               <i class="fas fa-pen"></i>
             </button>
 
-            <button class="btn-icon btn-delete" (click)="openDeleteModal(n.id)">
+            <button class="btn-icon btn-delete" (click)="openDeleteModal(n.id)" aria-label="Eliminar noticia">
               <i class="fas fa-trash"></i>
             </button>
           </td>
@@ -53,6 +60,7 @@
       </tbody>
     </table>
   </div>
+  }
 
   @if (showModal()) {
   <div class="modal-backdrop" (click)="closeModal()">

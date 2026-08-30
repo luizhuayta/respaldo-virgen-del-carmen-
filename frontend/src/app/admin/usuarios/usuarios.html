@@ -3,7 +3,7 @@
   <div class="page-header">
     <div>
       <h1 class="page-title">Usuarios</h1>
-      <p class="page-sub">Gestión de usuarios de administración</p>
+      <p class="page-sub">Accesos al panel</p>
     </div>
 
     <button class="btn-add" (click)="openCreateModal()">
@@ -11,12 +11,19 @@
     </button>
   </div>
 
+  @if (usuarios().length === 0) {
+  <div class="admin-card empty-state">
+    <i class="fas fa-users" aria-hidden="true"></i>
+    <p>Aún no hay usuarios registrados.</p>
+    <button class="btn-add" (click)="openCreateModal()"><i class="fas fa-plus"></i> Agregar</button>
+  </div>
+  } @else {
   <div class="admin-card">
     <table class="admin-table">
       <thead>
         <tr>
-          <th>#</th>
-          <th>Nombres y Apellidos</th>
+          <th>N.º</th>
+          <th>Nombres y apellidos</th>
           <th>Usuario</th>
           <th>Fecha</th>
           <th>Estado</th>
@@ -45,11 +52,11 @@
           </td>
 
           <td class="td-actions">
-            <button class="btn-icon btn-edit" (click)="openEditModal(u)">
+            <button class="btn-icon btn-edit" (click)="openEditModal(u)" aria-label="Editar usuario">
               <i class="fas fa-pen"></i>
             </button>
 
-            <button class="btn-icon btn-delete" (click)="openDeleteModal(u.id)">
+            <button class="btn-icon btn-delete" (click)="openDeleteModal(u.id)" aria-label="Eliminar usuario">
               <i class="fas fa-trash"></i>
             </button>
           </td>
@@ -59,10 +66,11 @@
       </tbody>
     </table>
   </div>
+  }
 
   @if (showModal()) {
   <div class="modal-backdrop" (click)="closeModal()">
-    <div class="modal modal-xl" role="dialog" aria-modal="true" aria-labelledby="ttl-usuario" tabindex="-1"
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="ttl-usuario" tabindex="-1"
       cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="closeModal()" (click)="$event.stopPropagation()">
 
       <div class="modal-header">

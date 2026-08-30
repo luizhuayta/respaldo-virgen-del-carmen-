@@ -15,7 +15,8 @@
   color: var(--adm-ink, #1a2456);
   border-radius: 12px;
   padding: 24px;
-  box-shadow: 0 20px 60px rgba(26, 36, 86, 0.2);
+  box-shadow: none;
+  border: 1px solid var(--adm-line, #e6e9f2);
 }
 
 .aviso-dialog h2 {
@@ -37,10 +38,11 @@
 }
 
 .aviso-actions button {
+  min-height: 40px;
   border: none;
   border-radius: 8px;
-  padding: 10px 14px;
-  font-size: 0.85rem;
+  padding: 8px 16px;
+  font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;
 }

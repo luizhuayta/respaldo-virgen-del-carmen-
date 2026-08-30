@@ -9,8 +9,8 @@
 }
 
 .badge-blue {
-  background: rgba(59, 130, 246, 0.15);
-  color: #3b82f6;
+  background: #eaf0ff;
+  color: #323f7c;
 }
 
 .badge-green {
@@ -39,7 +39,8 @@
   max-width: 95vw;
   background: var(--adm-surface);
   padding: 20px;
-  border-radius: 16px;
+  border: 1px solid var(--adm-line);
+  border-radius: var(--adm-radius);
   color: var(--adm-ink);
 }
 

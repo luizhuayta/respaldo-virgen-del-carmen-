@@ -1,8 +1,8 @@
 /* ---- Admin Sidebar ---- */
 .admin-sidebar {
-  width: 240px;
+  width: 272px;
   min-height: 100vh;
-  background: #1a2456;
+  background: var(--adm-ink);
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -10,7 +10,7 @@
   top: 0;
   left: 0;
   z-index: 100;
-  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+  transition: width 0.2s ease;
 }
 
 /* ---- Brand ---- */
@@ -18,13 +18,14 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 24px 20px 20px;
+  min-height: 72px;
+  padding: 16px;
 }
 
 .brand-icon {
   width: 40px;
   height: 40px;
-  background: #f28c1b;
+  background: rgba(255, 255, 255, 0.07);
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -33,20 +34,22 @@
 }
 
 .brand-icon i {
-  color: #ffffff;
+  color: var(--adm-surface);
   font-size: 1.1rem;
 }
 
 .brand-text {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   line-height: 1.2;
+  flex: 1;
 }
 
 .brand-title {
   font-size: 1rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--adm-surface);
   letter-spacing: 0.06em;
 }
 
@@ -56,11 +59,41 @@
   font-weight: 400;
 }
 
+.sidebar-toggle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.sidebar-toggle-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  color: var(--adm-ink-soft);
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+
+.sidebar-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--adm-surface);
+}
+
+.sidebar-toggle:focus-visible + .sidebar-brand .sidebar-toggle-btn {
+  outline: 2px solid var(--adm-brand);
+  outline-offset: 2px;
+}
+
 /* ---- Divider ---- */
 .sidebar-divider {
   height: 1px;
   background: rgba(255, 255, 255, 0.08);
-  margin: 0 20px;
+  margin: 0 16px;
 }
 
 /* ---- Section Label ---- */
@@ -70,24 +103,27 @@
   color: #5a6a92;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  padding: 18px 20px 8px;
+  padding: 16px 12px 8px;
   margin: 0;
 }
 
 /* ---- Nav Items ---- */
 .sidebar-nav {
+  min-height: 0;
   display: flex;
   flex-direction: column;
-  padding: 0 12px;
-  gap: 2px;
+  padding: 8px;
+  gap: 4px;
+  overflow-y: auto;
 }
 
 .sidebar-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 11px 14px;
-  border-radius: 8px;
+  min-height: 40px;
+  padding: 8px 12px;
+  border-radius: var(--adm-radius);
   text-decoration: none;
   color: #a0b0d0;
   font-size: 0.88rem;
@@ -98,14 +134,13 @@
 
 .sidebar-item:hover:not(.active) {
   background: rgba(255, 255, 255, 0.07);
-  color: #ffffff;
+  color: var(--adm-surface);
 }
 
 .sidebar-item.active {
-  background: #f28c1b;
-  color: #ffffff;
+  background: var(--adm-brand);
+  color: var(--adm-surface);
   font-weight: 600;
-  box-shadow: 0 4px 12px rgba(242, 140, 27, 0.35);
 }
 
 .sidebar-icon {
@@ -117,8 +152,12 @@
 
 .sidebar-label {
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+}
+
+.sidebar-item:focus-visible,
+.logout-btn:focus-visible {
+  outline: 2px solid var(--adm-brand);
+  outline-offset: -2px;
 }
 
 /* ---- Spacer ---- */
@@ -127,13 +166,91 @@
 }
 
 .logout-btn {
-  background: #1a2456;
-  color: white;
-  gap: 12px;
-  padding: 16px 26px 24px;
+  margin: 8px;
+  background: var(--adm-ink);
+  color: var(--adm-surface);
+  min-height: 48px;
+  padding: 8px 12px;
   border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
   display: flex;
   align-items: center;
   gap: 12px;
   font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.admin-sidebar:has(.sidebar-toggle:checked) {
+  width: 80px;
+}
+
+.admin-sidebar:has(.sidebar-toggle:checked) .brand-text,
+.admin-sidebar:has(.sidebar-toggle:checked) .sidebar-label,
+.admin-sidebar:has(.sidebar-toggle:checked) .sidebar-section-label {
+  display: none;
+}
+
+.admin-sidebar:has(.sidebar-toggle:checked) .sidebar-brand {
+  flex-direction: column;
+  padding: 16px 8px;
+}
+
+.admin-sidebar:has(.sidebar-toggle:checked) .sidebar-item,
+.admin-sidebar:has(.sidebar-toggle:checked) .logout-btn {
+  justify-content: center;
+  padding-inline: 8px;
+}
+
+@media (max-width: 1100px) {
+  .admin-sidebar {
+    width: 80px;
+  }
+
+  .admin-sidebar .brand-text,
+  .admin-sidebar .sidebar-label,
+  .admin-sidebar .sidebar-section-label {
+    display: none;
+  }
+
+  .admin-sidebar .sidebar-brand {
+    flex-direction: column;
+    padding: 16px 8px;
+  }
+
+  .admin-sidebar .sidebar-item,
+  .admin-sidebar .logout-btn {
+    justify-content: center;
+    padding-inline: 8px;
+  }
+
+  .admin-sidebar:has(.sidebar-toggle:checked) {
+    width: 272px;
+    box-shadow: var(--adm-shadow);
+  }
+
+  .admin-sidebar:has(.sidebar-toggle:checked) .brand-text,
+  .admin-sidebar:has(.sidebar-toggle:checked) .sidebar-label,
+  .admin-sidebar:has(.sidebar-toggle:checked) .sidebar-section-label {
+    display: flex;
+  }
+
+  .admin-sidebar:has(.sidebar-toggle:checked) .sidebar-section-label {
+    display: block;
+  }
+
+  .admin-sidebar:has(.sidebar-toggle:checked) .sidebar-brand {
+    flex-direction: row;
+    padding: 16px;
+  }
+
+  .admin-sidebar:has(.sidebar-toggle:checked) .sidebar-item,
+  .admin-sidebar:has(.sidebar-toggle:checked) .logout-btn {
+    justify-content: flex-start;
+    padding-inline: 12px;
+  }
 }

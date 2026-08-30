@@ -3,12 +3,12 @@
 
 /* contenedor más grande */
 .form-card-lg {
-  padding: 25px;
+  padding: 24px;
 }
 
 /* bloques verticales */
 .form-block {
-  margin-bottom: 25px;
+  margin-bottom: 24px;
 }
 
 .form-block label {
@@ -26,11 +26,15 @@
 /* toolbar */
 ::ng-deep .ql-toolbar {
   border-radius: 10px 10px 0 0;
+  background: var(--adm-surface);
+  border: 1px solid var(--adm-line);
 }
 
-/* container */
 ::ng-deep .ql-container {
   border-radius: 0 0 10px 10px;
+  background: var(--adm-surface);
+  border: 1px solid var(--adm-line);
+  color: var(--adm-ink);
 }
 
 /* editor area */
@@ -42,17 +46,14 @@
 
 .header-actions {
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 
 /* botones */
 .btn-save {
-  background: #3b82f6;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 8px;
-  color: white;
-  cursor: pointer;
+  background: var(--adm-brand);
+  border: 1px solid var(--adm-brand);
+  color: var(--adm-surface);
 }
 
 .btn-save:disabled {

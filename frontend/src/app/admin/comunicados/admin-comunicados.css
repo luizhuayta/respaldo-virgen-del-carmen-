@@ -13,9 +13,9 @@
 }
 
 .badge-blue {
-  background: rgba(59,130,246,0.15);
-  color: #3b82f6;
-  border: 1px solid rgba(59,130,246,0.3);
+  background: #eaf0ff;
+  color: #323f7c;
+  border: 1px solid var(--adm-line);
 }
 
 .badge-green {
@@ -51,11 +51,12 @@
   overflow-y: auto;
 
   background: var(--adm-surface);
-  border-radius: 16px;
+  border: 1px solid var(--adm-line);
+  border-radius: var(--adm-radius);
   padding: 20px;
   color: var(--adm-ink);
 
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  box-shadow: var(--adm-shadow);
   animation: modalIn 0.2s ease;
 }
 
@@ -133,9 +134,7 @@ input, textarea, select {
   align-items: center;
   justify-content: center;
 
-  box-shadow: 
-    0 10px 25px rgba(0,0,0,0.4),
-    inset 0 0 0 1px rgba(255,255,255,0.03);
+  box-shadow: none;
 }
 
 .preview-frame img {
@@ -174,21 +173,15 @@ input, textarea, select {
 }
 
 .btn-save {
-  background: #3b82f6;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 8px;
-  cursor: pointer;
+  background: var(--adm-brand);
+  color: var(--adm-surface);
+  border: 1px solid var(--adm-brand);
 }
 
 .btn-cancel {
-  background: #444;
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 8px;
-  cursor: pointer;
+  background: var(--adm-surface);
+  border: 1px solid var(--adm-line);
+  color: var(--adm-muted);
 }
 
 /* =========================
@@ -274,28 +267,31 @@ input, textarea, select {
   fill: #fff;
 }
 
-/* ===== LIGHT ===== */
-::ng-deep .editor-light .ql-toolbar {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+/* ===== LIGHT (por defecto) ===== */
+::ng-deep .editor-light .ql-toolbar,
+::ng-deep .ql-toolbar {
+  background: var(--adm-surface);
+  border: 1px solid var(--adm-line);
 }
 
-::ng-deep .editor-light .ql-container {
-  background: #ffffff;
-  color: #111;
-  border: 1px solid #e5e7eb;
+::ng-deep .editor-light .ql-container,
+::ng-deep .ql-container {
+  background: var(--adm-surface);
+  color: var(--adm-ink);
+  border: 1px solid var(--adm-line);
 }
 
-::ng-deep .editor-light .ql-editor {
-  color: #111;
+::ng-deep .editor-light .ql-editor,
+::ng-deep .ql-editor {
+  color: var(--adm-ink);
 }
 
 ::ng-deep .editor-light .ql-stroke {
-  stroke: #111;
+  stroke: var(--adm-ink);
 }
 
 ::ng-deep .editor-light .ql-fill {
-  fill: #111;
+  fill: var(--adm-ink);
 }
 
 .header-actions {
@@ -309,21 +305,21 @@ input, textarea, select {
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  border: none;
+  border: 1px solid var(--adm-line);
   cursor: pointer;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  background: rgba(59,130,246,0.15);
-  color: #3b82f6;
+  background: var(--adm-surface);
+  color: var(--adm-ink);
 
   transition: 0.2s;
 }
 
 .btn-theme:hover {
-  background: rgba(59,130,246,0.25);
+  background: var(--adm-bg);
 }
 
 /* CONTENEDOR REAL */
@@ -360,13 +356,7 @@ input, textarea, select {
 }
 
 ::ng-deep .ql-toolbar {
-  background: transparent;
-  border: none;
   padding-left: 0;
-}
-
-::ng-deep .ql-container {
-  border: none;
 }
 /* Limitar texto del asunto */
 .td-title {

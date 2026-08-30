@@ -1,24 +1,30 @@
 <div class="dash-page">
 
-  <div class="dash-section atend-section">
-    <h2 class="section-title">Por atender</h2>
+  <section class="dash-section atend-section" aria-labelledby="por-atender-title">
+    <div class="section-heading">
+      <div>
+        <h2 class="section-title" id="por-atender-title">Por atender</h2>
+        <p class="section-subtitle">Solicitudes que requieren revisión</p>
+      </div>
+    </div>
     <div class="atend-grid">
 
       <div class="atend-card">
         <div class="atend-head">
-          <div class="atend-icon atend-icon--mesa">
+          <div class="atend-icon" aria-hidden="true">
             <i class="fas fa-inbox"></i>
           </div>
           <div>
             <h3 class="atend-title">Mesa de Partes</h3>
-            @if (pendientesMesa().length > 0) {
             <span class="atend-count">{{ pendientesMesa().length }} pendientes</span>
-            }
           </div>
         </div>
 
         @if (pendientesMesa().length === 0) {
-        <p class="atend-empty">No hay trámites pendientes</p>
+        <div class="atend-empty">
+          <i class="fas fa-check-circle" aria-hidden="true"></i>
+          <p>No hay trámites pendientes</p>
+        </div>
         } @else {
         <ul class="atend-list">
           @for (t of antiguosMesa(); track t.id) {
@@ -36,19 +42,20 @@
 
       <div class="atend-card">
         <div class="atend-head">
-          <div class="atend-icon atend-icon--libro">
+          <div class="atend-icon" aria-hidden="true">
             <i class="fas fa-book-open"></i>
           </div>
           <div>
             <h3 class="atend-title">Libro de Reclamaciones</h3>
-            @if (pendientesReclamos().length > 0) {
             <span class="atend-count">{{ pendientesReclamos().length }} pendientes</span>
-            }
           </div>
         </div>
 
         @if (pendientesReclamos().length === 0) {
-        <p class="atend-empty">No hay reclamaciones pendientes</p>
+        <div class="atend-empty">
+          <i class="fas fa-check-circle" aria-hidden="true"></i>
+          <p>No hay reclamaciones pendientes</p>
+        </div>
         } @else {
         <ul class="atend-list">
           @for (r of antiguosReclamos(); track r.id) {
@@ -65,88 +72,68 @@
       </div>
 
     </div>
-  </div>
-
-  <!-- Welcome Banner -->
-  <div class="dash-banner">
-
-    <div class="banner-bg">
-      <div class="main_spinner">
-        <div class="center_mass"></div>
-        <div class="dot dot_1"></div>
-        <div class="dot dot_2"></div>
-      </div>
-    </div>
-
-    <div class="banner-text">
-      <h1 class="banner-title">¡Bienvenido, Administrador!</h1>
-      <p class="banner-sub">Panel de gestión — IESPP Virgen del Carmen</p>
-    </div>
-
-    <div class="banner-icon">
-      <i class="fas fa-graduation-cap"></i>
-    </div>
-
-  </div>
+  </section>
 
   <!-- Stat Cards -->
-  <div class="dash-cards">
+  <section class="dash-section stats-section" aria-labelledby="resumen-title">
+    <h2 class="section-title" id="resumen-title">Resumen del portal</h2>
+    <div class="dash-cards">
 
-    <a class="dash-card dash-card--blue" routerLink="/admin/noticias">
-      <div class="card-top">
-        <span class="card-label">Noticias</span>
-        <div class="card-icon">
+      <a class="dash-card" routerLink="/admin/noticias">
+        <div class="card-icon" aria-hidden="true">
           <i class="fas fa-newspaper"></i>
         </div>
-      </div>
-      <span class="card-value">{{ totalNoticias() }}</span>
-    </a>
+        <span class="card-value">{{ totalNoticias() }}</span>
+        <span class="card-label">Noticias</span>
+      </a>
 
-    <a class="dash-card dash-card--orange" routerLink="/admin/comunicados">
-      <div class="card-top">
-        <span class="card-label">Comunicados</span>
-        <div class="card-icon">
+      <a class="dash-card" routerLink="/admin/comunicados">
+        <div class="card-icon" aria-hidden="true">
           <i class="fas fa-bullhorn"></i>
         </div>
-      </div>
-      <span class="card-value">{{ totalComunicados() }}</span>
-    </a>
+        <span class="card-value">{{ totalComunicados() }}</span>
+        <span class="card-label">Comunicados</span>
+      </a>
 
-    <a class="dash-card dash-card--green" routerLink="/admin/personal-academico">
-      <div class="card-top">
-        <span class="card-label">Personal Académico</span>
-        <div class="card-icon">
+      <a class="dash-card" routerLink="/admin/personal-academico">
+        <div class="card-icon" aria-hidden="true">
           <i class="fas fa-user-tie"></i>
         </div>
-      </div>
-      <span class="card-value">{{ totalPersonal() }}</span>
-    </a>
+        <span class="card-value">{{ totalPersonal() }}</span>
+        <span class="card-label">Personal Académico</span>
+      </a>
 
-  </div>
+    </div>
+  </section>
 
   <!-- Recent Activity -->
-  <div class="dash-section">
-    <h2 class="section-title">Actividad reciente</h2>
+  <section class="dash-section activity-section" aria-labelledby="actividad-title">
+    <div class="section-heading">
+      <div>
+        <h2 class="section-title" id="actividad-title">Actividad reciente</h2>
+        <p class="section-subtitle">Últimos cambios publicados</p>
+      </div>
+    </div>
     <div class="activity-list">
 
       @for (item of actividadReciente(); track item.id) {
       <div class="activity-item">
-        <div class="activity-dot"
-          [class.dot-blue]="item.kind === 'noticia'"
-          [class.dot-orange]="item.kind === 'comunicado'"
-          [class.dot-green]="item.kind === 'personal'"></div>
+        <span class="activity-kind">{{ item.kind }}</span>
         <div class="activity-body">
           <span class="activity-text">{{ item.text }}</span>
-          <span class="activity-time">{{ item.date | date:'dd MMM yyyy' }}</span>
         </div>
+        <time class="activity-time">{{ item.date | date:'dd MMM yyyy' }}</time>
       </div>
       }
 
       @if (actividadReciente().length === 0) {
-      <p class="activity-empty">No hay actividad reciente.</p>
+      <div class="activity-empty">
+        <i class="fas fa-clock" aria-hidden="true"></i>
+        <p>No hay actividad reciente.</p>
+      </div>
       }
 
     </div>
-  </div>
+  </section>
 
 </div>
