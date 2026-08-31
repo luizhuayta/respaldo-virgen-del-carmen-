@@ -6,13 +6,15 @@ import {
 
 import { AuthService } from './auth.service';
 
-export const authGuard: CanActivateFn = () => {
+export const authGuard: CanActivateFn = (_route, state) => {
 
   const auth = inject(AuthService);
   const router = inject(Router);
 
   if (!auth.isAuthenticated()) {
-    router.navigate(['/admin/login']);
+    router.navigate(['/admin/login'], {
+      queryParams: { returnUrl: state.url }
+    });
     return false;
   }
 

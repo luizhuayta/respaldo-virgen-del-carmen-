@@ -1,106 +1,165 @@
 import {
   Component,
+  ElementRef,
+  OnDestroy,
+  AfterViewInit,
   signal,
   inject,
-  AfterViewInit
+  viewChild,
+  computed
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { finalize } from 'rxjs';
 import { AuthService } from '../../core/auth/auth.service';
 import { ToastService } from '../compartido/toast';
 import { ToastHost } from '../compartido/toast-host';
 
+interface Particle {
+  x: number;
+  y: number;
+  diameter: number;
+  duration: number;
+  amplitude: number;
+  offsetY: number;
+  arc: number;
+  startTime: number;
+  colour: string;
+}
+
 @Component({
   selector: 'app-admin-login',
   standalone: true,
-  imports: [FormsModule, ToastHost],
+  imports: [FormsModule, ToastHost, RouterLink],
   templateUrl: './login.html',
-  styleUrl: './login.css'
+  styleUrl: './login.css',
+  host: { class: 'admin-login' }
 })
-export class AdminLogin implements AfterViewInit {
+export class AdminLogin implements AfterViewInit, OnDestroy {
 
   private router = inject(Router);
-
-  username = signal('');
-  password = signal('');
-
+  private route = inject(ActivatedRoute);
   private auth = inject(AuthService);
   private toast = inject(ToastService);
 
+  private canvasRef = viewChild<ElementRef<HTMLCanvasElement>>('particleCanvas');
+  private userInput = viewChild<ElementRef<HTMLInputElement>>('userInput');
+
+  username = signal('');
+  password = signal('');
+  showPassword = signal(false);
+  loading = signal(false);
+  submitted = signal(false);
+
+  showUserError = computed(() => this.submitted() && !this.username().trim());
+  showPassError = computed(() => this.submitted() && !this.password());
+
+  private rafId = 0;
+  private particles: Particle[] = [];
+  private reducedMotion = false;
+  private paused = false;
+  private canvas: HTMLCanvasElement | null = null;
+  private ctx: CanvasRenderingContext2D | null = null;
+
+  private readonly SPEED = 20000;
+  private readonly NUM_PARTICLES = 120;
+
+  constructor() {
+    if (this.auth.isAuthenticated()) {
+      this.router.navigateByUrl(this.safeReturnUrl());
+    }
+  }
+
+  ngAfterViewInit() {
+    this.userInput()?.nativeElement.focus();
+    this.startAnimation();
+  }
+
+  ngOnDestroy() {
+    cancelAnimationFrame(this.rafId);
+    window.removeEventListener('resize', this.onResize);
+    document.removeEventListener('visibilitychange', this.onVisibility);
+  }
+
   login() {
+    this.submitted.set(true);
 
-    this.auth.login(
-      this.username(),
-      this.password()
+    if (this.loading() || this.showUserError() || this.showPassError()) {
+      return;
+    }
+
+    this.loading.set(true);
+
+    this.auth.login(this.username().trim(), this.password()).pipe(
+      finalize(() => this.loading.set(false))
     ).subscribe({
-
       next: (res) => {
-
         this.auth.saveToken(res.token);
-
-        this.router.navigate([
-          '/admin/dashboard'
-        ]);
+        this.router.navigateByUrl(this.safeReturnUrl());
       },
-
-      error: () => {
-        this.toast.error('Usuario o contraseña incorrectos');
+      error: (err: HttpErrorResponse) => {
+        if (err.status === 403) {
+          this.toast.error('Esta cuenta está desactivada. Consulte con el administrador.');
+        } else if (err.status === 429) {
+          this.toast.error('Demasiados intentos. Espere unos minutos e intente de nuevo.');
+        } else if (err.status === 0) {
+          this.toast.error('No se pudo conectar con el servidor.');
+        } else {
+          this.toast.error('Usuario o contraseña incorrectos');
+        }
       }
     });
   }
 
-  /* ANIMACIÓN CANVAS */
-
-  ngAfterViewInit() {
-    this.startAnimation();
+  togglePassword() {
+    this.showPassword.update(v => !v);
   }
 
-  NUM_PARTICLES = 600;
-  PARTICLE_SIZE = 0.5;
-  SPEED = 20000;
+  private safeReturnUrl(): string {
+    const url = this.route.snapshot.queryParamMap.get('returnUrl');
+    if (url?.startsWith('/admin') && !url.startsWith('/admin/login')) {
+      return url;
+    }
+    return '/admin/dashboard';
+  }
 
-  particles: any[] = [];
-
-  rand(low: number, high: number) {
+  private rand(low: number, high: number) {
     return Math.random() * (high - low) + low;
   }
 
-  createParticle() {
+  private createParticle(): Particle {
     const isPrimary = Math.random() > 0.5;
-
     const colour = isPrimary
-      ? { r: 50, g: 63, b: 124 }     // #323f7c
-      : { r: 196, g: 112, b: 0 };    // #c47000
+      ? { r: 50, g: 63, b: 124 }
+      : { r: 196, g: 112, b: 0 };
 
     return {
       x: -2,
       y: -2,
-      diameter: Math.max(0, this.rand(0.2, 0.8)),
+      diameter: this.rand(0.28, 0.9),
       duration: this.rand(this.SPEED * 0.8, this.SPEED * 1.2),
       amplitude: this.rand(10, 20),
       offsetY: this.rand(-10, 10),
       arc: Math.PI * 2,
       startTime: performance.now() - this.rand(0, this.SPEED),
-      colour: `rgba(${colour.r}, ${colour.g}, ${colour.b}, ${this.rand(0.2, 0.7)})`,
+      colour: `rgba(${colour.r}, ${colour.g}, ${colour.b}, ${this.rand(0.25, 0.7)})`,
     };
   }
 
-  moveParticle(particle: any, time: number) {
+  private moveParticle(particle: Particle, time: number) {
     const progress =
       ((time - particle.startTime) % particle.duration) / particle.duration;
-
-    return {
-      ...particle,
-      x: progress,
-      y:
-        Math.sin(progress * particle.arc) * particle.amplitude +
-        particle.offsetY,
-    };
+    particle.x = progress;
+    particle.y = Math.sin(progress * particle.arc) * particle.amplitude + particle.offsetY;
   }
 
-  drawParticle(particle: any, canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
-    const vh = canvas.height / 100;
+  private drawParticle(particle: Particle) {
+    const canvas = this.canvas;
+    const ctx = this.ctx;
+    if (!canvas || !ctx) return;
 
+    const vh = canvas.height / 100;
     ctx.fillStyle = particle.colour;
     ctx.beginPath();
     ctx.ellipse(
@@ -115,51 +174,85 @@ export class AdminLogin implements AfterViewInit {
     ctx.fill();
   }
 
-  draw(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D, time: number) {
+  private paintBackground() {
+    const canvas = this.canvas;
+    const ctx = this.ctx;
+    if (!canvas || !ctx) return;
 
-    // FONDO (clave)
     const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-    gradient.addColorStop(0, '#0a0f2c');     // oscuro
-    gradient.addColorStop(1, '#1a1f4f');     // transición
-
+    gradient.addColorStop(0, '#0a0f2c');
+    gradient.addColorStop(1, '#1a1f4f');
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // mover partículas
-    this.particles = this.particles.map(p =>
-      this.moveParticle(p, time)
-    );
-
-    // dibujar partículas
-    this.particles.forEach(p =>
-      this.drawParticle(p, canvas, ctx)
-    );
-
-    requestAnimationFrame((t) => this.draw(canvas, ctx, t));
   }
 
-  startAnimation() {
-    const canvas = document.getElementById('particle-canvas') as HTMLCanvasElement;
-    const ctx = canvas.getContext('2d')!;
+  private tick = (time: number) => {
+    if (!this.canvas || !this.ctx) return;
 
-    const resize = () => {
-      canvas.width = canvas.offsetWidth * devicePixelRatio;
-      canvas.height = canvas.offsetHeight * devicePixelRatio;
-    };
+    this.paintBackground();
 
-    resize();
-    window.addEventListener('resize', resize);
-
-    this.particles = [];
-    for (let i = 0; i < this.NUM_PARTICLES; i++) {
-      this.particles.push(this.createParticle());
+    if (!this.reducedMotion) {
+      for (const particle of this.particles) {
+        this.moveParticle(particle, time);
+        this.drawParticle(particle);
+      }
     }
 
-    requestAnimationFrame((t) => this.draw(canvas, ctx, t));
-  }
+    if (!this.paused && !this.reducedMotion) {
+      this.rafId = requestAnimationFrame(this.tick);
+    }
+  };
 
-  showPassword = signal(false);
-  togglePassword() {
-    this.showPassword.update(v => !v);
+  private resizeCanvas = () => {
+    if (!this.canvas) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    this.canvas.width = this.canvas.offsetWidth * dpr;
+    this.canvas.height = this.canvas.offsetHeight * dpr;
+    if (this.reducedMotion || this.paused) {
+      this.paintBackground();
+      if (!this.reducedMotion) {
+        for (const particle of this.particles) {
+          this.drawParticle(particle);
+        }
+      }
+    }
+  };
+
+  private onResize = () => this.resizeCanvas();
+
+  private onVisibility = () => {
+    this.paused = document.hidden;
+    if (this.paused) {
+      cancelAnimationFrame(this.rafId);
+      return;
+    }
+    if (!this.reducedMotion) {
+      this.rafId = requestAnimationFrame(this.tick);
+    }
+  };
+
+  private startAnimation() {
+    const el = this.canvasRef()?.nativeElement;
+    if (!el) return;
+
+    this.canvas = el;
+    this.ctx = el.getContext('2d');
+    if (!this.ctx) return;
+
+    this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    this.resizeCanvas();
+    window.addEventListener('resize', this.onResize);
+    document.addEventListener('visibilitychange', this.onVisibility);
+
+    this.particles = [];
+    if (!this.reducedMotion) {
+      for (let i = 0; i < this.NUM_PARTICLES; i++) {
+        this.particles.push(this.createParticle());
+      }
+      this.rafId = requestAnimationFrame(this.tick);
+    } else {
+      this.paintBackground();
+    }
   }
 }
