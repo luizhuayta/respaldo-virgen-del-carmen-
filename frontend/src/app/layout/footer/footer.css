@@ -1,4 +1,4 @@
-/* ===== FOOTER MODERNIZADO SEGÚN ESTÁNDARES SUNEDU ===== */
+/* ===== FOOTER MODERNIZADO SEGÚN ESTÁNDARES MINEDU ===== */
 * {
   margin: 0;
   padding: 0;
@@ -17,9 +17,9 @@ body {
   flex-direction: column;
 }
 
-/* Footer principal - Estilo institucional SUNEDU */
+/* Footer principal - Estilo institucional MINEDU */
 .footer {
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #1e3a8a 100%);
+  background: var(--inst-gradient, linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #1e3a8a 100%));
   color: white;
   padding-top: 5rem;
   padding-bottom: 2.5rem;
@@ -63,7 +63,7 @@ body {
   min-width: 200px;
 }
 
-/* Logo - Estilo institucional SUNEDU */
+/* Logo - Estilo institucional MINEDU */
 .footer-logo {
   display: flex;
   justify-content: center;
@@ -94,7 +94,7 @@ body {
   outline-offset: 2px;
 }
 
-/* Títulos de cada sección - Tipografía institucional SUNEDU */
+/* Títulos de cada sección - Tipografía institucional MINEDU */
 .footer-title {
   font-weight: 700;
   margin-bottom: 1.25rem;
@@ -166,7 +166,7 @@ a.footer-list-item:hover,
   color: #f97316;
 }
 
-/* Iconos SVG - Estilo institucional SUNEDU */
+/* Iconos SVG - Estilo institucional MINEDU */
 .footer-icon {
   width: 1.75rem;
   height: 1.75rem;
@@ -252,7 +252,7 @@ a.footer-list-item:hover,
   transform: translateY(-2px) scale(1.05);
 }
 
-/* Copyright - Tipografía institucional SUNEDU */
+/* Copyright - Tipografía institucional MINEDU */
 .footer-copyright {
   text-align: center;
   margin-top: 3rem;

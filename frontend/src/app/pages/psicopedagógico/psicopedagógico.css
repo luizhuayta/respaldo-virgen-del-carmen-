@@ -2,7 +2,6 @@
    HERO SECTION
    =========================== */
 .hero-component {
-  background-image: url('/images/banner-hero-nosotros.png');
   padding: 80px 20px;
   text-align: center;
 }
@@ -11,7 +10,6 @@
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 16px;
-  color: #1e3a8a;
 }
 
 /* ===========================

@@ -1,0 +1,64 @@
+:host {
+  display: block;
+}
+
+.trans-hero {
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.trans-hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 48px 20px;
+}
+
+.trans-hero-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.trans-breadcrumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.breadcrumb-link {
+  text-decoration: none;
+}
+
+.priv-page {
+  background: #f5f7fb;
+  padding: 40px 20px 64px;
+}
+
+.priv-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid rgba(59, 130, 246, 0.12);
+  padding: 28px 24px;
+  box-shadow: 0 8px 24px rgba(30, 58, 138, 0.07);
+  color: #334155;
+  line-height: 1.65;
+}
+
+.priv-wrap p {
+  margin: 0 0 16px;
+}
+
+.priv-wrap p:last-child {
+  margin-bottom: 0;
+}
+
+.priv-wrap a {
+  color: #1e3a8a;
+  font-weight: 700;
+}

@@ -12,6 +12,7 @@ export const appConfig: ApplicationConfig = {
       withViewTransitions(),
       withInMemoryScrolling({
         scrollPositionRestoration: 'top',
+        anchorScrolling: 'enabled',
       }),
       withRouterConfig({
         onSameUrlNavigation: 'reload'

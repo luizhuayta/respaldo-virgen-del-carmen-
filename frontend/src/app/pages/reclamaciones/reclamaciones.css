@@ -1,6 +1,5 @@
 /*--- Banner ---*/
 .hero-component {
-  background-image: url('/images/banner-hero-nosotros.png');
   padding: 80px 20px;
   text-align: center;
 }
@@ -9,12 +8,10 @@
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 12px;
-  color: #1e3a8a;
 }
 
 .hero-content p {
   font-size: 0.95rem;
-  color: #323f7c;
 }
 
 /* ===== LAYOUT ===== */

@@ -1,90 +1,50 @@
-<!-- Hero Section -->
 <section class="hero-component">
   <div class="hero-content">
     <h1>Servicios</h1>
-    <p>Instituto de Educación Superior Pedagógico Público Virgen del Carmen</p>
+    <p>Bienestar, aula virtual y trámites de la comunidad educativa</p>
   </div>
 </section>
 
-<!-- Servicios Grid -->
 <section class="servicios-section">
   <div class="servicios-container">
-    <div class="servicios-grid">
-      <a
-        href="https://www.microsoft.com/es-es/microsoft-teams/log-in"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="servicio-card"
-      >
-        <i class="fas fa-laptop-code"></i>
-        <h3>Dimenzador EVA</h3>
-        <p>Plataforma de entorno virtual de aprendizaje</p>
-      </a>
-
-      <a routerLink="/psicopedagogico" class="servicio-card">
-        <i class="fas fa-brain"></i>
-        <h3>Soporte Psicopedagógico</h3>
-        <p>Orientación y acompañamiento integral al estudiante</p>
-      </a>
-
-      <a routerLink="/soporte-medico" class="servicio-card">
-        <i class="fas fa-heartbeat"></i>
-        <h3>Soporte Médico</h3>
-        <p>Salud y bienestar de la comunidad educativa</p>
-      </a>
-
-      <a routerLink="/servicio-social" class="servicio-card">
-        <i class="fas fa-hands-helping"></i>
-        <h3>Servicio Social</h3>
-        <p>Atención y gestión del bienestar social</p>
-      </a>
-
-      <div class="servicio-card">
-        <i class="fas fa-file-alt"></i>
-        <h3>Soporte Administrativo</h3>
-        <p>Gestión de trámites y procesos institucionales</p>
-      </div>
-
-      <div class="servicio-card">
-        <i class="fas fa-microscope"></i>
-        <h3>Unidad de Investigación</h3>
-        <p>Apoyo a proyectos y actividades de investigación</p>
-      </div>
-
-      <a
-        href="https://login.microsoftonline.com/organizations/oauth2/v2.0/authorize?client_id=4765445b-32c6-49b0-83e6-1d93765276ca&redirect_uri=https%3A%2F%2Fwww.office.com%2Flandingv2&response_type=code%20id_token&scope=openid%20profile%20https%3A%2F%2Fwww.office.com%2Fv2%2FOfficeHome.All&response_mode=form_post&nonce=639119608937505490.NjE3NTllMjUtMzNjZi00NzlkLWEyNmItZjEyMTUyMGVlM2I2MmI3YjlhZjctZTdjOC00ODEyLTk2M2QtNmUxZjBhZGRkYmQ4&ui_locales=es-ES&mkt=es-ES&msafed=0&client-request-id=fb442c66-d26f-4f30-b886-52dc604c4396&state=8YJAx_lClK_mYiU0HTCKtLNLdl1RcGhlGq97dnfB_RJj_UpD1bFDbukeeHX11FRobiuai0TKsKTl53W5dyUH9IdQa0XVNewLGX9VZUt9MT8nlEEAVpX1jNTs2rOXWuB0XsIS6Gx29Dv8uHgTpfoX5cZNVADiMwTbpzMHOkJXkfE33-9HVYs37JMLJeVzzFBtbkaaXkSe87_RnzRIg1BQ6ZRKJCXZE6s5LsZY6Z_eSuHEw1afHT7OY6OJ8WY6oFRf-rpwQuiEhcvR4_S7odyrgAvgq5zU6eNoVeQMrQ5AZPNpI00ZET2PMI7y7TVdN3iih5KezZjp3DkJR2mFeIAbw6GXdf7GJu71_l-lG4RWmRAVuklKUPpXXUvDWw8KAnBbpHy-mUy7hlG7bQ82l6-QyCzJPdb32NdA1ULED1ubEpYt0dm_5pq6Zx9ImNx9gBbZB8dbu6XBkDvY18bNlzGd2BXfSttSKaDaBomKsFRVfpYs_Xq7z0oIDwL5SkbXlwoJ0UjDBcwxU5AUJVTlZRt36xgEM6dDDv8383AVu772AbA&x-client-SKU=ID_NET8_0&x-client-ver=8.14.0.0"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="servicio-card"
-      >
-        <i class="fas fa-chalkboard-teacher"></i>
-        <h3>Aula Virtual</h3>
-        <p>Acceso a clases y recursos en línea</p>
-      </a>
-
-      <a routerLink="/repositorio" class="servicio-card">
-        <i class="fas fa-database"></i>
-        <h3>Repositorio Institucional</h3>
-        <p>Acceso a documentos y trabajos académicos</p>
-      </a>
-
-      <div class="servicio-card">
-        <i class="fas fa-book-open"></i>
-        <h3>Biblioteca Virtual</h3>
-        <p>Recursos bibliográficos digitales disponibles</p>
-      </div>
-
-      <div class="servicio-card">
-        <i class="fas fa-user-graduate"></i>
-        <h3>Seguimiento al Egresado</h3>
-        <p>Acompañamiento post-egreso e inserción laboral</p>
-      </div>
-
-      <div class="servicio-card">
-        <i class="fas fa-briefcase"></i>
-        <h3>Bolsa de Trabajo</h3>
-        <p>Oportunidades de empleo para egresados</p>
+    @for (grupo of grupos; track grupo.titulo) {
+    <div class="servicios-grupo">
+      <h2 class="grupo-title">{{ grupo.titulo }}</h2>
+      <div class="servicios-grid">
+        @for (item of grupo.items; track item.titulo) {
+          @if (item.soon) {
+          <div class="servicio-card is-soon" aria-disabled="true">
+            <i [class]="item.icono" aria-hidden="true"></i>
+            <h3>{{ item.titulo }}</h3>
+            <p>{{ item.descripcion }}</p>
+            <span class="servicio-go">Próximamente</span>
+          </div>
+          } @else if (item.href) {
+          <a
+            class="servicio-card"
+            [href]="item.href"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i [class]="item.icono" aria-hidden="true"></i>
+            <h3>{{ item.titulo }}</h3>
+            <p>{{ item.descripcion }}</p>
+            <span class="servicio-go">
+              Abrir
+              <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+            </span>
+          </a>
+          } @else {
+          <a class="servicio-card" [routerLink]="item.route">
+            <i [class]="item.icono" aria-hidden="true"></i>
+            <h3>{{ item.titulo }}</h3>
+            <p>{{ item.descripcion }}</p>
+            <span class="servicio-go">Ir</span>
+          </a>
+          }
+        }
       </div>
     </div>
+    }
   </div>
 </section>

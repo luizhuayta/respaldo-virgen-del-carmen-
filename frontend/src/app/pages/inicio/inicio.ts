@@ -55,7 +55,6 @@ export class Inicio implements OnInit, AfterViewInit, OnDestroy {
   ];
 
   currentHeroIndex = 0;
-  licenciaActiva = false;
   private heroInterval: ReturnType<typeof setInterval> | null = null;
 
   items: { image: string; url: string; alt: string }[] = [
@@ -251,14 +250,6 @@ export class Inicio implements OnInit, AfterViewInit, OnDestroy {
 
   goToHeroSlide(index: number) {
     this.currentHeroIndex = index;
-  }
-
-  toggleLicencia(event: Event) {
-    // Solo activar toggle en móvil
-    if (window.innerWidth < 768) {
-      event.preventDefault();
-      this.licenciaActiva = !this.licenciaActiva;
-    }
   }
 
   get whatsappUrl(): string {

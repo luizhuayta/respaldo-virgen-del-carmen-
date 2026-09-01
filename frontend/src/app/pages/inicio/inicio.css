@@ -1,7 +1,9 @@
-/* HERO - MODERNIZADO SEGÚN ESTÁNDARES SUNEDU */
+/* HERO */
 .hero {
   position: relative;
-  height: 520px;
+  min-height: 520px;
+  display: flex;
+  flex-direction: column;
   z-index: 1;
 }
 
@@ -31,7 +33,7 @@
   opacity: 1;
 }
 
-/* Dots indicadores - Accesibilidad WCAG SUNEDU */
+/* Dots indicadores - Accesibilidad WCAG MINEDU */
 .hero-dots {
   position: absolute;
   bottom: 10px;
@@ -73,23 +75,45 @@
   transform: scale(1.15);
 }
 
-/* Overlay - Mejor contraste para accesibilidad SUNEDU */
+/* Overlay - Mejor contraste para accesibilidad MINEDU */
 .overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: linear-gradient(135deg, rgba(30, 58, 138, 0.82) 0%, rgba(59, 130, 246, 0.70) 50%, rgba(30, 58, 138, 0.82) 100%);
 }
 
-/* Texto - Tipografía institucional SUNEDU */
+.hero-stage {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "content side"
+    "ctas side";
+  align-items: start;
+  column-gap: 24px;
+  row-gap: 28px;
+  padding: 120px 48px 36px 60px;
+}
+
 .hero-content {
-  position: absolute;
-  top: 140px;
-  left: 60px;
+  grid-area: content;
+  position: relative;
   color: white;
   max-width: 600px;
+}
+
+.buttons-section {
+  grid-area: ctas;
+  position: relative;
+  z-index: 3;
+  padding: 0;
+  margin-bottom: 0;
+  display: flex;
 }
 
 .hero-content h1 {
@@ -107,14 +131,6 @@
   margin-top: 10px;
   letter-spacing: 0.5px;
   font-family: 'Poppins', sans-serif;
-}
-
-.buttons-section {
-  position: absolute;
-  padding-left: 110px;
-  bottom: -50px;
-  margin-top: -80px;
-  display: flex;
 }
 
 .buttons-container {
@@ -172,6 +188,16 @@
 
 .btn-card:active {
   transform: translateY(-4px) scale(1.02);
+}
+
+.btn-card .front,
+.btn-card #licenciaBtn {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-card .icon {
@@ -235,17 +261,24 @@
 
 /* Botones laterales */
 .side-buttons {
-  position: absolute;
-  right: 20px;
-  top: 120px;
+  grid-area: side;
+  position: relative;
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
   gap: 15px;
+  text-decoration: none;
 }
 
 .side-item {
   display: flex;
   align-items: center;
+  position: relative;
+  text-decoration: none;
+}
+
+.side-item--static {
+  cursor: default;
 }
 
 .side-btn {
@@ -350,46 +383,68 @@
 
 @media (max-width: 768px) {
   .hero {
-    height: 600px;
-    /* más alto para acomodar botones laterales abajo */
+    height: auto;
+    min-height: 0;
   }
 
-  /* Texto: igual que desktop pero con left más pequeño */
+  .hero-stage {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "content"
+      "ctas"
+      "side";
+    padding: 88px 20px 16px;
+    row-gap: 20px;
+  }
+
   .hero-content {
-    top: 120px;
-    left: 24px;
+    top: auto;
+    left: auto;
+    max-width: 100%;
   }
 
   .hero-content h1 {
-    font-size: 30px;
+    font-size: 28px;
   }
 
   .hero-content p {
-    font-size: 18px;
+    font-size: 16px;
   }
 
-  /* --- BOTONES CARRERAS / LICENCIA --- */
   .buttons-section {
-    width: auto;
-    padding-left: 24px;
-    bottom: 120px;
-    /* sube para dejar espacio a los laterales */
+    width: 100%;
+    padding: 0;
+    margin-bottom: 0;
+    box-sizing: border-box;
   }
 
-  /* --- BOTONES LATERALES → FILA HORIZONTAL ABAJO --- */
+  .buttons-container {
+    width: 100%;
+    justify-content: stretch;
+    gap: 12px;
+    flex-direction: row;
+  }
+
+  .btn-card {
+    flex: 1;
+    width: auto;
+    height: auto;
+    min-height: 96px;
+    padding: 14px 8px;
+  }
+
   .side-buttons {
-    position: absolute;
-    right: unset;
-    top: unset;
-    bottom: 20px;
-    left: 0;
+    position: relative;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    left: auto;
     width: 100%;
     flex-direction: row;
     justify-content: center;
-    gap: 20px;
-    padding: 0 16px;
-    box-sizing: border-box;
-    text-decoration: none;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 0;
   }
 
   .side-item {
@@ -398,12 +453,10 @@
     gap: 6px;
   }
 
-  /* Texto siempre visible, debajo del ícono */
   .side-text {
     position: static;
-    /* sale del absolute */
-    opacity: 1 !important;
-    transform: none !important;
+    opacity: 1;
+    transform: none;
     transition: none;
     font-size: 11px;
     font-weight: 700;
@@ -412,56 +465,28 @@
     text-align: center;
   }
 
-  /* Sin animación de entrada/salida en móvil */
   .side-item:not(:hover) .side-text {
     opacity: 1;
     transform: none;
   }
 
-  /* --- POPUP LICENCIA → HACIA ABAJO --- */
-  .licencia {
-    overflow: visible;
-  }
-
   .licencia-popup {
-    top: 100%;
-    /* justo debajo del botón */
-    left: 50%;
-    transform: translateX(-50%) translateY(-10px) scale(0.95);
-    width: 130px;
-    height: 150px;
-    margin-top: 8px;
+    display: none;
   }
 
-  .licencia:hover .licencia-popup,
-  .licencia:focus .licencia-popup,
-  .licencia.active .licencia-popup {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0) scale(1);
-  }
-
-  /* WhatsApp se queda esquina inferior derecha */
   .whatsapp {
     bottom: 86px;
     right: 16px;
   }
 }
 
-/* ===================================
-   RESPONSIVE - MÓVIL PEQUEÑO (max 480px)
-   =================================== */
 @media (max-width: 480px) {
-  .hero {
-    height: 580px;
-  }
-
-  .hero-content {
-    top: 100px;
-    left: 16px;
+  .hero-stage {
+    padding: 72px 16px 12px;
   }
 
   .hero-content h1 {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .hero-content p {
@@ -469,22 +494,11 @@
   }
 
   .buttons-section {
-    padding-left: 16px;
-    bottom: 110px;
-  }
-
-  .btn-card {
-    width: 110px;
-    height: 140px;
+    padding: 0;
   }
 
   .icon i {
-    font-size: 46px;
-  }
-
-  .side-buttons {
-    gap: 12px;
-    padding: 0 10px;
+    font-size: 36px;
   }
 
   .side-btn {
@@ -502,10 +516,10 @@
   }
 }
 
-/* ===== MAIN CONTENT - MODERNIZADO SEGÚN ESTÁNDARES SUNEDU ===== */
+/* ===== MAIN CONTENT - MODERNIZADO SEGÚN ESTÁNDARES MINEDU ===== */
 .main-content {
   background: #e8edf5;
-  padding: 100px 20px 60px;
+  padding: 48px 20px 60px;
 }
 
 .container {
@@ -539,6 +553,45 @@
   color: #1d3557;
   margin-bottom: 16px;
   font-family: 'Poppins', sans-serif;
+}
+
+.news-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.news-head h2 {
+  margin-bottom: 0;
+}
+
+.ver-todas {
+  color: #ea580c;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ver-todas:hover {
+  color: #c2410c;
+}
+
+.news-status {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.news-retry {
+  align-self: flex-start;
+  border: none;
+  background: #1e3a8a;
+  color: #fff;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 .news-card {
@@ -801,7 +854,7 @@
   color: #3b82f6;
 }
 
-/* Carrusel - MODERNIZADO SEGÚN ESTÁNDARES SUNEDU */
+/* Carrusel - MODERNIZADO SEGÚN ESTÁNDARES MINEDU */
 .carousel {
   width: 100%;
   max-width: 1100px;
@@ -859,7 +912,7 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
-/* Gestión - MODERNIZADO SEGÚN ESTÁNDARES SUNEDU */
+/* Gestión - MODERNIZADO SEGÚN ESTÁNDARES MINEDU */
 .gestion-section {
   background: #f5f7fb;
   padding: 50px 5%;
@@ -869,9 +922,64 @@
 
 .gestion-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 24px;
-  margin-top: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  margin: 0 0 28px;
+}
+
+.gestion-grid--featured {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.gestion-heading {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e3a8a;
+  margin: 8px 0 12px;
+}
+
+.gestion-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+  margin: 0 0 28px;
+  padding: 0;
+}
+
+.gestion-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 12px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #1d3557;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.gestion-link i {
+  color: #2e3a87;
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+}
+
+.gestion-link:hover {
+  border-color: #1e3a8a;
+  background: #f8fafc;
+}
+
+.gestion-link:focus {
+  outline: 3px solid #f97316;
+  outline-offset: 2px;
 }
 
 .gestion-card {
@@ -896,7 +1004,7 @@
   margin-bottom: 12px;
 }
 
-.gestion-card h3 {
+.gestion-card-title {
   font-size: 18px;
   color: #1d3557;
   margin-bottom: 8px;
@@ -919,6 +1027,12 @@
 
 .gestion-card:hover i {
   color: #ff8c00;
+}
+
+@media (max-width: 1024px) {
+  .gestion-grid--featured {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* --- RESPONSIVE DESIGN */
@@ -975,95 +1089,80 @@
 @media (max-width: 768px) {
   .buttons-container {
     width: 100%;
-    justify-content: center;
-    padding: 0 15px;
-    gap: 15px !important;
+    justify-content: stretch;
+    padding: 0;
+    gap: 12px;
+    flex-direction: row;
   }
 
   .btn-card {
     flex: 1;
-    width: 110px !important;
-    height: 100px !important;
-    max-width: 200px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: auto;
+    height: auto;
+    min-height: 96px;
+    max-width: none;
   }
 
   .btn-card .icon i {
-    font-size: 34px !important;
+    font-size: 34px;
   }
 
   .btn-card span {
-    font-size: 13px !important;
+    font-size: 13px;
     font-weight: 600;
   }
 
   .licencia-popup {
-    top: 0 !important;
-    left: 108% !important;
-    transform: translateX(-10px) scale(0.9) !important;
-    width: 110px !important;
-    height: 110px !important;
-    z-index: 100;
+    display: none;
   }
 
-  .licencia:hover .licencia-popup {
-    opacity: 1 !important;
-    transform: translateX(0) scale(1) !important;
-  }
-
-  .gestion-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 12px !important;
-    padding: 0 10px;
+  .gestion-grid,
+  .gestion-grid--featured {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 0;
   }
 
   .gestion-card {
-    width: auto !important;
-    padding: 15px 10px !important;
+    width: auto;
+    padding: 16px 12px;
   }
 
   .gestion-card i {
-    font-size: 28px !important;
+    font-size: 28px;
   }
 
   .top-grid {
-    grid-template-columns: 1fr !important;
-    padding: 0 10px;
+    grid-template-columns: 1fr;
+    padding: 0;
   }
 
   .news-card img {
-    height: 180px !important;
+    height: 180px;
   }
 
   .comunicado-item {
-    flex-direction: column !important;
-    padding: 15px !important;
+    flex-direction: column;
+    padding: 15px;
   }
 
   .servicios-grid {
-    grid-template-columns: 1fr !important;
-    padding: 0 10px;
+    grid-template-columns: 1fr;
+    padding: 0;
   }
 
   .main-content {
-    padding-top: 50px !important;
+    padding-top: 72px;
   }
 }
 
 @media (max-width: 480px) {
   .btn-card {
-    height: 105px !important;
-    max-width: 150px;
+    min-height: 88px;
   }
 
-  .licencia-popup {
-    width: 95px !important;
-    height: 95px !important;
-    left: 105% !important;
-  }
-
-  .gestion-card h3 {
-    font-size: 13px !important;
+  .gestion-card-title {
+    font-size: 14px;
   }
 
   .gestion-card p {
@@ -1071,14 +1170,14 @@
   }
 
   .whatsapp {
-    width: 50px !important;
-    height: 50px !important;
-    bottom: 86px !important;
-    right: 20px !important;
+    width: 50px;
+    height: 50px;
+    bottom: 86px;
+    right: 16px;
   }
 }
 
-/* News Cards - MODERNIZADO SEGÚN ESTÁNDARES SUNEDU */
+/* News Cards - MODERNIZADO SEGÚN ESTÁNDARES MINEDU */
 .news-card {
   display: flex;
   flex-direction: column;
@@ -1126,16 +1225,17 @@
   gap: 16px;
 }
 
-/* ===== RESPONSIVE DESIGN MODERNIZADO SEGÚN ESTÁNDARES SUNEDU ===== */
+/* ===== RESPONSIVE DESIGN MODERNIZADO SEGÚN ESTÁNDARES MINEDU ===== */
 @media (max-width: 768px) {
   .hero {
-    height: 400px;
+    height: auto;
+    min-height: 0;
   }
 
   .hero-content {
-    top: 80px;
-    left: 30px;
-    max-width: 90%;
+    top: auto;
+    left: auto;
+    max-width: 100%;
   }
 
   .hero-content h1 {
@@ -1143,26 +1243,18 @@
   }
 
   .hero-content p {
-    font-size: 18px;
-  }
-
-  .hero-dots {
-    right: 15px;
-    bottom: 15px;
+    font-size: 16px;
   }
 
   .buttons-container {
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    align-items: stretch;
   }
 
   .btn-card {
-    width: 110px;
-    height: 140px;
-  }
-
-  .btn-card span {
-    font-size: 12px;
+    width: auto;
+    height: auto;
+    min-height: 96px;
   }
 
   .top-grid {
@@ -1198,25 +1290,18 @@
     height: 120px;
   }
 
-  .gestion-grid {
+  .gestion-grid,
+  .gestion-grid--featured {
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    gap: 12px;
   }
 
   .gestion-card {
-    padding: 20px 15px;
-  }
-
-  .gestion-card i {
-    font-size: 32px;
-  }
-
-  .gestion-card h3 {
-    font-size: 16px;
+    padding: 16px 12px;
   }
 
   .main-content {
-    padding: 60px 15px 40px;
+    padding: 72px 15px 40px;
   }
 
   .section-title {
@@ -1226,12 +1311,7 @@
 
 @media (max-width: 480px) {
   .hero {
-    height: 320px;
-  }
-
-  .hero-content {
-    top: 60px;
-    left: 20px;
+    height: auto;
   }
 
   .hero-content h1 {
@@ -1239,37 +1319,23 @@
   }
 
   .hero-content p {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .btn-card {
-    width: 95px;
-    height: 120px;
+    width: auto;
+    height: auto;
+    min-height: 88px;
   }
 
-  .btn-card span {
-    font-size: 11px;
-  }
-
-  .btn-card .icon {
-    font-size: 24px;
-  }
-
-  .gestion-grid {
+  .gestion-grid,
+  .gestion-grid--featured,
+  .gestion-list {
     grid-template-columns: 1fr;
-    gap: 12px;
   }
 
-  .gestion-card {
-    padding: 18px 12px;
-  }
-
-  .gestion-card h3 {
+  .gestion-card-title {
     font-size: 14px;
-  }
-
-  .gestion-card p {
-    font-size: 12px;
   }
 
   .carousel-item {
@@ -1290,6 +1356,6 @@
   }
 
   .main-content {
-    padding: 50px 12px 30px;
+    padding: 64px 12px 30px;
   }
 }

@@ -2,9 +2,6 @@
    HERO
    =========================== */
 .repo-hero {
-  background-image: url('/images/banner-hero-nosotros.png');
-  background-size: cover;
-  background-position: center;
   padding: 80px 20px;
   text-align: center;
 }
@@ -12,13 +9,11 @@
 .repo-hero__content h1 {
   font-size: 3rem;
   font-weight: 700;
-  color: #1e3a8a;
   margin-bottom: 10px;
 }
 
 .repo-hero__content p {
   font-size: 0.95rem;
-  color: #323f7c;
 }
 
 /* ===========================

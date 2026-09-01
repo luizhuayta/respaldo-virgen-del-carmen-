@@ -133,58 +133,68 @@
 <section class="autoridades-section" id="docentes">
   <h2 class="section-title">Autoridades y Docentes</h2>
 
-  <div class="autoridades-layout">
-
-    <!-- Sidebar de Años -->
-    <aside class="year-sidebar">
-      <h3 class="year-sidebar-title">Año</h3>
-      @for (year of years; track year) {
-      <button class="year-btn" [class.active]="selectedYear === year" (click)="selectYear(year)">{{ year }}</button>
+  <div class="autoridades-toolbar">
+    @if (years().length > 0) {
+    <div class="year-pills" role="group" aria-label="Año">
+      @for (year of years(); track year) {
+      <button type="button" class="year-btn" [class.active]="selectedYear() === year"
+        (click)="selectYear(year)">{{ year }}</button>
       }
-    </aside>
+    </div>
+    }
 
-    <!-- Contenido -->
-    <div class="autoridades-content">
-
-      <!-- Filtro por áreas -->
-      <div class="area-filter-bar">
-        <button class="area-chip" [class.active]="selectedArea === null" (click)="selectArea(null)">
-          Todos
-        </button>
-        @for (area of availableAreas(); track area) {
-        <button class="area-chip" [class.active]="selectedArea === area" (click)="selectArea(area)">
-          {{ area }}
-        </button>
-        }
-      </div>
-
-      @if (currentPersonal.length > 0) {
-      <div class="autoridades-grid">
-        @for (persona of currentPersonal; track persona.id) {
-        <div class="autor-card" [class.autor-placeholder]="!persona.foto" (click)="openProfile(persona)">
-          @if (persona.foto) {
-          <img [src]="persona.foto" [alt]="persona.nombre" class="autor-img" />
-          } @else {
-          <div class="placeholder-img">
-            <i class="fas fa-user"></i>
-          </div>
-          }
-          <div class="autor-info">
-            <h3 class="autor-name">{{ persona.nombre }}</h3>
-            <p class="autor-role">{{ persona.cargo }}</p>
-            @if (persona.area) {
-            <span class="autor-area-tag">{{ persona.area }}</span>
-            }
-          </div>
-        </div>
-        }
-      </div>
-      } @else {
-      <p class="empty-msg">Sin personal registrado para {{ selectedYear }}.</p>
+    <div class="area-filter-bar" role="group" aria-label="Área">
+      <button type="button" class="area-chip" [class.active]="selectedArea() === null" (click)="selectArea(null)">
+        Todos
+      </button>
+      @for (area of availableAreas(); track area) {
+      <button type="button" class="area-chip" [class.active]="selectedArea() === area" (click)="selectArea(area)">
+        {{ area }}
+      </button>
       }
-
     </div>
   </div>
+
+  @if (loadingPersonal()) {
+  <p class="empty-msg">Cargando personal…</p>
+  } @else if (currentPersonal().length > 0) {
+  <div class="autoridades-grid">
+    @for (persona of currentPersonal(); track persona.id) {
+    <article
+      class="autor-card"
+      role="button"
+      tabindex="0"
+      (click)="openProfile(persona)"
+      (keydown.enter)="openProfile(persona)"
+      (keydown.space)="$event.preventDefault(); openProfile(persona)"
+      [attr.aria-label]="'Ver perfil de ' + persona.nombre"
+    >
+      <div class="autor-photo">
+        @if (persona.foto && !fotoRota()[persona.id]) {
+        <img [src]="persona.foto" [alt]="" class="autor-img" (error)="onFotoError(persona.id)" />
+        } @else {
+        <span class="autor-initials" aria-hidden="true">{{ persona.iniciales }}</span>
+        }
+      </div>
+      <div class="autor-info">
+        <h3 class="autor-name">{{ persona.nombre }}</h3>
+        <p class="autor-role">{{ persona.cargo }}</p>
+        @if (persona.area) {
+        <span class="autor-area-tag">{{ persona.area }}</span>
+        }
+        <span class="autor-ver">
+          Ver perfil
+          @if (persona.pdf_url) {
+          <i class="fas fa-file-pdf" aria-hidden="true"></i>
+          }
+        </span>
+      </div>
+    </article>
+    }
+  </div>
+  } @else {
+  <p class="empty-msg">Sin personal registrado para {{ selectedYear() }}.</p>
+  }
 </section>
 
 <!-- IMAGE VIEWER MODAL -->
@@ -198,23 +208,25 @@
 <!-- MODAL PERFIL -->
 @if (activeProfile()) {
 <div class="profile-backdrop" (click)="closeProfile()">
-  <div class="profile-modal" (click)="$event.stopPropagation()">
+  <div class="profile-modal" role="dialog" aria-modal="true" [attr.aria-labelledby]="'profile-name'"
+    tabindex="-1" cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="closeProfile()"
+    (click)="$event.stopPropagation()">
 
-    <button class="profile-close" (click)="closeProfile()">×</button>
+    <button class="profile-close" (click)="closeProfile()" aria-label="Cerrar perfil">×</button>
 
     <div class="profile-top">
       <div class="profile-avatar">
-        @if (activeProfile()!.foto) {
-        <img [src]="activeProfile()!.foto" [alt]="activeProfile()!.nombre" />
+        @if (activeProfile()!.foto && !fotoRota()[activeProfile()!.id]) {
+        <img [src]="activeProfile()!.foto" [alt]="activeProfile()!.nombre" (error)="onFotoError(activeProfile()!.id)" />
         } @else {
         <div class="profile-avatar-placeholder">
-          <i class="fas fa-user"></i>
+          <span>{{ activeProfile()!.iniciales }}</span>
         </div>
         }
       </div>
 
       <div class="profile-info">
-        <h2 class="profile-name">{{ activeProfile()!.nombre }}</h2>
+        <h2 class="profile-name" id="profile-name">{{ activeProfile()!.nombre }}</h2>
         <p class="profile-role">{{ activeProfile()!.cargo }}</p>
         @if (activeProfile()!.area) {
         <span class="profile-area-badge">{{ activeProfile()!.area }}</span>

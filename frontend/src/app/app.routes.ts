@@ -15,6 +15,8 @@ import { Nosotros } from './pages/nosotros/nosotros';
 import { Noticias } from './pages/noticias/noticias';
 import { Programas } from './pages/programas/programas';
 import { Transparencia } from './pages/transparencia/transparencia';
+import { Privacidad } from './pages/privacidad/privacidad';
+import { NoEncontrado } from './pages/no-encontrado/no-encontrado';
 import { Admision } from './pages/admision/admision';
 import { BecasYCreditos } from './pages/becas-y-creditos/becas-y-creditos';
 import { Costos } from './pages/costos/costos';
@@ -72,7 +74,9 @@ export const routes: Routes = [
       { path: 'comunicado/:id', component: NoticiaDetalle, title: 'Detalle Comunicado', data: { tipo: 'comunicado' } },
       { path: 'programas', component: Programas, title: 'Programas' },
       { path: 'admision', component: Admision, title: 'Admision' },
-      { path: 'transparencia', component: Transparencia, title: 'Transparencia' },
+      { path: 'transparencia', component: Transparencia, title: 'Transparencia institucional' },
+      { path: 'privacidad', component: Privacidad, title: 'Política de privacidad' },
+      { path: 'no-encontrado', component: NoEncontrado, title: 'No se encontró lo que buscas' },
       { path: 'becas', component: BecasYCreditos, title: 'Becas y Créditos' },
       { path: 'costos', component: Costos, title: 'Costos' },
       { path: 'reglamentos', component: Reglamentos, title: 'Reglamentos' },
@@ -88,7 +92,8 @@ export const routes: Routes = [
       { path: 'estadisticas', component: Estadisticas, title: 'Estadisticas' },
       { path: 'repositorio', component: Repositorio, title: 'Repositorio Institucional' },
       { path: 'repositorio/:id', component: RepositorioDetalle, title: 'Detalle — Repositorio' },
-      { path: 'reclamaciones', component: Reclamaciones, title: 'Reclamaciones' }
+      { path: 'reclamaciones', component: Reclamaciones, title: 'Reclamaciones' },
+      { path: '**', component: NoEncontrado, title: 'No se encontró lo que buscas' }
     ]
   }
 ];

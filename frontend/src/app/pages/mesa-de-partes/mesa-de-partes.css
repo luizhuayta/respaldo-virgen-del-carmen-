@@ -1,26 +1,21 @@
 /* ===========================
-   HERO - MODERNIZADO SEGÚN ESTÁNDARES SUNEDU
+   HERO - MODERNIZADO SEGÚN ESTÁNDARES MINEDU
    =========================== */
 .hero-component {
-  background-image: url('/images/banner-hero-nosotros.png');
   padding: 80px 20px;
   text-align: center;
-  background-size: cover;
-  background-position: center;
 }
 
 .hero-content h1 {
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 12px;
-  color: #1e3a8a;
   font-family: 'Poppins', sans-serif;
   line-height: 1.2;
 }
 
 .hero-content p {
   font-size: 1rem;
-  color: #323f7c;
   font-family: 'Poppins', sans-serif;
   line-height: 1.5;
 }
@@ -106,7 +101,7 @@
 }
 
 /* ===========================
-   GRUPOS DE CAMPO - MODERNIZADO SEGÚN ESTÁNDARES SUNEDU
+   GRUPOS DE CAMPO - MODERNIZADO SEGÚN ESTÁNDARES MINEDU
    =========================== */
 .form-group {
   display: flex;
@@ -221,7 +216,7 @@
 }
 
 /* ===========================
-   BOTÓN ENVIAR - MODERNIZADO SEGÚN ESTÁNDARES SUNEDU
+   BOTÓN ENVIAR - MODERNIZADO SEGÚN ESTÁNDARES MINEDU
    =========================== */
 .btn-enviar {
   width: 100%;
@@ -257,7 +252,7 @@
 }
 
 /* ===========================
-   CONSULTAR TRÁMITE - MODERNIZADO SEGÚN ESTÁNDARES SUNEDU
+   CONSULTAR TRÁMITE - MODERNIZADO SEGÚN ESTÁNDARES MINEDU
    =========================== */
 .mdp-tracking {
   margin-top: 20px;

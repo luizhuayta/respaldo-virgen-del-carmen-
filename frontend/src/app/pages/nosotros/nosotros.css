@@ -1,4 +1,4 @@
-/* ===== NOSOTROS MODERNIZADO SEGÚN ESTÁNDARES SUNEDU ===== */
+/* ===== NOSOTROS MODERNIZADO SEGÚN ESTÁNDARES MINEDU ===== */
 * {
   margin: 0;
   padding: 0;
@@ -16,14 +16,14 @@ body {
   display: none;
 }
 
-/* ===== HERO SECTION - Estilo institucional SUNEDU ===== */
+/* ===== HERO SECTION - Estilo institucional MINEDU ===== */
 .hero-section {
   min-height: 550px;
   display: flex;
   align-items: center;
   padding: 0 5rem;
   position: relative;
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #1e3a8a 100%);
+  background: var(--inst-gradient, linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #1e3a8a 100%));
   background-size: 200% 200%;
   animation: gradientShift 8s ease infinite;
   overflow: hidden;
@@ -97,7 +97,7 @@ body {
   object-fit: contain;
 }
 
-/* ===== BOTONES FLOTANTES - Accesibilidad WCAG SUNEDU ===== */
+/* ===== BOTONES FLOTANTES - Accesibilidad WCAG MINEDU ===== */
 .buttons-section {
   position: relative;
   z-index: 20;
@@ -173,7 +173,7 @@ body {
   font-size: 1.125rem;
 }
 
-/* ===== ÁREA DE CONTENIDO DINÁMICO - Estilo institucional SUNEDU ===== */
+/* ===== ÁREA DE CONTENIDO DINÁMICO - Estilo institucional MINEDU ===== */
 .content-area {
   padding: 4rem 5rem;
   background: linear-gradient(180deg, #ffffff 0%, #f0f9ff 100%);
@@ -228,7 +228,7 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-/* Grid de valores - Estilo institucional SUNEDU */
+/* Grid de valores - Estilo institucional MINEDU */
 .valores-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -277,7 +277,7 @@ body {
   }
 }
 
-/* ===== SECCIÓN ORGANIGRAMA - Estilo institucional SUNEDU ===== */
+/* ===== SECCIÓN ORGANIGRAMA - Estilo institucional MINEDU ===== */
 .organigrama-section {
   padding: 6rem 2rem;
   background: linear-gradient(135deg, #eaf4ff, #f8fbff);
@@ -448,171 +448,182 @@ body {
   box-shadow: 0 25px 50px rgba(30, 58, 138, 0.2);
 }
 
-/* ===== AUTORIDADES Y DOCENTES - Estilo institucional SUNEDU ===== */
+/* ===== AUTORIDADES Y DOCENTES - Estilo institucional MINEDU ===== */
 .autoridades-section {
-  padding: 4rem 5rem;
-  background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);
+  padding: 4rem 5rem 5rem;
+  background: linear-gradient(180deg, #f0f9ff 0%, #e8f1fb 100%);
+  scroll-margin-top: 96px;
 }
 
-.autoridades-layout {
-  display: flex;
-  gap: 2rem;
-  margin-top: 1.5rem;
-  align-items: flex-start;
-}
-
-.year-sidebar {
-  min-width: 100px;
+.autoridades-toolbar {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  flex-shrink: 0;
+  gap: 1rem;
+  margin: 1.75rem 0 1.75rem;
 }
 
-.year-sidebar-title {
-  font-size: 0.875rem;
-  font-weight: bold;
-  color: #6b7280;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.5rem;
-  font-family: 'Poppins', sans-serif;
+.year-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .year-btn {
-  background: white;
-  border: 2px solid #e5e7eb;
-  border-radius: 0.5rem;
-  padding: 0.6rem 1rem;
-  font-size: 0.95rem;
+  background: #fff;
+  border: 1px solid #d5dced;
+  border-radius: 999px;
+  padding: 0.45rem 1.1rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  color: #374151;
+  color: #1a2456;
   cursor: pointer;
-  transition: all 0.2s ease;
-  text-align: center;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
   font-family: 'Poppins', sans-serif;
 }
 
 .year-btn:hover {
-  border-color: #1e3a8a;
-  color: #1e3a8a;
+  border-color: #1a2456;
 }
 
-.year-btn:focus {
-  outline: 3px solid #f97316;
+.year-btn:focus-visible {
+  outline: 2px solid #f28c1b;
   outline-offset: 2px;
 }
 
 .year-btn.active {
-  background-color: #1e3a8a;
-  border-color: #1e3a8a;
-  color: white;
-}
-
-.autoridades-content {
-  flex: 1;
-  min-width: 0;
+  background: #1a2456;
+  border-color: #1a2456;
+  color: #fff;
 }
 
 .autoridades-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 1.5rem;
 }
 
+@media (min-width: 1100px) {
+  .autoridades-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
 .empty-msg {
-  color: #6b7280;
+  color: #3d4d7c;
   font-size: 1rem;
-  padding: 2rem 0;
+  padding: 2.5rem 0;
   font-family: 'Poppins', sans-serif;
 }
 
-/* Tarjeta de autoridad - Estilo institucional SUNEDU */
 .autor-card {
-  position: relative;
-  height: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  padding: 1.6rem 1.2rem 1.25rem;
   border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(30, 58, 138, 0.15);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(26, 36, 86, 0.08);
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(26, 36, 86, 0.08);
   cursor: pointer;
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-  border: 1px solid rgba(59, 130, 246, 0.1);
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: #1a2456;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
 }
 
 .autor-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 50px rgba(30, 58, 138, 0.25);
-  border-color: rgba(59, 130, 246, 0.3);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(26, 36, 86, 0.14);
 }
 
-.autor-card:focus {
-  outline: 3px solid #f97316;
-  outline-offset: 2px;
+.autor-card:hover .autor-ver {
+  color: #c45e00;
+}
+
+.autor-card:focus-visible {
+  outline: 2px solid #f28c1b;
+  outline-offset: 3px;
+}
+
+.autor-photo {
+  width: 118px;
+  height: 118px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex: 0 0 auto;
+  border: 3px solid #f28c1b;
+  box-shadow: 0 8px 18px rgba(196, 112, 0, 0.18);
+  background: #1a2456;
 }
 
 .autor-img {
-  position: absolute;
-  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  object-position: center top;
 }
 
-.autor-card:hover .autor-img {
-  transform: scale(1.05);
+.autor-initials {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  background: #1a2456;
+  color: #f3c48a;
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
 .autor-info {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-  padding: 1.25rem;
-  text-align: center;
-  border-top: 4px solid #f97316;
-  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  width: 100%;
+  min-width: 0;
 }
 
 .autor-name {
-  font-weight: bold;
-  font-size: 1rem;
-  color: #1e3a8a;
-  line-height: 1.4;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  margin-bottom: 0.25rem;
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: #1a2456;
+  line-height: 1.35;
+  margin: 0;
   font-family: 'Poppins', sans-serif;
 }
 
 .autor-role {
-  color: #6b7280;
-  font-size: 0.875rem;
-  height: 1.4em;
+  color: #3d4d7c;
+  font-size: 0.84rem;
   line-height: 1.4;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  margin: 0;
   font-family: 'Poppins', sans-serif;
 }
 
-/* Placeholder para fotos que faltan */
-.autor-placeholder {
-  background-color: #e5e7eb;
+.autor-ver {
+  margin-top: 0.45rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #c45e00;
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
-.placeholder-img {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #9ca3af;
-  font-weight: 500;
+.autor-ver i {
+  font-size: 0.78rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .autor-card,
+  .autor-card:hover {
+    transition: none;
+    transform: none;
+  }
 }
 
 /* Clases para el toggle de contenido */
@@ -708,7 +719,7 @@ body {
   }
 
   .autoridades-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   }
 }
 
@@ -768,7 +779,7 @@ body {
   }
 
   .autoridades-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -798,12 +809,12 @@ body {
   }
 
   .autoridades-section {
-    padding: 3rem 1.5rem !important;
+    padding: 3rem 1.5rem 3.5rem !important;
   }
 
   .autoridades-grid {
-    grid-template-columns: 1fr !important;
-    max-width: 300px;
+    grid-template-columns: 1fr;
+    max-width: 360px;
     margin: 0 auto;
   }
 
@@ -1242,53 +1253,51 @@ body {
 .area-filter-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 2rem;
+  gap: 8px;
 }
 
 .area-chip {
-  padding: 10px 20px;
+  padding: 8px 16px;
   border-radius: 999px;
-  border: 2px solid #e5e7eb;
-  background: white;
-  color: #374151;
-  font-size: 0.9rem;
+  border: 1px solid #d5dced;
+  background: #fff;
+  color: #1a2456;
+  font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  font-family: 'Poppins', sans-serif;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .area-chip:hover {
-  border-color: #3b82f6;
-  color: #3b82f6;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+  border-color: #1a2456;
+}
+
+.area-chip:focus-visible {
+  outline: 2px solid #f28c1b;
+  outline-offset: 2px;
 }
 
 .area-chip.active {
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-  border-color: #3b82f6;
-  color: white;
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  background: #1a2456;
+  border-color: #1a2456;
+  color: #fff;
 }
 
-/* TAG EN CARD - Modern Design */
 .autor-area-tag {
   display: inline-block;
-  margin-top: 6px;
-  font-size: 0.75rem;
+  margin-top: 2px;
+  font-size: 0.72rem;
   font-weight: 700;
-  color: #f97316;
-  background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(234, 88, 12, 0.1) 100%);
-  border: 1px solid rgba(249, 115, 22, 0.3);
+  color: #c45e00;
+  background: #fff4e5;
+  border: 1px solid #f3c48a;
   border-radius: 999px;
-  padding: 4px 12px;
-  white-space: nowrap;
+  padding: 3px 10px;
+  max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 100%;
-  letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 
 /* ===== MODAL PERFIL - Modern Design ===== */
@@ -1383,8 +1392,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #9ca3af;
-  font-size: 3rem;
+  background: #1a2456;
+  color: #f3c48a;
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
 .profile-info {
@@ -1484,51 +1496,4 @@ body {
   .profile-cv-iframe {
     height: 320px;
   }
-}
-
-/* 1. autor-info — altura fija para anclar la imagen */
-.autor-info {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-  padding: 1rem;
-  border-top: 4px solid #f97316;
-  height: 120px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 4px;
-  overflow: hidden;
-  backdrop-filter: blur(10px);
-}
-
-/* 2. autor-name — 2 líneas con ellipsis */
-.autor-name {
-  font-weight: bold;
-  font-size: 0.9rem;
-  color: #1e3a8a;
-  line-height: 1.35;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  word-break: break-word;
-  margin-bottom: 0;
-}
-
-/* 3. autor-role — 2 líneas con ellipsis */
-.autor-role {
-  color: #6b7280;
-  font-size: 0.8rem;
-  line-height: 1.35;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  word-break: break-word;
-  margin-bottom: 2px;
 }

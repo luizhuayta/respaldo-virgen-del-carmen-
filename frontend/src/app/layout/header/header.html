@@ -29,9 +29,6 @@
         <a routerLink="/programas" routerLinkActive="nav-active" (click)="closeMenu()">PROGRAMAS</a>
       </li>
       <li>
-        <a routerLink="/admision" routerLinkActive="nav-active" (click)="closeMenu()">ADMISIÓN</a>
-      </li>
-      <li>
         <a routerLink="/noticias" routerLinkActive="nav-active" (click)="closeMenu()">NOTICIAS</a>
       </li>
       <li>
@@ -39,9 +36,15 @@
       </li>
     </ul>
 
-    <a routerLink="/transparencia" routerLinkActive="btn-transparencia-active"
-       class="btn-transparencia" (click)="closeMenu()">
-      TRANSPARENCIA
-    </a>
+    <div class="nav-actions">
+      <a routerLink="/admision" routerLinkActive="btn-admision-active"
+         class="btn-admision" (click)="closeMenu()">
+        ADMISIÓN
+      </a>
+      <a routerLink="/transparencia" routerLinkActive="btn-transparencia-active"
+         class="btn-transparencia" (click)="closeMenu()">
+        TRANSPARENCIA
+      </a>
+    </div>
   </div>
 </nav>

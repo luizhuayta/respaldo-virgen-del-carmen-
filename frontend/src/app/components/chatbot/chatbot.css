@@ -1,5 +1,5 @@
 /* ============================================================
-   CHATBOT MODERNIZADO SEGÚN ESTÁNDARES SUNEDU
+   CHATBOT MODERNIZADO SEGÚN ESTÁNDARES MINEDU
    Colores originales: #1e3a8a, #3b82f6, #f97316
    ============================================================ */
 
@@ -67,7 +67,7 @@
 }
 
 /* ============================================================
-   VENTANA DEL CHAT - DISEÑO INSTITUCIONAL SUNEDU
+   VENTANA DEL CHAT - DISEÑO INSTITUCIONAL MINEDU
    ============================================================ */
 .chat-window {
   position: fixed;
@@ -92,7 +92,7 @@
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* ── Header - Estilo institucional SUNEDU ── */
+/* ── Header - Estilo institucional MINEDU ── */
 .chat-header {
   background: linear-gradient(135deg, #1e3a8a, #3b82f6);
   padding: 16px 18px;
@@ -169,7 +169,7 @@
   outline-offset: 2px;
 }
 
-/* ── Mensajes - Mejor interactividad SUNEDU ── */
+/* ── Mensajes - Mejor interactividad MINEDU ── */
 .chat-messages {
   flex: 1;
   overflow-y: auto;
@@ -239,7 +239,7 @@
   min-width: 0;
 }
 
-/* ── Burbujas - Diseño institucional SUNEDU ── */
+/* ── Burbujas - Diseño institucional MINEDU ── */
 .msg__bubble {
   padding: 12px 16px;
   border-radius: 18px;
@@ -449,7 +449,7 @@
 }
 
 /* ============================================================
-   RESPONSIVE DESIGN - OPTIMIZADO SEGÚN ESTÁNDARES SUNEDU
+   RESPONSIVE DESIGN - OPTIMIZADO SEGÚN ESTÁNDARES MINEDU
    ============================================================ */
 @media (max-width: 480px) {
   .chat-window {

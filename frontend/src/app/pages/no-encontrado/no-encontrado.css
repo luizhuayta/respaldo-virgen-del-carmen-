@@ -1,0 +1,109 @@
+:host {
+  display: block;
+  color: #1a2f63;
+}
+
+.trans-hero {
+  min-height: 0;
+  display: flex;
+  justify-content: center;
+  text-align: left;
+}
+
+.trans-hero-content {
+  width: min(1120px, calc(100% - 48px));
+  padding: 36px 0 40px;
+}
+
+.nf-code {
+  margin: 16px 0 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.trans-hero-title {
+  font-size: clamp(1.75rem, 3.2vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin: 8px 0 10px;
+}
+
+.trans-hero-sub {
+  margin: 0;
+  max-width: 42rem;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.trans-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.breadcrumb-link,
+.breadcrumb-sep,
+.breadcrumb-current {
+  font-size: 0.82rem;
+}
+
+.breadcrumb-link {
+  text-decoration: none;
+}
+
+.nf-page {
+  background: #f3f6fb;
+  padding: 32px 24px 80px;
+}
+
+.nf-wrap {
+  width: min(720px, 100%);
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #d7e0f0;
+  border-radius: 8px;
+  padding: 28px 24px;
+  color: #24386c;
+  line-height: 1.7;
+}
+
+.nf-wrap p {
+  margin: 0 0 16px;
+}
+
+.nf-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  margin-bottom: 0 !important;
+}
+
+.nf-actions a {
+  color: #1e3a8a;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.nf-actions a:hover {
+  color: #c2410c;
+}
+
+.nf-actions a:focus-visible {
+  outline: 3px solid #f97316;
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  .nf-page {
+    padding: 24px 16px 64px;
+  }
+
+  .trans-hero-content {
+    width: min(1120px, calc(100% - 32px));
+  }
+}

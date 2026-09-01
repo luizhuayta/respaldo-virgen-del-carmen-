@@ -6,168 +6,169 @@
 
   <div class="overlay"></div>
 
-  <div class="hero-content">
-    <h1>INSTITUTO DE<br />EDUCACIÓN SUPERIOR</h1>
-    <p>Forma tu futuro con<br />excelencia y transparencia</p>
-  </div>
+  <div class="hero-stage">
+    <div class="hero-content">
+      <h1>INSTITUTO DE<br />EDUCACIÓN SUPERIOR</h1>
+      <p>Forma tu futuro con<br />excelencia y transparencia</p>
+    </div>
 
-  <!-- Botones -->
+    <div class="buttons-section">
+      <div class="buttons-container">
+        <a routerLink="/programas" class="btn-card carreras">
+          <div class="icon">
+            <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+          </div>
+          <span>Carreras</span>
+        </a>
 
-  <section class="buttons-section">
-    <div class="buttons-container">
-      <!-- Carreras -->
-      <a routerLink="/programas" class="btn-card carreras">
-        <div class="icon">
-          <i class="fas fa-graduation-cap"></i>
-        </div>
-        <span>Carreras</span>
-      </a>
-
-      <!-- Licencia -->
-      <a routerLink="/licenciamiento" class="btn-card licencia" [class.active]="licenciaActiva"
-        (click)="toggleLicencia($event)">
-        <div id="licenciaBtn">
-          <!-- CONTENIDO NORMAL -->
-          <div class="front">
-            <div class="icon">
-              <i class="fas fa-award"></i>
+        <a routerLink="/licenciamiento" class="btn-card licencia">
+          <div id="licenciaBtn">
+            <div class="front">
+              <div class="icon">
+                <i class="fas fa-award" aria-hidden="true"></i>
+              </div>
+              <span>Licenciamiento</span>
             </div>
-            <span>Licenciamiento</span>
-          </div>
 
-          <!-- PANEL ANIMADO EXTERNO -->
-          <div class="licencia-popup">
-            <img src="images/licencia.png" alt="Licencia" />
+            <div class="licencia-popup">
+              <img src="images/licencia.png" alt="Licencia institucional" />
+            </div>
           </div>
+        </a>
+      </div>
+    </div>
+
+    <nav class="side-buttons" aria-label="Plataformas institucionales">
+      <a target="_blank" rel="noopener noreferrer" href="https://share.google/DsKX1Yyh9tc2eetBU" class="side-item">
+        <div class="side-btn">
+          <img src="icons/icon_eva.png" alt="" />
         </div>
+        <span class="side-text">Plataforma EVA</span>
       </a>
-    </div>
-  </section>
 
-  <!-- Botones laterales -->
-  <a target="_blank" href="https://share.google/DsKX1Yyh9tc2eetBU" class="side-buttons">
-    <div class="side-item">
-      <div class="side-btn">
-        <img src="icons/icon_eva.png" alt="Video" />
+      <a target="_blank" rel="noopener noreferrer" href="https://www.microsoft.com/es-es/microsoft-teams/log-in"
+        class="side-item">
+        <div class="side-btn">
+          <img src="icons/icon_aula.png" alt="" />
+        </div>
+        <span class="side-text">Aula virtual</span>
+      </a>
+
+      <div class="side-item side-item--static">
+        <div class="side-btn">
+          <img src="icons/icon_biblioteca.png" alt="" />
+        </div>
+        <span class="side-text">Biblioteca virtual</span>
       </div>
-      <span class="side-text">Plataforma EVA</span>
-    </div>
-
-    <a target="_blank" href="https://www.microsoft.com/es-es/microsoft-teams/log-in" class="side-item">
-      <div class="side-btn">
-        <img src="icons/icon_aula.png" alt="aula virtual" />
-      </div>
-      <span class="side-text">Aula virtual</span>
-    </a>
-
-    <div class="side-item">
-      <div class="side-btn">
-        <img src="icons/icon_biblioteca.png" alt="Biblioteca virtual" />
-      </div>
-      <span class="side-text">Biblioteca virtual</span>
-    </div>
-  </a>
-
-  <!-- WhatsApp -->
-  <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="whatsapp">
-    <i class="fab fa-whatsapp"></i>
-  </a>
+    </nav>
+  </div>
 </section>
+
+<a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="whatsapp" aria-label="Contactar por WhatsApp">
+  <i class="fab fa-whatsapp" aria-hidden="true"></i>
+</a>
 
 <!-- MAIN CONTENT -->
 <section class="main-content">
   <div class="container">
-    <!-- Transparencia -->
     <section class="gestion-section">
-      <div class="container">
-        <h2 class="section-title">Transparencia y Gestión Institucional</h2>
-        <div class="gestion-grid">
-          <a routerLink="/becas" class="gestion-card">
-            <i class="fa-solid fa-medal"></i>
-            <h3>Becas y Créditos</h3>
-            <p>Apoyos económicos y financiamiento</p>
-          </a>
+      <h2 class="section-title">Transparencia y Gestión Institucional</h2>
 
-          <a routerLink="/costos" class="gestion-card">
-            <i class="fa-solid fa-money-bill-wave"></i>
-            <h3>Costos</h3>
-            <p>Matrículas, pensiones y derechos</p>
-          </a>
+      <h3 class="gestion-heading">Información para postulantes</h3>
+      <div class="gestion-grid gestion-grid--featured">
+        <a routerLink="/admision" class="gestion-card">
+          <i class="fa-solid fa-user-plus" aria-hidden="true"></i>
+          <p class="gestion-card-title">Admisión</p>
+          <p>Proceso de admisión</p>
+        </a>
 
-          <a [routerLink]="['/nosotros']" fragment="docentes" class="gestion-card">
-            <i class="fa-solid fa-chalkboard-user"></i>
-            <h3>Docentes</h3>
-            <p>Planas y perfiles profesionales</p>
-          </a>
+        <a routerLink="/becas" class="gestion-card">
+          <i class="fa-solid fa-medal" aria-hidden="true"></i>
+          <p class="gestion-card-title">Becas y Créditos</p>
+          <p>Apoyos económicos y financiamiento</p>
+        </a>
 
-          <a routerLink="/estadisticas" class="gestion-card">
-            <i class="fa-solid fa-chart-line"></i>
-            <h3>Estadísticas</h3>
-            <p>Indicadores académicos</p>
-          </a>
+        <a routerLink="/costos" class="gestion-card">
+          <i class="fa-solid fa-money-bill-wave" aria-hidden="true"></i>
+          <p class="gestion-card-title">Costos</p>
+          <p>Matrículas, pensiones y derechos</p>
+        </a>
 
-          <a routerLink="/reglamentos" class="gestion-card">
-            <i class="fa-solid fa-file-lines"></i>
-            <h3>Reglamento</h3>
-            <p>Normativa institucional</p>
-          </a>
-
-          <a routerLink="/inversiones" class="gestion-card">
-            <i class="fa-solid fa-coins"></i>
-            <h3>Inversiones</h3>
-            <p>Presupuesto y ejecución</p>
-          </a>
-
-          <a routerLink="/procedimientos" class="gestion-card">
-            <i class="fa-solid fa-list-check"></i>
-            <h3>Procedimientos</h3>
-            <p>Trámites y requisitos</p>
-          </a>
-
-          <a routerLink="/mesa-de-partes" class="gestion-card">
-            <i class="fa-solid fa-envelope-open-text"></i>
-            <h3>Mesa de Partes</h3>
-            <p>Recepción de documentos</p>
-          </a>
-
-          <a href="https://share.google/DsKX1Yyh9tc2eetBU" target="_blank" rel="noopener" class="gestion-card">
-            <i class="fa-solid fa-laptop-code"></i>
-            <h3>Plataforma EVA</h3>
-            <p>Entorno virtual de aprendizaje</p>
-          </a>
-
-          <a routerLink="/admision" class="gestion-card">
-            <i class="fa-solid fa-user-plus"></i>
-            <h3>Admisión</h3>
-            <p>Proceso de admisión</p>
-          </a>
-
-          <a href="https://www.microsoft.com/es-es/microsoft-teams/log-in" target="_blank" rel="noopener"
-            class="gestion-card">
-            <i class="fa-solid fa-book-open-reader"></i>
-            <h3>Biblioteca Virtual</h3>
-            <p>Recursos bibliográficos</p>
-          </a>
-
-          <a routerLink="/estadisticas" class="gestion-card">
-            <i class="fa-solid fa-user-graduate"></i>
-            <h3>Egresados</h3>
-            <p>Seguimiento de egresados</p>
-          </a>
-
-          <a routerLink="/transparencia" class="gestion-card">
-            <i class="fa-solid fa-shield-halved"></i>
-            <h3>Transparencia</h3>
-            <p>Información institucional</p>
-          </a>
-
-          <a routerLink="/repositorio" class="gestion-card">
-            <i class="fa-solid fa-database"></i>
-            <h3>Repositorio</h3>
-            <p>Documentos académicos</p>
-          </a>
-        </div>
+        <a [routerLink]="['/nosotros']" fragment="docentes" class="gestion-card">
+          <i class="fa-solid fa-chalkboard-user" aria-hidden="true"></i>
+          <p class="gestion-card-title">Docentes</p>
+          <p>Planas y perfiles profesionales</p>
+        </a>
       </div>
+
+      <h3 class="gestion-heading">Servicios académicos</h3>
+      <ul class="gestion-list">
+        <li>
+          <a href="https://share.google/DsKX1Yyh9tc2eetBU" target="_blank" rel="noopener" class="gestion-link">
+            <i class="fa-solid fa-laptop-code" aria-hidden="true"></i>
+            <span>Plataforma EVA</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.microsoft.com/es-es/microsoft-teams/log-in" target="_blank" rel="noopener"
+            class="gestion-link">
+            <i class="fa-solid fa-book-open-reader" aria-hidden="true"></i>
+            <span>Biblioteca Virtual</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/estadisticas" class="gestion-link">
+            <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+            <span>Estadísticas</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/estadisticas" class="gestion-link">
+            <i class="fa-solid fa-user-graduate" aria-hidden="true"></i>
+            <span>Egresados</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/repositorio" class="gestion-link">
+            <i class="fa-solid fa-database" aria-hidden="true"></i>
+            <span>Repositorio</span>
+          </a>
+        </li>
+      </ul>
+
+      <h3 class="gestion-heading">Gestión y normativa</h3>
+      <ul class="gestion-list">
+        <li>
+          <a routerLink="/reglamentos" class="gestion-link">
+            <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+            <span>Reglamento</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/inversiones" class="gestion-link">
+            <i class="fa-solid fa-coins" aria-hidden="true"></i>
+            <span>Inversiones</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/procedimientos" class="gestion-link">
+            <i class="fa-solid fa-list-check" aria-hidden="true"></i>
+            <span>Procedimientos</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/mesa-de-partes" class="gestion-link">
+            <i class="fa-solid fa-envelope-open-text" aria-hidden="true"></i>
+            <span>Mesa de Partes</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/transparencia" class="gestion-link">
+            <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+            <span>Transparencia</span>
+          </a>
+        </li>
+      </ul>
     </section>
 
     <!-- Servicios -->
@@ -191,14 +192,21 @@
     <div class="top-grid">
       <!-- Noticias -->
       <div class="news-section">
-        <h2>Últimas Noticias</h2>
+        <div class="news-head">
+          <h2>Últimas Noticias</h2>
+          <a routerLink="/noticias" class="ver-todas">Ver todas</a>
+        </div>
+        @if (loadingNoticias()) {
+        <p class="news-status">Cargando noticias…</p>
+        } @else if (errorNoticias()) {
+        <p class="news-status">{{ errorNoticias() }}</p>
+        <button type="button" class="news-retry" (click)="retryNoticias()">Reintentar</button>
+        } @else {
         @for (noticia of latestNoticias(); track noticia.id) {
-        <a routerLink="/noticias" class="news-card">
+        <a [routerLink]="['/noticias', noticia.id]" class="news-card">
           <img [src]="noticia.img_url" [alt]="noticia.title" />
           <div class="news-body">
-            <strong>
-              <p class="news-title">{{ noticia.title }}</p>
-            </strong>
+            <p class="news-title">{{ noticia.title }}</p>
             <span class="news-date">
               {{ noticia.createdAt | date:'dd/MM/yyyy' }}
             </span>
@@ -206,7 +214,8 @@
         </a>
         }
         @if (latestNoticias().length === 0) {
-        <p style="color:#999; font-size:0.9rem">Sin noticias por ahora.</p>
+        <p class="news-status">Sin noticias por ahora.</p>
+        }
         }
       </div>
 
@@ -231,7 +240,7 @@
         }
 
         @if (latestComunicados().length === 0) {
-        <p style="color:#999; font-size:0.9rem">Sin comunicados por ahora.</p>
+        <p class="news-status">Sin comunicados por ahora.</p>
         }
       </div>
     </div>

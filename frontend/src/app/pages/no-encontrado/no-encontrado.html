@@ -1,0 +1,39 @@
+<section class="trans-hero">
+  <div class="trans-hero-content">
+    <nav class="trans-breadcrumb" aria-label="Miga de pan">
+      <a routerLink="/inicio" class="breadcrumb-link">Inicio</a>
+      <span class="breadcrumb-sep" aria-hidden="true">/</span>
+      <span class="breadcrumb-current">Error 404</span>
+    </nav>
+    <p class="nf-code">404</p>
+    <h1 class="trans-hero-title">No se encontró lo que buscas</h1>
+    <p class="trans-hero-sub">
+      @if (desdeDocumento()) {
+        No hay un documento publicado para “{{ recurso() }}”.
+      } @else if (recurso()) {
+        No existe la página “{{ recurso() }}”.
+      } @else {
+        La página o el archivo no existe o ya no está disponible.
+      }
+    </p>
+  </div>
+</section>
+
+<section class="nf-page">
+  <div class="nf-wrap">
+    @if (desdeDocumento()) {
+    <p>
+      El enlace corresponde a un PDF oficial que todavía no se ha publicado
+      en el portal.
+    </p>
+    } @else {
+    <p>
+      Comprueba la dirección o vuelve al inicio para continuar la navegación.
+    </p>
+    }
+    <p class="nf-actions">
+      <a routerLink="/transparencia">Volver a Transparencia</a>
+      <a routerLink="/inicio">Ir al inicio</a>
+    </p>
+  </div>
+</section>

@@ -1,8 +1,4 @@
-/* ===========================
-   HERO SECTION
-   =========================== */
 .hero-component {
-  background-image: url('/images/banner-hero-nosotros.png');
   padding: 80px 20px;
   text-align: center;
 }
@@ -11,17 +7,13 @@
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 12px;
-  color: #1e3a8a;
 }
 
 .hero-content p {
-  font-size: 0.95rem;
-  color: #323f7c;
+  font-size: 1rem;
+  color: #f3c48a;
 }
 
-/* ===========================
-   SECCIÓN PRINCIPAL
-   =========================== */
 .servicios-section {
   background: #f5f7fb;
   padding: 48px 20px 64px;
@@ -30,115 +22,150 @@
 .servicios-container {
   max-width: 1100px;
   margin: 0 auto;
+  display: grid;
+  gap: 36px;
 }
 
-/* ===========================
-   GRID DE TARJETAS
-   =========================== */
+.grupo-title {
+  margin: 0 0 16px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1a2456;
+}
+
 .servicios-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
 }
 
 .servicio-card {
-  background: white;
+  background: #fff;
   border-radius: 14px;
-  padding: 28px 20px;
+  padding: 28px 20px 22px;
   text-align: center;
   text-decoration: none;
   border: 1px solid #e8ecf4;
-  box-shadow: 0 2px 10px rgba(50, 63, 124, 0.06);
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    border-color 0.25s ease;
+  box-shadow: 0 8px 22px rgba(26, 36, 86, 0.07);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  color: inherit;
+  min-height: 100%;
 }
 
-.servicio-card i {
-  font-size: 2.4rem;
-  color: #323f7c;
-  transition: color 0.25s ease;
+.servicio-card > i {
+  font-size: 2.2rem;
+  color: #1a2456;
+  transition: color 0.22s ease;
 }
 
 .servicio-card h3 {
-  font-size: 0.97rem;
+  font-size: 1rem;
   font-weight: 700;
-  color: #1a2560;
+  color: #1a2456;
   margin: 0;
   line-height: 1.3;
 }
 
 .servicio-card p {
-  font-size: 0.83rem;
-  color: #6c757d;
+  font-size: 0.84rem;
+  color: #3d4d7c;
   line-height: 1.5;
   margin: 0;
+  flex: 1;
+}
+
+.servicio-go {
+  margin-top: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #c45e00;
+}
+
+.servicio-go i {
+  font-size: 0.7rem;
+  color: inherit;
 }
 
 .servicio-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
   border-color: #f28c1b;
-  box-shadow: 0 12px 28px rgba(50, 63, 124, 0.13);
+  box-shadow: 0 14px 28px rgba(26, 36, 86, 0.12);
 }
 
-.servicio-card:hover i {
-  color: #f28c1b;
+.servicio-card:hover > i {
+  color: #c45e00;
 }
 
-/* --- RESPONSIVE DESIGN */
+.servicio-card:focus-visible {
+  outline: 2px solid #f28c1b;
+  outline-offset: 3px;
+}
+
+.servicio-card.is-soon {
+  cursor: default;
+  opacity: 0.78;
+  box-shadow: 0 4px 12px rgba(26, 36, 86, 0.05);
+}
+
+.servicio-card.is-soon:hover {
+  transform: none;
+  border-color: #e8ecf4;
+  box-shadow: 0 4px 12px rgba(26, 36, 86, 0.05);
+}
+
+.servicio-card.is-soon > i {
+  color: #5b6478;
+}
+
+.servicio-card.is-soon .servicio-go {
+  color: #5b6478;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .servicio-card,
+  .servicio-card:hover {
+    transition: none;
+    transform: none;
+  }
+}
+
 @media (max-width: 768px) {
   .hero-component {
-    padding: 60px 15px !important;
+    padding: 60px 15px;
   }
 
   .hero-content h1 {
-    font-size: 2.2rem !important;
+    font-size: 2.2rem;
     line-height: 1.2;
   }
 
-  .hero-content p {
-    font-size: 0.9rem !important;
-  }
-
   .servicios-section {
-    padding: 35px 15px 45px !important;
+    padding: 35px 15px 45px;
   }
 
   .servicios-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 15px !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
   }
 
   .servicio-card {
-    padding: 20px 12px !important;
-  }
-
-  .servicio-card i {
-    font-size: 2rem !important;
-  }
-
-  .servicio-card h3 {
-    font-size: 0.9rem !important;
+    padding: 20px 14px 16px;
   }
 }
 
 @media (max-width: 480px) {
   .hero-content h1 {
-    font-size: 1.8rem !important;
+    font-size: 1.8rem;
   }
 
   .servicios-grid {
-    grid-template-columns: 1fr !important;
-    max-width: 300px;
-    margin: 0 auto;
-  }
-
-  .servicio-card p {
-    display: none;
+    grid-template-columns: 1fr;
   }
 }

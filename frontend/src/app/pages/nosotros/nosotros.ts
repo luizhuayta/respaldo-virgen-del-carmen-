@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { A11yModule } from '@angular/cdk/a11y';
 import { environment } from '../../../environments/environment';
 
 interface Personal {
@@ -14,6 +15,8 @@ interface Personal {
   email: string;
   descripcion: string;
   pdf_url: string;
+  iniciales: string;
+  tipo: string;
 }
 
 type ContentType = 'mision' | 'vision' | 'valores' | 'organigrama' | null;
@@ -34,9 +37,16 @@ interface AcademicPersonalDB {
   status: boolean;
 }
 
+const TIPO_ORDEN: Record<string, number> = {
+  Autoridad: 0,
+  Docente: 1,
+  Administrativo: 2,
+  Complementario: 3,
+};
+
 @Component({
   selector: 'app-nosotros',
-  imports: [CommonModule],
+  imports: [CommonModule, A11yModule],
   templateUrl: './nosotros.html',
   styleUrl: './nosotros.css',
 })
@@ -49,9 +59,11 @@ export class Nosotros implements OnInit {
   private sanitizer = inject(DomSanitizer);
   career = signal<any>(null);
 
-  selectedYear = 0;
-  years: number[] = [];
-  selectedArea: string | null = null;
+  selectedYear = signal(0);
+  years = signal<number[]>([]);
+  selectedArea = signal<string | null>(null);
+  loadingPersonal = signal(true);
+  fotoRota = signal<Record<number, boolean>>({});
 
   activeProfile = signal<Personal | null>(null);
   safePdfUrl = signal<SafeResourceUrl | null>(null);
@@ -59,45 +71,65 @@ export class Nosotros implements OnInit {
   private allPersonal = signal<AcademicPersonalDB[]>([]);
 
   availableAreas = computed(() => {
-    const filtered = this.allPersonal().filter(p => p.status && p.year === this.selectedYear);
+    const filtered = this.allPersonal().filter(p => p.status && p.year === this.selectedYear());
     const areas = filtered.map(p => p.area).filter(a => a && a.trim() !== '');
     return [...new Set(areas)];
   });
 
-  private abbreviateName(grade: string, names: string, lastNames: string): string {
-    const parts = (names ?? '').trim().split(/\s+/);
-    if (parts.length >= 2) {
-      return `${grade} ${parts[0]} ${parts[1][0]}. ${lastNames}`;
-    }
-    return `${grade} ${names} ${lastNames}`;
-  }
-
-  get currentPersonal(): Personal[] {
+  currentPersonal = computed(() => {
     return this.allPersonal()
       .filter(p => {
-        if (!p.status || p.year !== this.selectedYear) return false;
-        if (this.selectedArea !== null && p.area !== this.selectedArea) return false;
+        if (!p.status || p.year !== this.selectedYear()) return false;
+        if (this.selectedArea() !== null && p.area !== this.selectedArea()) return false;
         return true;
       })
-      .map(p => ({
-        id: p.id,
-        nombre: this.abbreviateName(p.grade, p.names, p.last_names),
-        cargo: p.position,
-        area: p.area ?? '',
-        foto: p.img_url ?? '',
-        email: p.institucional_email ?? '',
-        descripcion: p.description ?? '',
-        pdf_url: p.pdf_url ?? '',
-      }));
+      .sort((a, b) => (TIPO_ORDEN[a.type] ?? 9) - (TIPO_ORDEN[b.type] ?? 9))
+      .map(p => this.toPersonal(p));
+  });
+
+  private toPersonal(p: AcademicPersonalDB): Personal {
+    const names = (p.names ?? '').trim();
+    const lastNames = (p.last_names ?? '').trim();
+    const grade = (p.grade ?? '').trim();
+
+    return {
+      id: p.id,
+      nombre: [grade, names, lastNames].filter(Boolean).join(' '),
+      cargo: p.position ?? '',
+      area: p.area ?? '',
+      foto: this.resolveFoto(p.img_url),
+      email: p.institucional_email ?? '',
+      descripcion: p.description ?? '',
+      pdf_url: p.pdf_url ?? '',
+      iniciales: this.iniciales(names, lastNames),
+      tipo: p.type ?? '',
+    };
+  }
+
+  private resolveFoto(url?: string): string {
+    const u = (url ?? '').trim();
+    if (!u) return '';
+    if (/^https?:\/\//i.test(u) || u.startsWith('data:') || u.startsWith('blob:')) return u;
+    return `${environment.baseUrl}${u.startsWith('/') ? u : '/' + u}`;
+  }
+
+  private iniciales(names: string, lastNames: string): string {
+    const n = names.split(/\s+/).find(Boolean)?.[0] ?? '';
+    const l = lastNames.split(/\s+/).find(Boolean)?.[0] ?? '';
+    return (n + l).toUpperCase() || '—';
   }
 
   selectYear(year: number): void {
-    this.selectedYear = year;
-    this.selectedArea = null;
+    this.selectedYear.set(year);
+    this.selectedArea.set(null);
   }
 
   selectArea(area: string | null): void {
-    this.selectedArea = area;
+    this.selectedArea.set(area);
+  }
+
+  onFotoError(id: number) {
+    this.fotoRota.update(map => ({ ...map, [id]: true }));
   }
 
   openProfile(persona: Personal) {
@@ -130,10 +162,12 @@ export class Nosotros implements OnInit {
     this.http.get<AcademicPersonalDB[]>(`${environment.apiUrl}/academic_personal/list`).subscribe({
       next: data => {
         this.allPersonal.set(data);
-        const uniqueYears = [...new Set(data.map(p => p.year))];
-        this.years = uniqueYears.sort((a, b) => b - a);
-        if (this.years.length > 0) this.selectedYear = this.years[0];
+        const uniqueYears = [...new Set(data.map(p => p.year))].sort((a, b) => b - a);
+        this.years.set(uniqueYears);
+        if (uniqueYears.length > 0) this.selectedYear.set(uniqueYears[0]);
+        this.loadingPersonal.set(false);
       },
+      error: () => this.loadingPersonal.set(false),
     });
 
     this.route.fragment.subscribe(fragment => {

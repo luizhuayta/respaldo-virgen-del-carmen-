@@ -1,90 +1,127 @@
-<!-- Hero Section -->
 <section class="hero-component">
   <div class="hero-content">
     <h1>Noticias</h1>
-    <p>Instituto de Educación Superior Pedagógico Público Virgen del Carmen</p>
+    <p>Novedades, actividades y comunicados de la comunidad educativa</p>
   </div>
 </section>
 
-<section class="main-container-noticias">
-  <div class="container-noticias">
-    <h2 class="main-title">Ultimas Noticias</h2>
+<section class="noticias-page">
+  <div class="noticias-wrap">
 
-    <div class="row">
-      @for (noticia of featuredNoticias(); track noticia.id) {
-      <div class="news-card">
-        <div class="image-wrapper">
-          <img [src]="noticia.img_url" [alt]="noticia.title" />
-        </div>
-        <div class="news-content">
-          <h3>{{ noticia.title }}</h3>
-          <p class="news-excerpt">{{ noticia.contentPlain }}</p>
-          <div class="news-footer">
-            <span>{{ noticia.createdAt | date:'dd/MM/yyyy' }}</span>
-            <a [routerLink]="['/noticias', noticia.id]" class="btn-naranja btn-ver-mas">
-              <i class="fa-solid fa-plus"></i> Ver Más
-            </a>
-          </div>
+    @if (loading()) {
+    <div class="noticias-skels" aria-busy="true" aria-label="Cargando noticias">
+      <div class="skel skel-featured"></div>
+      <div class="skel skel-row"></div>
+      <div class="skel skel-row"></div>
+    </div>
+    } @else if (error()) {
+    <div class="noticias-estado">
+      <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+      <h2>No se pudieron cargar las noticias</h2>
+      <p>{{ error() }}</p>
+      <button type="button" class="btn-reintentar" (click)="cargar()">Reintentar</button>
+    </div>
+    } @else if (todas().length === 0) {
+    <div class="noticias-estado">
+      <i class="fa-regular fa-newspaper" aria-hidden="true"></i>
+      <h2>Aún no hay noticias publicadas</h2>
+      <p>Cuando el instituto publique una novedad, aparecerá aquí.</p>
+    </div>
+    } @else {
+
+    @if (destacada(); as n) {
+    <a class="noticia-destacada" [routerLink]="['/noticias', n.id]">
+      <div class="destacada-img">
+        <img [src]="n.img_url" [alt]="n.title" (error)="onImgError($event)" />
+      </div>
+      <div class="destacada-body">
+        <span class="noticia-badge">Destacada</span>
+        <h2>{{ n.title }}</h2>
+        <p>{{ n.contentPlain }}</p>
+        <div class="destacada-meta">
+          <time [attr.datetime]="n.createdAt">{{ formatFecha(n.createdAt) }}</time>
+          <span class="leer">Leer noticia <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
         </div>
       </div>
+    </a>
+    }
+
+    @if (todas().length > 1 || query().trim()) {
+    <div class="noticias-list">
+      <div class="noticias-toolbar">
+        <h2>{{ query().trim() ? 'Resultados' : 'Más noticias' }}</h2>
+        <label class="noticias-search">
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          <input
+            type="search"
+            [value]="query()"
+            (input)="onSearch($any($event.target).value)"
+            placeholder="Buscar noticias"
+            aria-label="Buscar noticias"
+          />
+        </label>
+      </div>
+
+      @if (paginatedNoticias().length === 0) {
+      <p class="noticias-vacio-busqueda">No hay resultados para “{{ query() }}”.</p>
+      } @else {
+      <ul class="noticias-filas">
+        @for (noticia of paginatedNoticias(); track noticia.id) {
+        <li>
+          <a class="noticia-fila" [routerLink]="['/noticias', noticia.id]">
+            <div class="img-container">
+              <img [src]="noticia.img_url" class="img-noticia" [alt]="noticia.title" (error)="onImgError($event)" />
+            </div>
+            <div class="noticia-cuerpo">
+              <h3>{{ noticia.title }}</h3>
+              <p>{{ noticia.contentPlain }}</p>
+              <time [attr.datetime]="noticia.createdAt">{{ formatFecha(noticia.createdAt) }}</time>
+            </div>
+            <span class="fila-leer">Leer <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+          </a>
+        </li>
+        }
+      </ul>
       }
 
-      @if (featuredNoticias().length === 0) {
-      <p style="color:#999">No hay noticias publicadas aún.</p>
+      @if (totalPages() > 1) {
+      <nav class="paginacion" aria-label="Páginas de noticias">
+        <button
+          type="button"
+          class="pag-btn pag-arrow"
+          [disabled]="currentPage() === 1"
+          (click)="goToPage(currentPage() - 1)"
+          aria-label="Página anterior"
+        >
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        @for (page of pages(); track page) {
+        <button
+          type="button"
+          class="pag-btn pag-num"
+          [class.active]="currentPage() === page"
+          [attr.aria-current]="currentPage() === page ? 'page' : null"
+          (click)="goToPage(page)"
+        >
+          {{ page }}
+        </button>
+        }
+
+        <button
+          type="button"
+          class="pag-btn pag-arrow"
+          [disabled]="currentPage() === totalPages()"
+          (click)="goToPage(currentPage() + 1)"
+          aria-label="Página siguiente"
+        >
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </nav>
       }
-    </div>
-  </div>
-</section>
-
-<!-- OTRAS NOTICIAS -->
-@if (otrasNoticias().length > 0) {
-<section class="main-container-otras-noticias">
-  <div class="container-principal">
-    <div class="header-noticias">
-      <h2 class="titulo-seccion">Otras Noticias</h2>
-    </div>
-
-    @for (noticia of paginatedNoticias(); track noticia.id) {
-    <div class="noticia-fila">
-      <div class="img-container">
-        <img [src]="noticia.img_url" class="img-noticia" [alt]="noticia.title" />
-      </div>
-
-      <div class="noticia-cuerpo">
-        <h4>{{ noticia.title }}</h4>
-        <p class="news-excerpt">{{ noticia.contentPlain }}</p>
-        <div class="noticia-min-meta">
-          <span>{{ noticia.createdAt | date:'dd/MM/yyyy' }}</span>
-        </div>
-      </div>
-
-      <div class="botones">
-        <a [routerLink]="['/noticias', noticia.id]" class="btn-naranja"><i class="fa-solid fa-plus"></i> Ver Más</a>
-      </div>
     </div>
     }
 
-    <!-- PAGINACIÓN -->
-    @if (totalPages() > 1) {
-    <div class="paginacion">
-      <button class="pag-btn pag-arrow" [class.disabled]="currentPage() === 1" [disabled]="currentPage() === 1"
-        (click)="goToPage(currentPage() - 1)" aria-label="Página anterior">
-        <i class="fa-solid fa-chevron-left"></i>
-      </button>
-
-      @for (page of pages(); track page) {
-      <button class="pag-btn pag-num" [class.active]="currentPage() === page" (click)="goToPage(page)">
-        {{ page }}
-      </button>
-      }
-
-      <button class="pag-btn pag-arrow" [class.disabled]="currentPage() === totalPages()"
-        [disabled]="currentPage() === totalPages()" (click)="goToPage(currentPage() + 1)" aria-label="Página siguiente">
-        <i class="fa-solid fa-chevron-right"></i>
-      </button>
-    </div>
     }
-
   </div>
 </section>
-}

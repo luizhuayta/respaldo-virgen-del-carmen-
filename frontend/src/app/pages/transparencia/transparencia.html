@@ -1,111 +1,169 @@
-<!-- Hero Banner -->
 <section class="trans-hero">
   <div class="trans-hero-content">
-    <h1 class="trans-hero-title">Portal de Transparencia Institucional</h1>
-    <nav class="trans-breadcrumb" aria-label="Breadcrumb">
-      <a routerLink="/inicio" class="breadcrumb-link">
-        <i class="fas fa-home"></i> Instituto de Educación Superior Pedagógico Publico Virgen del Carmen
-      </a>
-      <i class="fas fa-arrow-right breadcrumb-sep"></i>
-      <span class="breadcrumb-current">Portal de Transparencia Institucional</span>
+    <nav class="trans-breadcrumb" aria-label="Miga de pan">
+      <a routerLink="/inicio" class="breadcrumb-link">Inicio</a>
+      <span class="breadcrumb-sep" aria-hidden="true">/</span>
+      <span class="breadcrumb-current">Transparencia</span>
     </nav>
+    <h1 class="trans-hero-title">Transparencia institucional</h1>
+    <p class="trans-hero-sub">
+      Información pública del I.E.S.P.P. Virgen del Carmen, según el artículo 42
+      de la Ley N.° 30512. Ente rector: MINEDU — DIGEDD.
+    </p>
   </div>
 </section>
 
-<!-- Divider -->
-<div class="trans-divider">
-  <div class="divider-icon"><i class="fas fa-tablet-alt"></i></div>
-</div>
+<section class="trans-page">
+  <div class="trans-shell">
+    @if (indice().length) {
+    <nav class="trans-indice" aria-label="Contenido de transparencia">
+      <p class="trans-indice-label">En esta página</p>
+      <ul>
+        @for (item of indice(); track item.id) {
+        <li>
+          <a [href]="'/transparencia#' + item.id" (click)="irASeccion($event, item.id)">{{ item.label }}</a>
+        </li>
+        }
+      </ul>
+    </nav>
+    }
 
-<!-- Descripción -->
-<div class="trans-intro">
-  <p>
-    El Instituto de Educación Superior Pedagógico Publico Virgen del Carmen, mediante la
-    transparencia institucional agrega varios contenidos para conocimiento de los estudiantes y
-    publico en general
-  </p>
-</div>
+    <div class="trans-main">
+      <p class="trans-intro">
+        El Instituto de Educación Superior Pedagógico Público Virgen del Carmen publica
+        en este portal la información institucional exigida por el artículo 42 de la
+        Ley N.° 30512, Ley de Institutos y Escuelas de Educación Superior y de la
+        Carrera Pública de sus Docentes. El acceso a la información pública se rige
+        además por la Ley N.° 27806.
+      </p>
 
-<!-- Divider -->
-<div class="trans-divider">
-  <div class="divider-icon"><i class="fas fa-tablet-alt"></i></div>
-</div>
+      <label class="trans-search">
+        <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+        <input
+          type="search"
+          [value]="query()"
+          (input)="onSearch($any($event.target).value)"
+          placeholder="Buscar PEI, TUPA, becas, licenciamiento…"
+          aria-label="Buscar en transparencia"
+        />
+      </label>
 
-<!-- Grid de Transparencia -->
-<section class="trans-grid-section">
-  <div class="trans-grid">
+      @if (mostrarDatosGenerales()) {
+      <section class="trans-seccion" id="datos-generales" aria-labelledby="datos-generales-titulo">
+        <h2 id="datos-generales-titulo">Datos generales de la institución</h2>
+        <dl class="trans-facts">
+          @for (dato of datosGenerales; track dato.etiqueta) {
+          <div class="trans-fact">
+            <dt>{{ dato.etiqueta }}</dt>
+            <dd>{{ dato.valor }}</dd>
+          </div>
+          }
+        </dl>
+      </section>
+      }
 
-    <a routerLink="/becas" class="trans-card">
-      <div class="trans-card-icon-wrap">
-        <i class="fas fa-medal"></i>
-      </div>
-      <span class="trans-card-label"> Becas y Créditos</span>
-    </a>
+      @if (mostrarLicenciamiento()) {
+      <section class="trans-seccion" id="licenciamiento" aria-labelledby="licenciamiento-titulo">
+        <h2 id="licenciamiento-titulo">Periodo de vigencia del licenciamiento (R.M. de MINEDU)</h2>
+        <div class="trans-license">
+          <div class="trans-license-grid">
+            <div>
+              <p class="trans-fact-label">Entidad licenciante</p>
+              <p class="trans-fact-value">{{ licenciamiento.entidad }}</p>
+            </div>
+            <div>
+              <p class="trans-fact-label">Instrumento</p>
+              <p class="trans-fact-value">{{ licenciamiento.instrumento }}</p>
+            </div>
+          </div>
+          <ul class="trans-docs">
+            @for (item of docsLicenciamiento; track item.titulo) {
+            <li>
+              <ng-container [ngTemplateOutlet]="filaDoc" [ngTemplateOutletContext]="{ $implicit: item }" />
+            </li>
+            }
+          </ul>
+        </div>
+      </section>
+      }
 
-    <a routerLink="/costos" class="trans-card">
-      <div class="trans-card-icon-wrap">
-        <i class="fas fa-money-bill-wave"></i>
-      </div>
-      <span class="trans-card-label"> Tasas y/o otros pagos</span>
-    </a>
+      @if (sinResultados()) {
+      <p class="trans-vacio">No hay resultados para “{{ query() }}”.</p>
+      } @else {
+      @for (grupo of gruposVisibles(); track grupo.id) {
+      <section class="trans-seccion" [id]="grupo.id">
+        <h2>{{ grupo.categoria }}</h2>
+        <ul class="trans-docs">
+          @for (item of grupo.items; track item.titulo) {
+          <li>
+            <ng-container [ngTemplateOutlet]="filaDoc" [ngTemplateOutletContext]="{ $implicit: item }" />
+          </li>
+          }
+        </ul>
+      </section>
+      }
+      }
 
-    <a routerLink="/repositorio" class="trans-card">
-      <div class="trans-card-icon-wrap">
-        <i class="fas fa-flask"></i>
-      </div>
-      <span class="trans-card-label">Proyectos de investigación</span>
-    </a>
-
-    <a [routerLink]="['/nosotros']" fragment="docentes" class="trans-card">
-      <div class="trans-card-icon-wrap">
-        <i class="fas fa-id-card"></i>
-      </div>
-      <span class="trans-card-label">Hoja de Vida de docentes</span>
-    </a>
-
-    <a routerLink="/estadisticas" class="trans-card">
-      <div class="trans-card-icon-wrap">
-        <i class="fas fa-user-graduate"></i>
-      </div>
-      <span class="trans-card-label">Matriculados y Egresados</span>
-    </a>
-
-    <a routerLink="/programas" class="trans-card">
-      <div class="trans-card-icon-wrap">
-        <i class="fas fa-book-open"></i>
-      </div>
-      <span class="trans-card-label">Programas de Estudio</span>
-    </a>
-
-    <a routerLink="/licenciamiento" class="trans-card">
-      <div class="trans-card-icon-wrap">
-        <i class="fas fa-award"></i>
-      </div>
-      <span class="trans-card-label">Vigencia de licenciamiento</span>
-    </a>
-
-    <a routerLink="/reglamentos" class="trans-card">
-      <div class="trans-card-icon-wrap">
-        <i class="fas fa-scroll"></i>
-      </div>
-      <span class="trans-card-label">Reglamento Institucional</span>
-    </a>
-
-    <a routerLink="/inversiones" class="trans-card">
-      <div class="trans-card-icon-wrap">
-        <i class="fas fa-chart-line"></i>
-      </div>
-      <span class="trans-card-label">Inversiones – reinversiones</span>
-    </a>
-
-    <a routerLink="/procedimientos" class="trans-card">
-      <div class="trans-card-icon-wrap">
-        <i class="fas fa-clipboard-list"></i>
-      </div>
-      <span class="trans-card-label">TUPA</span>
-    </a>
-
+      @if (mostrarSolicitud()) {
+      <section class="trans-seccion" id="solicitud" aria-labelledby="solicitud-titulo">
+        <h2 id="solicitud-titulo">Procedimiento para solicitar información pública (Ley 27806)</h2>
+        <div class="trans-request">
+          <p class="trans-request-norma">{{ solicitud.norma }}</p>
+          <p>Cualquier persona puede solicitar información pública institucional por estos canales:</p>
+          <ol class="trans-steps">
+            @for (canal of solicitud.canales; track canal.titulo; let i = $index) {
+            <li>
+              <span class="trans-step-n" aria-hidden="true">{{ i + 1 }}</span>
+              <div>
+                @if (canal.ruta) {
+                <a [routerLink]="canal.ruta">{{ canal.titulo }}</a>
+                } @else {
+                <strong>{{ canal.titulo }}</strong>
+                }
+                <p>{{ canal.detalle }}</p>
+              </div>
+            </li>
+            }
+            <li>
+              <span class="trans-step-n" aria-hidden="true">{{ solicitud.canales.length + 1 }}</span>
+              <div>
+                <strong>Plazo de respuesta</strong>
+                <p>{{ solicitud.plazo }}</p>
+              </div>
+            </li>
+          </ol>
+          <ul class="trans-docs trans-docs--nested">
+            @for (item of docsSolicitud; track item.titulo) {
+            <li>
+              <ng-container [ngTemplateOutlet]="filaDoc" [ngTemplateOutletContext]="{ $implicit: item }" />
+            </li>
+            }
+          </ul>
+        </div>
+      </section>
+      }
+    </div>
   </div>
 </section>
 
-
+<ng-template #filaDoc let-item>
+  @if (esPdfExterno(item.urlArchivo)) {
+  <a class="trans-doc" [href]="item.urlArchivo" target="_blank" rel="noopener noreferrer">
+    <i class="fa-regular fa-file-pdf" aria-hidden="true"></i>
+    <span class="trans-doc-text">
+      <span class="trans-doc-title">{{ item.titulo }}</span>
+      <span class="trans-doc-desc">{{ item.descripcion }}</span>
+    </span>
+    <span class="trans-badge trans-badge--ok">PDF</span>
+  </a>
+  } @else {
+  <a class="trans-doc" [routerLink]="item.urlArchivo" [queryParams]="paramsDoc(item)">
+    <i class="fa-regular fa-file-pdf" aria-hidden="true"></i>
+    <span class="trans-doc-text">
+      <span class="trans-doc-title">{{ item.titulo }}</span>
+      <span class="trans-doc-desc">{{ item.descripcion }}</span>
+    </span>
+    <span class="trans-badge trans-badge--ok">{{ etiquetaEnlace(item) }}</span>
+  </a>
+  }
+</ng-template>
