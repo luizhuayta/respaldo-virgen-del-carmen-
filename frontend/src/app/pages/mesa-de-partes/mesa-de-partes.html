@@ -15,322 +15,233 @@
 
   <div class="mdp-container">
 
-    <!-- Cabecera -->
-    <div class="mdp-card-header">
-
-      <h2>
-        <i class="fas fa-inbox"></i>
-        Mesa de Partes Virtual
-      </h2>
-
-      <p>
-        Formulario para el registro y envío
-        de documentos institucionales.
-      </p>
-
-    </div>
-
     <!-- FORMULARIO -->
     <div class="mdp-card">
 
-      <form (ngSubmit)="enviar()" #f="ngForm">
+      <div class="mdp-card-intro">
+        <h2><i class="fas fa-inbox" aria-hidden="true"></i> Registrar un documento</h2>
+        <p>Complete el formulario para presentar su documento ante la institución.
+          Al enviarlo recibirá un <strong>código de seguimiento</strong>.</p>
+        <p class="mdp-required-legend"><span class="req" aria-hidden="true">*</span> Campos obligatorios</p>
+      </div>
 
-        <div class="mdp-two-col">
+      <form (ngSubmit)="enviar(f)" #f="ngForm" novalidate>
 
-          <!-- IZQUIERDA -->
-          <div class="mdp-section">
+        <!-- SECCIÓN 1 -->
+        <fieldset class="mdp-fieldset">
+          <legend class="mdp-legend">
+            <span class="mdp-step">1</span>
+            <span><i class="fas fa-user" aria-hidden="true"></i> Datos del remitente</span>
+          </legend>
 
-            <h3 class="section-heading">
-              <i class="fas fa-user"></i>
-              Datos del Remitente
-            </h3>
-
-            <div class="form-group">
-
-              <label>
-                Nombre Completo
-              </label>
-
-              <input type="text" placeholder="Ej. Juan Pérez" [(ngModel)]="form.nombres" name="nombres" required />
-
-            </div>
-
-            <div class="form-group">
-
-              <label>
-                DNI / RUC
-              </label>
-
-              <input type="text" placeholder="Ej. 123456789" [(ngModel)]="form.dni" name="dni" required />
-
-            </div>
-
-            <div class="form-group">
-
-              <label>
-                Correo Electrónico
-              </label>
-
-              <input type="email" placeholder="ejemplo@email.com" [(ngModel)]="form.correo" name="correo" required />
-
-            </div>
-
-            <div class="form-group">
-
-              <label>
-                Número de Celular/Teléfono
-              </label>
-
-              <input type="tel" placeholder="Ej. +51 987654321" [(ngModel)]="form.telefono" name="telefono" required />
-
-            </div>
-
-            <div class="form-group">
-
-              <label>
-                Condición
-              </label>
-
-              <select [(ngModel)]="form.condicion" name="condicion" required>
-
-                <option value="" disabled selected>
-                  Selecciona tu condición
-                </option>
-
-                <option>
-                  Estudiante
-                </option>
-
-                <option>
-                  Docente
-                </option>
-
-                <option>
-                  Administrativo
-                </option>
-
-                <option>
-                  Egresado
-                </option>
-
-                <option>
-                  Externo
-                </option>
-
-              </select>
-
-            </div>
-
-            <div class="form-group">
-
-              <label>
-                Código de Verificación
-              </label>
-
-              <div class="captcha-wrap">
-
-                <input type="text" placeholder="Ingrese el código" [(ngModel)]="captchaInput" name="captcha" required />
-
-                <div class="captcha-img" (click)="generarCaptcha()" title="Clic para refrescar">
-                  {{ captchaCode }}
-                </div>
-
-              </div>
-
-              <small>
-                Ingrese el código de la imagen
-                para verificar que no es un bot
-              </small>
-
-            </div>
-
+          <div class="form-group">
+            <label for="mdp-nombres">Nombre completo <span class="req" aria-hidden="true">*</span></label>
+            <input id="mdp-nombres" type="text" placeholder="Ej. Juan Pérez Quispe"
+              [(ngModel)]="form.nombres" name="nombres" required #nombres="ngModel"
+              [class.is-invalid]="nombres.invalid && nombres.touched" autocomplete="name" />
+            @if (nombres.invalid && nombres.touched) {
+              <p class="field-error"><i class="fas fa-circle-exclamation" aria-hidden="true"></i> Ingrese su nombre completo.</p>
+            }
           </div>
 
-          <!-- DERECHA -->
-          <div class="mdp-section">
+          <div class="form-group form-group--half">
+            <div>
+              <label for="mdp-dni">DNI / RUC <span class="req" aria-hidden="true">*</span></label>
+              <input id="mdp-dni" type="text" inputmode="numeric" placeholder="Ej. 12345678"
+                [(ngModel)]="form.dni" name="dni" required #dni="ngModel"
+                [class.is-invalid]="dni.invalid && dni.touched" />
+              @if (dni.invalid && dni.touched) {
+                <p class="field-error"><i class="fas fa-circle-exclamation" aria-hidden="true"></i> Ingrese su DNI o RUC.</p>
+              }
+            </div>
+            <div>
+              <label for="mdp-telefono">Celular / Teléfono <span class="req" aria-hidden="true">*</span></label>
+              <input id="mdp-telefono" type="tel" placeholder="Ej. 987 654 321"
+                [(ngModel)]="form.telefono" name="telefono" required #telefono="ngModel"
+                [class.is-invalid]="telefono.invalid && telefono.touched" autocomplete="tel" />
+              @if (telefono.invalid && telefono.touched) {
+                <p class="field-error"><i class="fas fa-circle-exclamation" aria-hidden="true"></i> Ingrese un número de contacto.</p>
+              }
+            </div>
+          </div>
 
-            <h3 class="section-heading">
-              <i class="fas fa-file-alt"></i>
-              Datos del Documento
-            </h3>
+          <div class="form-group">
+            <label for="mdp-correo">Correo electrónico <span class="req" aria-hidden="true">*</span></label>
+            <input id="mdp-correo" type="email" placeholder="nombre@correo.com"
+              [(ngModel)]="form.correo" name="correo" required email #correo="ngModel"
+              [class.is-invalid]="correo.invalid && correo.touched" autocomplete="email" />
+            @if (correo.invalid && correo.touched) {
+              <p class="field-error"><i class="fas fa-circle-exclamation" aria-hidden="true"></i>
+                @if (correo.errors?.['required']) { Ingrese su correo electrónico. }
+                @else { El correo no tiene un formato válido. }
+              </p>
+            }
+            <small>Ahí se le notificará el avance y la respuesta del trámite.</small>
+          </div>
 
-            <div class="form-group">
+          <div class="form-group">
+            <label for="mdp-condicion">Condición <span class="req" aria-hidden="true">*</span></label>
+            <select id="mdp-condicion" [(ngModel)]="form.condicion" name="condicion" required
+              #condicion="ngModel" [class.is-invalid]="condicion.invalid && condicion.touched">
+              <option value="" disabled selected>Seleccione su condición</option>
+              <option>Estudiante</option>
+              <option>Docente</option>
+              <option>Administrativo</option>
+              <option>Egresado</option>
+              <option>Externo</option>
+            </select>
+            @if (condicion.invalid && condicion.touched) {
+              <p class="field-error"><i class="fas fa-circle-exclamation" aria-hidden="true"></i> Seleccione su condición.</p>
+            }
+          </div>
+        </fieldset>
 
-              <label>
-                Tipo de Documento
-              </label>
+        <!-- SECCIÓN 2 -->
+        <fieldset class="mdp-fieldset">
+          <legend class="mdp-legend">
+            <span class="mdp-step">2</span>
+            <span><i class="fas fa-file-lines" aria-hidden="true"></i> Datos del documento</span>
+          </legend>
 
-              <select [(ngModel)]="form.tipoDoc" name="tipoDoc" required>
-
-                <option value="" disabled selected>
-                  Selecciona el tipo
-                </option>
-
-                <option>
-                  Solicitud
-                </option>
-
-                <option>
-                  Recurso de reconsideración
-                </option>
-
-                <option>
-                  Apelación
-                </option>
-
-                <option>
-                  Constancia
-                </option>
-
-                <option>
-                  Certificado
-                </option>
-
-                <option>
-                  Otro
-                </option>
-
+          <div class="form-group form-group--half">
+            <div>
+              <label for="mdp-tipo">Tipo de documento <span class="req" aria-hidden="true">*</span></label>
+              <select id="mdp-tipo" [(ngModel)]="form.tipoDoc" name="tipoDoc" required
+                #tipoDoc="ngModel" [class.is-invalid]="tipoDoc.invalid && tipoDoc.touched">
+                <option value="" disabled selected>Seleccione el tipo</option>
+                <option>Solicitud</option>
+                <option>Recurso de reconsideración</option>
+                <option>Apelación</option>
+                <option>Constancia</option>
+                <option>Certificado</option>
+                <option>Otro</option>
               </select>
-
+              @if (tipoDoc.invalid && tipoDoc.touched) {
+                <p class="field-error"><i class="fas fa-circle-exclamation" aria-hidden="true"></i> Seleccione el tipo de documento.</p>
+              }
             </div>
-
-            <div class="form-group">
-
-              <label>
-                Asunto
-              </label>
-
-              <input type="text" placeholder="Asunto del documento" [(ngModel)]="form.asunto" name="asunto" required />
-
+            <div>
+              <label for="mdp-folios">Cantidad de folios <span class="req" aria-hidden="true">*</span></label>
+              <input id="mdp-folios" type="number" min="1" [(ngModel)]="form.folios" name="folios" required />
+              <small>Número de hojas del documento.</small>
             </div>
+          </div>
 
-            <div class="form-group">
+          <div class="form-group">
+            <label for="mdp-asunto">Asunto <span class="req" aria-hidden="true">*</span></label>
+            <input id="mdp-asunto" type="text" placeholder="Resumen breve del pedido"
+              [(ngModel)]="form.asunto" name="asunto" required #asunto="ngModel"
+              [class.is-invalid]="asunto.invalid && asunto.touched" maxlength="150" />
+            @if (asunto.invalid && asunto.touched) {
+              <p class="field-error"><i class="fas fa-circle-exclamation" aria-hidden="true"></i> Escriba el asunto del documento.</p>
+            }
+          </div>
 
-              <label>
-                Mensaje
+          <div class="form-group">
+            <label for="mdp-mensaje">Mensaje o descripción</label>
+            <textarea id="mdp-mensaje" rows="5"
+              placeholder="Detalle su solicitud: qué pide, a quién va dirigida y cualquier dato relevante."
+              [(ngModel)]="form.mensaje" name="mensaje"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Archivo adjunto</label>
+            <div class="file-field">
+              <label class="file-btn" for="mdp-file">
+                <i class="fas fa-paperclip" aria-hidden="true"></i>
+                {{ selectedFile ? 'Cambiar archivo' : 'Elegir archivo' }}
+                <input id="mdp-file" type="file" accept=".pdf,.jpg,.jpeg,.png" (change)="onFileSelected($event)" />
               </label>
-
-              <textarea rows="5" placeholder="Mensaje o descripción detallada del documento" [(ngModel)]="form.mensaje"
-                name="mensaje"></textarea>
-
-            </div>
-
-            <div class="form-group">
-
-              <label>
-                Cantidad de Folios
-              </label>
-
-              <input type="number" min="1" [(ngModel)]="form.folios" name="folios" required />
-
-            </div>
-
-            <div class="form-group">
-
-              <label>
-                Adjuntar Archivo
-              </label>
-
-              <div class="file-input-wrap">
-
-                <i class="fas fa-upload"></i>
-
-                <span>
-                  Elegir archivo
+              @if (selectedFile) {
+                <span class="file-chip">
+                  <i class="fas fa-file" aria-hidden="true"></i>
+                  {{ selectedFile.name }}
+                  <button type="button" class="file-clear" (click)="clearFile()" aria-label="Quitar archivo">&times;</button>
                 </span>
-
-                <input type="file" accept=".pdf,.jpg,.jpeg,.png" (change)="onFileSelected($event)" />
-
-              </div>
-
-              <small>
-                Máximo 10MB. Para documentos
-                más grandes utilice el campo
-                "Link de Documento"
-              </small>
-
+              }
             </div>
-
-            <div class="form-group">
-
-              <label>
-                Link de Documento (Opcional)
-              </label>
-
-              <input type="url" placeholder="https://ejemplo.com/documento.pdf" [(ngModel)]="form.linkDocumento"
-                name="linkDocumento" />
-
-              <small>
-                Use este campo para documentos
-                mayores a 10MB
-              </small>
-
-            </div>
-
+            <small>PDF o imagen (JPG, PNG), hasta 10&nbsp;MB.</small>
           </div>
 
-        </div>
+          <div class="form-group">
+            <label for="mdp-link">Enlace del documento <span class="opt">(opcional)</span></label>
+            <input id="mdp-link" type="url" placeholder="https://…" [(ngModel)]="form.linkDocumento" name="linkDocumento" />
+            <small>Solo si su archivo pesa más de 10&nbsp;MB: súbalo a un servicio de nube y pegue aquí el enlace.</small>
+          </div>
+        </fieldset>
+
+        <!-- VERIFICACIÓN -->
+        <fieldset class="mdp-fieldset mdp-fieldset--captcha">
+          <legend class="mdp-legend">
+            <span class="mdp-step">3</span>
+            <span><i class="fas fa-shield-halved" aria-hidden="true"></i> Verificación</span>
+          </legend>
+
+          <div class="form-group">
+            <label for="mdp-captcha">Escriba el código que aparece <span class="req" aria-hidden="true">*</span></label>
+            <div class="captcha-row">
+              <input id="mdp-captcha" type="text" inputmode="numeric" placeholder="Código de 5 dígitos"
+                [(ngModel)]="captchaInput" name="captcha" required autocomplete="off"
+                [class.is-invalid]="!!captchaError" (input)="captchaError = ''" />
+              <span class="captcha-box" aria-label="Código de verificación">{{ captchaCode }}</span>
+              <button type="button" class="captcha-refresh" (click)="generarCaptcha(); captchaError = ''"
+                title="Generar otro código" aria-label="Generar otro código">
+                <i class="fas fa-rotate-right" aria-hidden="true"></i>
+              </button>
+            </div>
+            @if (captchaError) {
+              <p class="field-error"><i class="fas fa-circle-exclamation" aria-hidden="true"></i> {{ captchaError }}</p>
+            } @else {
+              <small>Sirve para confirmar que no es un programa automático.</small>
+            }
+          </div>
+        </fieldset>
+
+        @if (f.submitted && f.invalid) {
+          <p class="form-summary-error" role="alert">
+            <i class="fas fa-triangle-exclamation" aria-hidden="true"></i>
+            Revise los campos marcados en rojo antes de enviar.
+          </p>
+        }
 
         <!-- BOTÓN -->
-        <button type="submit" class="btn-enviar" [disabled]="f.invalid || isSubmitting">
-
-          @if (!isSubmitting) {
-
-          <span>
-            Enviar Documento
-          </span>
-
-          }
-
-          @if (isSubmitting) {
-
-          <span>
-            Enviando documento...
-          </span>
-
-          }
-
-        </button>
-
+        <div class="mdp-actions">
+          <button type="submit" class="btn-enviar" [disabled]="isSubmitting">
+            @if (isSubmitting) {
+              <span class="btn-spinner" aria-hidden="true"></span> Enviando…
+            } @else {
+              <i class="fas fa-paper-plane" aria-hidden="true"></i> Enviar documento
+            }
+          </button>
+        </div>
       </form>
 
       <!-- CONSULTAR -->
       <div class="mdp-tracking">
+        <p>¿Ya tiene un código de seguimiento?</p>
 
-        <p>
-          ¿Ya tienes un código de seguimiento?
-        </p>
-
-        <button class="btn-tracking" (click)="toggleTracking()">
-
-          Consultar Trámite
-
+        <button type="button" class="btn-tracking" (click)="toggleTracking()"
+          [attr.aria-expanded]="showTracking">
+          <i class="fas fa-magnifying-glass" aria-hidden="true"></i> Consultar mi trámite
         </button>
 
         @if (showTracking) {
+          <div class="tracking-input">
+            <input type="text" placeholder="Ingrese su código de seguimiento"
+              [(ngModel)]="trackingCode" name="trackingCode" />
+            <button type="button" class="btn-consultar" (click)="consultar()"
+              [disabled]="!trackingCode.trim() || isConsulting">
+              {{ isConsulting ? 'Consultando…' : 'Consultar' }}
+            </button>
+          </div>
 
-        <div class="tracking-input">
-
-          <input type="text" placeholder="Ingresa tu código de seguimiento" [(ngModel)]="trackingCode"
-            name="trackingCode" />
-
-          <button class="btn-consultar" (click)="consultar()" [disabled]="!trackingCode.trim() || isConsulting">
-
-            {{ isConsulting ? 'Consultando...' : 'Consultar' }}
-
-          </button>
-
-        </div>
-
-        @if (consultaError) {
-        <p class="consulta-error">
-          <i class="fas fa-exclamation-circle"></i>
-          {{ consultaError }}
-        </p>
+          @if (consultaError) {
+            <p class="consulta-error">
+              <i class="fas fa-exclamation-circle" aria-hidden="true"></i>
+              {{ consultaError }}
+            </p>
+          }
         }
-
-        }
-
       </div>
 
     </div>
@@ -345,7 +256,7 @@
 
 <div class="modal-overlay">
   <div class="success-modal">
-    <button class="modal-close" (click)="closeModal()">
+    <button class="modal-close" (click)="closeModal()" aria-label="Cerrar">
       ×
     </button>
     <div class="modal-icon">
@@ -386,7 +297,7 @@
 
   <div class="consulta-modal" (click)="$event.stopPropagation()">
 
-    <button class="modal-close" (click)="closeConsultaModal()">
+    <button class="modal-close" (click)="closeConsultaModal()" aria-label="Cerrar">
       ×
     </button>
 

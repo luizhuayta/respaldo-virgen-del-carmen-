@@ -468,10 +468,10 @@
   background: #f28c1b;
 }
 
-.pdf-modal__iframe {
+.pdf-modal__lector {
   flex: 1;
-  width: 100%;
-  border: none;
+  min-height: 0;
+  height: auto;
 }
 
 /* ===========================

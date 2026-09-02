@@ -247,7 +247,11 @@
         <i class="fas fa-file-pdf"></i>
         <span>Currículum Vitae</span>
       </div>
-      <iframe [src]="safePdfUrl()!" class="profile-cv-iframe"></iframe>
+      <app-lector-pdf
+        class="profile-cv-lector"
+        [src]="cvPdfUrl()!"
+        title="Currículum vitae"
+      />
     </div>
     }
 

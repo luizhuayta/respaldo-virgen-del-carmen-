@@ -2,19 +2,19 @@
   <aside class="sidebar">
     @for (doc of documents(); track doc.id) {
       <button
+        type="button"
         class="nav-item"
-        [ngClass]="{ active: activeId() === doc.id }"
+        [class.active]="activeId() === doc.id"
         (click)="selectDocument(doc.id)"
       >
-        <i class="fas fa-file-pdf pdf-icon"></i>
-        <span class="doc-label">{{ doc.label }}</span>
+        <span class="doc-label">{{ etiqueta(doc.label) }}</span>
       </button>
     }
   </aside>
 
   <section class="pdf-panel">
     @if (activeDocument(); as doc) {
-      <iframe class="pdf-iframe" [src]="safeUrl(doc.pdfUrl)" width="100%" height="100%"></iframe>
+      <app-lector-pdf [src]="doc.pdfUrl" [title]="etiqueta(doc.label)" />
     }
   </section>
 </div>

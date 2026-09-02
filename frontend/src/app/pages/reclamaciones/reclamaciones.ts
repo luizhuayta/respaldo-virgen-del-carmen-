@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, ChangeDetectorRef, NgZone } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { timeout } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -334,7 +334,9 @@ export class Reclamaciones implements OnInit {
 
   captchaCode = '';
   captchaInput = '';
+  captchaError = '';
   currentDate = '';
+  triedSubmit = false;
 
   ngOnInit(): void {
     this.generateCaptcha();
@@ -392,13 +394,25 @@ export class Reclamaciones implements OnInit {
     return this.selectedServices.includes(service);
   }
 
-  enviar(): void {
+  enviar(form?: NgForm): void {
     if (this.isSubmitting) return;
     this.submitError = '';
+    this.captchaError = '';
+    this.triedSubmit = true;
+
+    if (form && form.invalid) {
+      Object.values(form.controls).forEach(c => c.markAsTouched());
+      this.submitError = 'Complete los campos obligatorios marcados en rojo.';
+      setTimeout(() => document.querySelector('.is-invalid, .is-invalid-group')
+        ?.scrollIntoView({ behavior: 'smooth', block: 'center' }));
+      return;
+    }
 
     if (this.captchaInput !== this.captchaCode) {
-      this.submitError = 'Código de verificación incorrecto.';
+      this.captchaError = 'El código no coincide. Escriba el que se muestra o genere otro.';
       this.generateCaptcha();
+      setTimeout(() => document.querySelector('#rec-captcha')
+        ?.scrollIntoView({ behavior: 'smooth', block: 'center' }));
       return;
     }
     if (this.selectedServices.length === 0) {
@@ -480,6 +494,9 @@ export class Reclamaciones implements OnInit {
 
   nuevoReclamo(): void {
     this.showSuccess = false;
+    this.submitError = '';
+    this.captchaError = '';
+    this.triedSubmit = false;
     this.trackingCodeResult = '';
     this.claimNumber = '';
     this.selectedServices = [];

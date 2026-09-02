@@ -1472,13 +1472,12 @@ body {
   font-size: 1.1rem;
 }
 
-.profile-cv-iframe {
-  width: 100%;
+.profile-cv-lector {
+  display: block;
   height: 500px;
-  border: none;
   border-radius: 16px;
+  overflow: hidden;
   box-shadow: 0 8px 30px rgba(30, 58, 138, 0.15);
-  background: #f8fafc;
 }
 
 @media (max-width: 600px) {
@@ -1493,7 +1492,7 @@ body {
     margin: 0 auto;
   }
 
-  .profile-cv-iframe {
+  .profile-cv-lector {
     height: 320px;
   }
 }

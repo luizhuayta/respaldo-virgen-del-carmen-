@@ -2,9 +2,9 @@ import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { A11yModule } from '@angular/cdk/a11y';
 import { environment } from '../../../environments/environment';
+import { LectorPdf } from '../../components/lector-pdf/lector-pdf';
 
 interface Personal {
   id: number;
@@ -46,7 +46,7 @@ const TIPO_ORDEN: Record<string, number> = {
 
 @Component({
   selector: 'app-nosotros',
-  imports: [CommonModule, A11yModule],
+  imports: [CommonModule, A11yModule, LectorPdf],
   templateUrl: './nosotros.html',
   styleUrl: './nosotros.css',
 })
@@ -56,7 +56,6 @@ export class Nosotros implements OnInit {
   activeContent = signal<ContentType>(null);
 
   private http = inject(HttpClient);
-  private sanitizer = inject(DomSanitizer);
   career = signal<any>(null);
 
   selectedYear = signal(0);
@@ -66,7 +65,7 @@ export class Nosotros implements OnInit {
   fotoRota = signal<Record<number, boolean>>({});
 
   activeProfile = signal<Personal | null>(null);
-  safePdfUrl = signal<SafeResourceUrl | null>(null);
+  cvPdfUrl = signal<string | null>(null);
 
   private allPersonal = signal<AcademicPersonalDB[]>([]);
 
@@ -136,16 +135,16 @@ export class Nosotros implements OnInit {
     this.activeProfile.set(persona);
     if (persona.pdf_url) {
       const base = environment.baseUrl
-      this.safePdfUrl.set(this.sanitizer.bypassSecurityTrustResourceUrl(base + persona.pdf_url));
+      this.cvPdfUrl.set(base + persona.pdf_url);
     } else {
-      this.safePdfUrl.set(null);
+      this.cvPdfUrl.set(null);
     }
     document.body.style.overflow = 'hidden';
   }
 
   closeProfile() {
     this.activeProfile.set(null);
-    this.safePdfUrl.set(null);
+    this.cvPdfUrl.set(null);
     document.body.style.overflow = '';
   }
 

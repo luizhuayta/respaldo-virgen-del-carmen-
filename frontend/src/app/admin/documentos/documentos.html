@@ -53,9 +53,9 @@
               <td>{{ i.id }}</td>
 
               <td>
-                <div class="pdf-thumb">
+                <div class="pdf-thumb" (click)="i.pdf_url && openPdfViewer($event, i.pdf_url)">
                   @if (i.pdf_url) {
-                  <iframe [src]="i.pdf_url"></iframe>
+                  <app-lector-pdf [src]="i.pdf_url" compact />
                   <button class="pdf-zoom-btn" (click)="openPdfViewer($event, i.pdf_url)">
                     <i class="fas fa-expand"></i>
                   </button>
@@ -142,7 +142,7 @@
           <div class="preview">
             <div class="pdf-preview-frame">
               @if (formData.pdf_url) {
-              <iframe [src]="formData.pdf_url"></iframe>
+              <app-lector-pdf [src]="formData.pdf_url" compact />
               <button class="pdf-zoom-btn" (click)="openPdfViewer($event, formData.pdf_url)">
                 <i class="fas fa-expand"></i>
               </button>
@@ -166,10 +166,12 @@
   </div>
   }
 
-  @if (pdfViewer()) {
+  @if (pdfViewer(); as url) {
   <div class="pdf-viewer" role="dialog" aria-modal="true" aria-label="Vista del documento" tabindex="-1"
     cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="closePdfViewer()" (click)="closePdfViewer()">
-    <iframe [src]="pdfViewer()" (click)="$event.stopPropagation()"></iframe>
+    <div class="pdf-viewer-frame" (click)="$event.stopPropagation()">
+      <app-lector-pdf [src]="url" />
+    </div>
   </div>
   }
 

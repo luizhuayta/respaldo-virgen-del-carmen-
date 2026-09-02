@@ -4,11 +4,12 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from '../../../environments/environment';
+import { LectorPdf } from '../../components/lector-pdf/lector-pdf';
 
 @Component({
   selector: 'app-repositorio-detalle',
   standalone: true,
-  imports: [CommonModule, DatePipe, RouterLink],
+  imports: [CommonModule, DatePipe, RouterLink, LectorPdf],
   templateUrl: './repositorio-detalle.html',
   styleUrl: './repositorio-detalle.css',
 })
@@ -22,10 +23,10 @@ export class RepositorioDetalle implements OnInit {
   loading = signal(true);
   notFound = signal(false);
 
-  safePdfUrl = computed(() => {
+  pdfUrl = computed(() => {
     const inv = this.investigacion();
     if (!inv?.pdf_url) return null;
-    return this.sanitizer.bypassSecurityTrustResourceUrl(`${this.BASE}${inv.pdf_url}`);
+    return `${this.BASE}${inv.pdf_url}`;
   });
 
   safeContent = computed(() => {

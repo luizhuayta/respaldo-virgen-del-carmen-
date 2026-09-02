@@ -71,16 +71,10 @@
         </section>
 
         <!-- Columna derecha: PDF -->
-        @if (safePdfUrl()) {
+        @if (pdfUrl()) {
           <aside class="det-pdf">
-            <h2 class="det-section-title">
-              <i class="fas fa-file-pdf"></i> Documento PDF
-            </h2>
-            <iframe
-              class="det-pdf__iframe"
-              [src]="safePdfUrl()"
-              frameborder="0"
-            ></iframe>
+            <h2 class="det-section-title">Documento</h2>
+            <app-lector-pdf class="det-pdf__lector" [src]="pdfUrl()" [title]="investigacion()?.title ?? ''" />
           </aside>
         }
 

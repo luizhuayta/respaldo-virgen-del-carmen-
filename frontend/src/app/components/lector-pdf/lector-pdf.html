@@ -1,0 +1,46 @@
+<div class="lector">
+  @if (mostrarBarra()) {
+    <div class="barra">
+      <span class="titulo" [title]="tituloVisible()">{{ tituloVisible() }}</span>
+
+      <div class="grupo">
+        <button type="button" (click)="irPagina(-1)" [disabled]="pagina() <= 1" aria-label="Página anterior">‹</button>
+        <span class="pagina">{{ pagina() }} / {{ paginas() || '—' }}</span>
+        <button type="button" (click)="irPagina(1)" [disabled]="pagina() >= paginas()" aria-label="Página siguiente">›</button>
+      </div>
+
+      <div class="grupo">
+        <button type="button" (click)="zoomMenos()" [disabled]="zoom() <= 0.5" aria-label="Alejar">−</button>
+        <button type="button" class="zoom" (click)="restablecerZoom()" aria-label="Restablecer zoom">{{ zoomPct() }}%</button>
+        <button type="button" (click)="zoomMas()" [disabled]="zoom() >= 3" aria-label="Acercar">+</button>
+      </div>
+
+      <div class="acciones">
+        <button type="button" (click)="descargar()" [disabled]="!src() || descargando()">Descargar</button>
+        <button type="button" (click)="abrirNueva()" [disabled]="!src()">Abrir</button>
+      </div>
+    </div>
+  }
+
+  <div class="cuerpo" #cuerpo (scroll)="onScroll()">
+    @if (cargando()) {
+      <p class="estado">Cargando documento…</p>
+    } @else if (error()) {
+      <div class="estado error">
+        <p>{{ error() }}</p>
+        <button type="button" class="reintentar" (click)="reintentar()">Reintentar</button>
+        @if (src()) {
+          <button type="button" class="reintentar" (click)="abrirNueva()">Abrir en pestaña nueva</button>
+        }
+      </div>
+    } @else if (!src()) {
+      <p class="estado">Sin documento</p>
+    } @else {
+      @for (n of numeros(); track n) {
+        <div class="hoja" [attr.data-pagina]="n">
+          <canvas #lienzo></canvas>
+        </div>
+      }
+    }
+  </div>
+</div>

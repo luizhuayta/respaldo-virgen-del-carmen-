@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, ChangeDetectorRef, NgZone, signal, computed } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { timeout } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -18,6 +18,7 @@ export class MesaDePartes implements OnInit {
 
   captchaCode = '';
   captchaInput = '';
+  captchaError = '';
 
   trackingCode = '';
 
@@ -77,23 +78,31 @@ export class MesaDePartes implements OnInit {
       ).toString();
   }
 
-  enviar(): void {
+  enviar(form?: NgForm): void {
 
     if (this.isSubmitting) return;
 
+    if (form && form.invalid) {
+      Object.values(form.controls).forEach(c => c.markAsTouched());
+      const primerError = document.querySelector('.is-invalid, .field-error');
+      primerError?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
     if (this.captchaInput !== this.captchaCode) {
 
-      alert(
-        'Código de verificación incorrecto'
-      );
+      this.captchaError = 'El código no coincide. Escriba el que se muestra o genere otro.';
 
       this.generarCaptcha();
 
       this.captchaInput = '';
 
+      document.querySelector('#mdp-captcha')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
       return;
     }
 
+    this.captchaError = '';
     this.isSubmitting = true;
 
     const formData = new FormData();
@@ -204,6 +213,12 @@ export class MesaDePartes implements OnInit {
     this.selectedFile = file;
   }
 
+  clearFile(): void {
+    this.selectedFile = null;
+    const input = document.querySelector('#mdp-file') as HTMLInputElement | null;
+    if (input) input.value = '';
+  }
+
   toggleTracking(): void {
 
     this.showTracking =
@@ -220,6 +235,7 @@ export class MesaDePartes implements OnInit {
   nuevoEnvio(): void {
 
     this.captchaInput = '';
+    this.captchaError = '';
 
     this.generarCaptcha();
 

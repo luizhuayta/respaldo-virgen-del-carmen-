@@ -287,12 +287,11 @@
   top: 20px;
 }
 
-.det-pdf__iframe {
-  width: 100%;
+.det-pdf__lector {
+  display: block;
   height: 680px;
-  border: none;
   border-radius: 6px;
-  background: #f0f4fa;
+  overflow: hidden;
 }
 
 /* ===========================
@@ -307,7 +306,7 @@
     position: static;
   }
 
-  .det-pdf__iframe {
+  .det-pdf__lector {
     height: 500px;
   }
 }
@@ -327,5 +326,5 @@
 
   .det-header__title { font-size: 1.25rem; }
 
-  .det-pdf__iframe { height: 380px; }
+  .det-pdf__lector { height: 380px; }
 }

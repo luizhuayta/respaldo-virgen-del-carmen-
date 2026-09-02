@@ -1,21 +1,20 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { A11yModule } from '@angular/cdk/a11y';
 import { environment } from '../../../environments/environment';
 import { ToastService } from '../compartido/toast';
 import { AvisoCambios } from '../compartido/aviso-cambios';
+import { LectorPdf } from '../../components/lector-pdf/lector-pdf';
 
 @Component({
   selector: 'app-documentos',
   standalone: true,
-  imports: [FormsModule, A11yModule, AvisoCambios],
+  imports: [FormsModule, A11yModule, AvisoCambios, LectorPdf],
   templateUrl: './documentos.html',
   styleUrl: './documentos.css',
 })
 export class AdminDocumentos implements OnInit {
-  private sanitizer = inject(DomSanitizer);
   private http = inject(HttpClient);
   private toast = inject(ToastService);
   private API = `${environment.apiUrl}/academic_papers`;
@@ -27,6 +26,7 @@ export class AdminDocumentos implements OnInit {
   isEditMode = signal(false);
 
   selectedFile: File | null = null;
+  private previewObjectUrl: string | null = null;
 
   formData: any = {
     id: null,
@@ -80,9 +80,7 @@ export class AdminDocumentos implements OnInit {
             type: i.type,
             year: i.year,
             description: i.description,
-            pdf_url: i.pdf_url
-              ? this.sanitizer.bypassSecurityTrustResourceUrl(`${this.BASE}${i.pdf_url}`)
-              : null,
+            pdf_url: i.pdf_url ? `${this.BASE}${i.pdf_url}` : null,
             status: i.status,
             fecha: i.updatedAt
           }))
@@ -94,10 +92,10 @@ export class AdminDocumentos implements OnInit {
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (!file) return;
+    this.revokePreview();
     this.selectedFile = file;
-    this.formData.pdf_url = this.sanitizer.bypassSecurityTrustResourceUrl(
-      URL.createObjectURL(file)
-    );
+    this.previewObjectUrl = URL.createObjectURL(file);
+    this.formData.pdf_url = this.previewObjectUrl;
   }
 
   openCreateModal() {
@@ -109,6 +107,7 @@ export class AdminDocumentos implements OnInit {
   }
 
   openEditModal(i: any) {
+    this.revokePreview();
     this.isEditMode.set(true);
     this.formData = {
       id: i.id,
@@ -134,6 +133,7 @@ export class AdminDocumentos implements OnInit {
   }
 
   cerrarModal() {
+    this.revokePreview();
     this.showAviso.set(false);
     this.showModal.set(false);
     this.mostrarErrores.set(false);
@@ -153,6 +153,7 @@ export class AdminDocumentos implements OnInit {
   }
 
   resetForm() {
+    this.revokePreview();
     this.formData = {
       id: null,
       title: '',
@@ -205,15 +206,22 @@ export class AdminDocumentos implements OnInit {
     });
   }
 
-  pdfViewer = signal<SafeResourceUrl | null>(null);
+  pdfViewer = signal<string | null>(null);
 
-  openPdfViewer(event: Event, url: SafeResourceUrl) {
+  openPdfViewer(event: Event, url: string) {
     event.stopPropagation();
     this.pdfViewer.set(url);
   }
 
   closePdfViewer() {
     this.pdfViewer.set(null);
+  }
+
+  private revokePreview() {
+    if (this.previewObjectUrl) {
+      URL.revokeObjectURL(this.previewObjectUrl);
+      this.previewObjectUrl = null;
+    }
   }
 
   deleteModal = signal(false);

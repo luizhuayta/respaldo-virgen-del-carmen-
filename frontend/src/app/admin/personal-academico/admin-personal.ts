@@ -1,24 +1,23 @@
 import { Component, OnInit, OnDestroy, inject, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { A11yModule } from '@angular/cdk/a11y';
 import { environment } from '../../../environments/environment';
 import { ToastService } from '../compartido/toast';
 import { SelectorImagen } from '../compartido/selector-imagen';
 import { AvisoCambios } from '../compartido/aviso-cambios';
+import { LectorPdf } from '../../components/lector-pdf/lector-pdf';
 
 @Component({
   selector: 'app-admin-personal',
   standalone: true,
-  imports: [FormsModule, A11yModule, SelectorImagen, AvisoCambios],
+  imports: [FormsModule, A11yModule, SelectorImagen, AvisoCambios, LectorPdf],
   templateUrl: './admin-personal.html',
   styleUrl: './admin-personal.css',
 })
 export class AdminPersonal implements OnInit, OnDestroy {
 
   private http = inject(HttpClient);
-  private sanitizer = inject(DomSanitizer);
   private toast = inject(ToastService);
 
   apiUrl = `${environment.apiUrl}/academic_personal`;
@@ -51,8 +50,8 @@ export class AdminPersonal implements OnInit, OnDestroy {
 
   selectedPdfFile = signal<File | null>(null);
   selectedPdfName = signal<string>('');
-  pdfPreviewUrl = signal<SafeResourceUrl | null>(null);
-  pdfViewerUrl = signal<SafeResourceUrl | null>(null);
+  pdfPreviewUrl = signal<string | null>(null);
+  pdfViewerUrl = signal<string | null>(null);
 
   formData: any = {
     id: null,
@@ -120,7 +119,7 @@ export class AdminPersonal implements OnInit, OnDestroy {
     this.selectedPdfFile.set(file);
     this.selectedPdfName.set(file.name);
     this.pdfObjectUrl = URL.createObjectURL(file);
-    this.pdfPreviewUrl.set(this.sanitizer.bypassSecurityTrustResourceUrl(this.pdfObjectUrl));
+    this.pdfPreviewUrl.set(this.pdfObjectUrl);
   }
 
   removePdf(event: Event) {
@@ -144,7 +143,7 @@ export class AdminPersonal implements OnInit, OnDestroy {
 
   // PDF viewer
   openPdfViewer(url: string) {
-    this.pdfViewerUrl.set(this.sanitizer.bypassSecurityTrustResourceUrl(url));
+    this.pdfViewerUrl.set(url);
   }
 
   closePdfViewer() {

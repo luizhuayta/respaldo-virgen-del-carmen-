@@ -1,0 +1,201 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  background: #e8edf5;
+}
+
+:host.compacto {
+  height: 100%;
+  overflow: hidden;
+}
+
+.lector {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+}
+
+.barra {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  min-height: 44px;
+  padding: 6px 12px;
+  background: #1e3a8a;
+  color: #fff;
+  font-size: 13px;
+}
+
+.titulo {
+  flex: 1;
+  min-width: 0;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.grupo,
+.acciones {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.pagina,
+.zoom {
+  min-width: 3.5rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.barra button {
+  margin: 0;
+  padding: 4px 10px;
+  min-height: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 4px;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.barra button.zoom {
+  border-color: transparent;
+  padding: 4px 6px;
+}
+
+.barra button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.barra button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 1px;
+}
+
+.barra button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.cuerpo {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 16px;
+  background: #e8edf5;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+:host.compacto .cuerpo {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hoja {
+  display: flex;
+  justify-content: safe center;
+  margin: 0 auto 16px;
+  width: fit-content;
+  min-width: 100%;
+}
+
+.hoja:last-child {
+  margin-bottom: 0;
+}
+
+:host.compacto .hoja {
+  margin: 0;
+  min-width: 0;
+}
+
+.hoja canvas {
+  display: block;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.12);
+}
+
+:host.compacto .hoja canvas {
+  box-shadow: none;
+  max-width: 100%;
+  height: auto;
+}
+
+.estado {
+  margin: 48px 16px;
+  text-align: center;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+.estado.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #9f1239;
+}
+
+.estado.error .reintentar {
+  padding: 8px 16px;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  background: #fff;
+  color: #1e3a8a;
+  font: inherit;
+  cursor: pointer;
+}
+
+.estado.error .reintentar:hover {
+  background: #1e3a8a;
+  color: #fff;
+}
+
+@media (max-width: 720px) {
+  .barra {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 10px;
+  }
+
+  .titulo {
+    flex-basis: 100%;
+  }
+
+  .grupo,
+  .acciones {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .barra button {
+    min-height: 36px;
+    padding: 6px 12px;
+  }
+
+  .cuerpo {
+    padding: 10px;
+  }
+
+  .hoja {
+    margin-bottom: 10px;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .barra button {
+    min-height: 40px;
+  }
+}

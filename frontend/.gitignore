@@ -3,6 +3,8 @@
 # Compiled output
 /dist
 /tmp
+# Copiado en desarrollo desde pdfjs-dist; en producción se usa angular.json assets
+/public/pdfjs/
 /out-tsc
 /bazel-out
 /.scannerwork

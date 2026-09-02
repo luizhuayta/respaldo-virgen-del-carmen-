@@ -2,21 +2,20 @@ import { Component, OnInit, inject, signal, ChangeDetectorRef } from '@angular/c
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { A11yModule } from '@angular/cdk/a11y';
 import { environment } from '../../../environments/environment';
 import { ToastService } from '../compartido/toast';
+import { LectorPdf } from '../../components/lector-pdf/lector-pdf';
 
 @Component({
   selector: 'app-admin-mesa-de-partes',
   standalone: true,
-  imports: [CommonModule, FormsModule, A11yModule],
+  imports: [CommonModule, FormsModule, A11yModule, LectorPdf],
   templateUrl: './mesa-de-partes.html',
   styleUrl: './mesa-de-partes.css'
 })
 export class MesaDePartesAdmin implements OnInit {
   private http = inject(HttpClient);
-  private sanitizer = inject(DomSanitizer);
   private cdRef: ChangeDetectorRef = inject(ChangeDetectorRef);
   private toast = inject(ToastService);
 
@@ -25,7 +24,7 @@ export class MesaDePartesAdmin implements OnInit {
 
   showModal = false;
   tramiteSeleccionado: any = null;
-  pdfSafeUrl: SafeResourceUrl | null = null;
+  pdfUrl: string | null = null;
   isLoading = false;
 
   mostrarPdfFlotante = signal<boolean>(false);
@@ -74,9 +73,9 @@ export class MesaDePartesAdmin implements OnInit {
         ? rutaRelativa
         : `${this.BASE}${rutaRelativa}`;
 
-      this.pdfSafeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(urlCompleta);
+      this.pdfUrl = urlCompleta;
     } else {
-      this.pdfSafeUrl = null;
+      this.pdfUrl = null;
     }
   }
 
@@ -91,7 +90,7 @@ export class MesaDePartesAdmin implements OnInit {
   cerrarModal(): void {
     this.showModal = false;
     this.tramiteSeleccionado = null;
-    this.pdfSafeUrl = null;
+    this.pdfUrl = null;
     this.mostrarPdfFlotante.set(false);
     this.confirmNombre = '';
     this.confirmCodigo = '';

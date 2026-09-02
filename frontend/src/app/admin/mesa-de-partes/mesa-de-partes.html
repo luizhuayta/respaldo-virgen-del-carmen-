@@ -284,10 +284,9 @@
 
             <div class="preview-content-area">
 
-              @if (pdfSafeUrl) {
+              @if (pdfUrl) {
 
-              <iframe [src]="pdfSafeUrl" type="application/pdf" class="pdf-iframe-embed">
-              </iframe>
+              <app-lector-pdf [src]="pdfUrl" class="pdf-iframe-embed" />
 
               } @else {
 
@@ -311,7 +310,7 @@
   </div>
   }
 
-  @if (mostrarPdfFlotante() && pdfSafeUrl) {
+  @if (mostrarPdfFlotante() && pdfUrl) {
 
   <div class="pdf-floating-overlay" (click)="cerrarPdfFlotante()">
 
@@ -336,8 +335,7 @@
 
       <div class="pdf-floating-body">
 
-        <iframe [src]="pdfSafeUrl" type="application/pdf" class="pdf-floating-iframe">
-        </iframe>
+        <app-lector-pdf [src]="pdfUrl" class="pdf-floating-iframe" />
 
       </div>
 

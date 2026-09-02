@@ -151,11 +151,11 @@
             @if (currentData.reporte) {
               <h2 class="reporte-titulo">{{ currentData.reporte.titulo }}</h2>
               <div class="pdf-container">
-                <iframe
-                  [src]="safeUrl(currentData.reporte.url)"
-                  class="pdf-frame"
-                  title="Reporte de Atenciones"
-                ></iframe>
+                <app-lector-pdf
+                  class="pdf-lector"
+                  [src]="currentData.reporte.url"
+                  [title]="currentData.reporte.titulo"
+                />
               </div>
             } @else {
               <p class="empty-msg">Sin reporte disponible para {{ selectedYear }}.</p>

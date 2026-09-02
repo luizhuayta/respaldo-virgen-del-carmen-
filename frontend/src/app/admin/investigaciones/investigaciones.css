@@ -9,12 +9,14 @@
   overflow: hidden;
   background: #1c1c2b;
   border: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer;
 }
 
-.pdf-thumb iframe {
+.pdf-thumb app-lector-pdf,
+.pdf-preview-frame app-lector-pdf {
   width: 100%;
   height: 100%;
-  border: none;
+  pointer-events: none;
 }
 
 /* preview modal */
@@ -26,12 +28,10 @@
   background: #1c1c2b;
 }
 
-.pdf-thumb iframe,
-.pdf-preview-frame iframe {
+.pdf-thumb app-lector-pdf,
+.pdf-preview-frame app-lector-pdf {
   width: 100%;
   height: 100%;
-  border: none;
-  overflow: hidden;
   pointer-events: none;
 }
 
@@ -59,6 +59,7 @@
   position: absolute;
   bottom: 8px;
   right: 8px;
+  z-index: 2;
 
   background: rgba(0,0,0,0.6);
   border: none;
@@ -89,19 +90,24 @@
   z-index: 10000;
 }
 
-.pdf-viewer iframe {
+.pdf-viewer-frame {
   width: 90%;
   height: 90%;
-  border: none;
   border-radius: 10px;
+  overflow: hidden;
+  background: #e8edf5;
 }
 
-.pdf-thumb iframe,
-.pdf-preview-frame iframe {
+.pdf-viewer-frame app-lector-pdf {
   width: 100%;
   height: 100%;
-  border: none;
-  pointer-events: none; 
+}
+
+.pdf-thumb app-lector-pdf,
+.pdf-preview-frame app-lector-pdf {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
 /* Celda de acciones */

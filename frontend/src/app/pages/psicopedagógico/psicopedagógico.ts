@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Component } from '@angular/core';
+import { LectorPdf } from '../../components/lector-pdf/lector-pdf';
 
 interface Taller {
   numero: number;
@@ -30,7 +30,7 @@ interface YearData {
 
 @Component({
   selector: 'app-psicopedagogico',
-  imports: [],
+  imports: [LectorPdf],
   templateUrl: './psicopedagógico.html',
   styleUrl: './psicopedagógico.css',
 })
@@ -39,8 +39,6 @@ export class Psicopedagogico {
   selectedYear = 2024;
 
   readonly years = [2026, 2025, 2024, 2023, 2022, 2021];
-
-  private sanitizer = inject(DomSanitizer);
 
   private readonly dataByYear: Record<number, YearData> = {
     2021: { presentacion: '', talleres: [], campanas: [], reporte: null },
@@ -125,10 +123,6 @@ export class Psicopedagogico {
 
   setTab(tab: 'presentacion' | 'talleres' | 'campanas' | 'reporte'): void {
     this.activeTab = tab;
-  }
-
-  safeUrl(url: string): SafeResourceUrl {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
   nextSlide(campana: Campana): void {

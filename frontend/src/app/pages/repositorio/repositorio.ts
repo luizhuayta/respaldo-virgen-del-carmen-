@@ -2,9 +2,9 @@ import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule, DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../../../environments/environment';
+import { LectorPdf } from '../../components/lector-pdf/lector-pdf';
 
 interface Investigacion {
   id: number;
@@ -13,7 +13,7 @@ interface Investigacion {
   content: string;
   publication_date: string;
   description: string;
-  pdf_url: SafeResourceUrl | null;
+  pdf_url: string | null;
   rawPdfUrl: string | null;
   status: boolean;
 }
@@ -21,19 +21,18 @@ interface Investigacion {
 @Component({
   selector: 'app-repositorio',
   standalone: true,
-  imports: [CommonModule, DatePipe, RouterLink, FormsModule],
+  imports: [CommonModule, DatePipe, RouterLink, FormsModule, LectorPdf],
   templateUrl: './repositorio.html',
   styleUrl: './repositorio.css',
 })
 export class Repositorio implements OnInit {
   private http = inject(HttpClient);
-  private sanitizer = inject(DomSanitizer);
   private BASE = environment.baseUrl;
 
   investigaciones = signal<Investigacion[]>([]);
   loading = signal(true);
 
-  pdfViewer = signal<SafeResourceUrl | null>(null);
+  pdfViewer = signal<string | null>(null);
   pdfTitle = signal('');
 
   // ===== FILTROS =====
@@ -125,9 +124,7 @@ export class Repositorio implements OnInit {
               publication_date: i.publication_date,
               description: i.description,
               rawPdfUrl: i.pdf_url ? `${this.BASE}${i.pdf_url}` : null,
-              pdf_url: i.pdf_url
-                ? this.sanitizer.bypassSecurityTrustResourceUrl(`${this.BASE}${i.pdf_url}`)
-                : null,
+              pdf_url: i.pdf_url ? `${this.BASE}${i.pdf_url}` : null,
               status: i.status,
             }))
         );
@@ -141,7 +138,7 @@ export class Repositorio implements OnInit {
     event.stopPropagation();
     if (!inv.pdf_url) return;
     this.pdfTitle.set(inv.title);
-    this.pdfViewer.set(inv.pdf_url);
+    this.pdfViewer.set(inv.rawPdfUrl ?? inv.pdf_url);
   }
 
   closePdf() {

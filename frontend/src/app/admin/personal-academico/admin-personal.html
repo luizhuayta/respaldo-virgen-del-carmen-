@@ -167,10 +167,10 @@
           </div>
 
           <div class="pdf-preview-frame">
-            @if (pdfPreviewUrl()) {
-            <iframe [src]="pdfPreviewUrl()!" class="pdf-iframe"></iframe>
+            @if (pdfPreviewUrl(); as preview) {
+            <app-lector-pdf class="pdf-iframe" [src]="preview" compact />
             } @else if (isEditMode() && formData.pdf_url) {
-            <iframe [src]="apiBase + formData.pdf_url" class="pdf-iframe"></iframe>
+            <app-lector-pdf class="pdf-iframe" [src]="apiBase + formData.pdf_url" compact />
             } @else {
             <div class="no-preview">
               <i class="fas fa-file-pdf"></i>
@@ -224,7 +224,7 @@
         <span class="pdf-viewer-title" id="ttl-pdf-cv"><i class="fas fa-file-pdf"></i> Curriculum Vitae</span>
         <button class="close-btn" (click)="closePdfViewer()">×</button>
       </div>
-      <iframe [src]="pdfViewerUrl()!" class="pdf-viewer-iframe"></iframe>
+      <app-lector-pdf class="pdf-viewer-iframe" [src]="pdfViewerUrl()!" title="Currículum vitae" />
     </div>
   </div>
   }
